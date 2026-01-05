@@ -1,0 +1,13 @@
+{
+  "firstName": "Super",
+  "lastName": "Admin",
+  "email": "superadmin@gmail.com",
+  "mobile": "9999999999",
+  "password": "$2a$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+  "isMainAdmin": true,
+  "status": "approved",
+  "approvedBy": null,
+  "approvedAt": null,
+  "createdAt": "2024-01-15T10:00:00.000Z",
+  "updatedAt": "2024-01-15T10:00:00.000Z"
+}
