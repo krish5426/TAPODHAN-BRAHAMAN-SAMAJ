@@ -31,7 +31,7 @@ function Business() {
                     business: (
                         <MDBox display="flex" alignItems="center" lineHeight={1}>
                             <MDAvatar
-                                src={biz.posterPhoto ? `${API_URL}${biz.posterPhoto}` : null}
+                                src={biz.posterPhoto ? `${API_URL}/uploads/${biz.posterPhoto}` : null}
                                 name={biz.businessName}
                                 size="sm"
                                 variant="rounded"
@@ -58,7 +58,7 @@ function Business() {
                         </MDTypography>
                     ),
                     action: (
-                        <MDButton variant="text" color="info" onClick={() => navigate(`/admin/business/edit/${biz._id}`)}>
+                        <MDButton variant="text" color="info" onClick={() => navigate(`/admin/business/edit/${biz.id}`)}>
                             <Icon>edit</Icon>&nbsp;Edit
                         </MDButton>
                     )
