@@ -6,11 +6,12 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const cors = require("cors");
 
 // MySQL imports
 const { connectDB } = require('./mysql-config');
 const { createTables } = require('./mysql-schema');
-const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mysql-models');
+const { User, Admin, Profile, Business, Event } = require('./mysql-models');
 
 app.use((req, res, next) => {
   const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
@@ -399,106 +400,19 @@ app.get("/events", async (req, res) => {
   }
 });
 
-// Get Profile Requests
-app.get("/profile-requests", async (req, res) => {
+// Admin Routes
+app.get("/api/admin/brides", authenticateToken, async (req, res) => {
   try {
-    const { status } = req.query;
-    const filters = {};
-    
-    if (status) filters.status = status;
-
-    const requests = await ProfileRequest.findAll(filters);
-    res.json(requests);
+    const profiles = await Profile.findAll({ gender: 'female' });
+    res.json(profiles);
   } catch (error) {
-    console.error("Get profile requests error:", error);
+    console.error("Get brides error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
 // Serve uploaded files
 app.use("/uploads", express.static(UPLOAD_DIR));
-
-// Admin API endpoints
-app.get("/api/admin/bride", authenticateToken, async (req, res) => {
-  try {
-    const brides = await Profile.findAll({ status: 'approved', gender: 'Female' });
-    res.json(brides);
-  } catch (error) {
-    console.error("Get admin brides error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/brides", authenticateToken, async (req, res) => {
-  try {
-    const brides = await Profile.findAll({ gender: 'Female' });
-    res.json(brides);
-  } catch (error) {
-    console.error("Get admin brides error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/matrimony/grooms", authenticateToken, async (req, res) => {
-  try {
-    const grooms = await Profile.findAll({ gender: 'Male' });
-    res.json(grooms);
-  } catch (error) {
-    console.error("Get admin grooms error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/grooms", authenticateToken, async (req, res) => {
-  try {
-    const grooms = await Profile.findAll({ gender: 'Male' });
-    res.json(grooms);
-  } catch (error) {
-    console.error("Get admin grooms error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Test route without auth
-app.get("/test/grooms", async (req, res) => {
-  try {
-    const grooms = await Profile.findAll({ gender: 'Male' });
-    res.json({ count: grooms.length, grooms });
-  } catch (error) {
-    console.error("Test grooms error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/business", authenticateToken, async (req, res) => {
-  try {
-    const businesses = await Business.findAll({ status: 'approved' });
-    res.json(businesses);
-  } catch (error) {
-    console.error("Get admin businesses error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
-  try {
-    const profile = await Profile.findById(req.params.id);
-    if (!profile) return res.status(404).json({ message: "Profile not found" });
-    res.json(profile);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/business/:id", authenticateToken, async (req, res) => {
-  try {
-    const business = await Business.findById(req.params.id);
-    if (!business) return res.status(404).json({ message: "Business not found" });
-    res.json(business);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
 
 // Start server
 const PORT = process.env.PORT || 3000;
