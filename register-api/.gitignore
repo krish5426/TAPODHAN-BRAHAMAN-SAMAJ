@@ -8,7 +8,7 @@ package-lock.json
 .env.production
 
 # Database credentials (users should configure their own)
-mysql-config.js
+
 
 # Uploads directory (user-generated content)
 uploads/

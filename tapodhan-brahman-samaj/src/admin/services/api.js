@@ -143,7 +143,7 @@ export const updateAdminProfile = async (id, formData) => {
 export const updateAdminBusiness = async (id, formData) => {
     try {
         const token = localStorage.getItem("admin_token");
-        const response = await fetch(`${API_URL}/main-admin/edit-business/${id}`, {
+        const response = await fetch(`${API_URL}/api/admin/business/${id}`, {
             method: "PUT",
             headers: {
                 "Authorization": token ? `Bearer ${token}` : "",

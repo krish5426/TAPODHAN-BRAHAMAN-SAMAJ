@@ -19,6 +19,27 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator, MaterialU
 import brandWhite from "./assets/images/logo-ct.png";
 import brandDark from "./assets/images/logo-ct-dark.png";
 
+const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem("admin_token");
+    const location = useLocation();
+
+    if (!token) {
+        return <Navigate to="/admin/login" state={{ from: location }} replace />;
+    }
+
+    return children;
+};
+
+const PublicRoute = ({ children }) => {
+    const token = localStorage.getItem("admin_token");
+
+    if (token) {
+        return <Navigate to="/admin/dashboard" replace />;
+    }
+
+    return children;
+};
+
 function AdminAppContent() {
     const [controller, dispatch] = useMaterialUIController();
     const {
@@ -34,18 +55,6 @@ function AdminAppContent() {
     const [onMouseEnter, setOnMouseEnter] = useState(false);
     const [rtlCache, setRtlCache] = useState(null);
     const { pathname } = useLocation();
-    const navigate = useNavigate();
-
-    // Authenticated Check
-    useEffect(() => {
-        const token = localStorage.getItem("admin_token");
-        // Block all routes if not authenticated, except login
-        if (!token && !pathname.includes("/admin/login")) {
-            // If trying to access anything else, redirect to login
-            // Note: pathname might be partial match, so just check if not login
-            navigate("/admin/login");
-        }
-    }, [pathname, navigate]);
 
     useMemo(() => {
         const cacheRtl = createCache({
@@ -88,13 +97,28 @@ function AdminAppContent() {
             }
 
             if (route.route) {
-                // Strip the absolute /admin prefix if present for proper relative routing within AdminApp (path relative to /admin/* ? No, Routes here are usually relative if under a nested Router, but here AdminApp is likely top level or under /admin basename?)
-                // Looking at routes.js, paths are /admin/dashboard.
-                // Looking at AdminApp usage in main App, it seems mapped to /admin/*.
-                // Original code: const relativePath = route.route.replace(/^\/admin\//, "");
-                // So I will keep that logic.
                 const relativePath = route.route.replace(/^\/admin\//, "");
-                return <Route exact path={relativePath} element={route.component} key={route.key} />;
+
+                // Allow public access only to login
+                if (route.key === "sign-in") {
+                    return (
+                        <Route
+                            exact
+                            path={relativePath}
+                            element={<PublicRoute>{route.component}</PublicRoute>}
+                            key={route.key}
+                        />
+                    );
+                }
+
+                return (
+                    <Route
+                        exact
+                        path={relativePath}
+                        element={<ProtectedRoute>{route.component}</ProtectedRoute>}
+                        key={route.key}
+                    />
+                );
             }
 
             return null;
@@ -124,11 +148,14 @@ function AdminAppContent() {
         </MDBox>
     );
 
+    // Check if we are on the login page to decide layout rendering
+    const isLoginPage = pathname.indexOf("/admin/login") !== -1;
+
     return direction === "rtl" ? (
         <CacheProvider value={rtlCache}>
             <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
                 <CssBaseline />
-                {layout === "dashboard" && (
+                {layout === "dashboard" && !isLoginPage && (
                     <>
                         <Sidebar
                             color={sidenavColor}
@@ -144,14 +171,15 @@ function AdminAppContent() {
                 {layout === "vr" && <Configurator />}
                 <Routes>
                     {getRoutes(routes)}
-                    <Route path="*" element={<Navigate to="dashboard" />} />
+                    <Route path="/" element={<Navigate to="/admin/dashboard" />} />
+                    <Route path="*" element={<Navigate to="/admin/dashboard" />} />
                 </Routes>
             </ThemeProvider>
         </CacheProvider>
     ) : (
         <ThemeProvider theme={darkMode ? themeDark : theme}>
             <CssBaseline />
-            {layout === "dashboard" && (
+            {layout === "dashboard" && !isLoginPage && (
                 <>
                     <Sidebar
                         color={sidenavColor}
@@ -167,6 +195,7 @@ function AdminAppContent() {
             {layout === "vr" && <Configurator />}
             <Routes>
                 {getRoutes(routes)}
+                <Route path="/" element={<Navigate to="/admin/dashboard" />} />
                 <Route path="*" element={<Navigate to="/admin/dashboard" />} />
             </Routes>
         </ThemeProvider>

@@ -57,6 +57,12 @@ function EditBusiness() {
             data.append("contactNumber", formData.contactNumber);
             data.append("address", formData.address);
             data.append("status", formData.status);
+            data.append("category", formData.category);
+            data.append("businessType", formData.businessType);
+            data.append("description", formData.description);
+            data.append("website", formData.website);
+            data.append("city", formData.city);
+            data.append("state", formData.state);
 
             if (poster) {
                 data.append("posterPhoto", poster);
@@ -77,7 +83,7 @@ function EditBusiness() {
                 <Card sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
                     <MDTypography variant="h4" mb={2}>Edit Business</MDTypography>
                     <Grid container spacing={3}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} md={6}>
                             <MDInput fullWidth label="Business Name" name="businessName" value={formData.businessName || ""} onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -91,6 +97,24 @@ function EditBusiness() {
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <MDInput fullWidth label="Contact Number" name="contactNumber" value={formData.contactNumber || ""} onChange={handleChange} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <MDInput fullWidth label="Website" name="website" value={formData.website || ""} onChange={handleChange} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <MDInput fullWidth label="Category" name="category" value={formData.category || ""} onChange={handleChange} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType || ""} onChange={handleChange} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <MDInput fullWidth label="City" name="city" value={formData.city || ""} onChange={handleChange} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <MDInput fullWidth label="State" name="state" value={formData.state || ""} onChange={handleChange} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MDInput fullWidth multiline rows={3} label="Description" name="description" value={formData.description || ""} onChange={handleChange} />
                         </Grid>
                         <Grid item xs={12}>
                             <MDInput fullWidth multiline rows={3} label="Address" name="address" value={formData.address || ""} onChange={handleChange} />

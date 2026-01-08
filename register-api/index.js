@@ -270,7 +270,7 @@ app.post("/admin/login", async (req, res) => {
 app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (req, res) => {
   try {
     const userId = req.user.userId;
-    
+
     // Check if profile already exists
     const existingProfile = await Profile.findByUserId(userId);
     if (existingProfile) {
@@ -278,7 +278,7 @@ app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (re
     }
 
     const profileData = { ...req.body, userId };
-    
+
     if (req.file) {
       profileData.profilePhoto = req.file.filename;
     }
@@ -300,7 +300,7 @@ app.get("/profiles", async (req, res) => {
   try {
     const { status, gender } = req.query;
     const filters = {};
-    
+
     if (status) filters.status = status;
     if (gender) filters.gender = gender;
 
@@ -316,7 +316,7 @@ app.get("/profiles", async (req, res) => {
 app.post("/business", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
   try {
     const userId = req.user.userId;
-    
+
     const existingBusiness = await Business.findByUserId(userId);
     if (existingBusiness) {
       return res.status(400).json({ message: "Business already registered for this user" });
@@ -329,7 +329,8 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
     const businessData = {
       ...req.body,
       userId,
-      posterPhoto: req.file.filename
+      posterPhoto: req.file.filename,
+      status: 'pending' // Default to pending awaiting admin approval
     };
 
     const newBusiness = await Business.create(businessData);
@@ -347,10 +348,12 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
 // Get Businesses
 app.get("/businesses", async (req, res) => {
   try {
-    const { status } = req.query;
+    const { status, businessName, location } = req.query;
     const filters = {};
-    
+
     if (status) filters.status = status;
+    if (businessName) filters.businessName = businessName;
+    if (location) filters.location = location;
 
     const businesses = await Business.findAll(filters);
     res.json(businesses);
@@ -364,7 +367,7 @@ app.get("/businesses", async (req, res) => {
 app.post("/events", upload.array("images", 5), async (req, res) => {
   try {
     const { title, description, date } = req.body;
-    
+
     if (!title || !date) {
       return res.status(400).json({ message: "Title and date are required" });
     }
@@ -404,7 +407,7 @@ app.get("/profile-requests", async (req, res) => {
   try {
     const { status } = req.query;
     const filters = {};
-    
+
     if (status) filters.status = status;
 
     const requests = await ProfileRequest.findAll(filters);
@@ -472,7 +475,13 @@ app.get("/test/grooms", async (req, res) => {
 
 app.get("/api/admin/business", authenticateToken, async (req, res) => {
   try {
-    const businesses = await Business.findAll({ status: 'approved' });
+    const { search, businessName, location } = req.query;
+    const filters = {};
+    if (search) filters.search = search; // Keep legacy support if needed, or remove
+    if (businessName) filters.businessName = businessName;
+    if (location) filters.location = location;
+
+    const businesses = await Business.findAll(filters);
     res.json(businesses);
   } catch (error) {
     console.error("Get admin businesses error:", error);
@@ -490,12 +499,63 @@ app.get("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
   }
 });
 
+// Dashboard Counts
+app.get("/api/admin/dashboard/counts", authenticateToken, async (req, res) => {
+  try {
+    const totalBrides = (await Profile.findAll({ gender: 'Female' })).length;
+    const totalGrooms = (await Profile.findAll({ gender: 'Male' })).length;
+    const totalBusiness = (await Business.findAll()).length;
+    const totalEvents = (await Event.findAll()).length;
+
+    res.json({
+      totalBrides,
+      totalGrooms,
+      totalBusiness,
+      totalEvents
+    });
+  } catch (error) {
+    console.error("Dashboard counts error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Admin Events
+app.get("/api/admin/events", authenticateToken, async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    res.json(events);
+  } catch (error) {
+    console.error("Get admin events error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.get("/api/admin/business/:id", authenticateToken, async (req, res) => {
   try {
     const business = await Business.findById(req.params.id);
     if (!business) return res.status(404).json({ message: "Business not found" });
     res.json(business);
   } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.put("/api/admin/business/:id", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const businessData = { ...req.body };
+
+    if (req.file) {
+      businessData.posterPhoto = req.file.filename;
+    }
+
+    const updatedBusiness = await Business.update(id, businessData);
+
+    if (!updatedBusiness) return res.status(404).json({ message: "Business not found" });
+
+    res.json({ message: "Business updated successfully", business: updatedBusiness });
+  } catch (error) {
+    console.error("Update business error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

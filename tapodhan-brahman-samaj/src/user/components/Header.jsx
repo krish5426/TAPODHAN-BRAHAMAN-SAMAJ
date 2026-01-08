@@ -24,16 +24,16 @@ const Header = () => {
               <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
                 Matrimonial
               </NavLink></li>
-              <li> <NavLink to="/students" className={({ isActive }) => isActive ? "active" : ""}>
-                Students Life
+              <li> <NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""}>
+                Business Directory
               </NavLink></li> <li> <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>
                 Contact us
               </NavLink></li>
             </ul>
           </nav>
           <div className="header-buttons-cols">
-            <Link to="/donate" className="header-button dark-button">Donate</Link>
-            <Link to="/join" className="header-button">Join Us</Link>
+            <Link to="/signup" className="header-button dark-button">Sign Up</Link>
+            <Link to="/login" className="header-button">Login</Link>
           </div>
         </div>
       </div>

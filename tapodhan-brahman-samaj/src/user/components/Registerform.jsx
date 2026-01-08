@@ -1,78 +1,217 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import registerImg from "../assets/images/mobile.png";
 
 const BusinessRegisterform = () => {
+  const navigate = useNavigate();
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    businessName: "",
+    ownerName: "",
+    email: "",
+    contactNumber: "",
+    category: "",
+    businessType: "",
+    address: "",
+    city: "",
+    state: "",
+    description: "",
+    website: ""
+  });
+  const [posterPhoto, setPosterPhoto] = useState(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setPosterPhoto(e.target.files[0]);
+  };
+
+  const nextStep = (e) => {
+    e.preventDefault();
+    // Basic validation for Step 1
+    if (!formData.businessName || !formData.ownerName || !formData.email || !formData.contactNumber || !formData.category || !formData.businessType) {
+      setError("Please fill all required fields in Step 1.");
+      return;
+    }
+    setError("");
+    setStep(2);
+  };
+
+  const prevStep = () => {
+    setError("");
+    setStep(1);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      if (window.confirm("You are not logged in. Redirect to login?")) {
+        // Redirect logic here if needed
+      }
+      setError("You must be logged in to register a business.");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.address || !formData.city || !formData.state) {
+      setError("Please fill all required fields in Step 2.");
+      setLoading(false);
+      return;
+    }
+
+    if (!posterPhoto) {
+      setError("Please upload a poster photo.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const data = new FormData();
+      Object.keys(formData).forEach(key => {
+        data.append(key, formData[key]);
+      });
+      data.append("posterPhoto", posterPhoto);
+
+      const response = await fetch("http://localhost:3000/business", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token} `
+        },
+        body: data
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to register business");
+      }
+
+      alert("Business registered successfully!");
+      navigate("/business-contact");
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="register-section">
       <div className="container">
         <div className="register-wrapper">
-
-          {/* LEFT IMAGE */}
           <div className="register-left">
             <img src={registerImg} alt="Register Business" />
           </div>
 
-          {/* RIGHT CONTENT */}
           <div className="register-right">
-
-            {/* HEADER (same structure as Homeabout) */}
             <div className="header-section">
               <h2 className="header-title">
                 <strong>
-                  Register your business <span>to <br />connect </span>our community
+                  {step === 1 ? "Step 1: Basic Info" : "Step 2: Location & Details"}
                 </strong>
               </h2>
             </div>
 
-            {/* DESCRIPTION */}
             <p className="sub-text">
-              Enter a few business details to get started
+              {step === 1 ? "Enter your business basics" : "Tell us where you are located"}
             </p>
 
-            {/* FORM */}
-            <form className="register-form">
+            <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
               <div className="form-grid">
 
-                <div className="form-group">
-                  <label>Business Name*</label>
-                  <input type="text" placeholder="Enter business name" />
-                </div>
+                {step === 1 && (
+                  <>
+                    <div className="form-group">
+                      <label>Business Name*</label>
+                      <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Owner Name*</label>
+                      <input type="text" name="ownerName" placeholder="Owner Name" value={formData.ownerName} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Email*</label>
+                      <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Contact Number*</label>
+                      <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Category*</label>
+                      <select name="category" value={formData.category} onChange={handleChange} required>
+                        <option value="">Select Category</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Shop">Shop</option>
+                        <option value="Service">Service</option>
+                        <option value="Freelancer">Freelancer</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Business Type*</label>
+                      <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} required />
+                    </div>
+                  </>
+                )}
 
-                <div className="form-group">
-                  <label>Business Category*</label>
-                  <select>
-                    <option>Select category</option>
-                    <option>Restaurant</option>
-                    <option>Shop</option>
-                    <option>Service</option>
-                    <option>Freelancer</option>
-                    <option>Office</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Business Type*</label>
-                  <input type="text" placeholder="Eg. Private / Public" />
-                </div>
-
-                <div className="form-group">
-                  <label>Business Location*</label>
-                  <input type="text" placeholder="Area & City" />
-                </div>
-
-                {/* FULL WIDTH */}
-                <div className="form-group full-width">
-                  <label>Business Address*</label>
-                  <textarea placeholder="Enter full address"></textarea>
-                </div>
+                {step === 2 && (
+                  <>
+                    <div className="form-group">
+                      <label>City*</label>
+                      <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>State*</label>
+                      <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Website</label>
+                      <input type="text" name="website" placeholder="Website URL" value={formData.website} onChange={handleChange} />
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Poster Photo*</label>
+                      <input type="file" accept="image/*" onChange={handleFileChange} required={!posterPhoto} />
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Description</label>
+                      <textarea name="description" placeholder="Business Description" value={formData.description} onChange={handleChange}></textarea>
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Business Address*</label>
+                      <textarea name="address" placeholder="Full Address" value={formData.address} onChange={handleChange} required></textarea>
+                    </div>
+                  </>
+                )}
 
               </div>
 
-              <button type="submit" className="read-more-btn">
-                <span>Continue</span>
-              </button>
-            </form>
+              {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
+              <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                {step === 2 && (
+                  <button type="button" className="read-more-btn" onClick={prevStep} style={{ background: "#ccc" }}>
+                    <span>Back</span>
+                  </button>
+                )}
+
+                <button type="submit" className="read-more-btn" disabled={loading}>
+                  <span>{loading ? "Processing..." : (step === 1 ? "Continue" : "Submit")}</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
