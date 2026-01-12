@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import imageIcon from "../assets/images/contactpage.png"; // fallback icon if needed
 import { useNavigate } from "react-router-dom";
-
-const API_URL = "http://localhost:3000";
+import { API_ENDPOINTS } from '../../config/api';
 
 export default function Businesscontact() {
   const [images, setImages] = useState({});
@@ -23,7 +22,7 @@ export default function Businesscontact() {
       if (name) p.append("businessName", name);
       if (loc) p.append("location", loc);
 
-      const response = await fetch(`${API_URL}/businesses?${p.toString()}`);
+      const response = await fetch(`${API_ENDPOINTS.BUSINESSES}?${p.toString()}`);
       const data = await response.json();
       setBusinesses(data);
       setCurrentPage(1); // Reset to first page on search
@@ -161,7 +160,7 @@ export default function Businesscontact() {
               <h2 style={{ marginBottom: '15px' }}>{selectedBusiness.businessName}</h2>
               {selectedBusiness.posterPhoto && (
                 <img
-                  src={`${API_URL}/uploads/${selectedBusiness.posterPhoto}`}
+                  src={`${API_ENDPOINTS.UPLOADS}/${selectedBusiness.posterPhoto}`}
                   alt="Poster"
                   style={{ width: '100%', borderRadius: '8px', marginBottom: '15px' }}
                 />

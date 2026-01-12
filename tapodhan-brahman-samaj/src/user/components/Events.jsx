@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { API_ENDPOINTS } from '../config/api';
+import { API_ENDPOINTS } from '../../config/api';
 
 const Events = () => {
   const [events, setEvents] = useState([]);

@@ -38,6 +38,11 @@ const SUPER_ADMIN_PASSWORD = "Su@12345";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Health check / root route (REQUIRED for cPanel)
+app.get("/", (req, res) => {
+  res.status(200).send("API working");
+});
+
 // MySQL Connection
 connectDB().then(async () => {
   await createTables();

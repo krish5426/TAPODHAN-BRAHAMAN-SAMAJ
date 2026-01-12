@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
-import { API_ENDPOINTS } from '../config/api';
+import { API_ENDPOINTS } from '../../config/api';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
