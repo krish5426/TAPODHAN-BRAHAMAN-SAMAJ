@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const InnerBanner = ({
   title,
@@ -20,7 +21,7 @@ const InnerBanner = ({
             <span key={index}>
               {index !== 0 && <span className="separator">›</span>}
               {item.link ? (
-                <a href={item.link}>{item.label}</a>
+                <Link to={item.link}>{item.label}</Link>
               ) : (
                 <span>{item.label}</span>
               )}

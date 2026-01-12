@@ -39,6 +39,12 @@ function Header({ absolute, light, isMini }) {
     const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
+    
+    const handleLogout = () => {
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_details');
+        window.location.href = '/admin/login';
+    };
 
     const renderMenu = () => (
         <Menu
@@ -79,7 +85,16 @@ function Header({ absolute, light, isMini }) {
                         <MDBox color={light ? "white" : "inherit"}>
                             <IconButton sx={navbarIconButton} size="small" disableRipple>
                                 <Icon sx={iconsStyle}>account_circle</Icon>
-                                {/* Tooltip or popover for admin details could go here */}
+                            </IconButton>
+                            <IconButton
+                                sx={navbarIconButton}
+                                size="small"
+                                disableRipple
+                                color="inherit"
+                                onClick={handleLogout}
+                                title="Logout"
+                            >
+                                <Icon sx={iconsStyle}>logout</Icon>
                             </IconButton>
                             <IconButton
                                 size="small"

@@ -483,3 +483,19 @@ nav ul li a {
 .event-card.regular .event-content .event-image {
     width: 100%;
 }
+.event-content {
+    gap: 20px;
+}
+.header-buttons-cols a.header-button.dark-button {border-radius:5px;}
+.header-buttons-cols a.header-button {border-radius:5px;}
+.read-more-btn:after {border-radius:5px;}
+.header-section .header-label:before {border-radius:5px;}
+.event-card.regular .event-content .event-image img {border-radius:5px;}
+.event-card.regular .event-content .event-image {border-radius:5px;}
+.gallery-item {border-radius:5px;}
+.gallery-grid .gallery-item img {border-radius:5px;}
+
+.footer-left P {
+    font-size: 16px;
+    line-height: 22px;
+}

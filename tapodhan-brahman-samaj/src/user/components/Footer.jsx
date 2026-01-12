@@ -3,6 +3,7 @@ import twitter from '../assets/images/twitter.svg';
 import facebook from '../assets/images/facebook.svg';
 import whatsapp from '../assets/images/whatsapp.svg';
 import instagram from '../assets/images/instagram.svg';
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="footer">
@@ -12,7 +13,7 @@ const Footer = () => {
             <div className="footer-logo">
               <img src={logo} alt="Tapodhan Brahman Samaj" />
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+            <p>The Trust is registered under the Gujarat Public Trust Act, 2011 with Registration No. A-1090 / PATAN, and is governed by the Charity Commissioner's Office, Patan, Gujarat (India)</p>
             <div className="footer-social">
               <a href="#" className="social-icon"> <img src={twitter} alt="Twitter" /></a>
               <a href="#" className="social-icon"> <img src={facebook} alt="Facebook" /></a>
@@ -25,31 +26,20 @@ const Footer = () => {
               <div className="footer-column">
                 <h4>USEFUL LINKS</h4>
                 <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Gallery</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Gallery</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div className="footer-column">
-                <h4>OUR SERVICES</h4>
-                <ul>
-                  <li><a href="#">Matrimonial</a></li>
-                  <li><a href="#">Students Life</a></li>
-                  <li><a href="#">Business Directory</a></li>
-                  <li><a href="#">Matrimonial</a></li>
-                  <li><a href="#">Events</a></li>
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/about">About</Link></li>
+                  <li><Link to="/contact">Contact Us</Link></li>
+                  <li><Link to="/matrimonial">Matrimonial</Link></li>
+                  <li><Link to="/events">Events</Link></li>
                 </ul>
               </div>
               <div className="footer-column">
                 <h4>QUICK LINKS</h4>
                 <ul>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Terms Condition</a></li>
-                  <li><a href="#">Disclaimer</a></li>
-                  <li><a href="#">FAQs</a></li>
+                  <li><Link to="/business-contact">Business Directory</Link></li>
+                  <li><Link to="/signup">Register</Link></li>
+                  <li><Link to="/login">Login</Link></li>
+                  <li><Link to="/profile">Profile</Link></li>
                 </ul>
               </div>
               <div className="footer-column">

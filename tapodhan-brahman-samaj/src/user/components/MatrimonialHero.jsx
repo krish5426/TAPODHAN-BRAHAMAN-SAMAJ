@@ -14,9 +14,9 @@ const MatrimonialSection = () => {
             <p className="matrimonial-description">
              Duis aute irure dolor in reprehenderit in voluptate velit esse dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  proident, sunt in culpa qui officia deserunt  mollit anim.
             </p>
-             <button className="read-more-btn">
+             {/*<button className="read-more-btn">
               <span>Register Now</span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

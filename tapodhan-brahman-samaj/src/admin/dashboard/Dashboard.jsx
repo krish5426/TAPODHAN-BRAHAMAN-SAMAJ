@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import MDBox from "../components/MDBox";
 import DashboardLayout from "../layout/AdminLayout";
@@ -7,11 +8,13 @@ import ComplexStatisticsCard from "../components/Cards/StatisticsCards/ComplexSt
 import { fetchDashboardCounts } from "../services/api";
 
 function Dashboard() {
+    const navigate = useNavigate();
     const [counts, setCounts] = useState({
         totalBrides: 0,
         totalGrooms: 0,
         totalBusiness: 0,
-        totalEvents: 0
+        totalEvents: 0,
+        pendingBusinessRequests: 0
     });
     const [loading, setLoading] = useState(true);
 
@@ -92,6 +95,21 @@ function Dashboard() {
                                     color: "success",
                                     amount: "",
                                     label: loading ? "Loading..." : "All Scheduled",
+                                }}
+                            />
+                        </MDBox>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 6, lg: 3 }}>
+                        <MDBox mb={1.5} onClick={() => navigate('/admin/business/pending')} sx={{ cursor: 'pointer' }}>
+                            <ComplexStatisticsCard
+                                color="error"
+                                icon="pending"
+                                title="Pending Business"
+                                count={loading ? "..." : counts.pendingBusinessRequests}
+                                percentage={{
+                                    color: "warning",
+                                    amount: "",
+                                    label: loading ? "Loading..." : "Awaiting Approval",
                                 }}
                             />
                         </MDBox>

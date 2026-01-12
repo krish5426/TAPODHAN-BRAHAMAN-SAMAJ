@@ -243,29 +243,37 @@ class Business {
 class Event {
   static async create(eventData) {
     const pool = getPool();
-    const { title, description, date, images = [] } = eventData;
-
+    const { title, description, date, category, details, address, posterImage, images = [] } = eventData;
+    
+    // Auto-generate day and month from date
+    const eventDate = new Date(date);
+    const day = eventDate.getDate().toString();
+    const month = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+    
+    // Use default poster image if none provided
+    const defaultPosterImage = posterImage || 'event1.jpg';
+    
     const connection = await pool.getConnection();
     await connection.beginTransaction();
-
+    
     try {
       const [result] = await connection.execute(
-        'INSERT INTO events (title, description, date) VALUES (?, ?, ?)',
-        [title, description, date]
+        'INSERT INTO events (title, description, date, day, month, category, details, address, posterImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [title, description, date, day, month, category, details, address, defaultPosterImage]
       );
-
+      
       const eventId = result.insertId;
-
-      // Insert images
+      
+      // Insert multiple event images
       for (const imagePath of images) {
         await connection.execute(
           'INSERT INTO event_images (eventId, imagePath) VALUES (?, ?)',
           [eventId, imagePath]
         );
       }
-
+      
       await connection.commit();
-      return { id: eventId, title, description, date, images };
+      return { id: eventId, title, description, date, day, month, category, details, address, posterImage: defaultPosterImage, images };
     } catch (error) {
       await connection.rollback();
       throw error;
@@ -277,7 +285,7 @@ class Event {
   static async findAll() {
     const pool = getPool();
     const [events] = await pool.execute('SELECT * FROM events ORDER BY date DESC');
-
+    
     // Get images for each event
     for (const event of events) {
       const [images] = await pool.execute(
@@ -286,24 +294,103 @@ class Event {
       );
       event.images = images.map(img => img.imagePath);
     }
-
+    
     return events;
   }
 
   static async findById(id) {
     const pool = getPool();
     const [events] = await pool.execute('SELECT * FROM events WHERE id = ?', [id]);
-
+    
     if (events.length === 0) return null;
-
+    
     const event = events[0];
     const [images] = await pool.execute(
       'SELECT imagePath FROM event_images WHERE eventId = ?',
       [id]
     );
     event.images = images.map(img => img.imagePath);
-
+    
     return event;
+  }
+
+  static async update(id, eventData) {
+    const pool = getPool();
+    const { title, description, date, category, details, address, posterImage, images = [] } = eventData;
+    
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+    
+    try {
+      // Auto-generate day and month from date if date is provided
+      let day, month;
+      if (date) {
+        const eventDate = new Date(date);
+        day = eventDate.getDate().toString();
+        month = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+      }
+      
+      const fields = [];
+      const values = [];
+      
+      if (title) { fields.push('title = ?'); values.push(title); }
+      if (description) { fields.push('description = ?'); values.push(description); }
+      if (date) { fields.push('date = ?, day = ?, month = ?'); values.push(date, day, month); }
+      if (category) { fields.push('category = ?'); values.push(category); }
+      if (details) { fields.push('details = ?'); values.push(details); }
+      if (address) { fields.push('address = ?'); values.push(address); }
+      if (posterImage) { fields.push('posterImage = ?'); values.push(posterImage); }
+      
+      if (fields.length > 0) {
+        values.push(id);
+        const query = `UPDATE events SET ${fields.join(', ')} WHERE id = ?`;
+        await connection.execute(query, values);
+      }
+      
+      // Update event images if provided
+      if (images.length > 0) {
+        // Delete existing images
+        await connection.execute('DELETE FROM event_images WHERE eventId = ?', [id]);
+        
+        // Insert new images
+        for (const imagePath of images) {
+          await connection.execute(
+            'INSERT INTO event_images (eventId, imagePath) VALUES (?, ?)',
+            [id, imagePath]
+          );
+        }
+      }
+      
+      await connection.commit();
+      return { id, ...eventData };
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+
+  static async delete(id) {
+    const pool = getPool();
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+    
+    try {
+      // Delete event images first (foreign key constraint)
+      await connection.execute('DELETE FROM event_images WHERE eventId = ?', [id]);
+      
+      // Delete event
+      const [result] = await connection.execute('DELETE FROM events WHERE id = ?', [id]);
+      
+      await connection.commit();
+      return result.affectedRows > 0;
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
+    }
   }
 }
 

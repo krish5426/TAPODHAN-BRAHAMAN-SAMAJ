@@ -3,33 +3,39 @@ import matrimonialIcon from '../assets/images/Matrimonial.svg';
 import studentLifeIcon from '../assets/images/Student-Life.svg';
 import donateIcon from '../assets/images/donate1.svg';
 import contactIcon from '../assets/images/Contact.svg';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   const services = [
     {
       id: 1,
       title: 'BUSINESS DIRECTORY',
-      icon: businessDirectoryIcon
+      icon: businessDirectoryIcon,
+      link: '/business-contact'
     },
     {
       id: 2,
       title: 'MATRIMONIAL',
-      icon: matrimonialIcon
+      icon: matrimonialIcon,
+      link: '/matrimonial'
     },
     {
       id: 3,
       title: 'STUDENT LIFE',
-      icon: studentLifeIcon
+      icon: studentLifeIcon,
+      link: '/profile'
     },
     {
       id: 4,
       title: 'DONATE',
-      icon: donateIcon
+      icon: donateIcon,
+      link: '/contact'
     },
     {
       id: 5,
       title: 'CONTACT US',
-      icon: contactIcon
+      icon: contactIcon,
+      link: '/contact'
     }
   ];
 
@@ -46,16 +52,16 @@ const Services = () => {
 
         <div className="services-grid">
           {services.map((service) => (
-            <div
+            <Link
               key={service.id}
+              to={service.link}
               className="service-card"
-              onClick={() => console.log(`Clicked ${service.title}`)}
             >
               <div className="service-icon">
                 <img src={service.icon} alt={service.title} />
               </div>
               <h3>{service.title}</h3>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

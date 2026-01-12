@@ -54,7 +54,7 @@ const BusinessRegisterform = () => {
     setLoading(true);
     setError("");
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("user_token");
     if (!token) {
       if (window.confirm("You are not logged in. Redirect to login?")) {
         // Redirect logic here if needed

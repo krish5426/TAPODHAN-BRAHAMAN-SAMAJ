@@ -29,11 +29,17 @@ function Events() {
     const [formData, setFormData] = useState({
         title: "",
         date: "",
-        description: ""
+        description: "",
+        category: "",
+        details: "",
+        address: ""
     });
-    const [selectedImages, setSelectedImages] = useState([]); // File objects
+    const [selectedImages, setSelectedImages] = useState([]); // Event images (multiple)
     const [previewImages, setPreviewImages] = useState([]); // URLs for preview
     const [existingImages, setExistingImages] = useState([]); // URLs from backend (for edit mode)
+    const [selectedPoster, setSelectedPoster] = useState(null); // Poster image (single)
+    const [previewPoster, setPreviewPoster] = useState(null); // URL for poster preview
+    const [existingPoster, setExistingPoster] = useState(null); // Existing poster from backend
 
     // Load Events
     const loadEvents = async () => {
@@ -52,11 +58,20 @@ function Events() {
         loadEvents();
     }, []);
 
-    // Handle Image Selection
+    // Handle Poster Image Selection
+    const handlePosterChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedPoster(file);
+            setPreviewPoster(URL.createObjectURL(file));
+        }
+    };
+
+    // Handle Event Images Selection
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         if (files.length + selectedImages.length + existingImages.length > 5) {
-            alert("Maximum 5 images allowed total.");
+            alert("Maximum 5 event images allowed total.");
             return;
         }
 
@@ -84,10 +99,20 @@ function Events() {
 
     // Reset Form
     const resetForm = () => {
-        setFormData({ title: "", date: "", description: "" });
+        setFormData({ 
+            title: "", 
+            date: "", 
+            description: "",
+            category: "",
+            details: "",
+            address: ""
+        });
         setSelectedImages([]);
         setPreviewImages([]);
         setExistingImages([]);
+        setSelectedPoster(null);
+        setPreviewPoster(null);
+        setExistingPoster(null);
         setShowForm(false);
         setEditMode(false);
         setEditId(null);
@@ -104,8 +129,16 @@ function Events() {
         submitData.append("title", formData.title);
         submitData.append("date", formData.date);
         submitData.append("description", formData.description);
+        submitData.append("category", formData.category);
+        submitData.append("details", formData.details);
+        submitData.append("address", formData.address);
 
-        // Append new images
+        // Append poster image
+        if (selectedPoster) {
+            submitData.append("posterImage", selectedPoster);
+        }
+
+        // Append event images
         selectedImages.forEach((file) => {
             submitData.append("images", file);
         });
@@ -137,12 +170,18 @@ function Events() {
         setFormData({
             title: event.title,
             date: event.date.split("T")[0], // Format date for input
-            description: event.description || ""
+            description: event.description || "",
+            category: event.category || "",
+            details: event.details || "",
+            address: event.address || ""
         });
         setExistingImages(event.images || []);
+        setExistingPoster(event.posterImage || null);
         setSelectedImages([]);
         setPreviewImages([]);
-        setEditId(event._id);
+        setSelectedPoster(null);
+        setPreviewPoster(null);
+        setEditId(event.id);
         setEditMode(true);
         setShowForm(true);
         window.scrollTo(0, 0);
@@ -191,22 +230,63 @@ function Events() {
                                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                             />
                             <MDInput
+                                label="Category"
+                                value={formData.category}
+                                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                            />
+                            <MDInput
                                 label="Description"
-                                multiline rows={3}
+                                multiline rows={2}
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
+                            <MDInput
+                                label="Details"
+                                multiline rows={3}
+                                value={formData.details}
+                                onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+                            />
+                            <MDInput
+                                label="Address"
+                                multiline rows={2}
+                                value={formData.address}
+                                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                            />
 
-                            {/* Image Upload */}
+                            {/* Poster Image Upload */}
                             <MDBox>
-                                <MDTypography variant="button" fontWeight="medium">Upload Images (Max 5)</MDTypography>
+                                <MDTypography variant="button" fontWeight="medium">Upload Poster Image</MDTypography>
+                                <input type="file" accept="image/*" onChange={handlePosterChange} style={{ display: "block", marginTop: "10px" }} />
+                                
+                                <MDBox display="flex" gap={2} mt={2}>
+                                    {/* Existing Poster (Edit Mode) */}
+                                    {existingPoster && (
+                                        <MDBox position="relative">
+                                            <img src={`${API_URL}/uploads/${existingPoster}`} alt="existing poster" style={{ width: 120, height: 80, objectFit: "cover", borderRadius: 8, border: "2px solid green" }} />
+                                            <MDTypography variant="caption" display="block" textAlign="center">Current Poster</MDTypography>
+                                        </MDBox>
+                                    )}
+                                    
+                                    {/* New Poster Preview */}
+                                    {previewPoster && (
+                                        <MDBox position="relative">
+                                            <img src={previewPoster} alt="poster preview" style={{ width: 120, height: 80, objectFit: "cover", borderRadius: 8 }} />
+                                            <MDTypography variant="caption" display="block" textAlign="center">New Poster</MDTypography>
+                                        </MDBox>
+                                    )}
+                                </MDBox>
+                            </MDBox>
+
+                            {/* Event Images Upload */}
+                            <MDBox>
+                                <MDTypography variant="button" fontWeight="medium">Upload Event Images (Max 5)</MDTypography>
                                 <input type="file" multiple accept="image/*" onChange={handleImageChange} style={{ display: "block", marginTop: "10px" }} />
 
                                 <MDBox display="flex" gap={2} mt={2} flexWrap="wrap">
                                     {/* Existing Images (Edit Mode) */}
                                     {existingImages.map((img, idx) => (
                                         <MDBox key={`exist-${idx}`} position="relative">
-                                            <img src={`${API_URL}${img}`} alt="existing" style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 8, border: "2px solid green" }} />
+                                            <img src={`${API_URL}/uploads/${img}`} alt="existing" style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 8, border: "2px solid green" }} />
                                             <Icon
                                                 onClick={() => removeExistingImage(idx)}
                                                 sx={{ position: "absolute", top: -10, right: -10, cursor: "pointer", color: "red", backgroundColor: "white", borderRadius: "50%" }}
@@ -242,12 +322,12 @@ function Events() {
                         <MDTypography p={3}>No events found. Add one!</MDTypography>
                     ) : (
                         events.map((evt) => (
-                            <Grid key={evt._id} item xs={12} md={6} lg={4}>
+                            <Grid key={evt.id} item xs={12} md={6} lg={4}>
                                 <Card>
                                     <MDBox position="relative">
-                                        {evt.images && evt.images.length > 0 ? (
+                                        {evt.posterImage ? (
                                             <img
-                                                src={`${API_URL}${evt.images[0]}`}
+                                                src={`${API_URL}/uploads/${evt.posterImage}`}
                                                 alt={evt.title}
                                                 style={{ width: "100%", height: "180px", objectFit: "cover", borderTopLeftRadius: "12px", borderTopRightRadius: "12px" }}
                                             />
@@ -260,20 +340,23 @@ function Events() {
                                     <MDBox p={2}>
                                         <MDTypography variant="h5" fontWeight="medium">{evt.title}</MDTypography>
                                         <MDTypography variant="caption" color="text" fontWeight="bold">
-                                            {new Date(evt.date).toLocaleDateString()}
+                                            {new Date(evt.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })} - {new Date(evt.date).toLocaleDateString()}
+                                        </MDTypography>
+                                        <MDTypography variant="button" color="info" fontWeight="bold" display="block" mt={0.5}>
+                                            {evt.category}
                                         </MDTypography>
                                         <MDTypography variant="body2" mt={1} sx={{
                                             display: '-webkit-box',
                                             overflow: 'hidden',
                                             WebkitBoxOrient: 'vertical',
-                                            WebkitLineClamp: 3,
+                                            WebkitLineClamp: 2,
                                         }}>
                                             {evt.description}
                                         </MDTypography>
                                     </MDBox>
                                     <MDBox p={2} pt={0} display="flex" justifyContent="flex-end" gap={1}>
                                         <MDButton variant="text" color="info" size="small" onClick={() => handleEdit(evt)}>Edit</MDButton>
-                                        <MDButton variant="text" color="error" size="small" onClick={() => handleDelete(evt._id)}>Delete</MDButton>
+                                        <MDButton variant="text" color="error" size="small" onClick={() => handleDelete(evt.id)}>Delete</MDButton>
                                     </MDBox>
                                 </Card>
                             </Grid>

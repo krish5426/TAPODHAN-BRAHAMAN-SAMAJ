@@ -87,7 +87,7 @@ export default function Businesscontact() {
             />
             <button
               className="business-hero-btn"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/business-register")}
             >
               Add Register
             </button>

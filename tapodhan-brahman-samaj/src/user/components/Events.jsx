@@ -1,50 +1,34 @@
-import eventOne from '../assets/images/event1.jpg';
-import eventTwo from '../assets/images/event2.jpg';
-import eventThree from '../assets/images/event3.jpg';
-import eventFour from '../assets/images/event4.jpg';
+import { useState, useEffect } from 'react';
 
 const Events = () => {
-  const events = [
-    {
-      id: 1,
-      date: "25",
-      month: "Mar",
-      category: "Organized by Tapodhan Brahmin Samaj Charitable Trust",
-      title: "Recitation of the Shiva Mahapuran for the salvation of the ancestors",
-      description: "Vyas Peeth : Shri Girdharidas Shastri Shri Rami Patan",
-      details: "Date : Chaitra Sud Satam, Wednesday to Chaitra Sud Poornima, Tuesday, March 25, Wednesday to April 2, Tuesday, 2025",
-      address: "Address : Tapodhan Brahmins Community Farm, Ramji Pura, Sukhsagar - 382015",
-      type: "featured",
-      image: eventOne
-    },
-    {
-      id: 2,
-      date: "25",
-      month: "DEC",
-      category: "CAMP",
-      title: "Our Samaj United in Saving Lives.",
-      type: "regular",
-      image: eventTwo
-    },
-    {
-      id: 3,
-      date: "12",
-      month: "JAN",
-      category: "SOCIAL ACTIVITY",
-      title: "Celebrating Life, Love & Laughter",
-      type: "regular",
-      image: eventThree
-    },
-    {
-      id: 4,
-      date: "22",
-      month: "JAN",
-      category: "AWARD",
-      title: "Where Energy Meets Excellence.",
-      type: "regular",
-      image: eventFour
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/events');
+      const data = await response.json();
+      setEvents(data.slice(0, 4)); // Show only first 4 events
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <section className="events-section">
+        <div className="container">
+          <p>Loading events...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="events-section">
@@ -56,22 +40,19 @@ const Events = () => {
 
         <div className="events-grid">
           {events.map((event) => (
-            <div key={event.id} className={`event-card ${event.type}`}>
+            <div key={event.id} className={`event-card ${event.id === events[0]?.id ? 'featured' : 'regular'}`}>
               <div className="event-date">
-                <span className="date">{event.date}</span>
+                <span className="date">{event.day}</span>
                 <span className="month">{event.month}</span>
               </div>
 
               <div className="event-content">
                 <div className="event-image">
-                  <img src={event.image} alt={event.title} />
+                  <img src={`http://localhost:3000/uploads/${event.posterImage}`} alt={event.title} />
                 </div>
                 <div className="event-detail">
                   <span className="event-category">{event.category}</span>
-                  <h3
-                    className="event-title"
-                    onClick={() => console.log(`Clicked event: ${event.title}`)}
-                  >
+                  <h3 className="event-title">
                     {event.title}
                   </h3>
 

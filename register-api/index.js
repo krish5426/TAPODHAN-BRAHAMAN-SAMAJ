@@ -1,4 +1,5 @@
 // index.js - MySQL version
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
@@ -13,7 +14,7 @@ const { createTables } = require('./mysql-schema');
 const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mysql-models');
 
 app.use((req, res, next) => {
-  const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+  const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:5174"];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
@@ -44,7 +45,7 @@ connectDB().then(async () => {
 }).catch((err) => console.log("DB Error:", err));
 
 // JWT Secret
-const JWT_SECRET = "MY_SECRET_KEY";
+const JWT_SECRET = process.env.JWT_SECRET || "MY_SECRET_KEY";
 
 // Upload Configuration
 const UPLOAD_DIR = path.join(__dirname, "uploads");
@@ -84,6 +85,18 @@ const upload = multer({
     else cb(new Error("Only images (jpg, jpeg, png) are allowed"));
   }
 });
+
+// Create a flexible upload middleware for events
+const eventUpload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /jpeg|jpg|png/i;
+    const ext = path.extname(file.originalname);
+    if (allowed.test(ext)) cb(null, true);
+    else cb(new Error("Only images (jpg, jpeg, png) are allowed"));
+  }
+}).any(); // Accept any field names
 
 // Create Super Admin
 async function createSuperAdmin() {
@@ -316,6 +329,7 @@ app.get("/profiles", async (req, res) => {
 app.post("/business", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
   try {
     const userId = req.user.userId;
+    console.log('Business registration request:', { userId, body: req.body, file: req.file });
 
     const existingBusiness = await Business.findByUserId(userId);
     if (existingBusiness) {
@@ -326,11 +340,17 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
       return res.status(400).json({ message: "Poster photo is required" });
     }
 
+    const { businessName, ownerName, email, contactNumber, address } = req.body;
+    
+    if (!businessName || !ownerName || !email || !contactNumber || !address) {
+      return res.status(400).json({ message: "All required fields must be provided" });
+    }
+
     const businessData = {
       ...req.body,
       userId,
       posterPhoto: req.file.filename,
-      status: 'pending' // Default to pending awaiting admin approval
+      status: 'pending'
     };
 
     const newBusiness = await Business.create(businessData);
@@ -341,7 +361,7 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
     });
   } catch (error) {
     console.error("Business registration error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 });
 
@@ -420,6 +440,17 @@ app.get("/profile-requests", async (req, res) => {
 
 // Serve uploaded files
 app.use("/uploads", express.static(UPLOAD_DIR));
+
+// Serve static files with no-cache headers
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
 
 // Admin API endpoints
 app.get("/api/admin/bride", authenticateToken, async (req, res) => {
@@ -506,12 +537,14 @@ app.get("/api/admin/dashboard/counts", authenticateToken, async (req, res) => {
     const totalGrooms = (await Profile.findAll({ gender: 'Male' })).length;
     const totalBusiness = (await Business.findAll()).length;
     const totalEvents = (await Event.findAll()).length;
+    const pendingBusinessRequests = (await Business.findAll({ status: 'pending' })).length;
 
     res.json({
       totalBrides,
       totalGrooms,
       totalBusiness,
-      totalEvents
+      totalEvents,
+      pendingBusinessRequests
     });
   } catch (error) {
     console.error("Dashboard counts error:", error);
@@ -526,6 +559,79 @@ app.get("/api/admin/events", authenticateToken, async (req, res) => {
     res.json(events);
   } catch (error) {
     console.error("Get admin events error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Admin Events
+app.get("/api/admin/events", authenticateToken, async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    res.json(events);
+  } catch (error) {
+    console.error("Get admin events error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/api/admin/events", authenticateToken, eventUpload, async (req, res) => {
+  try {
+    const eventData = { ...req.body };
+    
+    // Handle poster image (single)
+    const posterFiles = req.files?.filter(file => file.fieldname === 'posterImage');
+    if (posterFiles && posterFiles.length > 0) {
+      eventData.posterImage = posterFiles[0].filename;
+    }
+    
+    // Handle event images (multiple)
+    const imageFiles = req.files?.filter(file => file.fieldname === 'images');
+    if (imageFiles && imageFiles.length > 0) {
+      eventData.images = imageFiles.map(file => file.filename);
+    }
+
+    const newEvent = await Event.create(eventData);
+    res.status(201).json({ message: "Event created successfully", event: newEvent });
+  } catch (error) {
+    console.error("Create event error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.put("/api/admin/events/:id", authenticateToken, eventUpload, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const eventData = { ...req.body };
+    
+    // Handle poster image (single)
+    const posterFiles = req.files?.filter(file => file.fieldname === 'posterImage');
+    if (posterFiles && posterFiles.length > 0) {
+      eventData.posterImage = posterFiles[0].filename;
+    }
+    
+    // Handle event images (multiple)
+    const imageFiles = req.files?.filter(file => file.fieldname === 'images');
+    if (imageFiles && imageFiles.length > 0) {
+      eventData.images = imageFiles.map(file => file.filename);
+    }
+
+    const updatedEvent = await Event.update(id, eventData);
+    if (!updatedEvent) return res.status(404).json({ message: "Event not found" });
+    
+    res.json({ message: "Event updated successfully", event: updatedEvent });
+  } catch (error) {
+    console.error("Update event error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.delete("/api/admin/events/:id", authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Event.delete(id);
+    res.json({ message: "Event deleted successfully" });
+  } catch (error) {
+    console.error("Delete event error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -556,6 +662,20 @@ app.put("/api/admin/business/:id", authenticateToken, upload.single("posterPhoto
     res.json({ message: "Business updated successfully", business: updatedBusiness });
   } catch (error) {
     console.error("Update business error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.put("/api/admin/business/:id/status", authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const adminId = req.user.adminId;
+
+    await Business.updateStatus(id, status, adminId);
+    res.json({ message: `Business ${status} successfully` });
+  } catch (error) {
+    console.error("Update business status error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

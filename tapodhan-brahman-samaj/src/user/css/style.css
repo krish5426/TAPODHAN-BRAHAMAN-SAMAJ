@@ -21,10 +21,6 @@
   justify-content: space-between;
 }
 
-.logo-container img {
-  width: 250px;
-}
-
 .header-buttons .header-button {}
 
 nav ul {
@@ -35,7 +31,7 @@ nav ul {
 
 nav ul li {
   list-style: none;
-  padding: 0 12px;
+  padding: 0 9px;
 }
 
 nav ul li a {
@@ -65,10 +61,8 @@ nav ul li a {
 .header-buttons-cols a.header-button.dark-button {
   border: 1px solid #F78D22;
   background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
-  padding-left: 50px;
-  padding: 17px 15px;
+  padding: 17px 34px;
   position: relative;
-  padding-left: 50px;
   z-index: 1;
 }
 
@@ -2207,4 +2201,58 @@ a.read-more-btn {
 .pattern-divider {
   position: relative;
   z-index: 1;
+}
+
+.logo-container img {
+    width: 220px;
+}
+
+.container {
+    gap: 20px;
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+}
+
+.contact-section {
+    background: transparent;
+    padding: 80px 0;
+}
+
+.contact-section .contact-right {
+    background: transparent;
+    padding: 0;
+    flex: inherit;
+}
+
+.contact-form label {
+    margin-bottom: 6px;
+    font-family: Barlow, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+}
+
+.two-inputs label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.contact-info-box .info-row {
+    gap: 22px;
+    margin-bottom: 20px;
+    font-family: Barlow, sans-serif;
+    display: flex;
+}
+
+.info-row h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #5F5F5F;
+    font-weight: 500;
+    font-family: "Barlow", sans-serif;
+}
+.gallery-item:nth-child(4) {
+    grid-area: span 1/span 1;
 }

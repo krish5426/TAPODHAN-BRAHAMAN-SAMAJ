@@ -41,11 +41,11 @@ const Login = () => {
             }
 
             // Store token and user info
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('user_token', data.token);
+            localStorage.setItem('user_details', JSON.stringify(data.user));
 
             alert('Login successful!');
-            navigate('/'); // Redirect to home or dashboard
+            window.location.href = '/'; // Force page reload to update header
         } catch (err) {
             setError(err.message);
         } finally {

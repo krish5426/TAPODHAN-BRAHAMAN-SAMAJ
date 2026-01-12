@@ -19,7 +19,7 @@ export default function Businesscontact() {
       <div class="directory-actions">
         <input type="text" placeholder="Search By Location" />
         <input type="text" placeholder="Search By Industry" />
-        <button class="add-register-btn">Add Register</button>
+        <button class="add-register-btn">Add Register 1</button>
       </div>
     </div>
 

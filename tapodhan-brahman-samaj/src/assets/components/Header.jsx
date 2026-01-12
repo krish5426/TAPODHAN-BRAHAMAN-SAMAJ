@@ -21,7 +21,7 @@ const Header = () => {
            <li> <NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""}>
             Events
             </NavLink></li>
-             <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
+            <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
                Matrimonial 
             </NavLink></li>
              <li> <NavLink to="/students" className={({ isActive }) => isActive ? "active" : ""}>
