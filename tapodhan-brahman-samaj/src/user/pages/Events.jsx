@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
+import { API_ENDPOINTS } from '../config/api';
 
 const Events = () => {
   const [events, setEvents] = useState([]);
@@ -17,7 +18,7 @@ const Events = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://localhost:3000/events');
+      const response = await fetch(API_ENDPOINTS.EVENTS);
       const data = await response.json();
       setEvents(data);
     } catch (error) {
@@ -73,7 +74,7 @@ const Events = () => {
                 </div>
                 <div className="event-content">
                   <div className="event-image">
-                    <img src={`http://localhost:3000/uploads/${latestEvent.posterImage}`} alt={latestEvent.title} />
+                    <img src={`${API_ENDPOINTS.UPLOADS}/${latestEvent.posterImage}`} alt={latestEvent.title} />
                   </div>
                   <div className="event-detail">
                     <span className="event-category">{latestEvent.category}</span>
@@ -110,7 +111,7 @@ const Events = () => {
                     </div>
                     <div className="event-content">
                       <div className="event-image">
-                        <img src={`http://localhost:3000/uploads/${event.posterImage}`} alt={event.title} />
+                        <img src={`${API_ENDPOINTS.UPLOADS}/${event.posterImage}`} alt={event.title} />
                       </div>
                       <div className="event-detail">
                         <span className="event-category">{event.category}</span>
