@@ -1,0 +1,342 @@
+/* ===============================
+   HEADER STYLES
+================================ */
+.header-burger {
+    width: 100%;
+    padding: 20px 0;
+    position: relative;
+    z-index: 100;
+}
+
+.container-burger {
+    max-width: 1280px;
+    padding: 0 20px;
+}
+
+.header-row-burger {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.logo-container img {
+    width: 250px;
+    height: auto;
+}
+
+/* ===============================
+   DESKTOP NAVIGATION
+================================ */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    padding: 0 12px;
+}
+
+nav ul li a {
+    font-family: "Barlow", sans-serif;
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #B9252F;
+}
+
+/* ===============================
+   HEADER BUTTONS (Desktop)
+================================ */
+.header-buttons-cols-burger {
+    display: none;
+    gap: 15px;
+}
+
+.header-buttons-cols-burger a.header-button-burger {
+    font-family: "Barlow", sans-serif;
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #666666;
+    padding: 17px 40px;
+    background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+    letter-spacing: 0;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.header-buttons-cols a.header-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.header-buttons-cols-burger a.header-button-dark-button-burger {
+    border: 1px solid #F78D22;
+    background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
+    padding: 17px 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.header-buttons-cols a.header-button.dark-button::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    background-size: 24px;
+    background-position: center;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ===============================
+   BURGER MENU BUTTON
+================================ */
+.burger-menu {
+    display:  flex !important;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1001;
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+.burger-menu span {
+    width: 28px;
+    height: 3px;
+    background: #000;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* ===============================
+   MOBILE MENU OVERLAY
+================================ */
+.mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* ===============================
+   MOBILE MENU
+================================ */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    padding: 80px 30px 30px;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+.mobile-menu ul li {
+    margin-bottom: 5px;
+}
+
+.mobile-menu ul li a {
+    display: block;
+    padding: 15px 20px;
+    font-family: "Barlow", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.mobile-menu ul li a:hover {
+    background: #f5f5f5;
+    color: #B9252F;
+    padding-left: 25px;
+}
+
+/* ===============================
+   MOBILE MENU BUTTONS
+================================ */
+.mobile-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+}
+
+.mobile-menu-buttons a {
+    text-align: center;
+    padding: 14px 20px;
+    font-family: "Barlow", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.mobile-menu-buttons a.login-btn {
+    background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+    border: 1px solid #666666;
+}
+
+.mobile-menu-buttons a.signup-btn {
+    background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
+    border: 1px solid #F78D22;
+}
+
+.mobile-menu-buttons a:active {
+    transform: scale(0.98);
+}
+
+.header-burger,
+.mobile-menu,
+.mobile-menu-overlay {
+  display: none;
+}
+
+
+
+/* ===============================
+   RESPONSIVE BREAKPOINTS
+================================ */
+
+@media (max-width: 1079px) {
+  .header-burger {
+    display: none;
+  }
+
+  .mobile-menu,
+  .mobile-menu-overlay {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-burger {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+    .header-burger {
+    display: flex;
+    justify-content: right;
+  }
+    .burger-menu {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .burger-menu {
+        display: flex;
+    }
+
+    nav ul,
+    .header-buttons-cols {
+        display: none;
+    }
+
+    .mobile-menu-overlay {
+        display: block;
+    }
+
+    .logo-container img {
+        width: 200px;
+    }
+}
+
+@media (max-width: 767px) {
+    .header {
+        padding: 15px 0;
+    }
+
+    .logo-container img {
+        width: 180px;
+    }
+
+    .mobile-menu {
+        width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-container img {
+        width: 160px;
+    }
+
+    .mobile-menu {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .burger-menu span {
+        width: 25px;
+        height: 2.5px;
+    }
+}
