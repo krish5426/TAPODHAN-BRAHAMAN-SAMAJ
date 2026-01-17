@@ -9,6 +9,7 @@ import MDButton from "../components/MDButton";
 import BasicLayout from "./components/BasicLayout";
 import bgImage from "../assets/images/bg-sign-in-basic.jpeg";
 import Alert from "@mui/material/Alert";
+import { API_ENDPOINTS } from '../../config/api';
 
 function Login() {
     const [rememberMe, setRememberMe] = useState(false);
@@ -26,7 +27,7 @@ function Login() {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:3000/admin/login", {
+            const response = await fetch(API_ENDPOINTS.ADMIN_LOGIN, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

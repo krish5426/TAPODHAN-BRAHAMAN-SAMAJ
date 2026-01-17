@@ -17,7 +17,6 @@ const Home = () => {
         <MatrimonialHero />
         <Events />
         <Gallery />
-        <Contact />
     </>
   );
 };

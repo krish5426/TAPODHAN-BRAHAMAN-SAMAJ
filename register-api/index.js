@@ -7,28 +7,24 @@ const bcrypt = require("bcryptjs");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const cors = require("cors");
+const nodemailer = require('nodemailer');
 
 // MySQL imports
 const { connectDB } = require('./mysql-config');
 const { createTables } = require('./mysql-schema');
 const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mysql-models');
 
-app.use((req, res, next) => {
-  const allowedOrigins = [process.env.FRONTEND_URL || "http://localhost:5173", "http://localhost:5174"];
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-  }
-
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
+app.use(cors({
+  origin: [
+    "https://tbs.web-stage.in",
+    "http://localhost:5173",
+    "http://localhost:5174"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 
 // Super Admin Configuration
 const SUPER_ADMIN_EMAIL = "super@gmail.com";
@@ -360,6 +356,15 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
 
     const newBusiness = await Business.create(businessData);
 
+    // Send email notifications
+    console.log('Attempting to send business registration emails...');
+    try {
+      await sendBusinessRegistrationEmails(email, ownerName, businessName);
+      console.log('Business registration emails sent successfully');
+    } catch (emailError) {
+      console.error('Failed to send business registration emails:', emailError);
+    }
+
     res.status(201).json({
       message: "Business registered successfully",
       business: newBusiness
@@ -367,6 +372,119 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
   } catch (error) {
     console.error("Business registration error:", error);
     res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+});
+
+// Email notification function
+async function sendBusinessRegistrationEmails(userEmail, ownerName, businessName) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('SMTP not configured, skipping business registration emails');
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+
+  // Email to user
+  console.log('Sending email to user:', userEmail);
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: userEmail,
+    subject: 'Business Registration Received',
+    html: `
+      <h2>Thank you for registering your business!</h2>
+      <p>Dear ${ownerName},</p>
+      <p>Your business "${businessName}" has been successfully registered and is pending approval.</p>
+      <p>You will receive a notification once your business is approved by our admin team.</p>
+      <p>Best regards,<br>Tapodhan Brahman Samaj Team</p>
+    `
+  });
+  console.log('User email sent');
+
+  // Email to admin
+  console.log('Sending email to admin:', process.env.SMTP_TO);
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: process.env.SMTP_TO,
+    subject: 'New Business Registration - Approval Required',
+    html: `
+      <h2>New Business Registration</h2>
+      <p>A new business has been registered and requires your approval:</p>
+      <ul>
+        <li><strong>Business Name:</strong> ${businessName}</li>
+        <li><strong>Owner:</strong> ${ownerName}</li>
+        <li><strong>Email:</strong> ${userEmail}</li>
+      </ul>
+      <p>Please login to the admin panel to review and approve this business.</p>
+    `
+  });
+  console.log('Admin email sent');
+}
+
+// Email notification for business status change
+async function sendBusinessStatusEmail(userEmail, ownerName, businessName, status) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('SMTP not configured, skipping status email');
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+
+  const isApproved = status === 'approved';
+  const subject = isApproved ? 'Business Approved!' : 'Business Registration Update';
+  const message = isApproved 
+    ? `<h2>Congratulations!</h2>
+       <p>Dear ${ownerName},</p>
+       <p>Your business "${businessName}" has been approved and is now live on our platform.</p>
+       <p>Thank you for being part of Tapodhan Brahman Samaj community.</p>
+       <p>Best regards,<br>Tapodhan Brahman Samaj Team</p>`
+    : `<h2>Business Registration Update</h2>
+       <p>Dear ${ownerName},</p>
+       <p>We regret to inform you that your business "${businessName}" registration has been rejected.</p>
+       <p>If you have any questions, please contact our support team.</p>
+       <p>Best regards,<br>Tapodhan Brahman Samaj Team</p>`;
+
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: userEmail,
+    subject,
+    html: message
+  });
+  console.log(`Status email sent to ${userEmail}`);
+}
+
+// Get user's business
+app.get("/my-business", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    console.log('Fetching business for userId:', userId);
+    
+    const business = await Business.findByUserId(userId);
+    console.log('Found business:', business ? 'Yes' : 'No', business);
+    
+    if (!business) {
+      return res.status(404).json({ message: "No business found" });
+    }
+    
+    res.json(business);
+  } catch (error) {
+    console.error("Get my business error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -677,11 +795,91 @@ app.put("/api/admin/business/:id/status", authenticateToken, async (req, res) =>
     const { status } = req.body;
     const adminId = req.user.adminId;
 
+    const business = await Business.findById(id);
+    if (!business) return res.status(404).json({ message: "Business not found" });
+
     await Business.updateStatus(id, status, adminId);
+
+    // Send email notification to business owner
+    try {
+      await sendBusinessStatusEmail(business.email, business.ownerName, business.businessName, status);
+    } catch (emailError) {
+      console.error('Failed to send status email:', emailError);
+    }
+
     res.json({ message: `Business ${status} successfully` });
   } catch (error) {
     console.error("Update business status error:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Contact Form Submission
+app.post("/contact", async (req, res) => {
+  try {
+    const { fullName, email, phone, message } = req.body;
+
+    if (!fullName || !email || !phone || !message) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Check if SMTP is configured
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      console.log('Contact form submission (SMTP not configured):', { fullName, email, phone, message });
+      return res.status(200).json({ message: "Message received successfully" });
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.SMTP_FROM,
+      to: process.env.SMTP_TO,
+      subject: 'New Contact Form Submission - TBS Website',
+      html: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${fullName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Contact form error:", error);
+    res.status(500).json({ message: "Failed to send message" });
+  }
+});
+
+// Test SMTP Configuration
+app.get("/test-smtp", async (req, res) => {
+  try {
+    const config = {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      user: process.env.SMTP_USER ? '***configured***' : 'NOT SET',
+      pass: process.env.SMTP_PASS ? '***configured***' : 'NOT SET',
+      from: process.env.SMTP_FROM,
+      to: process.env.SMTP_TO
+    };
+    
+    res.json({ 
+      message: 'SMTP Configuration',
+      config,
+      isConfigured: !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

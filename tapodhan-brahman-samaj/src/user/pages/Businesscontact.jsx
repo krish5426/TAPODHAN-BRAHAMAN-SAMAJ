@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import imageIcon from "../assets/images/contactpage.png"; // fallback icon if needed
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from '../../config/api';
+import InnerBanner from '../components/InnerBanner';
+import bannerImage from '../assets/images/contact-banner.jpg';
 
 export default function Businesscontact() {
   const [images, setImages] = useState({});
@@ -13,6 +15,11 @@ export default function Businesscontact() {
   const [searchLocation, setSearchLocation] = useState("");
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const navigate = useNavigate();
+
+  const breadcrumb = [
+    { label: 'Home', link: '/' },
+    { label: 'Business Directory' }
+  ];
 
   const fetchBusinesses = async (name = "", loc = "") => {
     setLoading(true);
@@ -61,7 +68,13 @@ export default function Businesscontact() {
   };
 
   return (
-    <section className="business-directory">
+    <>
+      <InnerBanner
+        title="Business Directory"
+        breadcrumb={breadcrumb}
+        backgroundImage={bannerImage}
+      />
+      <section className="business-directory">
       <div className="directory-container">
 
         {/* HERO SECTION */}
@@ -148,7 +161,7 @@ export default function Businesscontact() {
             backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000
           }}>
             <div style={{
-              backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '90%', maxWidth: '500px',
+              backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '90%', maxWidth: '700px',
               maxHeight: '90vh', overflowY: 'auto', position: 'relative'
             }}>
               <button
@@ -158,13 +171,17 @@ export default function Businesscontact() {
                 &times;
               </button>
               <h2 style={{ marginBottom: '15px' }}>{selectedBusiness.businessName}</h2>
+              <div className="business-left">
               {selectedBusiness.posterPhoto && (
+                
                 <img
                   src={`${API_ENDPOINTS.UPLOADS}/${selectedBusiness.posterPhoto}`}
                   alt="Poster"
                   style={{ width: '100%', borderRadius: '8px', marginBottom: '15px' }}
                 />
               )}
+              </div>
+              <div className="business-right">
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <p><strong>Owner:</strong> {selectedBusiness.ownerName}</p>
                 <p><strong>Type:</strong> {selectedBusiness.businessType}</p>
@@ -177,6 +194,7 @@ export default function Businesscontact() {
               </div>
               <p style={{ marginTop: '10px' }}><strong>Address:</strong><br />{selectedBusiness.address}</p>
               <p style={{ marginTop: '10px' }}><strong>Description:</strong><br />{selectedBusiness.description}</p>
+              </div>
             </div>
           </div>
         )}
@@ -210,5 +228,6 @@ export default function Businesscontact() {
 
       </div>
     </section>
+    </>
   );
 }

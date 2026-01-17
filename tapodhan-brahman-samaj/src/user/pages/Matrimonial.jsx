@@ -1,8 +1,22 @@
-import React from 'react';
-import ComingSoon from '../components/ComingSoon';
+import InnerBanner from "../components/InnerBanner";
+import matroinfo from '../../assets/images/matroinfo.jpg';
+import MatrimonialListComponent from '../components/MatrimonialList';
+
 
 const Matrimonial = () => {
-  return <ComingSoon title="Matrimonial Services" />;
+  return (
+    <>
+      <InnerBanner
+        title="Matrimonial profile list"
+        backgroundImage={matroinfo}
+        breadcrumb={[
+          { label: "Home", link: "/" },
+          { label: "Matrimonial " }
+        ]}
+      />
+    <MatrimonialListComponent />
+    </>
+  );
 };
 
 export default Matrimonial;

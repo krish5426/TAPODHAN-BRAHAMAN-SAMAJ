@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import registerImg from "../assets/images/mobile.png";
+import { API_ENDPOINTS } from '../../config/api';
 
 const BusinessRegisterform = () => {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ const BusinessRegisterform = () => {
       });
       data.append("posterPhoto", posterPhoto);
 
-      const response = await fetch("http://localhost:3000/business", {
+      const response = await fetch(API_ENDPOINTS.BUSINESS, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token} `

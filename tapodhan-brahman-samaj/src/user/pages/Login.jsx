@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import registerImg from "../assets/images/mobile.png";
 import InnerBanner from "../components/InnerBanner";
 import RegisterBanner from '../assets/images/register-banner.jpg';
+import { API_ENDPOINTS } from '../../config/api';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch(API_ENDPOINTS.LOGIN, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

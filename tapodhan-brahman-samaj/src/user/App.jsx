@@ -5,11 +5,14 @@ import Contact from "./pages/Contact";
 import Events from "./pages/Events";
 import Register from "./pages/Register";
 import BusinessRegister from "./pages/BusinessRegister";
+import MyBusiness from "./pages/MyBusiness";
+import EditBusiness from "./pages/EditBusiness";
 import Businesscontact from "./pages/Businesscontact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Matrimonial from "./pages/Matrimonial";
 import Profile from "./pages/Profile";
+import MatrimonialPersonalInfo from "./pages/MatrimonialPersonalInfo";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './css/style.css';
@@ -28,11 +31,22 @@ function App() {
             <BusinessRegister />
           </ProtectedRoute>
         } />
+        <Route path="/my-business" element={
+          <ProtectedRoute>
+            <MyBusiness />
+          </ProtectedRoute>
+        } />
+        <Route path="/edit-business" element={
+          <ProtectedRoute>
+            <EditBusiness />
+          </ProtectedRoute>
+        } />
         <Route path="/business-contact" element={<Businesscontact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<Events />} />
         <Route path="/matrimonial" element={<Matrimonial />} />
+        <Route path="/matrimonial-personal-info" element={<MatrimonialPersonalInfo />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>

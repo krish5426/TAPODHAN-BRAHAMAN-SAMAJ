@@ -62,10 +62,7 @@ const Events = () => {
           {/* Latest Event Section */}
           {latestEvent && (
             <>
-              <div className="header-section">
-                <span className="header-label">Upcoming Event</span>
-                
-              </div>
+              
               
               <div className="event-card featured" style={{ marginBottom: '60px' }}>
                 <div className="event-date">

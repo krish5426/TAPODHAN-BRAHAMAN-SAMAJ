@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Grid from "@mui/material/Grid";
 import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
@@ -13,6 +18,9 @@ import { API_URL } from "../services/api";
 function PendingBusinessRequests() {
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedBusiness, setSelectedBusiness] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [actionType, setActionType] = useState('');
 
     const columns = [
         { Header: "Business", accessor: "business", width: "35%", align: "left" },
@@ -20,6 +28,21 @@ function PendingBusinessRequests() {
         { Header: "Status", accessor: "status", align: "center" },
         { Header: "Action", accessor: "action", align: "center" },
     ];
+
+    const handleActionClick = (business, action) => {
+        setSelectedBusiness(business);
+        setActionType(action);
+        setModalOpen(true);
+    };
+
+    const handleConfirmAction = async () => {
+        if (selectedBusiness && actionType) {
+            await handleStatusUpdate(selectedBusiness.id, actionType);
+            setModalOpen(false);
+            setSelectedBusiness(null);
+            setActionType('');
+        }
+    };
 
     const fetchPendingRequests = async () => {
         try {
@@ -30,6 +53,7 @@ function PendingBusinessRequests() {
             const data = await response.json();
             
             const formattedRows = data.map((business) => ({
+                ...business,
                 business: (
                     <MDBox display="flex" alignItems="center" lineHeight={1}>
                         <MDAvatar
@@ -67,21 +91,21 @@ function PendingBusinessRequests() {
                     <MDBox display="flex" gap={1}>
                         {business.status === 'pending' && (
                             <>
-                                <MDButton variant="gradient" color="success" size="small" onClick={() => handleStatusUpdate(business.id, 'approved')}>
+                                <MDButton variant="gradient" color="success" size="small" onClick={() => handleActionClick(business, 'approved')}>
                                     <Icon>check</Icon>&nbsp;Approve
                                 </MDButton>
-                                <MDButton variant="gradient" color="error" size="small" onClick={() => handleStatusUpdate(business.id, 'rejected')}>
+                                <MDButton variant="gradient" color="error" size="small" onClick={() => handleActionClick(business, 'rejected')}>
                                     <Icon>close</Icon>&nbsp;Reject
                                 </MDButton>
                             </>
                         )}
                         {business.status === 'approved' && (
-                            <MDButton variant="gradient" color="error" size="small" onClick={() => handleStatusUpdate(business.id, 'rejected')}>
+                            <MDButton variant="gradient" color="error" size="small" onClick={() => handleActionClick(business, 'rejected')}>
                                 <Icon>close</Icon>&nbsp;Reject
                             </MDButton>
                         )}
                         {business.status === 'rejected' && (
-                            <MDButton variant="gradient" color="success" size="small" onClick={() => handleStatusUpdate(business.id, 'approved')}>
+                            <MDButton variant="gradient" color="success" size="small" onClick={() => handleActionClick(business, 'approved')}>
                                 <Icon>check</Icon>&nbsp;Approve
                             </MDButton>
                         )}
@@ -110,7 +134,7 @@ function PendingBusinessRequests() {
 
             if (response.ok) {
                 alert(`Business ${status} successfully!`);
-                fetchPendingRequests(); // Refresh the list
+                fetchPendingRequests();
             } else {
                 alert("Failed to update status");
             }
@@ -148,6 +172,98 @@ function PendingBusinessRequests() {
                     </Card>
                 </MDBox>
             </MDBox>
+            
+            <Dialog open={modalOpen} onClose={() => setModalOpen(false)} maxWidth="md" fullWidth>
+                <DialogTitle>
+                    <MDTypography variant="h4" fontWeight="medium">
+                        {actionType === 'approved' ? 'Approve' : 'Reject'} Business Registration
+                    </MDTypography>
+                </DialogTitle>
+                <DialogContent>
+                    {selectedBusiness && (
+                        <MDBox>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} md={4}>
+                                    {selectedBusiness.posterPhoto && (
+                                        <MDBox mb={2}>
+                                            <img 
+                                                src={`${API_URL}/uploads/${selectedBusiness.posterPhoto}`}
+                                                alt={selectedBusiness.businessName}
+                                                style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px'}}
+                                            />
+                                        </MDBox>
+                                    )}
+                                </Grid>
+                                <Grid item xs={12} md={8}>
+                                    <MDBox mb={2}>
+                                        <MDTypography variant="h5" fontWeight="medium" color="info">
+                                            {selectedBusiness.businessName}
+                                        </MDTypography>
+                                    </MDBox>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <MDTypography variant="button" fontWeight="medium">Owner:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.ownerName}</MDTypography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <MDTypography variant="button" fontWeight="medium">Email:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.email}</MDTypography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <MDTypography variant="button" fontWeight="medium">Contact:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.contactNumber}</MDTypography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <MDTypography variant="button" fontWeight="medium">Category:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.category || 'N/A'}</MDTypography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <MDTypography variant="button" fontWeight="medium">Business Type:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.businessType || 'N/A'}</MDTypography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <MDTypography variant="button" fontWeight="medium">City:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.city || 'N/A'}</MDTypography>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <MDTypography variant="button" fontWeight="medium">Address:</MDTypography>
+                                            <MDTypography variant="body2">{selectedBusiness.address}</MDTypography>
+                                        </Grid>
+                                        {selectedBusiness.description && (
+                                            <Grid item xs={12}>
+                                                <MDTypography variant="button" fontWeight="medium">Description:</MDTypography>
+                                                <MDTypography variant="body2">{selectedBusiness.description}</MDTypography>
+                                            </Grid>
+                                        )}
+                                        {selectedBusiness.website && (
+                                            <Grid item xs={12}>
+                                                <MDTypography variant="button" fontWeight="medium">Website:</MDTypography>
+                                                <MDTypography variant="body2">
+                                                    <a href={selectedBusiness.website} target="_blank" rel="noopener noreferrer" style={{color: '#1976d2'}}>
+                                                        {selectedBusiness.website}
+                                                    </a>
+                                                </MDTypography>
+                                            </Grid>
+                                        )}
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </MDBox>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <MDButton variant="outlined" color="secondary" onClick={() => setModalOpen(false)}>
+                        Cancel
+                    </MDButton>
+                    <MDButton 
+                        variant="gradient" 
+                        color={actionType === 'approved' ? 'success' : 'error'} 
+                        onClick={handleConfirmAction}
+                    >
+                        {actionType === 'approved' ? 'Approve' : 'Reject'} Business
+                    </MDButton>
+                </DialogActions>
+            </Dialog>
         </AdminLayout>
     );
 }

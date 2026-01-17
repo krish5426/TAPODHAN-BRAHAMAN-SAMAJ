@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('user_token');
@@ -21,14 +22,15 @@ const Header = () => {
         localStorage.removeItem('user_details');
       }
     }
-  }, []); // Empty dependency array to run only once
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user_token');
     localStorage.removeItem('user_details');
     setIsLoggedIn(false);
     setUser(null);
-    // Remove window.location.reload() to prevent page reload
+    setDropdownOpen(false);
+    window.location.href = '/';
   };
 
   return (
@@ -61,10 +63,22 @@ const Header = () => {
           </nav>
           <div className="header-buttons-cols">
             {isLoggedIn ? (
-              <>
-                <Link to="/profile" className="header-button dark-button">Profile</Link>
-                <Link to="/" className="header-button" onClick={handleLogout}>Logout</Link>
-              </>
+              <div className="user-dropdown">
+                <button 
+                  className="user-dropdown-btn" 
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  Hi, {user?.firstName || 'User'}
+                  <span className="dropdown-arrow">{dropdownOpen ? '▲' : '▼'}</span>
+                </button>
+                {dropdownOpen && (
+                  <div className="dropdown-menu">
+                    <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Profile</Link>
+                    <Link to="/my-business" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Business</Link>
+                    <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                  </div>
+                )}
+              </div>
             ) : (
               <>
                 <Link to="/signup" className="header-button dark-button">Sign Up</Link>
