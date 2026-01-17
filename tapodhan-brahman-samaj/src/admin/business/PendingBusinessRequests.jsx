@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 import Dialog from "@mui/material/Dialog";
@@ -16,6 +17,7 @@ import MDAvatar from "../components/MDAvatar";
 import { API_URL } from "../services/api";
 
 function PendingBusinessRequests() {
+    const navigate = useNavigate();
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedBusiness, setSelectedBusiness] = useState(null);
@@ -89,6 +91,9 @@ function PendingBusinessRequests() {
                 ),
                 action: (
                     <MDBox display="flex" gap={1}>
+                        <MDButton variant="outlined" color="info" size="small" onClick={() => navigate(`/admin/business/view/${business.id}`)}>
+                            <Icon>visibility</Icon>&nbsp;View
+                        </MDButton>
                         {business.status === 'pending' && (
                             <>
                                 <MDButton variant="gradient" color="success" size="small" onClick={() => handleActionClick(business, 'approved')}>

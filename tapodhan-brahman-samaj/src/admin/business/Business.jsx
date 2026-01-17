@@ -58,9 +58,14 @@ function Business() {
                         </MDTypography>
                     ),
                     action: (
-                        <MDButton variant="text" color="info" onClick={() => navigate(`/admin/business/edit/${biz.id}`)}>
-                            <Icon>edit</Icon>&nbsp;Edit
-                        </MDButton>
+                        <MDBox display="flex" gap={1}>
+                            <MDButton variant="outlined" color="info" size="small" onClick={() => navigate(`/admin/business/view/${biz.id}`)}>
+                                <Icon>visibility</Icon>&nbsp;View
+                            </MDButton>
+                            <MDButton variant="text" color="info" onClick={() => navigate(`/admin/business/edit/${biz.id}`)}>
+                                <Icon>edit</Icon>&nbsp;Edit
+                            </MDButton>
+                        </MDBox>
                     )
                 }));
                 setRows(formattedRows);

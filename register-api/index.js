@@ -11,7 +11,7 @@ const cors = require("cors");
 const nodemailer = require('nodemailer');
 
 // MySQL imports
-const { connectDB } = require('./mysql-config');
+const { connectDB, getPool } = require('./mysql-config');
 const { createTables } = require('./mysql-schema');
 const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mysql-models');
 
@@ -467,6 +467,51 @@ async function sendBusinessStatusEmail(userEmail, ownerName, businessName, statu
   });
   console.log(`Status email sent to ${userEmail}`);
 }
+
+// Update user profile
+app.put("/profile", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { firstName, lastName, mobile } = req.body;
+    
+    if (!firstName || !lastName || !mobile) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    
+    const pool = getPool();
+    await pool.execute(
+      'UPDATE users SET firstName = ?, lastName = ?, mobile = ? WHERE id = ?',
+      [firstName, lastName, mobile, userId]
+    );
+    
+    const updatedUser = await User.findById(userId);
+    const { password, ...userProfile } = updatedUser;
+    
+    res.json({ message: "Profile updated successfully", user: userProfile });
+  } catch (error) {
+    console.error("Update profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get user profile
+app.get("/profile", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    // Remove password from response
+    const { password, ...userProfile } = user;
+    res.json(userProfile);
+  } catch (error) {
+    console.error("Get profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // Get user's business
 app.get("/my-business", authenticateToken, async (req, res) => {

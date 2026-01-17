@@ -11,7 +11,8 @@ export const API_ENDPOINTS = {
   MY_BUSINESS: `${API_BASE_URL}/my-business`,
   ADMIN_BUSINESS: `${API_BASE_URL}/api/admin/business`,
   REGISTER: `${API_BASE_URL}/register`,
-  CONTACT: `${API_BASE_URL}/contact`
+  CONTACT: `${API_BASE_URL}/contact`,
+  PROFILE: `${API_BASE_URL}/profile`
 };
 
 export default API_BASE_URL;

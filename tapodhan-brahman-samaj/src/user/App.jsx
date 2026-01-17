@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import BusinessRegister from "./pages/BusinessRegister";
 import MyBusiness from "./pages/MyBusiness";
 import EditBusiness from "./pages/EditBusiness";
+import EditProfile from "./pages/EditProfile";
 import Businesscontact from "./pages/Businesscontact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -47,7 +48,16 @@ function App() {
         <Route path="/events" element={<Events />} />
         <Route path="/matrimonial" element={<Matrimonial />} />
         <Route path="/matrimonial-personal-info" element={<MatrimonialPersonalInfo />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/edit-profile" element={
+          <ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
       </Route>
     </Routes>
   );
