@@ -32,7 +32,8 @@ function Profile() {
             
             const response = await fetch(`${API_ENDPOINTS.PROFILE}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`,
+                    'Cache-Control': 'no-cache'
                 }
             });
 
@@ -40,7 +41,7 @@ function Profile() {
             
             if (response.ok) {
                 const data = await response.json();
-                console.log('Profile data:', data);
+                console.log('Profile data received:', data);
                 setUser(data);
             } else {
                 const errorText = await response.text();
@@ -61,6 +62,7 @@ function Profile() {
             const userDetails = localStorage.getItem('user_details');
             if (userDetails) {
                 const userData = JSON.parse(userDetails);
+                console.log('Using localStorage fallback:', userData);
                 setUser(userData);
             }
         } finally {
