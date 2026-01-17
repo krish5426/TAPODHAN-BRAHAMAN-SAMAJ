@@ -4,14 +4,14 @@ import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
 
-function Profile() {
+function MyProfile() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const breadcrumb = [
         { label: 'Home', link: '/' },
-        { label: 'Profile' }
+        { label: 'My Profile' }
     ];
 
     useEffect(() => {
@@ -23,6 +23,7 @@ function Profile() {
             const token = localStorage.getItem('user_token');
             
             if (!token) {
+                console.error('No token found');
                 setLoading(false);
                 return;
             }
@@ -39,13 +40,17 @@ function Profile() {
             } else {
                 const userDetails = localStorage.getItem('user_details');
                 if (userDetails) {
-                    setUser(JSON.parse(userDetails));
+                    const userData = JSON.parse(userDetails);
+                    setUser(userData);
                 }
             }
         } catch (error) {
+            console.error('Profile fetch error:', error);
+            
             const userDetails = localStorage.getItem('user_details');
             if (userDetails) {
-                setUser(JSON.parse(userDetails));
+                const userData = JSON.parse(userDetails);
+                setUser(userData);
             }
         } finally {
             setLoading(false);
@@ -55,7 +60,7 @@ function Profile() {
     if (loading) {
         return (
             <>
-                <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+                <InnerBanner title="My Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
                 <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
                     <h2>Loading...</h2>
                 </div>
@@ -66,7 +71,7 @@ function Profile() {
     if (!user) {
         return (
             <>
-                <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+                <InnerBanner title="My Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
                 <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
                     <h2>Profile not found</h2>
                 </div>
@@ -76,17 +81,15 @@ function Profile() {
 
     return (
         <>
-            <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <div className="container" style={{ padding: '100px 20px', position: 'relative', zIndex: 1 }}>
+            <InnerBanner title="My Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+            <div className="container" style={{ padding: '100px 20px' }}>
                 <div style={{ 
                     maxWidth: '800px', 
                     margin: '0 auto', 
                     background: '#fff', 
                     borderRadius: '12px', 
                     boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    zIndex: 2
+                    overflow: 'hidden'
                 }}>
                     <div style={{ 
                         background: 'linear-gradient(135deg, #b9252f 0%, #6a2c2d 100%)', 
@@ -102,22 +105,6 @@ function Profile() {
                             </h1>
                             <p style={{ margin: 0, opacity: 0.9 }}>Account Information</p>
                         </div>
-                        <button 
-                            style={{
-                                background: 'rgba(255,255,255,0.2)',
-                                border: '2px solid rgba(255,255,255,0.3)',
-                                color: 'white',
-                                padding: '10px 20px',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontWeight: '600',
-                                transition: 'all 0.3s ease'
-                            }}
-                            onClick={() => navigate('/edit-profile')}
-                        >
-                            ✏️ Edit Profile
-                        </button>
                     </div>
 
                     <div style={{ padding: '40px' }}>
@@ -229,4 +216,4 @@ function Profile() {
     );
 }
 
-export default Profile;
+export default MyProfile;
