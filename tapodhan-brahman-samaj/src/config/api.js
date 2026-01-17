@@ -1,5 +1,5 @@
-const API_BASE_URL = 'http://localhost:3000';
-//const API_BASE_URL = 'http://tbsapi.trajinfotech.com';
+//const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://tbsapi.trajinfotech.com';
 
 export const API_ENDPOINTS = {
   EVENTS: `${API_BASE_URL}/events`,

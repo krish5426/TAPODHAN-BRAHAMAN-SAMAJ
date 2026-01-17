@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import InnerBanner from '../components/InnerBanner';
+import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
 
 function Profile() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const breadcrumb = [
+        { label: 'Home', link: '/' },
+        { label: 'Profile' }
+    ];
 
     useEffect(() => {
         fetchProfile();
@@ -16,6 +23,12 @@ function Profile() {
             const token = localStorage.getItem('user_token');
             console.log('Token:', token);
             console.log('API URL:', API_ENDPOINTS.PROFILE);
+            
+            if (!token) {
+                console.error('No token found');
+                setLoading(false);
+                return;
+            }
             
             const response = await fetch(`${API_ENDPOINTS.PROFILE}`, {
                 headers: {
@@ -32,9 +45,24 @@ function Profile() {
             } else {
                 const errorText = await response.text();
                 console.error('Failed to fetch profile:', response.status, errorText);
+                
+                // Fallback: get user data from localStorage immediately
+                const userDetails = localStorage.getItem('user_details');
+                if (userDetails) {
+                    const userData = JSON.parse(userDetails);
+                    console.log('Using fallback user data:', userData);
+                    setUser(userData);
+                }
             }
         } catch (error) {
             console.error('Profile fetch error:', error);
+            
+            // Fallback: get user data from localStorage
+            const userDetails = localStorage.getItem('user_details');
+            if (userDetails) {
+                const userData = JSON.parse(userDetails);
+                setUser(userData);
+            }
         } finally {
             setLoading(false);
         }
@@ -42,22 +70,30 @@ function Profile() {
 
     if (loading) {
         return (
-            <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
-                <h2>Loading...</h2>
-            </div>
+            <>
+                <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+                <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
+                    <h2>Loading...</h2>
+                </div>
+            </>
         );
     }
 
     if (!user) {
         return (
-            <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
-                <h2>Profile not found</h2>
-            </div>
+            <>
+                <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+                <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
+                    <h2>Profile not found</h2>
+                </div>
+            </>
         );
     }
 
     return (
-        <div className="container" style={{ padding: '100px 20px' }}>
+        <>
+            <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+            <div className="container" style={{ padding: '100px 20px' }}>
             <div style={{ 
                 maxWidth: '800px', 
                 margin: '0 auto', 
@@ -66,7 +102,7 @@ function Profile() {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
                 overflow: 'hidden'
             }}>
-                <div style={{ 
+                <div className="my-profile" style={{ 
                     background: 'linear-gradient(135deg, #b9252f 0%, #6a2c2d 100%)', 
                     color: 'white', 
                     padding: '30px',
@@ -260,7 +296,8 @@ function Profile() {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </>
     );
 }
 

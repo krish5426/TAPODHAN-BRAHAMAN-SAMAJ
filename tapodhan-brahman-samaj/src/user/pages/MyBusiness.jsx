@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import InnerBanner from '../components/InnerBanner';
+import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
 
 const MyBusiness = () => {
   const [business, setBusiness] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const breadcrumb = [
+    { label: 'Home', link: '/' },
+    { label: 'My Business' }
+  ];
 
   useEffect(() => {
     fetchMyBusiness();
@@ -40,22 +47,32 @@ const MyBusiness = () => {
   };
 
   if (loading) {
-    return <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>Loading...</div>;
+    return (
+      <>
+        <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+        <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>Loading...</div>
+      </>
+    );
   }
 
   if (!business) {
     return (
-      <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>
-        <h2>No Business Registered</h2>
-        <p>You haven't registered a business yet.</p>
-        <Link to="/business-register" className="business-hero-btn">Register Business</Link>
-      </div>
+      <>
+        <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+        <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>
+          <h2>No Business Registered</h2>
+          <p>You haven't registered a business yet.</p>
+          <Link to="/business-register" className="business-hero-btn">Register Business</Link>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="container" style={{padding: '100px 0'}}>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px'}}>
+    <>
+      <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+      <div className="container" style={{padding: '100px 0'}}>
+      <div className="business-profile" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px'}}>
         <h1>My Business Profile</h1>
         <Link to="/edit-business" className="business-hero-btn">Edit Business</Link>
       </div>
@@ -125,7 +142,8 @@ const MyBusiness = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

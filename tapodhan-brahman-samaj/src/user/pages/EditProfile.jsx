@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import InnerBanner from '../components/InnerBanner';
+import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
 
 function EditProfile() {
@@ -11,6 +13,12 @@ function EditProfile() {
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+
+    const breadcrumb = [
+        { label: 'Home', link: '/' },
+        { label: 'Profile', link: '/profile' },
+        { label: 'Edit Profile' }
+    ];
 
     useEffect(() => {
         fetchProfile();
@@ -79,14 +87,19 @@ function EditProfile() {
 
     if (loading) {
         return (
-            <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
-                <h2>Loading...</h2>
-            </div>
+            <>
+                <InnerBanner title="Edit Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+                <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
+                    <h2>Loading...</h2>
+                </div>
+            </>
         );
     }
 
     return (
-        <div className="container" style={{ padding: '100px 20px' }}>
+        <>
+            <InnerBanner title="Edit Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+            <div className="container" style={{ padding: '100px 20px' }}>
             <div style={{ 
                 maxWidth: '600px', 
                 margin: '0 auto', 
@@ -245,7 +258,8 @@ function EditProfile() {
                     </div>
                 </form>
             </div>
-        </div>
+            </div>
+        </>
     );
 }
 
