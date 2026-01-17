@@ -71,78 +71,75 @@ const MyBusiness = () => {
   return (
     <>
       <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-      <div className="container" style={{padding: '100px 0'}}>
-      <div className="business-profile" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px'}}>
-        <h1>My Business Profile</h1>
-        <Link to="/edit-business" className="business-hero-btn">Edit Business</Link>
-      </div>
-      
-      <div className="business-profile-card" style={{background: '#fff', padding: '30px', border: '1px solid #ddd', overflow: 'hidden'}}>
-        <div style={{display: 'flex', gap: '30px', flexWrap: 'wrap'}}>
-          <div style={{flex: '0 0 200px', minWidth: '200px'}}>
-            {business.posterPhoto && (
-              <img 
-                src={`${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`} 
-                alt={business.businessName}
-                style={{width: '100%', height: '200px', objectFit: 'cover', border: '1px solid #ddd'}}
-              />
-            )}
+      <section className="my-business-section">
+        <div className="container">
+          <div className="business-profile-header">
+            <h1 className="business-profile-title">My Business Profile</h1>
+            <Link to="/edit-business" className="business-profile-btn">Edit Business</Link>
           </div>
-          <div style={{flex: '1', minWidth: '300px', overflow: 'hidden'}}>
-            <h2 style={{color: '#b9252f', marginBottom: '20px', wordWrap: 'break-word'}}>{business.businessName}</h2>
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px'}}>
-              <div style={{wordWrap: 'break-word'}}>
-                <strong>Owner:</strong> {business.ownerName}
+          
+          <div className="business-profile-card">
+            <div className="business-profile-content">
+              <div className="business-profile-image">
+                {business.posterPhoto && (
+                  <img 
+                    src={`${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`} 
+                    alt={business.businessName}
+                  />
+                )}
               </div>
-              <div style={{wordWrap: 'break-word'}}>
-                <strong>Email:</strong> {business.email}
-              </div>
-              <div style={{wordWrap: 'break-word'}}>
-                <strong>Contact:</strong> {business.contactNumber}
-              </div>
-              <div>
-                <strong>Status:</strong> 
-                <span style={{
-                  color: business.status === 'approved' ? 'green' : business.status === 'rejected' ? 'red' : 'orange',
-                  fontWeight: 'bold',
-                  marginLeft: '5px'
-                }}>
-                  {business.status?.toUpperCase()}
-                </span>
-              </div>
-              {business.category && (
-                <div style={{wordWrap: 'break-word'}}>
-                  <strong>Category:</strong> {business.category}
+              <div className="business-profile-details">
+                <h2 className="business-name">{business.businessName}</h2>
+                <div className="business-info-grid">
+                  <div className="business-info-item">
+                    <strong>Owner:</strong> {business.ownerName}
+                  </div>
+                  <div className="business-info-item">
+                    <strong>Email:</strong> {business.email}
+                  </div>
+                  <div className="business-info-item">
+                    <strong>Contact:</strong> {business.contactNumber}
+                  </div>
+                  <div className="business-info-item">
+                    <strong>Status:</strong> 
+                    <span className={`status-badge status-${business.status}`}>
+                      {business.status?.toUpperCase()}
+                    </span>
+                  </div>
+                  {business.category && (
+                    <div className="business-info-item">
+                      <strong>Category:</strong> {business.category}
+                    </div>
+                  )}
+                  {business.city && (
+                    <div className="business-info-item">
+                      <strong>City:</strong> {business.city}
+                    </div>
+                  )}
                 </div>
-              )}
-              {business.city && (
-                <div style={{wordWrap: 'break-word'}}>
-                  <strong>City:</strong> {business.city}
+                <div className="business-info-section">
+                  <strong>Address:</strong>
+                  <p>{business.address}</p>
                 </div>
-              )}
-            </div>
-            <div style={{marginTop: '20px', wordWrap: 'break-word'}}>
-              <strong>Address:</strong>
-              <p style={{margin: '5px 0'}}>{business.address}</p>
-            </div>
-            {business.description && (
-              <div style={{marginTop: '20px', wordWrap: 'break-word'}}>
-                <strong>Description:</strong>
-                <p style={{margin: '5px 0'}}>{business.description}</p>
+                {business.description && (
+                  <div className="business-info-section">
+                    <strong>Description:</strong>
+                    <p>{business.description}</p>
+                  </div>
+                )}
+                {business.website && (
+                  <div className="business-info-section">
+                    <strong>Website:</strong>
+                    <a href={business.website} target="_blank" rel="noopener noreferrer">
+                      {business.website}
+                    </a>
+                  </div>
+                )}
               </div>
-            )}
-            {business.website && (
-              <div style={{marginTop: '20px', wordWrap: 'break-word'}}>
-                <strong>Website:</strong>
-                <a href={business.website} target="_blank" rel="noopener noreferrer" style={{color: '#b9252f', marginLeft: '5px', wordBreak: 'break-all'}}>
-                  {business.website}
-                </a>
-              </div>
-            )}
+            </div>
           </div>
         </div>
-      </div>
-      </div>
+      </section>
     </>
   );
 };

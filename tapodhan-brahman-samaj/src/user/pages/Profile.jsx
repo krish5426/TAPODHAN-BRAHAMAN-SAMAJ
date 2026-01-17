@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
+import ogImg from '../assets/images/ogimg.png';
 import { API_ENDPOINTS } from '../../config/api';
 
 function Profile() {
@@ -56,9 +57,13 @@ function Profile() {
         return (
             <>
                 <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-                <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
-                    <h2>Loading...</h2>
-                </div>
+                <section className="my-business-section">
+                    <div className="container">
+                        <div className="profile-loading">
+                            <h2>Loading...</h2>
+                        </div>
+                    </div>
+                </section>
             </>
         );
     }
@@ -67,9 +72,13 @@ function Profile() {
         return (
             <>
                 <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-                <div className="container" style={{ padding: '100px 20px', textAlign: 'center' }}>
-                    <h2>Profile not found</h2>
-                </div>
+                <section className="my-business-section">
+                    <div className="container">
+                        <div className="profile-loading">
+                            <h2>Profile not found</h2>
+                        </div>
+                    </div>
+                </section>
             </>
         );
     }
@@ -77,146 +86,48 @@ function Profile() {
     return (
         <>
             <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <div className="container" style={{ padding: '100px 20px', position: 'relative', zIndex: 1 }}>
-                <div style={{ 
-                    maxWidth: '800px', 
-                    margin: '0 auto', 
-                    background: '#fff', 
-                    borderRadius: '12px', 
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                    overflow: 'hidden',
-                    position: 'relative',
-                    zIndex: 2
-                }}>
-                    <div style={{ 
-                        background: 'linear-gradient(135deg, #b9252f 0%, #6a2c2d 100%)', 
-                        color: 'white', 
-                        padding: '30px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
-                        <div style={{ textAlign: 'center', flex: 1 }}>
-                            <h1 style={{ margin: '0 0 10px 0', fontSize: '32px', fontWeight: '600' }}>
-                                My Profile
-                            </h1>
-                            <p style={{ margin: 0, opacity: 0.9 }}>Account Information</p>
-                        </div>
+            <section className="my-business-section">
+                <div className="container">
+                    <div className="business-profile-header">
+                        <h1 className="business-profile-title">My Business Profile</h1>
                         <button 
-                            style={{
-                                background: 'rgba(255,255,255,0.2)',
-                                border: '2px solid rgba(255,255,255,0.3)',
-                                color: 'white',
-                                padding: '10px 20px',
-                                borderRadius: '8px',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontWeight: '600',
-                                transition: 'all 0.3s ease'
-                            }}
+                            className="business-profile-btn"
                             onClick={() => navigate('/edit-profile')}
                         >
-                            ✏️ Edit Profile
+                            EDIT BUSINESS
                         </button>
                     </div>
 
-                    <div style={{ padding: '40px' }}>
-                        <div style={{ 
-                            display: 'grid', 
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-                            gap: '30px' 
-                        }}>
-                            <div>
-                                <div style={{ marginBottom: '25px' }}>
-                                    <label style={{ 
-                                        display: 'block', 
-                                        fontSize: '14px', 
-                                        fontWeight: '600', 
-                                        color: '#666', 
-                                        marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
-                                    }}>
-                                        First Name
-                                    </label>
-                                    <div style={{ 
-                                        fontSize: '18px', 
-                                        fontWeight: '500', 
-                                        color: '#333',
-                                        padding: '12px 0',
-                                        borderBottom: '2px solid #f0f0f0'
-                                    }}>
+                    <div className="business-profile-card">
+                        <div className="business-profile-content">
+                            <div className="business-profile-image">
+                                <img 
+                                    src={ogImg} 
+                                    alt="Profile" 
+                                />
+                            </div>
+                            
+                            <div className="business-profile-details">
+                                <h2 className="business-name">{user.firstName} {user.lastName}</h2>
+                                
+                                <div className="business-info-grid">
+                                    <div className="business-info-item">
+                                        <strong>First Name:</strong>
                                         {user.firstName}
                                     </div>
-                                </div>
-
-                                <div style={{ marginBottom: '25px' }}>
-                                    <label style={{ 
-                                        display: 'block', 
-                                        fontSize: '14px', 
-                                        fontWeight: '600', 
-                                        color: '#666', 
-                                        marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
-                                    }}>
-                                        Email Address
-                                    </label>
-                                    <div style={{ 
-                                        fontSize: '18px', 
-                                        fontWeight: '500', 
-                                        color: '#333',
-                                        padding: '12px 0',
-                                        borderBottom: '2px solid #f0f0f0'
-                                    }}>
-                                        {user.email}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div style={{ marginBottom: '25px' }}>
-                                    <label style={{ 
-                                        display: 'block', 
-                                        fontSize: '14px', 
-                                        fontWeight: '600', 
-                                        color: '#666', 
-                                        marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
-                                    }}>
-                                        Last Name
-                                    </label>
-                                    <div style={{ 
-                                        fontSize: '18px', 
-                                        fontWeight: '500', 
-                                        color: '#333',
-                                        padding: '12px 0',
-                                        borderBottom: '2px solid #f0f0f0'
-                                    }}>
+                                    
+                                    <div className="business-info-item">
+                                        <strong>Last Name:</strong>
                                         {user.lastName}
                                     </div>
-                                </div>
-
-                                <div style={{ marginBottom: '25px' }}>
-                                    <label style={{ 
-                                        display: 'block', 
-                                        fontSize: '14px', 
-                                        fontWeight: '600', 
-                                        color: '#666', 
-                                        marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
-                                    }}>
-                                        Mobile Number
-                                    </label>
-                                    <div style={{ 
-                                        fontSize: '18px', 
-                                        fontWeight: '500', 
-                                        color: '#333',
-                                        padding: '12px 0',
-                                        borderBottom: '2px solid #f0f0f0'
-                                    }}>
+                                    
+                                    <div className="business-info-item">
+                                        <strong>Email Address:</strong>
+                                        {user.email}
+                                    </div>
+                                    
+                                    <div className="business-info-item">
+                                        <strong>Mobile Number:</strong>
                                         {user.mobile}
                                     </div>
                                 </div>
@@ -224,7 +135,7 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </>
     );
 }
