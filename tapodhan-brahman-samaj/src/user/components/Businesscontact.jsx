@@ -8,7 +8,6 @@ export default function Businesscontact() {
 <section class="business-directory">
   <div class="directory-container">
 
-    <!-- HEADER -->
     <div class="directory-header">
       <span class="directory-tag">BUSINESS GROW</span>
       <h1 class="directory-title">
@@ -23,7 +22,6 @@ export default function Businesscontact() {
       </div>
     </div>
 
-    <!-- TABLE -->
     <div class="directory-table-wrapper">
       <table class="directory-table">
         <thead>
@@ -72,7 +70,6 @@ export default function Businesscontact() {
       </table>
     </div>
 
-    <!-- PAGINATION -->
     <div class="directory-pagination">
       <button>&laquo;</button>
       <button class="active">1</button>

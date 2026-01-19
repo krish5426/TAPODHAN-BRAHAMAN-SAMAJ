@@ -193,26 +193,26 @@ nav ul li a:hover {
 }
 
 .mobile-menu ul li {
-    margin-bottom: 5px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .mobile-menu ul li a {
     display: block;
-    padding: 15px 20px;
+    padding: 15px 0;
     font-family: "Barlow", sans-serif;
     font-size: 16px;
     font-weight: 500;
     color: #000;
     text-decoration: none;
     text-transform: uppercase;
-    border-radius: 5px;
     transition: all 0.3s;
+    width: 100%;
 }
 
 .mobile-menu ul li a:hover {
     background: #f5f5f5;
     color: #B9252F;
-    padding-left: 25px;
 }
 
 /* ===============================
@@ -282,7 +282,7 @@ nav ul li a:hover {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 830px) {
     .header-burger {
     display: flex;
     justify-content: right;
@@ -292,7 +292,7 @@ nav ul li a:hover {
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 830px) {
     .burger-menu {
         display: flex;
     }

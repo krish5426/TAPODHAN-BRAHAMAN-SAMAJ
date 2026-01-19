@@ -182,7 +182,7 @@ export default function Businesscontact() {
               )}
               </div>
               <div className="business-right">
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
                 <p><strong>Owner:</strong> {selectedBusiness.ownerName}</p>
                 <p><strong>Type:</strong> {selectedBusiness.businessType}</p>
                 <p><strong>Category:</strong> {selectedBusiness.category}</p>
