@@ -99,14 +99,16 @@ function EditProfile() {
     return (
         <>
             <InnerBanner title="Edit Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <div className="container" style={{ padding: '100px 20px' }}>
+            <div className="container" style={{ padding: '100px 20px', position: 'relative', zIndex: 1 }}>
             <div style={{ 
                 maxWidth: '600px', 
                 margin: '0 auto', 
                 background: '#fff', 
                 borderRadius: '12px', 
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                position: 'relative',
+                zIndex: 2
             }}>
                 <div style={{ 
                     background: 'linear-gradient(135deg, #b9252f 0%, #6a2c2d 100%)', 

@@ -22,7 +22,7 @@ app.use(cors({
     "http://localhost:5174"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
   credentials: true
 }));
 
@@ -855,6 +855,25 @@ app.put("/api/admin/business/:id/status", authenticateToken, async (req, res) =>
     res.json({ message: `Business ${status} successfully` });
   } catch (error) {
     console.error("Update business status error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get User Profile
+app.get("/profile", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Remove password from response
+    const { password, ...userProfile } = user;
+    res.json(userProfile);
+  } catch (error) {
+    console.error("Get profile error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import InnerBanner from '../components/InnerBanner';
+import bannerImage from '../assets/images/contact-banner.jpg';
 import API_BASE_URL, { API_ENDPOINTS } from '../../config/api';
 
 const EditBusiness = () => {
@@ -9,6 +11,12 @@ const EditBusiness = () => {
   const [saving, setSaving] = useState(false);
   const [posterPhoto, setPosterPhoto] = useState(null);
   const navigate = useNavigate();
+
+  const breadcrumb = [
+    { label: 'Home', link: '/' },
+    { label: 'My Business', link: '/my-business' },
+    { label: 'Edit Business' }
+  ];
 
   useEffect(() => {
     fetchBusiness();
@@ -94,11 +102,18 @@ const EditBusiness = () => {
   };
 
   if (loading) {
-    return <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>Loading...</div>;
+    return (
+      <>
+        <InnerBanner title="Edit Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+        <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>Loading...</div>
+      </>
+    );
   }
 
   return (
-    <div className="container" style={{padding: '100px 0'}}>
+    <>
+      <InnerBanner title="Edit Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+      <div className="container" style={{padding: '100px 0'}}>
       <h1 style={{marginBottom: '30px'}}>Edit Business</h1>
       
       <form onSubmit={handleSubmit} style={{maxWidth: '800px'}}>
@@ -302,6 +317,7 @@ const EditBusiness = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

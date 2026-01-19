@@ -22,6 +22,7 @@ const BusinessRegisterform = () => {
   const [posterPhoto, setPosterPhoto] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -57,10 +58,7 @@ const BusinessRegisterform = () => {
 
     const token = localStorage.getItem("user_token");
     if (!token) {
-      if (window.confirm("You are not logged in. Redirect to login?")) {
-        // Redirect logic here if needed
-      }
-      setError("You must be logged in to register a business.");
+      setError("login_required");
       setLoading(false);
       return;
     }
@@ -98,8 +96,7 @@ const BusinessRegisterform = () => {
         throw new Error(result.message || "Failed to register business");
       }
 
-      alert("Business registered successfully!");
-      navigate("/business-contact");
+      setSuccess(true);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -129,6 +126,28 @@ const BusinessRegisterform = () => {
               {step === 1 ? "Enter your business basics" : "Tell us where you are located"}
             </p>
 
+            {success ? (
+              <div style={{ textAlign: "center", padding: "40px 20px" }}>
+                <div style={{ 
+                  background: "#d4edda", 
+                  color: "#155724", 
+                  padding: "20px", 
+                  borderRadius: "8px", 
+                  border: "1px solid #c3e6cb",
+                  marginBottom: "20px"
+                }}>
+                  <h3 style={{ margin: "0 0 10px 0" }}>✓ Business Registered Successfully!</h3>
+                  <p style={{ margin: 0 }}>Your business has been registered and will be visible once approved within 24 hours.</p>
+                </div>
+                <button 
+                  className="read-more-btn" 
+                  onClick={() => navigate("/business-contact")}
+                  style={{ marginTop: "15px" }}
+                >
+                  <span>View Business Listings</span>
+                </button>
+              </div>
+            ) : (
             <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
               <div className="form-grid">
 
@@ -199,7 +218,65 @@ const BusinessRegisterform = () => {
 
               </div>
 
-              {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+              {error === "login_required" ? (
+                <div style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: "rgba(0,0,0,0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 1000
+                }}>
+                  <div style={{
+                    background: "white",
+                    padding: "30px",
+                    borderRadius: "12px",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                    textAlign: "center",
+                    maxWidth: "400px",
+                    width: "90%"
+                  }}>
+                    <div style={{
+                      width: "60px",
+                      height: "60px",
+                      background: "#dc3545",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 20px",
+                      fontSize: "24px",
+                      color: "white"
+                    }}>
+                      !
+                    </div>
+                    <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>Login Required</h3>
+                    <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5" }}>
+                      Please login to access business registration.
+                    </p>
+                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                      <button 
+                        className="read-more-btn" 
+                        onClick={() => navigate("/login")}
+                        style={{ background: "#007bff" }}
+                      >
+                        <span>Login</span>
+                      </button>
+                      <button 
+                        className="read-more-btn" 
+                        onClick={() => setError("")}
+                        style={{ background: "#6c757d" }}
+                      >
+                        <span>Cancel</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
               <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
                 {step === 2 && (
@@ -213,6 +290,7 @@ const BusinessRegisterform = () => {
                 </button>
               </div>
             </form>
+            )}
           </div>
         </div>
       </div>

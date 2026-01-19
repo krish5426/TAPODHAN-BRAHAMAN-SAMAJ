@@ -49,7 +49,7 @@ function PendingBusinessRequests() {
     const fetchPendingRequests = async () => {
         try {
             const token = localStorage.getItem("admin_token");
-            const response = await fetch(`${API_URL}/api/admin/business`, {
+            const response = await fetch(`${API_URL}/api/admin/business?status=pending`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             const data = await response.json();
