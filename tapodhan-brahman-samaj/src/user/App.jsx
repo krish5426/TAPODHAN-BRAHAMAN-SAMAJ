@@ -17,6 +17,7 @@ import MatrimonialPersonalInfo from "./pages/MatrimonialPersonalInfo";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './css/style.css';
+import './css/google-translate.css';
 
 
 function App() {

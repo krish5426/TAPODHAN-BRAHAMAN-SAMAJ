@@ -1,0 +1,72 @@
+/* Google Translate Integration Styles */
+
+/* Make sure Google Translate widget is visible */
+#google_translate_element {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.goog-te-gadget {
+  display: block !important;
+  visibility: visible !important;
+}
+
+.goog-te-gadget-simple {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Hide Google Translate top bar and banner */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+.goog-te-ftab {
+  display: none !important;
+}
+
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+body.goog-te-hl {
+  top: 0 !important;
+}
+
+/* Header buttons styling with translate button */
+.header-buttons-cols {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Mobile menu translate button */
+.mobile-menu-buttons {
+  padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-buttons-cols {
+    gap: 10px;
+  }
+}
+
+/* Fix for Google Translate iframe issues */
+.goog-te-menu-frame {
+  max-height: 400px !important;
+  overflow-y: auto !important;
+}
+
+/* Ensure translate button doesn't break layout */
+.header-buttons-cols > * {
+  flex-shrink: 0;
+}

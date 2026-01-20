@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import logo from '../assets/images/logo.png';
 import { Link } from "react-router-dom";
+import GoogleTranslate from './GoogleTranslate';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -91,6 +92,7 @@ const Header = () => {
               </ul>
             </nav>
             <div className="header-buttons-cols">
+              <GoogleTranslate />
               {isLoggedIn ? (
                 <div className="user-dropdown">
                   <button 
@@ -153,6 +155,9 @@ const Header = () => {
         </nav>
 
         <div className="mobile-menu-buttons">
+          <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+            <GoogleTranslate />
+          </div>
           {isLoggedIn ? (
             <>
               <Link to="/profile" className="mobile-menu-btn" onClick={toggleMenu}>Profile</Link>
