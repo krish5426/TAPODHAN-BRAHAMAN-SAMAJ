@@ -14,6 +14,7 @@ const Login = () => {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -46,9 +47,7 @@ const Login = () => {
             localStorage.setItem('user_token', data.token);
             localStorage.setItem('user_details', JSON.stringify(data.user));
 
-            // Redirect immediately
-            window.location.href = '/';
-            return;
+            setShowSuccessDialog(true);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -102,6 +101,15 @@ const Login = () => {
                     </div>
                 </div>
             </section>
+            <CustomDialog 
+                isOpen={showSuccessDialog}
+                message="Login successful!"
+                type="success"
+                onClose={() => {
+                    setShowSuccessDialog(false);
+                    window.location.href = '/';
+                }}
+            />
         </>
     );
 };

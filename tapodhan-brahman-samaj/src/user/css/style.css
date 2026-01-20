@@ -70,12 +70,13 @@ nav ul li a.active {
   text-decoration: none;
   text-transform: uppercase;
   border: 1px solid #666666;
-  padding: 12px 25px;
+  padding: 12px 30px;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   letter-spacing: 0;
   display: inline-block;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 4px;
 }
 
 .header-buttons-cols a.header-button:hover {
@@ -88,6 +89,7 @@ nav ul li a.active {
   padding: 12px 25px;
   position: relative;
   z-index: 1;
+  border-radius: 4px;
 }
 
 .header-buttons-cols a.header-button.dark-button::after {
