@@ -285,12 +285,6 @@ app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (re
   try {
     const userId = req.user.userId;
 
-    // Check if profile already exists
-    const existingProfile = await Profile.findByUserId(userId);
-    if (existingProfile) {
-      return res.status(400).json({ message: "Profile already exists for this user" });
-    }
-
     const profileData = { ...req.body, userId };
 
     if (req.file) {
@@ -513,19 +507,49 @@ app.get("/profile", authenticateToken, async (req, res) => {
   }
 });
 
-// Get user's matrimony profile
+// Get user's matrimony profiles (multiple)
+app.get("/my-matrimony-profiles", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const profiles = await Profile.findAllByUserId(userId);
+
+    res.json(profiles);
+  } catch (error) {
+    console.error("Get my matrimony profiles error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get user's matrimony profile (legacy - returns first profile)
 app.get("/my-matrimony-profile", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const profile = await Profile.findByUserId(userId);
-    
+
     if (!profile) {
       return res.status(404).json({ message: "No matrimony profile found" });
     }
-    
+
     res.json(profile);
   } catch (error) {
     console.error("Get my matrimony profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get User's Business
+app.get("/my-business", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const business = await Business.findByUserId(userId);
+
+    if (!business) {
+      return res.status(404).json({ message: "No business found for this user" });
+    }
+
+    res.json(business);
+  } catch (error) {
+    console.error("Get my business error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
