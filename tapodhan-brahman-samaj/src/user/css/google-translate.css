@@ -16,20 +16,8 @@
   visibility: visible !important;
 }
 
-/* Hide Google Translate top bar and banner */
+/* Hide Google Translate top bar only */
 .goog-te-banner-frame {
-  display: none !important;
-}
-
-.goog-te-banner-frame.skiptranslate {
-  display: none !important;
-}
-
-.goog-te-ftab {
-  display: none !important;
-}
-
-.goog-te-balloon-frame {
   display: none !important;
 }
 
@@ -37,8 +25,13 @@ body {
   top: 0 !important;
 }
 
-body.goog-te-hl {
-  top: 0 !important;
+/* Hide only the top notification bar iframe */
+body > .skiptranslate:first-child {
+  display: none !important;
+}
+
+iframe.goog-te-banner-frame {
+  display: none !important;
 }
 
 /* Header buttons styling with translate button */
