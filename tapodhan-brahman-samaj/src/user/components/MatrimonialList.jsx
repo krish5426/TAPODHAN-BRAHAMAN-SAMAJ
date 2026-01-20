@@ -69,7 +69,7 @@ const MatrimonialList = () => {
         <div className="container">
           <div className="header-section">
             <span className="header-label">Listing</span>
-            <h2 className="header-title">
+            <h2 className="header-title-center">
               <strong>
                 <span>Turning </span>
                 profiles <span>into <br />lifelong </span>partnerships.

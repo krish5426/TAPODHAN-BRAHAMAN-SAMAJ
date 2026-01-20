@@ -114,221 +114,226 @@ const EditBusiness = () => {
   return (
     <>
       <InnerBanner title="Edit Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-      <div className="container" style={{padding: '100px 0'}}>
-      <h1 style={{marginBottom: '30px'}}>Edit Business</h1>
-      
-      <form onSubmit={handleSubmit} style={{maxWidth: '800px'}}>
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Business Name *</label>
-            <input
-              type="text"
-              name="businessName"
-              value={formData.businessName || ''}
-              onChange={handleInputChange}
-              required
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            />
+      <section className="my-profile-section">
+        <div className="container">
+          <div className="user-profile-header">
+            <h1 className="user-profile-title">Edit Business</h1>
           </div>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Owner Name *</label>
-            <input
-              type="text"
-              name="ownerName"
-              value={formData.ownerName || ''}
-              onChange={handleInputChange}
-              required
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            />
+          
+          <div className="user-profile-card">
+            <form onSubmit={handleSubmit} style={{padding: '40px', fontFamily: '"Barlow", sans-serif'}}>
+              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Business Name *</label>
+                  <input
+                    type="text"
+                    name="businessName"
+                    value={formData.businessName || ''}
+                    onChange={handleInputChange}
+                    required
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  />
+                </div>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Owner Name *</label>
+                  <input
+                    type="text"
+                    name="ownerName"
+                    value={formData.ownerName || ''}
+                    onChange={handleInputChange}
+                    required
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  />
+                </div>
+              </div>
+
+              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email || ''}
+                    onChange={handleInputChange}
+                    required
+                    disabled
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', backgroundColor: '#f5f5f5', color: '#666', boxSizing: 'border-box'}}
+                  />
+                </div>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Contact Number *</label>
+                  <input
+                    type="tel"
+                    name="contactNumber"
+                    value={formData.contactNumber || ''}
+                    onChange={handleInputChange}
+                    required
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  />
+                </div>
+              </div>
+
+              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Category</label>
+                  <select
+                    name="category"
+                    value={formData.category || ''}
+                    onChange={handleInputChange}
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  >
+                    <option value="">Select Category</option>
+                    <option value="Restaurant">Restaurant</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Services">Services</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Education">Education</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Food & Beverage">Food & Beverage</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Beauty & Wellness">Beauty & Wellness</option>
+                    <option value="Travel & Tourism">Travel & Tourism</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Textile">Textile</option>
+                    <option value="Jewelry">Jewelry</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Other">Other</option>
+                    {formData.category && !['', 'Restaurant', 'Retail', 'Services', 'Healthcare', 'Education', 'Technology', 'Manufacturing', 'Construction', 'Real Estate', 'Finance', 'Food & Beverage', 'Automotive', 'Beauty & Wellness', 'Travel & Tourism', 'Entertainment', 'Agriculture', 'Textile', 'Jewelry', 'Electronics', 'Other'].includes(formData.category) && (
+                      <option value={formData.category}>{formData.category}</option>
+                    )}
+                  </select>
+                </div>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Business Type</label>
+                  <input
+                    type="text"
+                    name="businessType"
+                    value={formData.businessType || ''}
+                    onChange={handleInputChange}
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  />
+                </div>
+              </div>
+
+              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>City</label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city || ''}
+                    onChange={handleInputChange}
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  />
+                </div>
+                <div>
+                  <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>State</label>
+                  <input
+                    type="text"
+                    name="state"
+                    value={formData.state || ''}
+                    onChange={handleInputChange}
+                    style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
+                  />
+                </div>
+              </div>
+
+              <div style={{marginBottom: '20px'}}>
+                <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Website</label>
+                <input
+                  type="url"
+                  name="website"
+                  value={formData.website || ''}
+                  onChange={handleInputChange}
+                  style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
+                />
+              </div>
+
+              <div style={{marginBottom: '20px'}}>
+                <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Address *</label>
+                <textarea
+                  name="address"
+                  value={formData.address || ''}
+                  onChange={handleInputChange}
+                  required
+                  rows="3"
+                  style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
+                />
+              </div>
+
+              <div style={{marginBottom: '20px'}}>
+                <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description || ''}
+                  onChange={handleInputChange}
+                  rows="4"
+                  style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
+                />
+              </div>
+
+              <div style={{marginBottom: '30px'}}>
+                <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Poster Photo</label>
+                {business?.posterPhoto && (
+                  <div style={{marginBottom: '10px'}}>
+                    <img 
+                      src={`${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`}
+                      alt="Current poster"
+                      style={{width: '150px', height: '100px', objectFit: 'cover', border: '1px solid #ddd'}}
+                    />
+                    <p style={{fontSize: '12px', color: '#666', margin: '5px 0'}}>Current poster photo</p>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  id="posterPhoto"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  style={{display: 'none'}}
+                />
+                <label htmlFor="posterPhoto" className="user-profile-btn" style={{display: 'inline-block', cursor: 'pointer', padding: '6px 8px', fontSize: '14px', width: 'auto'}}>
+                  Choose File
+                </label>
+                {posterPhoto && <span style={{marginLeft: '10px', fontSize: '14px'}}>{posterPhoto.name}</span>}
+              </div>
+
+              <div style={{display: 'flex', gap: '15px'}}>
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="user-profile-btn"
+                >
+                  {saving ? 'Updating...' : 'Update Business'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate('/my-business')}
+                  className="user-profile-btn"
+                  style={{background: 'transparent', color: '#b9252f', border: '2px solid #b9252f'}}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Email *</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email || ''}
-              onChange={handleInputChange}
-              required
-              disabled
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', backgroundColor: '#f5f5f5', color: '#666', boxSizing: 'border-box'}}
-            />
-          </div>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Contact Number *</label>
-            <input
-              type="tel"
-              name="contactNumber"
-              value={formData.contactNumber || ''}
-              onChange={handleInputChange}
-              required
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            />
-          </div>
-        </div>
-
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Category</label>
-            <select
-              name="category"
-              value={formData.category || ''}
-              onChange={handleInputChange}
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            >
-              <option value="">Select Category</option>
-              <option value="Restaurant">Restaurant</option>
-              <option value="Retail">Retail</option>
-              <option value="Services">Services</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Education">Education</option>
-              <option value="Technology">Technology</option>
-              <option value="Manufacturing">Manufacturing</option>
-              <option value="Construction">Construction</option>
-              <option value="Real Estate">Real Estate</option>
-              <option value="Finance">Finance</option>
-              <option value="Food & Beverage">Food & Beverage</option>
-              <option value="Automotive">Automotive</option>
-              <option value="Beauty & Wellness">Beauty & Wellness</option>
-              <option value="Travel & Tourism">Travel & Tourism</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Agriculture">Agriculture</option>
-              <option value="Textile">Textile</option>
-              <option value="Jewelry">Jewelry</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Other">Other</option>
-              {formData.category && !['', 'Restaurant', 'Retail', 'Services', 'Healthcare', 'Education', 'Technology', 'Manufacturing', 'Construction', 'Real Estate', 'Finance', 'Food & Beverage', 'Automotive', 'Beauty & Wellness', 'Travel & Tourism', 'Entertainment', 'Agriculture', 'Textile', 'Jewelry', 'Electronics', 'Other'].includes(formData.category) && (
-                <option value={formData.category}>{formData.category}</option>
-              )}
-            </select>
-          </div>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Business Type</label>
-            <input
-              type="text"
-              name="businessType"
-              value={formData.businessType || ''}
-              onChange={handleInputChange}
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            />
-          </div>
-        </div>
-
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>City</label>
-            <input
-              type="text"
-              name="city"
-              value={formData.city || ''}
-              onChange={handleInputChange}
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            />
-          </div>
-          <div>
-            <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>State</label>
-            <input
-              type="text"
-              name="state"
-              value={formData.state || ''}
-              onChange={handleInputChange}
-              style={{width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box'}}
-            />
-          </div>
-        </div>
-
-        <div style={{marginBottom: '20px'}}>
-          <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Website</label>
-          <input
-            type="url"
-            name="website"
-            value={formData.website || ''}
-            onChange={handleInputChange}
-            style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
-          />
-        </div>
-
-        <div style={{marginBottom: '20px'}}>
-          <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Address *</label>
-          <textarea
-            name="address"
-            value={formData.address || ''}
-            onChange={handleInputChange}
-            required
-            rows="3"
-            style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
-          />
-        </div>
-
-        <div style={{marginBottom: '20px'}}>
-          <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Description</label>
-          <textarea
-            name="description"
-            value={formData.description || ''}
-            onChange={handleInputChange}
-            rows="4"
-            style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
-          />
-        </div>
-
-        <div style={{marginBottom: '30px'}}>
-          <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Poster Photo</label>
-          {business?.posterPhoto && (
-            <div style={{marginBottom: '10px'}}>
-              <img 
-                src={`${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`}
-                alt="Current poster"
-                style={{width: '150px', height: '100px', objectFit: 'cover', border: '1px solid #ddd'}}
-              />
-              <p style={{fontSize: '12px', color: '#666', margin: '5px 0'}}>Current poster photo</p>
-            </div>
-          )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
-          />
-        </div>
-
-        <div style={{display: 'flex', gap: '15px'}}>
-          <button
-            type="submit"
-            disabled={saving}
-            className="business-hero-btn"
-            style={{padding: '12px 30px'}}
-          >
-            {saving ? 'Updating...' : 'Update Business'}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate('/my-business')}
-            style={{
-              padding: '12px 30px',
-              background: '#666',
-              color: '#fff',
-              border: 'none',
-              cursor: 'pointer'
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
-    <CustomDialog 
-      isOpen={dialog.isOpen}
-      message={dialog.message}
-      type={dialog.type}
-      onClose={() => {
-        setDialog({ isOpen: false, message: '', type: 'success' });
-        if (dialog.type === 'success') {
-          navigate('/my-business');
-        }
-      }}
-    />
+      </section>
+      <CustomDialog 
+        isOpen={dialog.isOpen}
+        message={dialog.message}
+        type={dialog.type}
+        onClose={() => {
+          setDialog({ isOpen: false, message: '', type: 'success' });
+          if (dialog.type === 'success') {
+            navigate('/my-business');
+          }
+        }}
+      />
     </>
   );
 };

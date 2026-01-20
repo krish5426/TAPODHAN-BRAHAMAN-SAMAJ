@@ -50,9 +50,9 @@ const Gallery = () => {
       <div className="container">
         <div className="header-section">
           <span className="header-label">Gallery</span>
-          <h2 className="header-title">
-            <strong> Capturing <span>Our</span><br />
-              <span>Community </span>Spirit</strong>
+          <h2 className="header-title-center">
+            <strong> Capturing </strong><span>Our</span><br />
+              <span>Community </span><strong>Spirit</strong>
           </h2>
         </div>
 

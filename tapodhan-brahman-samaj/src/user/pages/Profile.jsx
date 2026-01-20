@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
-import ogImg from '../assets/images/logo.png';
+import ogImg from '../assets/images/ogimg.png';
 import { API_ENDPOINTS } from '../../config/api';
 
 function Profile() {

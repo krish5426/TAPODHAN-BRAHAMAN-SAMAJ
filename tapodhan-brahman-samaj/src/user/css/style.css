@@ -662,7 +662,7 @@ nav ul li a.active {
 }
 
 .matrimonial-hero .container {
-  max-width: 900px;
+  max-width: 1080px;
   margin: 0 auto;
 }
 
@@ -1263,7 +1263,6 @@ nav ul li a.active {
 .status-badge {
   display: inline-block;
   font-weight: 700;
-  margin-left: 8px;
   padding: 4px 12px;
   border-radius: 4px;
   font-size: 12px;
@@ -2661,7 +2660,7 @@ a.service-card {
   color: #c1272d;
   border: 1px solid #c1272d;
   margin-bottom: 20px;
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 /* --------------------- TITLE --------------------- */
@@ -2748,11 +2747,7 @@ a.service-card {
     overflow: hidden;
 }
 
-.contact-section .contact-right {
-    background: transparent;
-    padding: 0;
-    flex: inherit;
-}
+
 
 .contact-form label {
     margin-bottom: 6px;
@@ -2854,7 +2849,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     background-repeat: repeat;
     background-size: auto;
     padding-top: 60px;
-    padding: 60px 0 80px;
+    padding: 0px 0 80px;
 }
 
 .profile-section .container {
@@ -2968,7 +2963,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     background-repeat: repeat;
     background-size: auto;
     padding-top: 60px;
-    padding: 60px 0 80px;
+    padding: 50px 0 0px;
 
 }
 
@@ -3140,7 +3135,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     margin-bottom: 20px;
     line-height: 1.2;
     font-family: 'Barlow Condensed', sans-serif;
-    text-align: center;
+    text-align: left            ;
 }
 
 .header-title span {
@@ -7754,10 +7749,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   flex-shrink: 0;
 }
 
-.user-profile-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}
+
 
 .user-profile-card {
   background: #ffffff;
@@ -7797,3 +7789,86 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   min-width: 300px;
 }
 
+.header-section .header-title-center {
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: 48px;
+    line-height: 48px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+}
+
+.header-title-center {
+    font-size: 42px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-family: 'Barlow Condensed', sans-serif;
+    text-align: center;
+}
+
+.header-section .header-title-center strong {
+    background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+.header-section .header-title-center span {
+    color: #000000;
+    font-weight: 400;
+    -webkit-text-fill-color: #000;
+}
+
+
+/* Edit Business Page Responsive */
+@media (max-width: 768px) {
+  .user-profile-card form > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .user-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .user-profile-title {
+    font-size: 32px;
+    line-height: 38px;
+  }
+  
+  .user-profile-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .user-profile-card form > div[style*="display: flex"] {
+    flex-direction: column;
+  }
+  
+  .user-profile-card form > div[style*="display: flex"] button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-profile-section {
+    padding: 50px 0 100px 0;
+  }
+  
+  .user-profile-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  
+  .user-profile-card {
+    padding: 20px;
+  }
+  
+  .user-profile-card form {
+    padding: 20px !important;
+  }
+}

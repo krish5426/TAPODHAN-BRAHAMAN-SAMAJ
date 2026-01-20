@@ -36,7 +36,7 @@ const Events = () => {
       <div className="container">
         <div className="header-section">
           <span className="header-label">Upcoming Events</span>
-          <h2 className="header-title"><strong>Get Ready <span>for What's</span> Next!</strong></h2>
+          <h2 className="header-title-center"><strong>Get Ready <span>for What's</span> Next!</strong></h2>
         </div>
 
         <div className="events-grid">
