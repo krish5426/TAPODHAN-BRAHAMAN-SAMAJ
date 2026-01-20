@@ -1,70 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import profileImg from "../../assets/images/profileimg.png";
 
-const profiles = [
-  {
-    id: 1,
-    name: "Jyoti Mishra",
-    profileId: "F-25-008",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 2,
-    name: "Jyoti Mishra",
-    profileId: "F-25-009",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 3,
-    name: "Jyoti Mishra",
-    profileId: "F-25-010",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 4,
-    name: "Jyoti Mishra",
-    profileId: "F-25-011",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 5,
-    name: "Jyoti Mishra",
-    profileId: "F-25-012",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 6,
-    name: "Jyoti Mishra",
-    profileId: "F-25-013",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 7,
-    name: "Jyoti Mishra",
-    profileId: "F-25-014",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-  {
-    id: 8,
-    name: "Jyoti Mishra",
-    profileId: "F-25-015",
-    dob: "12 Apr 2001",
-    image: profileImg,
-  },
-];
-
-
 const MatrimonialList = () => {
+  const [profiles, setProfiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const profilesPerPage = 8;
+
+  useEffect(() => {
+    fetchProfiles();
+  }, [filter]);
+
+  const fetchProfiles = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      params.append('status', 'approved');
+      if (filter !== 'all') {
+        params.append('gender', filter === 'bride' ? 'Female' : 'Male');
+      }
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profiles?${params}`);
+      const data = await response.json();
+      setProfiles(data);
+    } catch (error) {
+      console.error('Error fetching profiles:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const indexOfLastProfile = currentPage * profilesPerPage;
+  const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
+  const currentProfiles = profiles.slice(indexOfFirstProfile, indexOfLastProfile);
+  const totalPages = Math.ceil(profiles.length / profilesPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
-
       <section className="list-section">
         <div className="container">
           <div className="header-section">
@@ -76,42 +51,100 @@ const MatrimonialList = () => {
               </strong>
             </h2>
           </div>
+          
+          {/* Filter Buttons */}
+          <div className="filter-buttons" style={{ textAlign: 'center', margin: '30px 0' }}>
+            <button 
+              className={filter === 'all' ? 'filter-btn active' : 'filter-btn'}
+              onClick={() => setFilter('all')}
+            >
+              All Profiles
+            </button>
+            <button 
+              className={filter === 'bride' ? 'filter-btn active' : 'filter-btn'}
+              onClick={() => setFilter('bride')}
+            >
+              Brides
+            </button>
+            <button 
+              className={filter === 'groom' ? 'filter-btn active' : 'filter-btn'}
+              onClick={() => setFilter('groom')}
+            >
+              Grooms
+            </button>
+          </div>
         </div>
       </section>
 
-
       <section className="profile-section">
         <div className="container">
-          <div className="profile-grid">
-            {profiles.map((item) => (
-              <div className="profile-card" key={item.id}>
-                <div className="profile-img">
-                  <img src={item.image} alt={item.name} />
-                </div>
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '50px' }}>
+              <p>Loading profiles...</p>
+            </div>
+          ) : (
+            <>
+              <div className="profile-grid">
+                {currentProfiles.map((profile) => (
+                  <div className="profile-card" key={profile.id}>
+                    <div className="profile-img">
+                      <img 
+                        src={profile.profilePhoto ? 
+                          `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/${profile.profilePhoto}` : 
+                          profileImg
+                        } 
+                        alt={`${profile.firstName} ${profile.lastName}`} 
+                      />
+                    </div>
+                    <div className="profile-content">
+                      <span className="profile-id">
+                        Profile ID: {profile.gender === 'Female' ? 'F' : 'M'}-{profile.id}
+                      </span>
+                      <h4 className="profile-name">{profile.firstName} {profile.lastName}</h4>
+                      <p className="profile-dob">
+                        Birth Date: {new Date(profile.dateOfBirth).toLocaleDateString()}
+                      </p>
+                      <p className="profile-info">
+                        Age: {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-                <div className="profile-content">
-                  <span className="profile-id">
-                    Profile ID: {item.profileId}
-                  </span>
-                  <h4 className="profile-name">{item.name}</h4>
-                  <p className="profile-dob">
-                    Birth Date: {item.dob}
-                  </p>
+              {profiles.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '50px' }}>
+                  <p>No profiles found.</p>
                 </div>
+              )}
 
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <button 
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    «
+                  </button>
+                  {[...Array(totalPages)].map((_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => paginate(index + 1)}
+                      className={currentPage === index + 1 ? 'active' : ''}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                  <button 
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    »
+                  </button>
                 </div>
-            ))}
-          </div>
-
-          <div className="pagination">
-            <button>«</button>
-            <button className="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <span>...</span>
-            <button>10</button>
-            <button>»</button>
-          </div>
+              )}
+            </>
+          )}
         </div>
       </section>
     </>

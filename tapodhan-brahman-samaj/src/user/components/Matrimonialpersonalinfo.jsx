@@ -1,115 +1,508 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import metromonialimg from "../../assets/images/matrimonialimg.png";
+import CustomDialog from './CustomDialog';
 
 const Matrimonialpersonalinfo = () => {
+  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [dialog, setDialog] = useState({ isOpen: false, title: '', message: '', type: 'success' });
+
+  const [formData, setFormData] = useState({
+    // Step 1: Personal Information
+    profileFor: 'Myself',
+    maritalStatus: 'Single',
+    noOfChildren: '0',
+    firstName: '',
+    fatherName: '',
+    surname: '',
+    gender: '',
+    dateOfBirth: '',
+    timeOfBirth: '',
+    birthPlace: '',
+    height: '',
+    weight: '',
+    physicalDisability: 'No',
+    glasses: 'No',
+    mangal: 'No',
+    expectation: '',
+    
+    // Step 2: Education, Job & Family Information
+    educationQualification: '',
+    educationDetails: '',
+    jobType: '',
+    jobDescription: '',
+    designation: '',
+    currentLocation: '',
+    incomeCurrency: 'INR',
+    monthlyIncome: '',
+    fatherFullName: '',
+    motherFullName: '',
+    fatherOccupation: '',
+    motherOccupation: '',
+    totalFamilyMembers: '',
+    totalBrothers: '0',
+    totalSisters: '0',
+    marriedBrothers: '0',
+    marriedSisters: '0',
+    familyType: 'Nuclear',
+    familyValues: 'Traditional',
+    familyLocation: '',
+    nativePlace: '',
+    familyWealth: '',
+    contactPersonName: '',
+    contactPersonRelation: '',
+    contactPersonNumber: '',
+    contactPersonEmail: '',
+    contactPersonAddress: ''
+  });
+
+  const handleDialogClose = () => {
+    setDialog({ isOpen: false, title: '', message: '', type: 'success' });
+    if (dialog.type === 'success') {
+      navigate('/matrimonial');
+    }
+  };
+
+  const showDialog = (title, message, type = 'success') => {
+    setDialog({ isOpen: true, title, message, type });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    setProfilePhoto(e.target.files[0]);
+  };
+
+  const validateStep1 = () => {
+    const required = ['firstName', 'fatherName', 'surname', 'gender', 'dateOfBirth', 'timeOfBirth', 'birthPlace', 'height', 'weight'];
+    return required.every(field => formData[field].trim() !== '');
+  };
+
+  const validateStep2 = () => {
+    const required = ['educationQualification', 'jobType', 'designation', 'currentLocation', 'monthlyIncome', 'fatherFullName', 'motherFullName', 'totalFamilyMembers', 'familyLocation', 'nativePlace', 'contactPersonName', 'contactPersonRelation', 'contactPersonNumber', 'contactPersonEmail', 'contactPersonAddress'];
+    return required.every(field => formData[field].trim() !== '');
+  };
+
+  const handleNext = () => {
+    if (!validateStep1()) {
+      setError('Please fill all required fields in Step 1');
+      return;
+    }
+    setError('');
+    setCurrentStep(2);
+  };
+
+  const handlePrevious = () => {
+    setCurrentStep(1);
+    setError('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    
+    if (!validateStep2()) {
+      setError('Please fill all required fields');
+      return;
+    }
+
+    const token = localStorage.getItem('user_token');
+    if (!token) {
+      setError('Please login to create a profile');
+      navigate('/login');
+      return;
+    }
+
+    setLoading(true);
+    
+    try {
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach(key => {
+        formDataToSend.append(key, formData[key]);
+      });
+      
+      if (profilePhoto) {
+        formDataToSend.append('profilePhoto', profilePhoto);
+      }
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profile`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formDataToSend
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showDialog('Profile Submitted!', 'Your profile has been submitted for approval. You will be notified once it is reviewed by our team.', 'success');
+      } else {
+        setError(data.message || 'Failed to create profile');
+      }
+    } catch (error) {
+      console.error('Error creating profile:', error);
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="register-section">
       <div className="container">
         <div className="register-wrapper">
-
-          {/* LEFT IMAGE */}
           <div className="register-left">
             <img src={metromonialimg} alt="matrimonial info" />
           </div>
 
-          {/* RIGHT CONTENT */}
           <div className="register-right">
-
-            {/* HEADER */}
             <div className="header-section">
               <h2 className="header-title">
-                <strong>Personal Information</strong>
+                <strong>
+                  {currentStep === 1 ? 'Personal Information' : 'Family & Contact Information'}
+                </strong>
               </h2>
+              <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
+                Step {currentStep} of 2
+              </p>
             </div>
 
-            {/* FORM */}
-            <form className="register-form">
-              <div className="form-grid">
+            {error && (
+              <div style={{ color: 'red', marginBottom: '20px', textAlign: 'center' }}>
+                {error}
+              </div>
+            )}
 
-                {/* PROFILE FOR */}
-                <div className="form-group full-width">
-                  <label>Profile For*</label>
-                  <select>
-                    <option>Myself</option>
-                    <option>Son</option>
-                    <option>Daughter</option>
-                    <option>Brother</option>
-                    <option>Sister</option>
-                    <option>Relative</option>
-                  </select>
-                </div>
+            <form className="register-form" onSubmit={currentStep === 2 ? handleSubmit : (e) => e.preventDefault()}>
+              {currentStep === 1 && (
+                <div className="form-grid">
+                  <div className="form-group full-width">
+                    <label>Profile For*</label>
+                    <select name="profileFor" value={formData.profileFor} onChange={handleInputChange}>
+                      <option value="Myself">Myself</option>
+                      <option value="Son">Son</option>
+                      <option value="Daughter">Daughter</option>
+                      <option value="Brother">Brother</option>
+                      <option value="Sister">Sister</option>
+                      <option value="Relative">Relative</option>
+                    </select>
+                  </div>
 
-                {/* FIRST NAME */}
-                <div className="form-group">
-                  <label>First Name*</label>
-                  <input type="text" placeholder="Enter first name" />
-                </div>
+                  <div className="form-group">
+                    <label>Marital Status*</label>
+                    <select name="maritalStatus" value={formData.maritalStatus} onChange={handleInputChange}>
+                      <option value="Single">Single</option>
+                      <option value="Divorced">Divorced</option>
+                      <option value="Widowed">Widowed</option>
+                    </select>
+                  </div>
 
-                {/* SURNAME */}
-                <div className="form-group">
-                  <label>Surname*</label>
-                  <input type="text" placeholder="Enter surname" />
-                </div>
+                  <div className="form-group">
+                    <label>Number of Children</label>
+                    <input type="number" name="noOfChildren" value={formData.noOfChildren} onChange={handleInputChange} min="0" />
+                  </div>
 
-                {/* GENDER */}
-                <div className="form-group">
-                  <label>Gender*</label>
-                  <div className="radio-group">
-                    <label>
-                      <input type="radio" name="gender" /> Male
-                    </label>
-                    <label>
-                      <input type="radio" name="gender" /> Female
-                    </label>
+                  <div className="form-group">
+                    <label>First Name*</label>
+                    <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Father Name*</label>
+                    <input type="text" name="fatherName" value={formData.fatherName} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Surname*</label>
+                    <input type="text" name="surname" value={formData.surname} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Gender*</label>
+                    <div className="radio-group">
+                      <label>
+                        <input type="radio" name="gender" value="Male" checked={formData.gender === 'Male'} onChange={handleInputChange} required /> Male
+                      </label>
+                      <label>
+                        <input type="radio" name="gender" value="Female" checked={formData.gender === 'Female'} onChange={handleInputChange} required /> Female
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Date of Birth*</label>
+                    <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Time of Birth*</label>
+                    <input type="time" name="timeOfBirth" value={formData.timeOfBirth} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Birth Place*</label>
+                    <input type="text" name="birthPlace" value={formData.birthPlace} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Height (in cm)*</label>
+                    <input type="number" name="height" value={formData.height} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Weight (in kg)*</label>
+                    <input type="number" name="weight" value={formData.weight} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Physical Disability</label>
+                    <select name="physicalDisability" value={formData.physicalDisability} onChange={handleInputChange}>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Glasses</label>
+                    <select name="glasses" value={formData.glasses} onChange={handleInputChange}>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Mangal</label>
+                    <select name="mangal" value={formData.mangal} onChange={handleInputChange}>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group full-width">
+                    <label>Expectation</label>
+                    <textarea name="expectation" value={formData.expectation} onChange={handleInputChange} rows="3"></textarea>
+                  </div>
+
+                  <div className="form-group full-width">
+                    <label>Profile Photo</label>
+                    <input type="file" accept="image/*" onChange={handleFileChange} />
                   </div>
                 </div>
+              )}
 
-                {/* CURRENT STATUS */}
-                <div className="form-group">
-                  <label>Current Status*</label>
-                  <select>
-                    <option>Single</option>
-                    <option>Married</option>
-                    <option>Divorced</option>
-                    <option>Widowed</option>
-                  </select>
+              {currentStep === 2 && (
+                <div className="form-grid">
+                  <div className="form-group">
+                    <label>Education Qualification*</label>
+                    <input type="text" name="educationQualification" value={formData.educationQualification} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Education Details</label>
+                    <input type="text" name="educationDetails" value={formData.educationDetails} onChange={handleInputChange} />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Job Type*</label>
+                    <select name="jobType" value={formData.jobType} onChange={handleInputChange} required>
+                      <option value="">Select Job Type</option>
+                      <option value="Government">Government</option>
+                      <option value="Private">Private</option>
+                      <option value="Business">Business</option>
+                      <option value="Self-Employed">Self-Employed</option>
+                      <option value="Student">Student</option>
+                      <option value="Unemployed">Unemployed</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Job Description</label>
+                    <input type="text" name="jobDescription" value={formData.jobDescription} onChange={handleInputChange} />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Designation*</label>
+                    <input type="text" name="designation" value={formData.designation} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Current Location*</label>
+                    <input type="text" name="currentLocation" value={formData.currentLocation} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Income Currency</label>
+                    <select name="incomeCurrency" value={formData.incomeCurrency} onChange={handleInputChange}>
+                      <option value="INR">INR</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Monthly Income*</label>
+                    <input type="number" name="monthlyIncome" value={formData.monthlyIncome} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Father Full Name*</label>
+                    <input type="text" name="fatherFullName" value={formData.fatherFullName} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Mother Full Name*</label>
+                    <input type="text" name="motherFullName" value={formData.motherFullName} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Father Occupation</label>
+                    <input type="text" name="fatherOccupation" value={formData.fatherOccupation} onChange={handleInputChange} />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Mother Occupation</label>
+                    <input type="text" name="motherOccupation" value={formData.motherOccupation} onChange={handleInputChange} />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Total Family Members*</label>
+                    <input type="number" name="totalFamilyMembers" value={formData.totalFamilyMembers} onChange={handleInputChange} required min="1" />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Total Brothers</label>
+                    <input type="number" name="totalBrothers" value={formData.totalBrothers} onChange={handleInputChange} min="0" />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Total Sisters</label>
+                    <input type="number" name="totalSisters" value={formData.totalSisters} onChange={handleInputChange} min="0" />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Married Brothers</label>
+                    <input type="number" name="marriedBrothers" value={formData.marriedBrothers} onChange={handleInputChange} min="0" />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Married Sisters</label>
+                    <input type="number" name="marriedSisters" value={formData.marriedSisters} onChange={handleInputChange} min="0" />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Family Type</label>
+                    <select name="familyType" value={formData.familyType} onChange={handleInputChange}>
+                      <option value="Nuclear">Nuclear</option>
+                      <option value="Joint">Joint</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Family Values</label>
+                    <select name="familyValues" value={formData.familyValues} onChange={handleInputChange}>
+                      <option value="Traditional">Traditional</option>
+                      <option value="Modern">Modern</option>
+                      <option value="Liberal">Liberal</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Family Location*</label>
+                    <input type="text" name="familyLocation" value={formData.familyLocation} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Native Place*</label>
+                    <input type="text" name="nativePlace" value={formData.nativePlace} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Family Wealth</label>
+                    <input type="text" name="familyWealth" value={formData.familyWealth} onChange={handleInputChange} />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Contact Person Name*</label>
+                    <input type="text" name="contactPersonName" value={formData.contactPersonName} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Contact Person Relation*</label>
+                    <input type="text" name="contactPersonRelation" value={formData.contactPersonRelation} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Contact Person Number*</label>
+                    <input type="tel" name="contactPersonNumber" value={formData.contactPersonNumber} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Contact Person Email*</label>
+                    <input type="email" name="contactPersonEmail" value={formData.contactPersonEmail} onChange={handleInputChange} required />
+                  </div>
+
+                  <div className="form-group full-width">
+                    <label>Contact Person Address*</label>
+                    <textarea name="contactPersonAddress" value={formData.contactPersonAddress} onChange={handleInputChange} rows="3" required></textarea>
+                  </div>
                 </div>
+              )}
 
-                {/* NUMBER OF CHILDREN */}
-                <div className="form-group">
-                  <label>Number of Children</label>
-                  <input type="number" placeholder="0" />
-                </div>
-
-                {/* DATE OF BIRTH */}
-                <div className="form-group">
-                  <label>Date of Birth*</label>
-                  <input type="date" />
-                </div>
-
-                {/* TIME OF BIRTH */}
-                <div className="form-group">
-                  <label>Time of Birth*</label>
-                  <input type="time" />
-                </div>
-
-                {/* BIRTH PLACE */}
-                <div className="form-group">
-                  <label>Birth Place*</label>
-                  <input type="text" placeholder="Enter city" />
-                </div>
-
+              <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
+                {currentStep === 2 && (
+                  <button 
+                    type="button" 
+                    onClick={handlePrevious}
+                    className="read-more-btn"
+                    style={{ flex: 1 }}
+                  >
+                    <span>Previous</span>
+                  </button>
+                )}
+                
+                {currentStep === 1 ? (
+                  <button 
+                    type="button" 
+                    onClick={handleNext}
+                    className="read-more-btn full-width"
+                  >
+                    <span>Next</span>
+                  </button>
+                ) : (
+                  <button 
+                    type="submit" 
+                    className="read-more-btn"
+                    style={{ flex: 1 }}
+                    disabled={loading}
+                  >
+                    <span>{loading ? 'Creating Profile...' : 'Create Profile'}</span>
+                  </button>
+                )}
               </div>
-
-              {/* NEXT BUTTON */}
-              <button type="submit" className="read-more-btn full-width">
-                <span>Next</span>
-              </button>
             </form>
-
           </div>
         </div>
       </div>
+      
+      <CustomDialog
+        isOpen={dialog.isOpen}
+        onClose={handleDialogClose}
+        title={dialog.title}
+        message={dialog.message}
+        type={dialog.type}
+      />
     </section>
   );
 };

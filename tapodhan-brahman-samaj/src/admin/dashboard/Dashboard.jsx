@@ -5,7 +5,7 @@ import MDBox from "../components/MDBox";
 import DashboardLayout from "../layout/AdminLayout";
 import DashboardNavbar from "../layout/Header";
 import ComplexStatisticsCard from "../components/Cards/StatisticsCards/ComplexStatisticsCard";
-import { fetchDashboardCounts } from "../services/api";
+import { fetchDashboardCounts, fetchPendingProfiles } from "../services/api";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -14,18 +14,24 @@ function Dashboard() {
         totalGrooms: 0,
         totalBusiness: 0,
         totalEvents: 0,
-        pendingBusinessRequests: 0
+        pendingBusinessRequests: 0,
+        pendingProfiles: 0
     });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const loadCounts = async () => {
             try {
-                const data = await fetchDashboardCounts();
-                setCounts(data); // Expecting { totalBrides, totalGrooms, totalBusiness, totalEvents }
+                const [dashboardData, pendingProfilesData] = await Promise.all([
+                    fetchDashboardCounts(),
+                    fetchPendingProfiles()
+                ]);
+                setCounts({
+                    ...dashboardData,
+                    pendingProfiles: pendingProfilesData.length
+                });
             } catch (error) {
                 console.error("Failed to load dashboard counts:", error);
-                // Optional: Handle error UI
             } finally {
                 setLoading(false);
             }
@@ -106,6 +112,21 @@ function Dashboard() {
                                 icon="pending"
                                 title="Pending Business"
                                 count={loading ? "..." : counts.pendingBusinessRequests}
+                                percentage={{
+                                    color: "warning",
+                                    amount: "",
+                                    label: loading ? "Loading..." : "Awaiting Approval",
+                                }}
+                            />
+                        </MDBox>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 6, lg: 3 }}>
+                        <MDBox mb={1.5} onClick={() => navigate('/admin/matrimony/pending')} sx={{ cursor: 'pointer' }}>
+                            <ComplexStatisticsCard
+                                color="secondary"
+                                icon="person_outline"
+                                title="Pending Profiles"
+                                count={loading ? "..." : counts.pendingProfiles}
                                 percentage={{
                                     color: "warning",
                                     amount: "",

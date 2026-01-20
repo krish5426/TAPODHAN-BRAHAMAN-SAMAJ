@@ -8,6 +8,7 @@ import BusinessRegister from "./pages/BusinessRegister";
 import MyBusiness from "./pages/MyBusiness";
 import EditBusiness from "./pages/EditBusiness";
 import EditProfile from "./pages/EditProfile";
+import MyMatrimonyProfile from "./pages/MyMatrimonyProfile";
 import Businesscontact from "./pages/Businesscontact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -54,9 +55,9 @@ function App() {
             <EditProfile />
           </ProtectedRoute>
         } />
-        <Route path="/profile" element={
+        <Route path="/my-matrimony-profile" element={
           <ProtectedRoute>
-            <Profile />
+            <MyMatrimonyProfile />
           </ProtectedRoute>
         } />
       </Route>
