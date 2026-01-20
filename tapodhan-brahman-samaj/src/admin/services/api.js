@@ -31,7 +31,11 @@ export const fetchDashboardCounts = async () => {
         const response = await fetch(`${API_URL}/api/admin/dashboard/counts`, {
             headers: getAuthHeaders()
         });
-        return await handleResponse(response);
+        const data = await handleResponse(response);
+        return {
+            ...data,
+            pendingProfiles: data.pendingProfiles || 0
+        };
     } catch (error) {
         console.error("fetchDashboardCounts error:", error);
         throw error;
@@ -189,6 +193,33 @@ export const fetchAdminBusiness = async () => {
         return await handleResponse(response);
     } catch (error) {
         console.error("fetchAdminBusiness error:", error);
+        throw error;
+    }
+};
+
+export const fetchPendingProfiles = async () => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/profiles?status=pending`, {
+            headers: getAuthHeaders()
+        });
+        const data = await handleResponse(response);
+        return data || [];
+    } catch (error) {
+        console.error("fetchPendingProfiles error:", error);
+        return [];
+    }
+};
+
+export const updateProfileStatus = async (id, status) => {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/profiles/${id}`, {
+            method: 'PUT',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ status })
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("updateProfileStatus error:", error);
         throw error;
     }
 };

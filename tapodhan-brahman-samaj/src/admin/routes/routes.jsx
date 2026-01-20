@@ -2,6 +2,7 @@ import Dashboard from "../dashboard/Dashboard";
 import Brides from "../matrimony/Brides";
 import Grooms from "../matrimony/Grooms";
 import EditProfile from "../matrimony/EditProfile";
+import PendingProfiles from "../matrimony/PendingProfiles";
 import Business from "../business/Business";
 import PendingBusinessRequests from "../business/PendingBusinessRequests";
 import EditBusiness from "../business/EditBusiness";
@@ -93,6 +94,13 @@ const routes = [
     key: "edit-business",
     route: "/admin/business/edit/:id",
     component: <EditBusiness />,
+  },
+  {
+    type: "hidden",
+    name: "Pending Profiles",
+    key: "pending-profiles",
+    route: "/admin/matrimony/pending",
+    component: <PendingProfiles />,
   },
   {
     type: "hidden",

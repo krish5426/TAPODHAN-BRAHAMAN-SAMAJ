@@ -513,22 +513,19 @@ app.get("/profile", authenticateToken, async (req, res) => {
   }
 });
 
-// Get user's business
-app.get("/my-business", authenticateToken, async (req, res) => {
+// Get user's matrimony profile
+app.get("/my-matrimony-profile", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    console.log('Fetching business for userId:', userId);
+    const profile = await Profile.findByUserId(userId);
     
-    const business = await Business.findByUserId(userId);
-    console.log('Found business:', business ? 'Yes' : 'No', business);
-    
-    if (!business) {
-      return res.status(404).json({ message: "No business found" });
+    if (!profile) {
+      return res.status(404).json({ message: "No matrimony profile found" });
     }
     
-    res.json(business);
+    res.json(profile);
   } catch (error) {
-    console.error("Get my business error:", error);
+    console.error("Get my matrimony profile error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -672,6 +669,23 @@ app.get("/test/grooms", async (req, res) => {
   }
 });
 
+// Debug route to check all profiles
+app.get("/test/profiles", async (req, res) => {
+  try {
+    const allProfiles = await Profile.findAll();
+    const pendingProfiles = await Profile.findAll({ status: 'pending' });
+    res.json({ 
+      total: allProfiles.length, 
+      pending: pendingProfiles.length,
+      allProfiles: allProfiles.slice(0, 3), // Show first 3 for debugging
+      pendingProfiles 
+    });
+  } catch (error) {
+    console.error("Test profiles error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.get("/api/admin/business", authenticateToken, async (req, res) => {
   try {
     const { search, businessName, location } = req.query;
@@ -684,6 +698,43 @@ app.get("/api/admin/business", authenticateToken, async (req, res) => {
     res.json(businesses);
   } catch (error) {
     console.error("Get admin businesses error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.put("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const adminId = req.user.adminId;
+
+    const profile = await Profile.findById(id);
+    if (!profile) return res.status(404).json({ message: "Profile not found" });
+
+    // Update profile status
+    const pool = getPool();
+    await pool.execute(
+      'UPDATE profiles SET status = ?, approvedBy = ?, approvedAt = ? WHERE id = ?',
+      [status, adminId, new Date(), id]
+    );
+
+    res.json({ message: `Profile ${status} successfully` });
+  } catch (error) {
+    console.error("Update profile status error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/profiles", authenticateToken, async (req, res) => {
+  try {
+    const { status } = req.query;
+    const filters = {};
+    if (status) filters.status = status;
+    
+    const profiles = await Profile.findAll(filters);
+    res.json(profiles);
+  } catch (error) {
+    console.error("Get admin profiles error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -706,13 +757,15 @@ app.get("/api/admin/dashboard/counts", authenticateToken, async (req, res) => {
     const totalBusiness = (await Business.findAll()).length;
     const totalEvents = (await Event.findAll()).length;
     const pendingBusinessRequests = (await Business.findAll({ status: 'pending' })).length;
+    const pendingProfiles = (await Profile.findAll({ status: 'pending' })).length;
 
     res.json({
       totalBrides,
       totalGrooms,
       totalBusiness,
       totalEvents,
-      pendingBusinessRequests
+      pendingBusinessRequests,
+      pendingProfiles
     });
   } catch (error) {
     console.error("Dashboard counts error:", error);

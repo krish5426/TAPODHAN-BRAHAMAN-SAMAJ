@@ -105,6 +105,8 @@ const Header = () => {
                   {dropdownOpen && (
                     <div className="dropdown-menu">
                       <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Profile</Link>
+                      <Link to="/my-matrimony-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Matrimony Profile</Link>
+                      <Link to="/matrimonial-personal-info" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Create Matrimonial Profile</Link>
                       <Link to="/my-business" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Business</Link>
                       <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                     </div>
@@ -161,6 +163,8 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <Link to="/profile" className="mobile-menu-btn" onClick={toggleMenu}>Profile</Link>
+              <Link to="/my-matrimony-profile" className="mobile-menu-btn" onClick={toggleMenu}>My Matrimony Profile</Link>
+              <Link to="/matrimonial-personal-info" className="mobile-menu-btn" onClick={toggleMenu}>Create Matrimonial Profile</Link>
               <Link to="/my-business" className="mobile-menu-btn" onClick={toggleMenu}>My Business</Link>
               <button className="mobile-menu-btn logout-btn" onClick={() => {
                 handleLogout();
