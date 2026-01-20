@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
-import ogImg from '../assets/images/ogimg.png';
+import ogImg from '../assets/images/logo.png';
 import { API_ENDPOINTS } from '../../config/api';
 
 function Profile() {
@@ -88,6 +88,7 @@ function Profile() {
             <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
             <section className="my-profile-section">
                 <div className="container">
+
                     <div className="user-profile-header">
                         <h1 className="user-profile-title">My Profile</h1>
                         <button 
@@ -95,6 +96,18 @@ function Profile() {
                             onClick={() => navigate('/edit-profile')}
                         >
                             Edit Profile
+
+                    <div className="business-profile-header">
+                        <h1 className="business-profile-title">My Profile</h1>
+                        <button 
+                            className="business-profile-btn"
+                            onClick={() => {
+                                console.log('Edit Profile clicked');
+                                navigate('/edit-profile');
+                            }}
+                        >
+                            EDIT PROFILE
+
                         </button>
                     </div>
 
