@@ -1,4 +1,4 @@
-import aboutimage from '../assets/images/about-image.jpg';
+import aboutimage from '../assets/images/about01.jpg';
 import aboutimage2 from '../assets/images/grid-image.png';
 import aboutimage3 from '../assets/images/team.jpg';
 import aboutBanner from '../assets/images/about-banner.jpg';

@@ -46,7 +46,7 @@ nav ul li {
 
 nav ul li a {
   font-family: "Barlow", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
   font-weight: 500;
   color: #000000;
@@ -1971,7 +1971,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
 section.global-cta {
   float: left;
   width: 100%;
-  padding: 120px 0;
+  padding: 115px 0;
 }
 
 .vision-card-content p {
@@ -3140,7 +3140,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     margin-bottom: 20px;
     line-height: 1.2;
     font-family: 'Barlow Condensed', sans-serif;
-    text-align: left;
+    text-align: center;
 }
 
 .header-title span {
@@ -7709,3 +7709,91 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         width: 100% !important;
     }
 }}
+
+
+
+.user-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  float: left;
+}
+
+.user-profile-title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #000;
+  margin: 0;
+  flex: 1;
+  min-width: 250px;
+}
+
+.user-profile-btn {
+  font-family: "Barlow", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid #B9252F;
+  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.user-profile-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.user-profile-card {
+  background: #ffffff;
+  padding: 40px;
+  margin-bottom: 50px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  float: left;
+  width: -webkit-fill-available;
+}
+
+.user-profile-content {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.user-profile-image {
+  flex: 0 0 250px;
+  min-width: 250px;
+  line-height: 0;
+}
+
+.user-profile-image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: block;
+}
+
+.user-profile-details {
+  flex: 1;
+  min-width: 300px;
+}
+

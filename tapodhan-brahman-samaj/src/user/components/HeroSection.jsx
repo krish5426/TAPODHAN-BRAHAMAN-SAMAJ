@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import gallery1 from '../assets/images/banner1.png';
-import gallery2 from '../assets/images/gallery2.jpg';
-import gallery3 from '../assets/images/gallery3.jpg';
-import gallery4 from '../assets/images/gallery4.jpg';
-import gallery5 from '../assets/images/gallery5.jpg';
-import gallery6 from '../assets/images/gallery6.jpg';
+import banner01 from '../assets/images/banner01.jpg';
+import banner02 from '../assets/images/banner02.jpg';
+import banner03 from '../assets/images/banner03.jpg';
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const backgroundImages = [
-    gallery1,
-    gallery2,
-    gallery3,
-    gallery4,
-    gallery5,
-    gallery6
+    banner02,
+    banner03,
+    banner01
   ];
 
   useEffect(() => {

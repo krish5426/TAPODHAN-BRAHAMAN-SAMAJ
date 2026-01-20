@@ -86,28 +86,28 @@ function Profile() {
     return (
         <>
             <InnerBanner title="Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <section className="my-business-section">
+            <section className="my-profile-section">
                 <div className="container">
-                    <div className="business-profile-header">
-                        <h1 className="business-profile-title">My Business Profile</h1>
+                    <div className="user-profile-header">
+                        <h1 className="user-profile-title">My Profile</h1>
                         <button 
-                            className="business-profile-btn"
+                            className="user-profile-btn"
                             onClick={() => navigate('/edit-profile')}
                         >
-                            EDIT BUSINESS
+                            Edit Profile
                         </button>
                     </div>
 
-                    <div className="business-profile-card">
-                        <div className="business-profile-content">
-                            <div className="business-profile-image">
+                    <div className="user-profile-card">
+                        <div className="user-profile-content">
+                            <div className="user-profile-image">
                                 <img 
                                     src={ogImg} 
                                     alt="Profile" 
                                 />
                             </div>
                             
-                            <div className="business-profile-details">
+                            <div className="user-profile-details">
                                 <h2 className="business-name">{user.firstName} {user.lastName}</h2>
                                 
                                 <div className="business-info-grid">
