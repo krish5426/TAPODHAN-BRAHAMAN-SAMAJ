@@ -122,56 +122,204 @@ function MyMatrimonyProfile() {
                                 <h2 className="business-name">
                                     {profile.firstName} {profile.surname}
                                 </h2>
-                                
-                                <div className="business-info-grid">
-                                    <div className="business-info-item">
-                                        <strong>Gender:</strong>
-                                        {profile.gender}
+
+                                {/* Personal Information Section */}
+                                <div className="profile-section">
+                                    <h3 className="section-title">Personal Information</h3>
+                                    <div className="business-info-grid">
+                                        <div className="business-info-item">
+                                            <strong>Profile For:</strong>
+                                            {profile.profileFor || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Gender:</strong>
+                                            {profile.gender || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Date of Birth:</strong>
+                                            {profile.dateOfBirth ? new Date(profile.dateOfBirth).toLocaleDateString('en-GB') : 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Time of Birth:</strong>
+                                            {profile.timeOfBirth || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Birth Place:</strong>
+                                            {profile.birthPlace || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Marital Status:</strong>
+                                            {profile.maritalStatus || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Number of Children:</strong>
+                                            {profile.noOfChildren || 'N/A'}
+                                        </div>
                                     </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Date of Birth:</strong>
-                                        {profile.dateOfBirth ? new Date(profile.dateOfBirth).toLocaleDateString('en-GB') : 'N/A'}
+                                </div>
+
+                                {/* Physical Details Section */}
+                                <div className="profile-section">
+                                    <h3 className="section-title">Physical Details</h3>
+                                    <div className="business-info-grid">
+                                        <div className="business-info-item">
+                                            <strong>Height:</strong>
+                                            {profile.height || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Weight:</strong>
+                                            {profile.weight || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Physical Disability:</strong>
+                                            {profile.physicalDisability || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Glasses:</strong>
+                                            {profile.glasses || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Mangal:</strong>
+                                            {profile.mangal || 'N/A'}
+                                        </div>
                                     </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>City:</strong>
-                                        {profile.city || 'N/A'}
+                                </div>
+
+                                {/* Education & Occupation Section */}
+                                <div className="profile-section">
+                                    <h3 className="section-title">Education & Occupation</h3>
+                                    <div className="business-info-grid">
+                                        <div className="business-info-item">
+                                            <strong>Education Qualification:</strong>
+                                            {profile.educationQualification || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Education Details:</strong>
+                                            {profile.educationDetails || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Job Type:</strong>
+                                            {profile.jobType || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Job Description:</strong>
+                                            {profile.jobDescription || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Designation:</strong>
+                                            {profile.designation || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Current Location:</strong>
+                                            {profile.currentLocation || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Monthly Income:</strong>
+                                            {profile.monthlyIncome ? `${profile.incomeCurrency || ''} ${profile.monthlyIncome}` : 'N/A'}
+                                        </div>
                                     </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Education:</strong>
-                                        {profile.educationQualification || 'N/A'}
+                                </div>
+
+                                {/* Family Details Section */}
+                                <div className="profile-section">
+                                    <h3 className="section-title">Family Details</h3>
+                                    <div className="business-info-grid">
+                                        <div className="business-info-item">
+                                            <strong>Father's Full Name:</strong>
+                                            {profile.fatherFullName || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Mother's Full Name:</strong>
+                                            {profile.motherFullName || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Father's Occupation:</strong>
+                                            {profile.fatherOccupation || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Mother's Occupation:</strong>
+                                            {profile.motherOccupation || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Total Family Members:</strong>
+                                            {profile.totalFamilyMembers || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Total Brothers:</strong>
+                                            {profile.totalBrothers || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Total Sisters:</strong>
+                                            {profile.totalSisters || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Married Brothers:</strong>
+                                            {profile.marriedBrothers || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Married Sisters:</strong>
+                                            {profile.marriedSisters || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Family Type:</strong>
+                                            {profile.familyType || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Family Values:</strong>
+                                            {profile.familyValues || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Family Location:</strong>
+                                            {profile.familyLocation || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Native Place:</strong>
+                                            {profile.nativePlace || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Family Wealth:</strong>
+                                            {profile.familyWealth || 'N/A'}
+                                        </div>
                                     </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Occupation:</strong>
-                                        {profile.occupation || 'N/A'}
+                                </div>
+
+                                {/* Contact Information Section */}
+                                <div className="profile-section">
+                                    <h3 className="section-title">Contact Information</h3>
+                                    <div className="business-info-grid">
+                                        <div className="business-info-item">
+                                            <strong>Contact Person Name:</strong>
+                                            {profile.contactPersonName || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Contact Person Relation:</strong>
+                                            {profile.contactPersonRelation || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Contact Person Number:</strong>
+                                            {profile.contactPersonNumber || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Contact Person Email:</strong>
+                                            {profile.contactPersonEmail || 'N/A'}
+                                        </div>
+                                        <div className="business-info-item">
+                                            <strong>Contact Person Address:</strong>
+                                            {profile.contactPersonAddress || 'N/A'}
+                                        </div>
                                     </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Contact Email:</strong>
-                                        {profile.contactpersonemail || 'N/A'}
-                                    </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Contact Number:</strong>
-                                        {profile.contactpersonnumber || 'N/A'}
-                                    </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Height:</strong>
-                                        {profile.height || 'N/A'}
-                                    </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Weight:</strong>
-                                        {profile.weight || 'N/A'}
-                                    </div>
-                                    
-                                    <div className="business-info-item">
-                                        <strong>Marital Status:</strong>
-                                        {profile.maritalStatus || 'N/A'}
+                                </div>
+
+                                {/* Expectations Section */}
+                                <div className="profile-section">
+                                    <h3 className="section-title">Expectations</h3>
+                                    <div className="business-info-grid">
+                                        <div className="business-info-item full-width">
+                                            <strong>Partner Expectations:</strong>
+                                            <div className="expectation-text">
+                                                {profile.expectation || 'N/A'}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
