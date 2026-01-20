@@ -96,18 +96,6 @@ function Profile() {
                             onClick={() => navigate('/edit-profile')}
                         >
                             Edit Profile
-
-                    <div className="business-profile-header">
-                        <h1 className="business-profile-title">My Profile</h1>
-                        <button 
-                            className="business-profile-btn"
-                            onClick={() => {
-                                console.log('Edit Profile clicked');
-                                navigate('/edit-profile');
-                            }}
-                        >
-                            EDIT PROFILE
-
                         </button>
                     </div>
 
