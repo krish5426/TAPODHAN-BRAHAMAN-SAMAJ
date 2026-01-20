@@ -64,66 +64,9 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
           fontWeight: 'bold',
           margin: '0 auto 20px'
         }}>
-
-            <div style={{
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                padding: '30px',
-                maxWidth: '400px',
-                width: '90%',
-                textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                fontFamily: '"Barlow", sans-serif'
-            }}>
-                <div style={{
-                    width: '60px',
-                    height: '60px',
-                    backgroundColor: config.bgColor,
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 20px',
-                    fontSize: '30px',
-                    color: 'white'
-                }}>
-                    {config.icon}
-                </div>
-                <h3 style={{
-                    color: '#333',
-                    marginBottom: '15px',
-                    fontSize: '24px'
-                }}>
-                    {config.title}
-                </h3>
-                <p style={{
-                    color: '#666',
-                    marginBottom: '25px',
-                    fontSize: '16px'
-                }}>
-                    {message}
-                </p>
-                <button
-                    onClick={onClose}
-                    style={{
-                        backgroundColor: '#b9252f',
-                        color: 'white',
-                        border: 'none',
-                        padding: '12px 30px',
-                        borderRadius: '8px',
-                        fontSize: '16px',
-                        cursor: 'pointer',
-                        fontWeight: '600'
-                    }}
-                >
-                    OK
-                </button>
-            </div>
-
           {getIcon()}
-
         </div>
-        
+
         <h3 style={{
           margin: '0 0 15px 0',
           fontSize: '20px',
@@ -133,7 +76,7 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
         }}>
           {title}
         </h3>
-        
+
         <p style={{
           margin: '0 0 25px 0',
           fontSize: '16px',
@@ -143,7 +86,7 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
         }}>
           {message}
         </p>
-        
+
         <button
           onClick={onClose}
           style={{
