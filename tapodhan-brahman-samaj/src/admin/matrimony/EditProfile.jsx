@@ -9,6 +9,7 @@ import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
 import MDInput from "../components/MDInput";
+import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import { updateAdminProfile, fetchAdminProfileById } from "../services/api";
@@ -19,6 +20,7 @@ function EditProfile() {
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({});
     const [images, setImages] = useState({ existing: [], new: [], previews: [] });
+    const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
 
     useEffect(() => {
         loadProfile();
@@ -72,10 +74,9 @@ function EditProfile() {
             images.new.forEach(file => data.append("images", file));
 
             await updateAdminProfile(id, data);
-            alert("Profile Updated!");
-            navigate(-1);
+            setDialog({ isOpen: true, message: 'Profile Updated!', type: 'success' });
         } catch (err) {
-            alert("Update failed");
+            setDialog({ isOpen: true, message: 'Update failed', type: 'error' });
         }
     };
 
@@ -205,6 +206,17 @@ function EditProfile() {
                     </MDBox>
                 </Card>
             </MDBox>
+            <AdminCustomDialog 
+                isOpen={dialog.isOpen}
+                message={dialog.message}
+                type={dialog.type}
+                onClose={() => {
+                    setDialog({ isOpen: false, message: '', type: 'success' });
+                    if (dialog.type === 'success') {
+                        navigate(-1);
+                    }
+                }}
+            />
         </AdminLayout>
     );
 }

@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
+import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import DataTable from "../components/Tables/DataTable";
@@ -23,6 +24,7 @@ function PendingBusinessRequests() {
     const [selectedBusiness, setSelectedBusiness] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [actionType, setActionType] = useState('');
+    const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
 
     const columns = [
         { Header: "Business", accessor: "business", width: "35%", align: "left" },
@@ -138,14 +140,14 @@ function PendingBusinessRequests() {
             });
 
             if (response.ok) {
-                alert(`Business ${status} successfully!`);
+                setDialog({ isOpen: true, message: `Business ${status} successfully!`, type: 'success' });
                 fetchPendingRequests();
             } else {
-                alert("Failed to update status");
+                setDialog({ isOpen: true, message: 'Failed to update status', type: 'error' });
             }
         } catch (err) {
             console.error("Status update error:", err);
-            alert("Error updating status");
+            setDialog({ isOpen: true, message: 'Error updating status', type: 'error' });
         }
     };
 
@@ -269,6 +271,12 @@ function PendingBusinessRequests() {
                     </MDButton>
                 </DialogActions>
             </Dialog>
+            <AdminCustomDialog 
+                isOpen={dialog.isOpen}
+                message={dialog.message}
+                type={dialog.type}
+                onClose={() => setDialog({ isOpen: false, message: '', type: 'success' })}
+            />
         </AdminLayout>
     );
 }

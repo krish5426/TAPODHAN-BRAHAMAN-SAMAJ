@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import registerImg from "../assets/images/mobile.png";
 import InnerBanner from "../components/InnerBanner";
+import CustomDialog from "../components/CustomDialog";
 import RegisterBanner from '../assets/images/register-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
 
@@ -18,6 +19,7 @@ const Signup = () => {
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
     const handleChange = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -53,8 +55,7 @@ const Signup = () => {
                 throw new Error(data.message || 'Registration failed');
             }
 
-            alert('Registration successful! Please login.');
-            navigate('/login');
+            setShowSuccessDialog(true);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -128,6 +129,15 @@ const Signup = () => {
                     </div>
                 </div>
             </section>
+            <CustomDialog 
+                isOpen={showSuccessDialog}
+                message="Registration successful! Please login."
+                type="success"
+                onClose={() => {
+                    setShowSuccessDialog(false);
+                    navigate('/login');
+                }}
+            />
         </>
     );
 };

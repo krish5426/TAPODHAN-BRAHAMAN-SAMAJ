@@ -6,6 +6,7 @@ import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
 import MDInput from "../components/MDInput";
+import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import MDAvatar from "../components/MDAvatar";
@@ -24,6 +25,7 @@ function Events() {
     const [showForm, setShowForm] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editId, setEditId] = useState(null);
+    const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
 
     // Form State
     const [formData, setFormData] = useState({
@@ -71,7 +73,7 @@ function Events() {
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files);
         if (files.length + selectedImages.length + existingImages.length > 5) {
-            alert("Maximum 5 event images allowed total.");
+            setDialog({ isOpen: true, message: 'Maximum 5 event images allowed total.', type: 'error' });
             return;
         }
 
@@ -121,7 +123,7 @@ function Events() {
     // Submit Form (Add or Update)
     const handleSubmit = async () => {
         if (!formData.title || !formData.date) {
-            alert("Title and Date are required!");
+            setDialog({ isOpen: true, message: 'Title and Date are required!', type: 'error' });
             return;
         }
 
@@ -153,15 +155,15 @@ function Events() {
         try {
             if (editMode) {
                 await updateAdminEvent(editId, submitData);
-                alert("Event updated successfully!");
+                setDialog({ isOpen: true, message: 'Event updated successfully!', type: 'success' });
             } else {
                 await addAdminEvent(submitData);
-                alert("Event added successfully!");
+                setDialog({ isOpen: true, message: 'Event added successfully!', type: 'success' });
             }
             loadEvents();
             resetForm();
         } catch (error) {
-            alert("Failed to save event. Check console.");
+            setDialog({ isOpen: true, message: 'Failed to save event. Check console.', type: 'error' });
         }
     };
 
@@ -194,7 +196,7 @@ function Events() {
                 await deleteAdminEvent(id);
                 loadEvents();
             } catch (error) {
-                alert("Failed to delete event.");
+                setDialog({ isOpen: true, message: 'Failed to delete event.', type: 'error' });
             }
         }
     };
@@ -364,6 +366,12 @@ function Events() {
                     )}
                 </Grid>
             </MDBox>
+            <AdminCustomDialog 
+                isOpen={dialog.isOpen}
+                message={dialog.message}
+                type={dialog.type}
+                onClose={() => setDialog({ isOpen: false, message: '', type: 'success' })}
+            />
         </AdminLayout>
     );
 }

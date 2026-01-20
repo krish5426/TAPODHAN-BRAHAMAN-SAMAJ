@@ -6,6 +6,7 @@ import Icon from "@mui/material/Icon";
 import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
+import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import { API_URL } from "../services/api";
@@ -15,6 +16,7 @@ function ViewBusiness() {
     const navigate = useNavigate();
     const [business, setBusiness] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
 
     const fetchBusiness = async () => {
         try {
@@ -44,14 +46,14 @@ function ViewBusiness() {
             });
 
             if (response.ok) {
-                alert(`Business ${status} successfully!`);
+                setDialog({ isOpen: true, message: `Business ${status} successfully!`, type: 'success' });
                 setBusiness(prev => ({ ...prev, status }));
             } else {
-                alert("Failed to update status");
+                setDialog({ isOpen: true, message: 'Failed to update status', type: 'error' });
             }
         } catch (err) {
             console.error("Status update error:", err);
-            alert("Error updating status");
+            setDialog({ isOpen: true, message: 'Error updating status', type: 'error' });
         }
     };
 
@@ -221,6 +223,12 @@ function ViewBusiness() {
                     </Card>
                 </MDBox>
             </MDBox>
+            <AdminCustomDialog 
+                isOpen={dialog.isOpen}
+                message={dialog.message}
+                type={dialog.type}
+                onClose={() => setDialog({ isOpen: false, message: '', type: 'success' })}
+            />
         </AdminLayout>
     );
 }

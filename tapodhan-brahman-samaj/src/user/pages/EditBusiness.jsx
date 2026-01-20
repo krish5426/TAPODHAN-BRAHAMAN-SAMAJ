@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
+import CustomDialog from '../components/CustomDialog';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import API_BASE_URL, { API_ENDPOINTS } from '../../config/api';
 
@@ -10,6 +11,7 @@ const EditBusiness = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [posterPhoto, setPosterPhoto] = useState(null);
+  const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
   const navigate = useNavigate();
 
   const breadcrumb = [
@@ -87,15 +89,14 @@ const EditBusiness = () => {
       });
 
       if (response.ok) {
-        alert('Business updated successfully!');
-        navigate('/my-business');
+        setDialog({ isOpen: true, message: 'Business updated successfully!', type: 'success' });
       } else {
         const errorData = await response.json();
-        alert('Error updating business: ' + errorData.message);
+        setDialog({ isOpen: true, message: 'Error updating business: ' + errorData.message, type: 'error' });
       }
     } catch (error) {
       console.error('Error updating business:', error);
-      alert('Error updating business');
+      setDialog({ isOpen: true, message: 'Error updating business', type: 'error' });
     } finally {
       setSaving(false);
     }
@@ -317,6 +318,17 @@ const EditBusiness = () => {
         </div>
       </form>
     </div>
+    <CustomDialog 
+      isOpen={dialog.isOpen}
+      message={dialog.message}
+      type={dialog.type}
+      onClose={() => {
+        setDialog({ isOpen: false, message: '', type: 'success' });
+        if (dialog.type === 'success') {
+          navigate('/my-business');
+        }
+      }}
+    />
     </>
   );
 };

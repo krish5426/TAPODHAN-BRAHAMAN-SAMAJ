@@ -7,6 +7,7 @@ import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
 import MDInput from "../components/MDInput";
+import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import { fetchAdminBusinessById, updateAdminBusiness, API_URL } from "../services/api";
@@ -18,6 +19,7 @@ function EditBusiness() {
     const [formData, setFormData] = useState({});
     const [poster, setPoster] = useState(null); // New file
     const [posterPreview, setPosterPreview] = useState(null);
+    const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
 
     useEffect(() => {
         const loadData = async () => {
@@ -30,7 +32,7 @@ function EditBusiness() {
                 setLoading(false);
             } catch (err) {
                 console.error(err);
-                alert("Failed to load business");
+                setDialog({ isOpen: true, message: 'Failed to load business', type: 'error' });
             }
         };
         loadData();
@@ -69,10 +71,9 @@ function EditBusiness() {
             }
 
             await updateAdminBusiness(id, data);
-            alert("Business Updated!");
-            navigate(-1);
+            setDialog({ isOpen: true, message: 'Business Updated!', type: 'success' });
         } catch (err) {
-            alert("Update failed");
+            setDialog({ isOpen: true, message: 'Update failed', type: 'error' });
         }
     };
 
@@ -137,6 +138,17 @@ function EditBusiness() {
                     </MDBox>
                 </Card>
             </MDBox>
+            <AdminCustomDialog 
+                isOpen={dialog.isOpen}
+                message={dialog.message}
+                type={dialog.type}
+                onClose={() => {
+                    setDialog({ isOpen: false, message: '', type: 'success' });
+                    if (dialog.type === 'success') {
+                        navigate(-1);
+                    }
+                }}
+            />
         </AdminLayout>
     );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
+import CustomDialog from '../components/CustomDialog';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
 
@@ -13,6 +14,7 @@ function EditProfile() {
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
 
     const breadcrumb = [
         { label: 'Home', link: '/' },
@@ -71,15 +73,14 @@ function EditProfile() {
             });
 
             if (response.ok) {
-                alert('Profile updated successfully!');
-                navigate('/profile');
+                setDialog({ isOpen: true, message: 'Profile updated successfully!', type: 'success' });
             } else {
                 const error = await response.json();
-                alert(error.message || 'Failed to update profile');
+                setDialog({ isOpen: true, message: error.message || 'Failed to update profile', type: 'error' });
             }
         } catch (error) {
             console.error('Update error:', error);
-            alert('Failed to update profile');
+            setDialog({ isOpen: true, message: 'Failed to update profile', type: 'error' });
         } finally {
             setSaving(false);
         }
@@ -132,6 +133,17 @@ function EditProfile() {
                     </div>
                 </div>
             </section>
+            <CustomDialog 
+                isOpen={dialog.isOpen}
+                message={dialog.message}
+                type={dialog.type}
+                onClose={() => {
+                    setDialog({ isOpen: false, message: '', type: 'success' });
+                    if (dialog.type === 'success') {
+                        navigate('/profile');
+                    }
+                }}
+            />
         </>
     );
 }
