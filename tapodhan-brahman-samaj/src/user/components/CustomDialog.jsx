@@ -54,7 +54,8 @@ const CustomDialog = ({ isOpen, onClose, message, type = 'success' }) => {
                 maxWidth: '400px',
                 width: '90%',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)'
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+                fontFamily: '"Barlow", sans-serif'
             }}>
                 <div style={{
                     width: '60px',

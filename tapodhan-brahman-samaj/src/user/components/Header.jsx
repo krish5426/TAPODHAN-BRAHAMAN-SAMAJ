@@ -92,30 +92,36 @@ const Header = () => {
               </ul>
             </nav>
             <div className="header-buttons-cols">
-              <GoogleTranslate />
-              {isLoggedIn ? (
-                <div className="user-dropdown">
-                  <button 
-                    className="user-dropdown-btn" 
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                  >
-                    Hi, {user?.firstName || 'User'}
-                    <span className="dropdown-arrow">{dropdownOpen ? '▲' : '▼'}</span>
-                  </button>
-                  {dropdownOpen && (
-                    <div className="dropdown-menu">
-                      <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Profile</Link>
-                      <Link to="/my-business" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Business</Link>
-                      <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  {isLoggedIn ? (
+                    <div className="user-dropdown">
+                      <button 
+                        className="user-dropdown-btn" 
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                      >
+                        Hi, {user?.firstName || 'User'}
+                        <span className="dropdown-arrow">{dropdownOpen ? '▲' : '▼'}</span>
+                      </button>
+                      {dropdownOpen && (
+                        <div className="dropdown-menu">
+                          <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Profile</Link>
+                          <Link to="/my-business" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Business</Link>
+                          <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+                        </div>
+                      )}
                     </div>
+                  ) : (
+                    <>
+                      <Link to="/signup" className="header-button dark-button">Sign Up</Link>
+                      <Link to="/login" className="header-button">Login</Link>
+                    </>
                   )}
                 </div>
-              ) : (
-                <>
-                  <Link to="/signup" className="header-button dark-button">Sign Up</Link>
-                  <Link to="/login" className="header-button">Login</Link>
-                </>
-              )}
+                <div style={{ display: 'block', minHeight: '30px' }}>
+                  <GoogleTranslate />
+                </div>
+              </div>
             </div>
 
             {/* Burger Menu Icon */}
@@ -155,9 +161,6 @@ const Header = () => {
         </nav>
 
         <div className="mobile-menu-buttons">
-          <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
-            <GoogleTranslate />
-          </div>
           {isLoggedIn ? (
             <>
               <Link to="/profile" className="mobile-menu-btn" onClick={toggleMenu}>Profile</Link>

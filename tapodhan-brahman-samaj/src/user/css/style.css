@@ -3064,6 +3064,10 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .desktop-nav ul {
         gap: 7px !important;
     }
+    .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
+        font-size: 10px !important;
+        font-weight: 600 !important;
+    }
 
 /* ===============================
    RESPONSIVE MEDIA QUERIES
@@ -7871,4 +7875,65 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   .user-profile-card form {
     padding: 20px !important;
   }
+}
+
+/* Auth and Translate Container */
+.auth-translate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Google Translate Gadget Styling */
+.goog-te-gadget-simple {
+    background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%) !important;
+    border: 1px solid #666666 !important;
+    padding: 2px 8px 7px 8px !important;
+    border-radius: 4px !important;
+    font-family: "Barlow", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.goog-te-gadget-simple:hover {
+  opacity: 0.9 !important;
+}
+
+.goog-te-gadget-simple a {
+  color: #fff !important;
+  text-decoration: none !important;
+  font-family: "Barlow", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.goog-te-gadget-simple span {
+  color: #fff !important;
+}
+
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.goog-te-menu-value span {
+  color: #fff !important;
+}
+
+.VIpgJd-ZVi9od-xl07Ob-lTBxed {
+  color: #fff !important;
+}
+
+.goog-te-gadget {
+  font-family: "Barlow", sans-serif !important;
+  color: #fff !important;
 }

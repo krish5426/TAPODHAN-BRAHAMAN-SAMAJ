@@ -166,7 +166,7 @@ export default function Businesscontact() {
             }}>
               <button
                 onClick={() => setSelectedBusiness(null)}
-                style={{ position: 'absolute', top: '10px', right: '10px', background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer' }}
+                style={{ position: 'absolute', top: '10px', right: '10px', background: 'linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%)', border: 'none', fontSize: '20px', cursor: 'pointer', color: 'white', width: '30px', height: '30px', borderRadius: '30%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
                 &times;
               </button>
