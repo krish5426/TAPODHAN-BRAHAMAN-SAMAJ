@@ -12,7 +12,10 @@ const MatrimonialSection = () => {
               </h2>
             </div>
             <p className="matrimonial-description">
-             Duis aute irure dolor in reprehenderit in voluptate velit esse dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat  proident, sunt in culpa qui officia deserunt  mollit anim.
+             Bringing together hearts rooted in values and shared traditions.
+             A trusted platform to find meaningful, lifelong relationships.
+             Connect with families who value culture, respect, and commitment.
+             Begin your journey toward a harmonious and happy marriage.
             </p>
              {/*<button className="read-more-btn">
               <span>Register Now</span>

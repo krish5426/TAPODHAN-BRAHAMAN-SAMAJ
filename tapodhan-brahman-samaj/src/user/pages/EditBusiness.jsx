@@ -113,10 +113,14 @@ const EditBusiness = () => {
   return (
     <>
       <InnerBanner title="Edit Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-      <div className="container" style={{padding: '100px 0'}}>
-      <h1 style={{marginBottom: '30px'}}>Edit Business</h1>
-      
-      <form onSubmit={handleSubmit} style={{maxWidth: '800px'}}>
+      <section className="my-profile-section">
+        <div className="container">
+          <div className="user-profile-header">
+            <h1 className="user-profile-title">Edit Business</h1>
+          </div>
+          
+          <div className="user-profile-card">
+            <form onSubmit={handleSubmit} style={{padding: '40px', fontFamily: '"Barlow", sans-serif'}}>
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px'}}>
           <div>
             <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold'}}>Business Name *</label>
@@ -286,37 +290,38 @@ const EditBusiness = () => {
           )}
           <input
             type="file"
+            id="posterPhoto"
             accept="image/*"
             onChange={handleFileChange}
-            style={{width: '100%', padding: '10px', border: '1px solid #ddd'}}
+            style={{display: 'none'}}
           />
+          <label htmlFor="posterPhoto" className="user-profile-btn" style={{display: 'inline-block', cursor: 'pointer', padding: '6px 8px', fontSize: '14px', width: 'auto'}}>
+            Choose File
+          </label>
+          {posterPhoto && <span style={{marginLeft: '10px', fontSize: '14px'}}>{posterPhoto.name}</span>}
         </div>
 
         <div style={{display: 'flex', gap: '15px'}}>
           <button
             type="submit"
             disabled={saving}
-            className="business-hero-btn"
-            style={{padding: '12px 30px'}}
+            className="user-profile-btn"
           >
             {saving ? 'Updating...' : 'Update Business'}
           </button>
           <button
             type="button"
             onClick={() => navigate('/my-business')}
-            style={{
-              padding: '12px 30px',
-              background: '#666',
-              color: '#fff',
-              border: 'none',
-              cursor: 'pointer'
-            }}
+            className="user-profile-btn"
+            style={{background: 'transparent', color: '#b9252f', border: '2px solid #b9252f'}}
           >
             Cancel
           </button>
         </div>
       </form>
-    </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
