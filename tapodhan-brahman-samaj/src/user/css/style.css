@@ -257,7 +257,7 @@ nav ul li a.active {
   text-transform: uppercase;
   display: block;
   padding: 16px 20px;
-  width: 350px;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -325,7 +325,7 @@ nav ul li a.active {
 }
 
 .header-section .header-label {
-    background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+    background: #000;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -334,12 +334,12 @@ nav ul li a.active {
     margin-bottom: 10px;
     padding: 8px 16px;
     font-family: Barlow Condensed,sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 14px;
     display: inline-block;
     position: relative;
     margin-top: 70px;
+    font-weight: 400 !important;
 }
 
 .header-section .header-label::before {
@@ -354,7 +354,9 @@ nav ul li a.active {
   z-index: -1;
   top: 1px;
   border:1px solid #525252;
+  border-radius: 5px;
 }
+
 
 .header-section .header-title {
   font-family: "Barlow Condensed", sans-serif;
@@ -374,6 +376,63 @@ nav ul li a.active {
 }
 
 .header-section .header-title span {
+  color: #000000;
+  font-weight: 400;
+  -webkit-text-fill-color: #000;
+}
+
+.header-section-top .header-label-top {
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 1;
+    color: #525252;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    font-family: Barlow Condensed,sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    display: inline-block;
+    position: relative;
+    margin-top: 0px;
+    font-weight: 400 !important;
+}
+
+.header-section-top .header-label-top::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: no-repeat;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    z-index: -1;
+    top: 1px;
+    border: 1px solid #525252;
+    border-radius: 5px;
+}
+
+.header-section-top .header-title-top {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+
+.header-section-top .header-title-top strong {
+  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.header-section-top .header-title-top span {
   color: #000000;
   font-weight: 400;
   -webkit-text-fill-color: #000;
@@ -502,6 +561,7 @@ nav ul li a.active {
   text-decoration: none;
   text-transform: capitalize;
   transition: 0.3s;
+  letter-spacing: 0;
 }
 
 .read-more-btn::after {
@@ -517,6 +577,7 @@ nav ul li a.active {
   background-size: 11px, 100%;
   transition: 0.3s;
   z-index: -1;
+  border-radius: 5px;
 }
 
 .read-more-btn:hover::after {
@@ -673,7 +734,7 @@ nav ul li a.active {
 }
 
 .events-section {
-  padding: 100px 0;
+  padding: 0px 0;
   float: left;
   width: 100%;
 }
@@ -692,6 +753,7 @@ nav ul li a.active {
   width: 50%;
   padding-top: 80px;
   box-sizing: border-box;
+  border-radius: 5px;
 }
 
 .event-card.featured {
@@ -703,6 +765,7 @@ nav ul li a.active {
   left: 0;
   top: 0;
   background: #000;
+  border-radius: 5px 0 0 0;
   padding: 18px 20px;
   font-family: "Barlow", sans-serif;
   font-size: 16px;
@@ -731,6 +794,7 @@ nav ul li a.active {
   height: 465px;
   object-fit: cover;
   transition: 0.3s;
+  border-radius: 5px;
 }
 
 .event-content .event-image:hover img {
@@ -880,7 +944,7 @@ nav ul li a.active {
 }
 
 .gallery-item img {
-  transition: 0.3s;
+  transition: 0.3s;  
 }
 
 .gallery-item:hover img {
@@ -930,6 +994,7 @@ nav ul li a.active {
 .gallery-grid .gallery-item img {
   width: 100%;
   height: 100%;
+  border-radius: 5px;
   object-fit: cover;
 }
 
@@ -1472,7 +1537,7 @@ nav ul li a.active {
   background: rgba(0, 0, 0, 0.5);
   padding: 160px 0;
   margin-left: 0;
-  border-radius: 10px;
+  border-radius: 0;
   max-width: 100%;
   box-sizing: border-box;
   width: 100%;
@@ -1651,36 +1716,36 @@ section.about-intro {
 }
 
 .about-intro-content .about-tag {
-  position: relative;
-  padding: 10px 20px;
-  font-size: 14px;
-  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  z-index: 1;
-  font-family: "Barlow Condensed", sans-serif;
-  margin-bottom: 10px;
-  font-size: 18px;
-  line-height: 22px;
-  font-weight: 400;
-  color: #fff;
-  display: inline-block;
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 1;
+    color: #525252;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    font-family: Barlow Condensed,sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    display: inline-block;
+    position: relative;
+    margin-top: 0px;
+    font-weight: 300 !important;
 }
 
 .about-intro-content .about-tag::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: linear-gradient(180deg,
-      rgba(185, 37, 47, 1) 0%,
-      rgba(106, 44, 45, 1) 69%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  z-index: -1;
-  top: 1px;
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: no-repeat;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    z-index: -1;
+    top: 1px;
+    border: 1px solid #525252;
+    border-radius: 5px;
 }
 
 .about-intro-content h2 {
@@ -1855,6 +1920,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
 
 .vision-tag {
   background: #fff;
+  border-radius: 5px;
   color: #c93a1d;
   font-size: 12px;
   padding: 4px 12px;
@@ -1881,6 +1947,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
     color: #333;
     background: #fff;
     grid-template-columns: 2fr 1fr;
+    border-radius: 5px;
     width: 50%;
     display: grid;
 }
@@ -1934,19 +2001,20 @@ section.intro-section.mission-statement .about-intro-content h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .vision-tag {
   position: relative;
-  padding: 10px 20px;
+  padding: 5px 10px;
   margin-bottom: 10px;
   display: inline-block;
 
 }
 
 .vision-tag span {
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 14px;
   font-weight: 400;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   -webkit-background-clip: text;
@@ -2087,6 +2155,7 @@ a.service-card {
   flex: 1;
   background: #fff4e8;
   padding: 40px;
+  border-radius: 5px;
 }
 
 .contact-form label {
@@ -2105,6 +2174,7 @@ a.service-card {
   margin-bottom: 20px;
   outline: none;
   font-family: "Barlow", sans-serif;
+  border-radius: 5px;
 }
 
 .two-inputs {
@@ -2147,6 +2217,7 @@ a.service-card {
   border: none;
   padding: 14px;
   font-weight: 600;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -2292,7 +2363,7 @@ a.service-card {
   padding: 6px 18px;
   font-size: 12px;
   font-weight: 600;
-  color: #b9252f;
+  color: #000000;
   background: #fff;
   z-index: 1;
   margin-bottom: 15px;
@@ -2305,9 +2376,8 @@ a.service-card {
   position: absolute;
   inset: 0;
   padding: 1px;
-  background: linear-gradient(180deg,
-      rgba(185, 37, 47, 1) 0%,
-      rgba(106, 44, 45, 1) 69%);
+  border-radius: 5px;
+  background: #000;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -2654,16 +2724,39 @@ a.service-card {
 
 /* --------------------- LABEL --------------------- */
 .business-hero-label {
-  display: inline-block;
-  padding: 12px 22px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #c1272d;
-  border: 1px solid #c1272d;
-  margin-bottom: 20px;
-  margin-top: 100px;
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 1;
+    color: #525252;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    font-family: Barlow Condensed,sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    display: inline-block;
+    position: relative;
+    margin-top: 70px;
+    font-weight: 300 !important;
 }
+
+.business-hero-label::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: no-repeat;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    z-index: -1;
+    top: 1px;
+    border: 1px solid #525252;
+    border-radius: 5px;
+}
+
+
 
 /* --------------------- TITLE --------------------- */
 .business-hero-title {
@@ -2698,6 +2791,7 @@ a.service-card {
 .business-hero-actions input {
   width: 240px;
   height: 48px;
+  border-radius: 5px;
   padding: 0 16px;
   font-size: 14px;
   border: 1px solid #ddd;
@@ -2717,6 +2811,7 @@ a.service-card {
   font-size: 14px;
   font-weight: 600;
   border: none;
+  border-radius: 5px !important;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -2749,6 +2844,13 @@ a.service-card {
     overflow: hidden;
 }
 
+.contact-section-two {
+    background: transparent;
+    padding: 80px 0;
+    padding-top: 0;
+    width: 100%;
+    overflow: hidden;
+}
 
 
 .contact-form label {
@@ -3114,6 +3216,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 .contact-content-two {
     flex: 1;
+    border-radius: 5px;
     max-width: 500px;
 }
 
@@ -3122,16 +3225,37 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 }
 
 .contact-get-started {
-    display: inline-block;
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: 1;
+    color: #525252;
+    margin-bottom: 10px;
     padding: 8px 16px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: #c1272d;
-    border: 1px solid #c1272d;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    font-family: 'Barlow', sans-serif;
+    font-family: Barlow Condensed,sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    display: inline-block;
+    position: relative;
+    margin-top: 70px;
+    font-weight: 300 !important;
+}
+
+/* Gradient Border */
+.contact-get-started::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: no-repeat;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    z-index: -1;
+    top: 1px;
+    border: 1px solid #525252;
+    border-radius: 5px;
 }
 
 .header-title {
@@ -3192,7 +3316,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .community-right img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 5px;
     object-fit: cover;
 }
 
@@ -3215,7 +3339,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 @media (max-width: 1080px) {
     .container {
         max-width: 100%;
-        padding: 0 15px;
+        padding: 0 20px;
     }
 
     .row {
@@ -3868,7 +3992,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     .community-right img {
         max-width: 100%;
         height: auto;
-        border-radius: 8px;
+        border-radius: 5px;
     }
 
     /* Global CTA */
@@ -3977,7 +4101,6 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
     .footer-content {
         flex-direction: column;
-        padding-left: 30px;
         align-items: flex-start;
     }
 
@@ -4067,7 +4190,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 @media (max-width: 767px) {
     .container {
         max-width: 100%;
-        padding: 0 15px;
+        padding: 0 20px;
     }
 
     /* Header */
@@ -4106,9 +4229,6 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     }
 
     /* Mobile Menu Specific Styles */
-    .mobile-nav {
-        display: flex !important;
-    }
 
     .mobile-nav ul {
         display: flex !important;
@@ -4188,6 +4308,42 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     }
 
     .header-section .header-title {
+        font-size: 32px;
+        line-height: 36px;
+    }
+
+    .header-section-top .header-label-top {
+        font-size: 16px;
+        line-height: 20px;
+        padding: 8px 16px;
+        margin-top: 50px;
+    }
+
+    .header-section-top .header-title-top {
+        font-size: 32px;
+        line-height: 36px;
+    }
+
+    .events-section .header-section .header-label {
+        font-size: 16px;
+        line-height: 20px;
+        padding: 8px 16px;
+        margin-top: 50px;
+    }
+
+    .events-section .header-section .header-title-center {
+        font-size: 32px;
+        line-height: 36px;
+    }
+
+    .gallery-section .header-section .header-label {
+        font-size: 16px;
+        line-height: 20px;
+        padding: 8px 16px;
+        margin-top: 40px;
+    }
+
+    .gallery-section .header-section .header-title {
         font-size: 32px;
         line-height: 36px;
     }
@@ -4825,7 +4981,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 @media (max-width: 575px) {
     .container {
         max-width: 100%;
-        padding: 0 15px;
+        padding: 0 20px;
     }
 
     .header-buttons-cols a.header-button {
@@ -4842,6 +4998,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     height: 93%;
     background-position: 18px 12px, center;
     background-size: 8px, 100%;
+    border-radius: 5px;
     }
 
     /* Header */
@@ -5070,7 +5227,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 ================================ */
 @media (max-width: 480px) {
     .container {
-        padding: 0 40px;
+        padding: 0 20px;
     }
 
     .header-buttons-cols a.header-button {
@@ -5159,7 +5316,43 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
     .header-section .header-title {
         font-size: 24px;
-        line-height: 22px;
+        line-height: 26px;
+    }
+
+    .header-section-top .header-label-top {
+        font-size: 14px;
+        line-height: 18px;
+        padding: 6px 14px;
+        margin-top: 40px;
+    }
+
+    .header-section-top .header-title-top {
+        font-size: 24px;
+        line-height: 26px;
+    }
+
+    .events-section .header-section .header-label {
+        font-size: 14px;
+        line-height: 18px;
+        padding: 6px 14px;
+        margin-top: 40px;
+    }
+
+    .events-section .header-section .header-title-center {
+        font-size: 24px;
+        line-height: 26px;
+    }
+
+    .gallery-section .header-section .header-label {
+        font-size: 14px;
+        line-height: 18px;
+        padding: 6px 14px;
+        margin-top: 0px;
+    }
+
+    .gallery-section .header-section .header-title {
+        font-size: 24px;
+        line-height: 26px;
     }
 
     /* Services */
@@ -5216,6 +5409,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         width: 36px;
         background-size: 8px, 100%;
         background-position: 15px 12px, center;
+        border-radius: 5px;
     }
 
     /* About Intro */
@@ -5981,13 +6175,17 @@ section.intro-section.mission-statement .about-intro-content h2 br {
    PHONE-SPECIFIC RESPONSIVE CSS
    Resolution Range: 320px - 480px
 ================================ */
-
+@media (max-width: 480px) {
+.intro-section.mission-statement .container.about-intro-grid {
+    gap: 30px !important;
+ }
+}
 /* ===============================
    360px - Standard Small Phones
 ================================ */
 @media (max-width: 360px) {
     .container {
-        padding: 0 10px;
+        padding: 0 20px;
     }
 
     .header-buttons-cols a.header-button {
@@ -6071,6 +6269,42 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 22px;
     }
 
+    .header-section-top .header-label-top {
+        font-size: 13px;
+        line-height: 16px;
+        padding: 5px 12px;
+        margin-top: 35px;
+    }
+
+    .header-section-top .header-title-top {
+        font-size: 22px;
+        line-height: 22px;
+    }
+
+    .events-section .header-section .header-label {
+        font-size: 13px;
+        line-height: 16px;
+        padding: 5px 12px;
+        margin-top: 35px;
+    }
+
+    .events-section .header-section .header-title-center {
+        font-size: 22px;
+        line-height: 22px;
+    }
+
+    .gallery-section .header-section .header-label {
+        font-size: 13px;
+        line-height: 16px;
+        padding: 5px 12px;
+        margin-top: 0px;
+    }
+
+    .gallery-section .header-section .header-title {
+        font-size: 22px;
+        line-height: 22px;
+    }
+
     /* Services */
     .services-section {
         padding: 30px 0;
@@ -6125,6 +6359,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         width: 36px;
         background-size: 8px, 100%;
         background-position: 15px 12px, center;
+        border-radius: 5px;
     }
 
     /* About Intro */
@@ -6823,7 +7058,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 ================================ */
 @media (max-width: 320px) {
     .container {
-        padding: 0 8px;
+        padding: 0 20px;
     }
 
     .header-buttons-cols a.header-button {
@@ -6907,6 +7142,42 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 24px;
     }
 
+    .header-section-top .header-label-top {
+        font-size: 12px;
+        line-height: 15px;
+        padding: 4px 10px;
+        margin-top: 30px;
+    }
+
+    .header-section-top .header-title-top {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .events-section .header-section .header-label {
+        font-size: 12px;
+        line-height: 15px;
+        padding: 4px 10px;
+        margin-top: 30px;
+    }
+
+    .events-section .header-section .header-title-center {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .gallery-section .header-section .header-label {
+        font-size: 12px;
+        line-height: 15px;
+        padding: 4px 10px;
+        margin-top: 0px;
+    }
+
+    .gallery-section .header-section .header-title {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
     /* Services */
     .services-section {
         padding: 25px 0;
@@ -6961,6 +7232,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         width: 36px;
         background-size: 8px, 100%;
         background-position: 11px 11px, center;
+        border-radius: 5px; 
     }
 
     /* About Intro */
@@ -7960,7 +8232,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 /* Google Translate Gadget Styling */
 .goog-te-gadget-simple {
-    background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%) !important;
+    background: #ffffff !important;
     border: 1px solid #666666 !important;
     padding: 2px 8px 7px 8px !important;
     border-radius: 4px !important;
@@ -7985,7 +8257,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 }
 
 .goog-te-gadget-simple span {
-  color: #fff !important;
+  color: #000 !important;
 }
 
 .goog-te-gadget-icon {
@@ -8083,3 +8355,20 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 }
 
 
+/* Business Modal Responsive Styles */
+@media (max-width: 768px) {
+  .business-left {
+    flex: 1 1 100% !important;
+    min-width: 100% !important;
+  }
+  
+  .business-right {
+    flex: 1 1 100% !important;
+  }
+  
+  /* Hide category column in business directory table on mobile */
+  .directory-table th:nth-child(4),
+  .directory-table td:nth-child(4) {
+    display: none !important;
+  }
+}

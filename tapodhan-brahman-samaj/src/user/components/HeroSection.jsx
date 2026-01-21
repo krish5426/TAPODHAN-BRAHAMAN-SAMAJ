@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import banner01 from '../assets/images/banner01.jpg';
 import banner02 from '../assets/images/banner02.jpg';
@@ -40,7 +41,7 @@ const HeroSection = () => {
             <h1>Tapodhan Brahman Samaj<br />
               Charitable Trust (TBSCT)</h1>
             <p>Come, join hands with our vibrant community and be a part of something meaningful.</p>
-            <button className="read-more-btn"><span>Get Started</span></button>
+            <Link to="/about"><button className="read-more-btn"><span>Get Started</span></button></Link>
           </div>
         </div>
       </div>

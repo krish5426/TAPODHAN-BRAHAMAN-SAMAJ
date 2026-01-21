@@ -21,6 +21,17 @@ export default function Businesscontact() {
     { label: 'Business Directory' }
   ];
 
+  useEffect(() => {
+    if (selectedBusiness) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedBusiness]);
+
   const fetchBusinesses = async (name = "", loc = "") => {
     setLoading(true);
     try {
@@ -162,7 +173,7 @@ export default function Businesscontact() {
           }}>
             <div style={{
               backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '90%', maxWidth: '700px',
-              maxHeight: '90vh', overflowY: 'auto', position: 'relative'
+              maxHeight: '90vh', overflowY: 'auto', position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '20px'
             }}>
               <button
                 onClick={() => setSelectedBusiness(null)}
@@ -170,8 +181,8 @@ export default function Businesscontact() {
               >
                 &times;
               </button>
-              <h2 style={{ marginBottom: '15px' }}>{selectedBusiness.businessName}</h2>
-              <div className="business-left">
+              <h2 style={{ marginBottom: '15px', width: '100%' }}>{selectedBusiness.businessName}</h2>
+              <div className="business-left" style={{ flex: '1 1 250px', minWidth: '250px' }}>
               {selectedBusiness.posterPhoto && (
                 
                 <img
@@ -181,7 +192,7 @@ export default function Businesscontact() {
                 />
               )}
               </div>
-              <div className="business-right">
+              <div className="business-right" style={{ flex: '1 1 300px' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
                 <p><strong>Owner:</strong> {selectedBusiness.ownerName}</p>
                 <p><strong>Type:</strong> {selectedBusiness.businessType}</p>

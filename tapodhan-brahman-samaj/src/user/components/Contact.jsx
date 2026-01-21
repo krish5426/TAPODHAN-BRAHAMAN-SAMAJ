@@ -26,7 +26,12 @@ const Contact = () => {
             <div className="contact-info">
               <div className="info-item">
                 <h3>Office Address</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+                <p><strong>Tapodhan Brahman Samaj Charitable Trust </strong>
+Ramji Pura,
+Near Achalapura,
+Siddhpur-384141
+Dist - Patan
+Gujarat</p>
               </div>
 
               <div className="info-item">

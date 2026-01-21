@@ -66,6 +66,7 @@ const Header = () => {
     <>
       <header className="header">
         <div className="container">
+          
           <div className="header-row">
             <div className="logo-container">
               <a href='/'><img src={logo} className="logo-image" alt="Tapodhan Brahman Samaj Logo" /></a>
@@ -121,7 +122,7 @@ const Header = () => {
                     </>
                   )}
                 </div>
-                <div style={{ display: 'block', minHeight: '30px' }}>
+                <div style={{ display: 'block', minHeight: '30px', position: 'absolute', top: '5px' }}>
                   <GoogleTranslate />
                 </div>
               </div>

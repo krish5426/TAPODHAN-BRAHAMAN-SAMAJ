@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import aboutImage from "../assets/images/about-illustration.png";
 const Homeabout = () => {
   return (
@@ -6,9 +7,9 @@ const Homeabout = () => {
       <div className="container">
         <div className="row">
           <div className="about-content">
-            <div className="header-section">
-              <span className="header-label">ABOUT US</span>
-              <h2 className="header-title">
+            <div className="header-section-top">
+              <span className="header-label-top">ABOUT US</span>
+              <h2 className="header-title-top">
                 <strong> <span>UNITED BY </span>HERITAGE,<br />
                   COMMITTED <span>TO</span> HUMANITY.</strong>
               </h2>
@@ -35,9 +36,9 @@ const Homeabout = () => {
                 preservation.
               </p>
             </div>
-            <button className="read-more-btn">
+            <Link to="/about"><button className="read-more-btn">
               <span>Read More</span>
-            </button>
+            </button></Link>
           </div>
           <div className="about-visual">
             <img src={aboutImage} alt="About Illustration" />

@@ -19,7 +19,7 @@ const Contact = () => {
       />
       <Contactform />
       <Contactmap />
-      <Contactgetstarted />
+      
     </>
   );
 

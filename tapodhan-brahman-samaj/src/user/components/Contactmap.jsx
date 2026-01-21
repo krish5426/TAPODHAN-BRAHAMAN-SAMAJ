@@ -3,14 +3,14 @@ import React from "react";
 
 const Contactmap = () => {
   return (
-    <section className="contact-section">
+    <section className="contact-section-two">
       <div className="container">
 
         {/* Map Section */}
         <div className="map-wrapper">
           <iframe
             title="Google Map"
-            src="https://www.google.com/maps?q=New%20Delhi&output=embed"
+            src="https://www.google.com/maps?q=Ramji+Pura,+Near+Achalapura,+Siddhpur-384141+Dist+-+Patan+Gujarat&output=embed"
             allowFullScreen=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

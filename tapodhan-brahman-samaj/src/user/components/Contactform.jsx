@@ -93,7 +93,12 @@ const Contactform = () => {
                 <img src={location} alt="Location" className="info-icon" />
                 <div>
                   <h4>Visit Our Office</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+                  <p><strong>Tapodhan Brahman Samaj Charitable Trust </strong><br />
+                  Ramji Pura,
+                  Near Achalapura,
+                  Siddhpur-384141
+                  Dist - Patan
+                  Gujarat</p>
                 </div>
               </div>
             </div>
