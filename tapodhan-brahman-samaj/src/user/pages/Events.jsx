@@ -57,7 +57,7 @@ const Events = () => {
         backgroundImage={bannerImage}
       />
       
-      <section className="events-section">
+      <section className="events-section new">
         <div className="container">
           {/* Latest Event Section */}
           {latestEvent && (

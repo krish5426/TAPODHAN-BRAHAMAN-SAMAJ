@@ -734,8 +734,10 @@ nav ul li a.active {
 }
 
 .events-section {
-  padding: 0px 0;
+  padding: 60px 0;
   float: left;
+  padding-top: 0;
+  padding-bottom: 0;
   width: 100%;
 }
 
@@ -4312,6 +4314,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 36px;
     }
 
+    .header-section .header-title-center {
+        font-size: 32px;
+        line-height: 36px;
+    }
+
     .header-section-top .header-label-top {
         font-size: 16px;
         line-height: 20px;
@@ -4342,6 +4349,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         padding: 8px 16px;
         margin-top: 40px;
     }
+    
 
     .gallery-section .header-section .header-title {
         font-size: 32px;
@@ -5228,6 +5236,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 @media (max-width: 480px) {
     .container {
         padding: 0 20px;
+        
     }
 
     .header-buttons-cols a.header-button {
@@ -5319,6 +5328,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 26px;
     }
 
+    .header-section .header-title-center {
+        font-size: 24px;
+        line-height: 26px;
+    }
+
     .header-section-top .header-label-top {
         font-size: 14px;
         line-height: 18px;
@@ -5347,7 +5361,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         font-size: 14px;
         line-height: 18px;
         padding: 6px 14px;
-        margin-top: 0px;
+        margin-top: 40px;
     }
 
     .gallery-section .header-section .header-title {
@@ -5585,8 +5599,21 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
     /* Events Section */
     .events-section {
-        padding: 35px 0;
+        padding: 60px 0;
+        padding-bottom: 0;
+        padding-top: 0;
     }
+
+    .new {
+        margin-top: 60px !important;
+    }
+
+    .events-section-event {
+        padding: 60px 0;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
 
     .events-section .header-section .header-title {
         margin-bottom: 30px;
@@ -6167,6 +6194,10 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         height: auto;
         border-radius: 8px;
     }
+        .header-section .header-title-center {
+        font-size: 22px !important;
+        line-height: 22px;
+    }
 }
 
 
@@ -6269,6 +6300,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 22px;
     }
 
+    .header-section .header-title-center {
+        font-size: 22px;
+        line-height: 22px;
+    }
+
     .header-section-top .header-label-top {
         font-size: 13px;
         line-height: 16px;
@@ -6297,7 +6333,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         font-size: 13px;
         line-height: 16px;
         padding: 5px 12px;
-        margin-top: 0px;
+        margin-top: 40px;
+    }
+     .header-section .header-title-center {
+        font-size: 24px;
+        line-height: 24px;
     }
 
     .gallery-section .header-section .header-title {
@@ -7142,6 +7182,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 24px;
     }
 
+    .header-section .header-title-center {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
     .header-section-top .header-label-top {
         font-size: 12px;
         line-height: 15px;
@@ -7170,7 +7215,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         font-size: 12px;
         line-height: 15px;
         padding: 4px 10px;
-        margin-top: 0px;
+        margin-top: 40px;
     }
 
     .gallery-section .header-section .header-title {
