@@ -9,6 +9,7 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const burgerRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const overlayRef = useRef(null);
@@ -53,6 +54,15 @@ const Header = () => {
     return () => document.removeEventListener('keydown', closeOnEsc);
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 1);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('user_token');
     localStorage.removeItem('user_details');
@@ -64,7 +74,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="header">
+      <header className={`header ${scrolled ? 'header-alt' : ''}`}>
         <div className="container">
           
           <div className="header-row">
@@ -95,7 +105,7 @@ const Header = () => {
             <div className="header-buttons-cols">
 
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                <div className="mobile_div_hide" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                   {isLoggedIn ? (
                     <div className="user-dropdown">
                       <button 
@@ -122,7 +132,7 @@ const Header = () => {
                     </>
                   )}
                 </div>
-                <div style={{ display: 'block', minHeight: '30px', position: 'absolute', top: '5px' }}>
+                <div className="mobile_language" style={{ display: 'block', minHeight: '30px', position: 'fixed', bottom: '10px', right: '25px' }}>
                   <GoogleTranslate />
                 </div>
               </div>

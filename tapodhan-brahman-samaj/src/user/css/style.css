@@ -14,6 +14,20 @@
   width: 100%;
   padding: 20px 0;
   background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  transition: all 0.3s ease;
+}
+
+.header.header-alt {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+}
+
+.header.header-alt .logo-container img {
+  width: 150px;
 }
 
 .header-row {
@@ -30,6 +44,7 @@
 .logo-container img {
   height: auto;
   display: block;
+  transition: all 0.3s ease;
 }
 
 nav ul {
@@ -3171,9 +3186,20 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         gap: 7px !important;
     }
     .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
-        font-size: 10px !important;
+        font-size: 14px !important;
         font-weight: 600 !important;
     }
+    .new {
+        margin-top: 60px !important;
+    }
+    main.main-content {
+    margin-top: 120px;
+}
+
+span[aria-hidden="true"],
+span[style*="border-left"] {
+    display: none;
+}
 
 /* ===============================
    RESPONSIVE MEDIA QUERIES
@@ -4168,6 +4194,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     
     .mobile-nav {
         display: block !important;
+        flex: inherit;
     }
     
     .mobile-nav ul {
@@ -4190,6 +4217,12 @@ section.intro-section.mission-statement .about-intro-content h2 br {
    767px - Tablets (Portrait) & Mobile (Landscape)
 ================================ */
 @media (max-width: 767px) {
+
+    
+    .mobile-menu-btn {padding:10px 20px;}
+    .mobile_div_hide {
+    display: none !important;
+}
     .container {
         max-width: 100%;
         padding: 0 20px;
@@ -4222,9 +4255,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     }
 
     /* Header Buttons - Hide on mobile */
-    .header-buttons-cols {
-        display: none !important;
-    }
+    
 
     .user-dropdown {
         display: none !important;
@@ -4233,9 +4264,13 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     /* Mobile Menu Specific Styles */
 
     .mobile-nav ul {
-        display: flex !important;
-        flex-direction: column !important;
-    }
+    display: grid !important;
+    flex-direction: row !important;
+    grid-template-columns: 1fr 1fr;
+}
+.mobile-nav ul li:last-child {
+    border-bottom: 1px solid #f0f0f0;
+}
 
     .mobile-nav ul li {
         display: block !important;
@@ -4980,6 +5015,10 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 20px;
         text-align: center;
     }
+
+    main.main-content {
+    margin-top: 75px;
+}
 }
 
 
@@ -8279,10 +8318,10 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .goog-te-gadget-simple {
     background: #ffffff !important;
     border: 1px solid #666666 !important;
-    padding: 2px 8px 7px 8px !important;
-    border-radius: 4px !important;
+    padding: 0px 21px 10px 21px !important;
+    border-radius: 32px !important;
     font-family: "Barlow", sans-serif !important;
-    font-size: 12px !important;
+    font-size: 24px !important;
     font-weight: 500 !important;
     text-transform: uppercase !important;
     cursor: pointer !important;
@@ -8321,6 +8360,30 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   font-family: "Barlow", sans-serif !important;
   color: #fff !important;
 }
+
+/* Language Switcher */
+.language-switcher {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  z-index: 9999;
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.language-switcher select {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  cursor: pointer;
+  background: transparent;
+  font-weight: 500;
+  font-family: 'Barlow', sans-serif;
+}
+
 
 /* Matrimony Profile Status Styles */
 .profile-status {
