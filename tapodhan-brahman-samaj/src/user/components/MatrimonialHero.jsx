@@ -4,9 +4,9 @@ const MatrimonialSection = () => {
       <div className="container">
         <div className="matrimonial-content">
           <div className="matrimonial-text">
-            <div className="header-section">
-              <h4 className="header-label">Matrimonial</h4>
-              <h2 className="header-title">
+            <div className="header-section-top">
+              <h4 className="header-label-top">Matrimonial</h4>
+              <h2 className="header-title-top">
                 <strong><span className="highlight"> Uniting</span> Hearts,<br />
                   <span className="highlight">Respecting</span> Traditions</strong>   
               </h2>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import banner01 from '../assets/images/banner01.jpg';
-import banner02 from '../assets/images/banner02.jpg';
-import banner03 from '../assets/images/banner03.jpg';
+import banner01 from '../assets/images/banner01_01.jpg';
+import banner02 from '../assets/images/banner02_02.jpg';
+import banner03 from '../assets/images/banner03_03.jpg';
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
