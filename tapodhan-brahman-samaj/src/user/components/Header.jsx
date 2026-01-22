@@ -82,9 +82,9 @@ const Header = () => {
                 <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""}>
                   Events
                 </NavLink></li>
-                <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
+               {/*<li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
                   Matrimonial
-                </NavLink></li>
+                </NavLink></li> */}
                 <li> <NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""}>
                   Business Directory
                 </NavLink></li> <li> <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>

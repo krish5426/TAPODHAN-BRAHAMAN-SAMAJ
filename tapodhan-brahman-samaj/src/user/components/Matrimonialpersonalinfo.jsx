@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import metromonialimg from "../../assets/images/matrimonialimg.png";
 import CustomDialog from './CustomDialog';
+import { API_ENDPOINTS } from '../../config/api';
 
 const Matrimonialpersonalinfo = () => {
   const navigate = useNavigate();
@@ -10,6 +11,144 @@ const Matrimonialpersonalinfo = () => {
   const [error, setError] = useState('');
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [dialog, setDialog] = useState({ isOpen: false, title: '', message: '', type: 'success' });
+  const [existingProfiles, setExistingProfiles] = useState([]);
+  const [showProfileList, setShowProfileList] = useState(true);
+  const [editingProfile, setEditingProfile] = useState(null);
+
+  // Fetch existing profiles on component mount
+  useEffect(() => {
+    fetchExistingProfiles();
+  }, []);
+
+  const fetchExistingProfiles = async () => {
+    try {
+      const token = localStorage.getItem('user_token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      const response = await fetch(API_ENDPOINTS.MY_MATRIMONY_PROFILES, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const profiles = await response.json();
+        setExistingProfiles(profiles);
+      }
+    } catch (error) {
+      console.error('Error fetching profiles:', error);
+    }
+  };
+
+  const handleCreateNewProfile = () => {
+    setEditingProfile(null);
+    resetForm();
+    setShowProfileList(false);
+  };
+
+  const handleEditProfile = (profile) => {
+    setEditingProfile(profile);
+    setFormData({
+      profileFor: profile.profileFor || 'Myself',
+      maritalStatus: profile.maritalStatus || 'Single',
+      noOfChildren: profile.noOfChildren || '0',
+      firstName: profile.firstName || '',
+      fatherName: profile.fatherName || '',
+      surname: profile.surname || '',
+      gender: profile.gender || '',
+      dateOfBirth: profile.dateOfBirth || '',
+      timeOfBirth: profile.timeOfBirth || '',
+      birthPlace: profile.birthPlace || '',
+      height: profile.height || '',
+      weight: profile.weight || '',
+      physicalDisability: profile.physicalDisability || 'No',
+      glasses: profile.glasses || 'No',
+      mangal: profile.mangal || 'No',
+      expectation: profile.expectation || '',
+      educationQualification: profile.educationQualification || '',
+      educationDetails: profile.educationDetails || '',
+      jobType: profile.jobType || '',
+      jobDescription: profile.jobDescription || '',
+      designation: profile.designation || '',
+      currentLocation: profile.currentLocation || '',
+      incomeCurrency: profile.incomeCurrency || 'INR',
+      monthlyIncome: profile.monthlyIncome || '',
+      fatherFullName: profile.fatherFullName || '',
+      motherFullName: profile.motherFullName || '',
+      fatherOccupation: profile.fatherOccupation || '',
+      motherOccupation: profile.motherOccupation || '',
+      totalFamilyMembers: profile.totalFamilyMembers || '',
+      totalBrothers: profile.totalBrothers || '0',
+      totalSisters: profile.totalSisters || '0',
+      marriedBrothers: profile.marriedBrothers || '0',
+      marriedSisters: profile.marriedSisters || '0',
+      familyType: profile.familyType || 'Nuclear',
+      familyValues: profile.familyValues || 'Traditional',
+      familyLocation: profile.familyLocation || '',
+      nativePlace: profile.nativePlace || '',
+      familyWealth: profile.familyWealth || '',
+      contactPersonName: profile.contactPersonName || '',
+      contactPersonRelation: profile.contactPersonRelation || '',
+      contactPersonNumber: profile.contactPersonNumber || '',
+      contactPersonEmail: profile.contactPersonEmail || '',
+      contactPersonAddress: profile.contactPersonAddress || ''
+    });
+    setShowProfileList(false);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      profileFor: 'Myself',
+      maritalStatus: 'Single',
+      noOfChildren: '0',
+      firstName: '',
+      fatherName: '',
+      surname: '',
+      gender: '',
+      dateOfBirth: '',
+      timeOfBirth: '',
+      birthPlace: '',
+      height: '',
+      weight: '',
+      physicalDisability: 'No',
+      glasses: 'No',
+      mangal: 'No',
+      expectation: '',
+      educationQualification: '',
+      educationDetails: '',
+      jobType: '',
+      jobDescription: '',
+      designation: '',
+      currentLocation: '',
+      incomeCurrency: 'INR',
+      monthlyIncome: '',
+      fatherFullName: '',
+      motherFullName: '',
+      fatherOccupation: '',
+      motherOccupation: '',
+      totalFamilyMembers: '',
+      totalBrothers: '0',
+      totalSisters: '0',
+      marriedBrothers: '0',
+      marriedSisters: '0',
+      familyType: 'Nuclear',
+      familyValues: 'Traditional',
+      familyLocation: '',
+      nativePlace: '',
+      familyWealth: '',
+      contactPersonName: '',
+      contactPersonRelation: '',
+      contactPersonNumber: '',
+      contactPersonEmail: '',
+      contactPersonAddress: ''
+    });
+    setCurrentStep(1);
+    setError('');
+    setProfilePhoto(null);
+  };
 
   const [formData, setFormData] = useState({
     // Step 1: Personal Information
@@ -63,7 +202,8 @@ const Matrimonialpersonalinfo = () => {
   const handleDialogClose = () => {
     setDialog({ isOpen: false, title: '', message: '', type: 'success' });
     if (dialog.type === 'success') {
-      navigate('/matrimonial');
+      setShowProfileList(true);
+      // Don't navigate away, stay on the profiles page
     }
   };
 
@@ -110,7 +250,7 @@ const Matrimonialpersonalinfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (!validateStep2()) {
       setError('Please fill all required fields');
       return;
@@ -124,19 +264,25 @@ const Matrimonialpersonalinfo = () => {
     }
 
     setLoading(true);
-    
+
     try {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach(key => {
         formDataToSend.append(key, formData[key]);
       });
-      
+
       if (profilePhoto) {
         formDataToSend.append('profilePhoto', profilePhoto);
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profile`, {
-        method: 'POST',
+      const url = editingProfile
+        ? `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/admin/profiles/${editingProfile.id}`
+        : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profile`;
+
+      const method = editingProfile ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Authorization': `Bearer ${token}`
         },
@@ -146,17 +292,111 @@ const Matrimonialpersonalinfo = () => {
       const data = await response.json();
 
       if (response.ok) {
-        showDialog('Profile Submitted!', 'Your profile has been submitted for approval. You will be notified once it is reviewed by our team.', 'success');
+        const successMessage = editingProfile
+          ? 'Profile updated successfully!'
+          : 'Profile submitted for approval. You will be notified once reviewed.';
+        showDialog(
+          editingProfile ? 'Profile Updated!' : 'Profile Submitted!',
+          successMessage,
+          'success'
+        );
+        // Refresh profiles list
+        fetchExistingProfiles();
       } else {
-        setError(data.message || 'Failed to create profile');
+        setError(data.message || `Failed to ${editingProfile ? 'update' : 'create'} profile`);
       }
     } catch (error) {
-      console.error('Error creating profile:', error);
+      console.error(`Error ${editingProfile ? 'updating' : 'creating'} profile:`, error);
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+
+  if (showProfileList) {
+    return (
+      <section className="register-section">
+        <div className="container">
+          <div className="register-wrapper">
+            <div className="register-left">
+              <img src={metromonialimg} alt="matrimonial info" />
+            </div>
+
+            <div className="register-right">
+              <div className="header-section">
+                <h2 className="header-title">
+                  <strong>My Matrimony Profiles</strong>
+                </h2>
+                <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
+                  Manage your matrimony profiles. You can create multiple profiles for your children.
+                </p>
+              </div>
+
+              {existingProfiles.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                  <p style={{ fontSize: '16px', color: '#666', marginBottom: '20px' }}>
+                    No matrimony profiles found. Create your first profile to get started.
+                  </p>
+                  <button
+                    onClick={handleCreateNewProfile}
+                    className="read-more-btn"
+                  >
+                    <span>Create First Profile</span>
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ marginBottom: '20px', textAlign: 'right' }}>
+                    <button
+                      onClick={handleCreateNewProfile}
+                      className="read-more-btn"
+                    >
+                      <span>+ Add New Profile</span>
+                    </button>
+                  </div>
+
+                  <div className="profile-list">
+                    {existingProfiles.map((profile) => (
+                      <div key={profile.id} className="profile-card" style={{
+                        border: '1px solid #ddd',
+                        borderRadius: '8px',
+                        padding: '20px',
+                        marginBottom: '15px',
+                        backgroundColor: '#fff'
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div>
+                            <h3 style={{ margin: '0 0 5px 0', color: '#333' }}>
+                              {profile.firstName} {profile.surname}
+                            </h3>
+                            <p style={{ margin: '0', color: '#666', fontSize: '14px' }}>
+                              Profile for: {profile.profileFor} | Gender: {profile.gender} | Status: {profile.status}
+                            </p>
+                            <p style={{ margin: '5px 0 0 0', color: '#666', fontSize: '14px' }}>
+                              Age: {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()} years
+                            </p>
+                          </div>
+                          <div>
+                            <button
+                              onClick={() => handleEditProfile(profile)}
+                              className="read-more-btn"
+                              style={{ marginRight: '10px', padding: '8px 16px', fontSize: '14px' }}
+                            >
+                              <span>Edit</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="register-section">
@@ -170,11 +410,11 @@ const Matrimonialpersonalinfo = () => {
             <div className="header-section">
               <h2 className="header-title">
                 <strong>
-                  {currentStep === 1 ? 'Personal Information' : 'Family & Contact Information'}
+                  {editingProfile ? 'Edit Profile' : (currentStep === 1 ? 'Personal Information' : 'Family & Contact Information')}
                 </strong>
               </h2>
               <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
-                Step {currentStep} of 2
+                {editingProfile ? 'Update profile information' : `Step ${currentStep} of 2`}
               </p>
             </div>
 
@@ -487,7 +727,7 @@ const Matrimonialpersonalinfo = () => {
                     style={{ flex: 1 }}
                     disabled={loading}
                   >
-                    <span>{loading ? 'Creating Profile...' : 'Create Profile'}</span>
+                    <span>{loading ? (editingProfile ? 'Updating Profile...' : 'Creating Profile...') : (editingProfile ? 'Update Profile' : 'Create Profile')}</span>
                   </button>
                 )}
               </div>

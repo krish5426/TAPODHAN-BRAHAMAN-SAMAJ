@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import profileImg from "../../assets/images/profileimg.png";
+import brideDefault from "../../assets/images/defaultfemale.jpg"; // Default for brides
+import groomDefault from "../../assets/images/defaultmale.jpg"; // Default for grooms
 
 const MatrimonialList = () => {
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [ageMin, setAgeMin] = useState('');
+  const [ageMax, setAgeMax] = useState('');
+  const [maritalStatus, setMaritalStatus] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const profilesPerPage = 8;
 
   useEffect(() => {
     fetchProfiles();
-  }, [filter]);
+  }, [filter, ageMin, ageMax]);
 
   const fetchProfiles = async () => {
     try {
@@ -20,6 +25,9 @@ const MatrimonialList = () => {
       if (filter !== 'all') {
         params.append('gender', filter === 'bride' ? 'Female' : 'Male');
       }
+      if (ageMin) params.append('ageMin', ageMin);
+      if (ageMax) params.append('ageMax', ageMax);
+      if (maritalStatus) params.append('maritalStatus', maritalStatus);
 
       const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profiles?${params}`);
       const data = await response.json();
@@ -54,24 +62,60 @@ const MatrimonialList = () => {
           
           {/* Filter Buttons */}
           <div className="filter-buttons" style={{ textAlign: 'center', margin: '30px 0' }}>
-            <button 
+            <button
               className={filter === 'all' ? 'filter-btn active' : 'filter-btn'}
               onClick={() => setFilter('all')}
             >
               All Profiles
             </button>
-            <button 
+            <button
               className={filter === 'bride' ? 'filter-btn active' : 'filter-btn'}
               onClick={() => setFilter('bride')}
             >
               Brides
             </button>
-            <button 
+            <button
               className={filter === 'groom' ? 'filter-btn active' : 'filter-btn'}
               onClick={() => setFilter('groom')}
             >
               Grooms
             </button>
+          </div>
+
+          {/* Age Filter */}
+          <div className="age-filter" style={{ textAlign: 'center', margin: '20px 0' }}>
+            <label style={{ marginRight: '10px' }}>Age Range:</label>
+            <input
+              type="number"
+              placeholder="Min Age"
+              value={ageMin}
+              onChange={(e) => setAgeMin(e.target.value)}
+              style={{ marginRight: '10px', padding: '5px', width: '80px' }}
+            />
+            <span style={{ marginRight: '10px' }}>to</span>
+            <input
+              type="number"
+              placeholder="Max Age"
+              value={ageMax}
+              onChange={(e) => setAgeMax(e.target.value)}
+              style={{ padding: '5px', width: '80px' }}
+            />
+          </div>
+
+          {/* Marital Status Filter */}
+          <div className="marital-status-filter" style={{ textAlign: 'center', margin: '20px 0' }}>
+            <label style={{ marginRight: '10px' }}>Marital Status:</label>
+            <select
+              value={maritalStatus}
+              onChange={(e) => setMaritalStatus(e.target.value)}
+              style={{ padding: '5px', width: '150px' }}
+            >
+              <option value="">All</option>
+              <option value="Never Married">Never Married</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
+              <option value="Separated">Separated</option>
+            </select>
           </div>
         </div>
       </section>
@@ -88,12 +132,12 @@ const MatrimonialList = () => {
                 {currentProfiles.map((profile) => (
                   <div className="profile-card" key={profile.id}>
                     <div className="profile-img">
-                      <img 
-                        src={profile.profilePhoto ? 
-                          `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/${profile.profilePhoto}` : 
-                          profileImg
-                        } 
-                        alt={`${profile.firstName} ${profile.lastName}`} 
+                      <img
+                        src={profile.profilePhoto ?
+                          `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/${profile.profilePhoto}` :
+                          (profile.gender === 'Female' ? brideDefault : groomDefault)
+                        }
+                        alt={`${profile.firstName} ${profile.lastName}`}
                       />
                     </div>
                     <div className="profile-content">

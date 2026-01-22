@@ -306,11 +306,14 @@ app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (re
 // Get Profiles
 app.get("/profiles", async (req, res) => {
   try {
-    const { status, gender } = req.query;
+    const { status, gender, ageMin, ageMax, maritalStatus } = req.query;
     const filters = {};
 
     if (status) filters.status = status;
     if (gender) filters.gender = gender;
+    if (ageMin) filters.ageMin = parseInt(ageMin);
+    if (ageMax) filters.ageMax = parseInt(ageMax);
+    if (maritalStatus) filters.maritalStatus = maritalStatus;
 
     const profiles = await Profile.findAll(filters);
     res.json(profiles);

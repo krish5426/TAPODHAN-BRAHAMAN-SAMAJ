@@ -3174,7 +3174,9 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         font-size: 10px !important;
         font-weight: 600 !important;
     }
-
+    .new {
+        margin-top: 60px !important;
+    }
 /* ===============================
    RESPONSIVE MEDIA QUERIES
    Professional Non-Overlapping Breakpoints
@@ -4143,6 +4145,9 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   .header-buttons {
     display: none;
   }
+  .contact-content {
+    padding-left: 0px;
+}
 }
 
 @media (max-width: 830px) {
@@ -6150,12 +6155,16 @@ section.intro-section.mission-statement .about-intro-content h2 br {
         line-height: 18px;
     }
     .event-card.regular .event-content .event-detail {
-    width: 100%;
-    padding-top: 0;
-    box-sizing: border-box;
-    background: transparent;
-    padding: 12px 0 !important;
-}
+        width: 100%;
+        padding-top: 0;
+        box-sizing: border-box;
+        background: transparent;
+        padding: 12px 0 !important;
+    }
+    .contact-content {
+        padding-top: 0px;
+    }
+
 }
 
 @media (max-width: 767px) {
