@@ -86,7 +86,7 @@ const Header = () => {
                 <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>
                   Home
                 </NavLink></li>
-                <li><NavLink to="/About" className={({ isActive }) => isActive ? "active" : ""}>
+                <li><NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""}>
                   About Us
                 </NavLink></li>
                 <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""}>
@@ -166,7 +166,7 @@ const Header = () => {
         <nav className="mobile-nav">
           <ul>
             <li><NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Home</NavLink></li>
-            <li><NavLink to="/About" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>About Us</NavLink></li>
+            <li><NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>About Us</NavLink></li>
             <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Events</NavLink></li>
             <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li>
             <li><NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Business Directory</NavLink></li>
