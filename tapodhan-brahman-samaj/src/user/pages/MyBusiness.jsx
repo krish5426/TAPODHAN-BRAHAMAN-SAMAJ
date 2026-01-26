@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
+import './MyBusiness.css';
 
 const MyBusiness = () => {
   const [business, setBusiness] = useState(null);
@@ -59,7 +60,7 @@ const MyBusiness = () => {
     return (
       <>
         <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-        <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>
+        <div className="no-business-container">
           <h2>No Business Registered</h2>
           <p>You haven't registered a business yet.</p>
           <Link to="/business-register" className="business-hero-btn">Register Business</Link>
