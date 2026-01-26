@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Matrimonial from "./pages/Matrimonial";
 import Profile from "./pages/Profile";
 import MatrimonialPersonalInfo from "./pages/MatrimonialPersonalInfo";
+import MatrimonialDetail from "./pages/MatrimonialDetail";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './css/style.css';
@@ -49,6 +50,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<Events />} />
         <Route path="/matrimonial" element={<Matrimonial />} />
+        <Route path="/matrimonial-detail/:id" element={<MatrimonialDetail />} />
         <Route path="/matrimonial-personal-info" element={<MatrimonialPersonalInfo />} />
         <Route path="/edit-profile" element={
           <ProtectedRoute>

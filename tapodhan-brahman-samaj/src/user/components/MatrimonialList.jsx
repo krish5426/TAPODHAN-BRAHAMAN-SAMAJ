@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import profileImg from "../../assets/images/profileimg.png";
 import brideDefault from "../../assets/images/defaultfemale.jpg"; // Default for brides
 import groomDefault from "../../assets/images/defaultmale.jpg"; // Default for grooms
@@ -130,29 +131,31 @@ const MatrimonialList = () => {
             <>
               <div className="profile-grid">
                 {currentProfiles.map((profile) => (
-                  <div className="profile-card" key={profile.id}>
-                    <div className="profile-img">
-                      <img
-                        src={profile.profilePhoto ?
-                          `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/${profile.profilePhoto}` :
-                          (profile.gender === 'Female' ? brideDefault : groomDefault)
-                        }
-                        alt={`${profile.firstName} ${profile.lastName}`}
-                      />
+                  <Link to={`/matrimonial-detail/${profile.id}`} key={profile.id} className="profile-card-link">
+                    <div className="profile-card">
+                      <div className="profile-img">
+                        <img
+                          src={profile.profilePhoto ?
+                            `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/profile/${profile.profilePhoto}` :
+                            (profile.gender === 'Female' ? brideDefault : groomDefault)
+                          }
+                          alt={`${profile.firstName} ${profile.lastName}`}
+                        />
+                      </div>
+                      <div className="profile-content">
+                        <span className="profile-id">
+                          Profile ID: {profile.gender === 'Female' ? 'F' : 'M'}-{profile.id}
+                        </span>
+                        <h4 className="profile-name">{profile.firstName} {profile.lastName}</h4>
+                        <p className="profile-dob">
+                          Birth Date: {new Date(profile.dateOfBirth).toLocaleDateString()}
+                        </p>
+                        <p className="profile-info">
+                          Age: {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()}
+                        </p>
+                      </div>
                     </div>
-                    <div className="profile-content">
-                      <span className="profile-id">
-                        Profile ID: {profile.gender === 'Female' ? 'F' : 'M'}-{profile.id}
-                      </span>
-                      <h4 className="profile-name">{profile.firstName} {profile.lastName}</h4>
-                      <p className="profile-dob">
-                        Birth Date: {new Date(profile.dateOfBirth).toLocaleDateString()}
-                      </p>
-                      <p className="profile-info">
-                        Age: {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()}
-                      </p>
-                    </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 

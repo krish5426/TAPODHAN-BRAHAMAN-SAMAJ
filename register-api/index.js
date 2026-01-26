@@ -1,77 +1,79 @@
-// index.js - MySQL version
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const app = express();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const cors = require("cors");
+const multer = require("multer");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
 
-// MySQL imports
-const { connectDB, getPool } = require('./mysql-config');
-const { createTables } = require('./mysql-schema');
+/* =========================
+   DB IMPORTS
+========================= */
+const { connectDB, getPool } = require("./mysql-config");
+const { createTables } = require("./mysql-schema");
 const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mysql-models');
 
+/* =========================
+   MIDDLEWARES
+========================= */
 app.use(cors({
   origin: [
-    "https://tbs.web-stage.in",
+    "https://tapodhanbrahmansamaj.com",
+    "https://www.tapodhanbrahmansamaj.com",
     "http://localhost:5173",
-    "http://localhost:5174"
+    "http://localhost:3000"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
-  credentials: true
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Super Admin Configuration
-const SUPER_ADMIN_EMAIL = "super@gmail.com";
-const SUPER_ADMIN_MOBILE = "5050505050";
-const SUPER_ADMIN_PASSWORD = "Su@12345";
-
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Health check / root route (REQUIRED for cPanel)
-app.get("/", (req, res) => {
-  res.status(200).send("API working");
+// Serve static files from uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.disable("etag");
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  next();
 });
-
-// MySQL Connection
-connectDB().then(async () => {
-  await createTables();
-  createSuperAdmin();
-}).catch((err) => console.log("DB Error:", err));
 
 // JWT Secret
 const JWT_SECRET = process.env.JWT_SECRET || "MY_SECRET_KEY";
 
 // Upload Configuration
 const UPLOAD_DIR = path.join(__dirname, "uploads");
+const PROFILE_UPLOAD_DIR = path.join(UPLOAD_DIR, "profile");
 
-if (!fs.existsSync(UPLOAD_DIR)) {
+if (!fs.existsSync(PROFILE_UPLOAD_DIR)) {
   try {
-    fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    fs.mkdirSync(PROFILE_UPLOAD_DIR, { recursive: true });
   } catch (err) {
-    console.error("Failed to create upload directory:", err);
+    console.error("Failed to create profile upload directory:", err);
   }
 }
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (!fs.existsSync(UPLOAD_DIR)) {
-      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    try {
+      // Ensure the profile directory exists
+      if (!fs.existsSync(PROFILE_UPLOAD_DIR)) {
+        fs.mkdirSync(PROFILE_UPLOAD_DIR, { recursive: true });
+        console.log('Created profile upload directory:', PROFILE_UPLOAD_DIR);
+      }
+      cb(null, PROFILE_UPLOAD_DIR);
+    } catch (error) {
+      console.error('Error creating upload directory:', error);
+      cb(error);
     }
-    cb(null, UPLOAD_DIR)
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
-    const base = path.basename(file.originalname, ext)
-      .replace(/\s+/g, "_")
-      .replace(/[^a-zA-Z0-9_\-]/g, "");
-    const fname = `${base}_${Date.now()}${ext}`;
+    const fname = `profile_${Date.now()}${ext}`;
+    console.log('Generated filename:', fname);
     cb(null, fname);
   }
 });
@@ -99,33 +101,6 @@ const eventUpload = multer({
   }
 }).any(); // Accept any field names
 
-// Create Super Admin
-async function createSuperAdmin() {
-  try {
-    const existingAdmin = await Admin.findByEmail(SUPER_ADMIN_EMAIL);
-    if (existingAdmin) {
-      console.log("Super Admin already exists");
-      return;
-    }
-
-    const hashedPassword = await bcrypt.hash(SUPER_ADMIN_PASSWORD, 10);
-    await Admin.create({
-      firstName: "Super",
-      lastName: "Admin",
-      email: SUPER_ADMIN_EMAIL,
-      mobile: SUPER_ADMIN_MOBILE,
-      password: hashedPassword,
-      isMainAdmin: true,
-      role: "super-admin",
-      status: "approved"
-    });
-
-    console.log("Super Admin created successfully");
-  } catch (error) {
-    console.error("Error creating Super Admin:", error);
-  }
-}
-
 // Middleware
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -142,7 +117,364 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// Routes
+/* =========================
+   ROOT TEST ROUTE
+========================= */
+app.get("/", (req, res) => {
+  res.status(200).send("API working");
+});
+
+/* =========================
+   EVENTS ROUTE (SAFE)
+========================= */
+// Get Events
+app.get("/events", async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    res.json(events);
+  } catch (error) {
+    console.error("Get events error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get Profiles
+app.get("/profiles", async (req, res) => {
+  try {
+    const { status, gender, ageMin, ageMax, maritalStatus } = req.query;
+    const filters = {};
+
+    if (status) filters.status = status;
+    if (gender) filters.gender = gender;
+    if (ageMin) filters.ageMin = parseInt(ageMin);
+    if (ageMax) filters.ageMax = parseInt(ageMax);
+    if (maritalStatus) filters.maritalStatus = maritalStatus;
+
+    const profiles = await Profile.findAll(filters);
+    res.json(profiles);
+  } catch (error) {
+    console.error("Get profiles error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get Profile by ID
+app.get("/profiles/:id", async (req, res) => {
+  try {
+    const profile = await Profile.findById(req.params.id);
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+    res.json(profile);
+  } catch (error) {
+    console.error("Get profile by ID error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get Businesses
+app.get("/businesses", async (req, res) => {
+  try {
+    const { status, businessName, location } = req.query;
+    const filters = {};
+
+    if (status) filters.status = status;
+    if (businessName) filters.businessName = businessName;
+    if (location) filters.location = location;
+
+    const businesses = await Business.findAll(filters);
+    res.json(businesses);
+  } catch (error) {
+    console.error("Get businesses error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get user profile
+app.get("/profile", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    // Remove password from response
+    const { password, ...userProfile } = user;
+    res.json(userProfile);
+  } catch (error) {
+    console.error("Get profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get user's matrimony profiles (multiple)
+app.get("/my-matrimony-profiles", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const profiles = await Profile.findAllByUserId(userId);
+
+    res.json(profiles);
+  } catch (error) {
+    console.error("Get my matrimony profiles error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get user's matrimony profile (legacy - returns first profile)
+app.get("/my-matrimony-profile", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const profile = await Profile.findByUserId(userId);
+
+    if (!profile) {
+      return res.status(404).json({ message: "No matrimony profile found" });
+    }
+
+    res.json(profile);
+  } catch (error) {
+    console.error("Get my matrimony profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get User's Business
+app.get("/my-business", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const business = await Business.findByUserId(userId);
+
+    if (!business) {
+      return res.status(404).json({ message: "No business found for this user" });
+    }
+
+    res.json(business);
+  } catch (error) {
+    console.error("Get my business error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get Businesses
+app.get("/businesses", async (req, res) => {
+  try {
+    const { status, businessName, location } = req.query;
+    const filters = {};
+
+    if (status) filters.status = status;
+    if (businessName) filters.businessName = businessName;
+    if (location) filters.location = location;
+
+    const businesses = await Business.findAll(filters);
+    res.json(businesses);
+  } catch (error) {
+    console.error("Get businesses error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get Profile Requests
+app.get("/profile-requests", async (req, res) => {
+  try {
+    const { status } = req.query;
+    const filters = {};
+
+    if (status) filters.status = status;
+
+    const requests = await ProfileRequest.findAll(filters);
+    res.json(requests);
+  } catch (error) {
+    console.error("Get profile requests error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Admin API endpoints
+app.get("/api/admin/bride", authenticateToken, async (req, res) => {
+  try {
+    const brides = await Profile.findAll({ status: 'approved', gender: 'Female' });
+    res.json(brides);
+  } catch (error) {
+    console.error("Get admin brides error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/brides", authenticateToken, async (req, res) => {
+  try {
+    const brides = await Profile.findAll({ gender: 'Female' });
+    res.json(brides);
+  } catch (error) {
+    console.error("Get admin brides error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/matrimony/grooms", authenticateToken, async (req, res) => {
+  try {
+    const grooms = await Profile.findAll({ gender: 'Male' });
+    res.json(grooms);
+  } catch (error) {
+    console.error("Get admin grooms error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/grooms", authenticateToken, async (req, res) => {
+  try {
+    const grooms = await Profile.findAll({ gender: 'Male' });
+    res.json(grooms);
+  } catch (error) {
+    console.error("Get admin grooms error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Test route without auth
+app.get("/test/grooms", async (req, res) => {
+  try {
+    const grooms = await Profile.findAll({ gender: 'Male' });
+    res.json({ count: grooms.length, grooms });
+  } catch (error) {
+    console.error("Test grooms error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Debug route to check all profiles
+app.get("/test/profiles", async (req, res) => {
+  try {
+    const allProfiles = await Profile.findAll();
+    const pendingProfiles = await Profile.findAll({ status: 'pending' });
+    res.json({ 
+      total: allProfiles.length, 
+      pending: pendingProfiles.length,
+      allProfiles: allProfiles.slice(0, 3), // Show first 3 for debugging
+      pendingProfiles 
+    });
+  } catch (error) {
+    console.error("Test profiles error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/business", authenticateToken, async (req, res) => {
+  try {
+    const { search, businessName, location } = req.query;
+    const filters = {};
+    if (search) filters.search = search; // Keep legacy support if needed, or remove
+    if (businessName) filters.businessName = businessName;
+    if (location) filters.location = location;
+
+    const businesses = await Business.findAll(filters);
+    res.json(businesses);
+  } catch (error) {
+    console.error("Get admin businesses error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/profiles", authenticateToken, async (req, res) => {
+  try {
+    const { status } = req.query;
+    const filters = {};
+    if (status) filters.status = status;
+    
+    const profiles = await Profile.findAll(filters);
+    res.json(profiles);
+  } catch (error) {
+    console.error("Get admin profiles error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
+  try {
+    const profile = await Profile.findById(req.params.id);
+    if (!profile) return res.status(404).json({ message: "Profile not found" });
+    res.json(profile);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// Dashboard Counts
+app.get("/api/admin/dashboard/counts", authenticateToken, async (req, res) => {
+  try {
+    const totalBrides = (await Profile.findAll({ gender: 'Female' })).length;
+    const totalGrooms = (await Profile.findAll({ gender: 'Male' })).length;
+    const totalBusiness = (await Business.findAll()).length;
+    const totalEvents = (await Event.findAll()).length;
+    const pendingBusinessRequests = (await Business.findAll({ status: 'pending' })).length;
+    const pendingProfiles = (await Profile.findAll({ status: 'pending' })).length;
+
+    res.json({
+      totalBrides,
+      totalGrooms,
+      totalBusiness,
+      totalEvents,
+      pendingBusinessRequests,
+      pendingProfiles
+    });
+  } catch (error) {
+    console.error("Dashboard counts error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Admin Events
+app.get("/api/admin/events", authenticateToken, async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    res.json(events);
+  } catch (error) {
+    console.error("Get admin events error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Admin Events
+app.get("/api/admin/events", authenticateToken, async (req, res) => {
+  try {
+    const events = await Event.findAll();
+    res.json(events);
+  } catch (error) {
+    console.error("Get admin events error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/admin/business/:id", authenticateToken, async (req, res) => {
+  try {
+    const business = await Business.findById(req.params.id);
+    if (!business) return res.status(404).json({ message: "Business not found" });
+    res.json(business);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Get User Profile
+app.get("/profile", authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Remove password from response
+    const { password, ...userProfile } = user;
+    res.json(userProfile);
+  } catch (error) {
+    console.error("Get profile error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 // User Registration
 app.post("/register", async (req, res) => {
@@ -233,6 +565,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
+
 // Admin Login
 app.post("/admin/login", async (req, res) => {
   try {
@@ -303,25 +636,6 @@ app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (re
   }
 });
 
-// Get Profiles
-app.get("/profiles", async (req, res) => {
-  try {
-    const { status, gender, ageMin, ageMax, maritalStatus } = req.query;
-    const filters = {};
-
-    if (status) filters.status = status;
-    if (gender) filters.gender = gender;
-    if (ageMin) filters.ageMin = parseInt(ageMin);
-    if (ageMax) filters.ageMax = parseInt(ageMax);
-    if (maritalStatus) filters.maritalStatus = maritalStatus;
-
-    const profiles = await Profile.findAll(filters);
-    res.json(profiles);
-  } catch (error) {
-    console.error("Get profiles error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
 
 // Business Registration
 app.post("/business", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
@@ -465,6 +779,7 @@ async function sendBusinessStatusEmail(userEmail, ownerName, businessName, statu
   console.log(`Status email sent to ${userEmail}`);
 }
 
+
 // Update user profile
 app.put("/profile", authenticateToken, async (req, res) => {
   try {
@@ -487,90 +802,6 @@ app.put("/profile", authenticateToken, async (req, res) => {
     res.json({ message: "Profile updated successfully", user: userProfile });
   } catch (error) {
     console.error("Update profile error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get user profile
-app.get("/profile", authenticateToken, async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const user = await User.findById(userId);
-    
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    
-    // Remove password from response
-    const { password, ...userProfile } = user;
-    res.json(userProfile);
-  } catch (error) {
-    console.error("Get profile error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get user's matrimony profiles (multiple)
-app.get("/my-matrimony-profiles", authenticateToken, async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const profiles = await Profile.findAllByUserId(userId);
-
-    res.json(profiles);
-  } catch (error) {
-    console.error("Get my matrimony profiles error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get user's matrimony profile (legacy - returns first profile)
-app.get("/my-matrimony-profile", authenticateToken, async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const profile = await Profile.findByUserId(userId);
-
-    if (!profile) {
-      return res.status(404).json({ message: "No matrimony profile found" });
-    }
-
-    res.json(profile);
-  } catch (error) {
-    console.error("Get my matrimony profile error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get User's Business
-app.get("/my-business", authenticateToken, async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const business = await Business.findByUserId(userId);
-
-    if (!business) {
-      return res.status(404).json({ message: "No business found for this user" });
-    }
-
-    res.json(business);
-  } catch (error) {
-    console.error("Get my business error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get Businesses
-app.get("/businesses", async (req, res) => {
-  try {
-    const { status, businessName, location } = req.query;
-    const filters = {};
-
-    if (status) filters.status = status;
-    if (businessName) filters.businessName = businessName;
-    if (location) filters.location = location;
-
-    const businesses = await Business.findAll(filters);
-    res.json(businesses);
-  } catch (error) {
-    console.error("Get businesses error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -603,132 +834,6 @@ app.post("/events", upload.array("images", 5), async (req, res) => {
   }
 });
 
-// Get Events
-app.get("/events", async (req, res) => {
-  try {
-    const events = await Event.findAll();
-    res.json(events);
-  } catch (error) {
-    console.error("Get events error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get Profile Requests
-app.get("/profile-requests", async (req, res) => {
-  try {
-    const { status } = req.query;
-    const filters = {};
-
-    if (status) filters.status = status;
-
-    const requests = await ProfileRequest.findAll(filters);
-    res.json(requests);
-  } catch (error) {
-    console.error("Get profile requests error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Serve uploaded files
-app.use("/uploads", express.static(UPLOAD_DIR));
-
-// Serve static files with no-cache headers
-app.use(express.static('public', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.css')) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-    }
-  }
-}));
-
-// Admin API endpoints
-app.get("/api/admin/bride", authenticateToken, async (req, res) => {
-  try {
-    const brides = await Profile.findAll({ status: 'approved', gender: 'Female' });
-    res.json(brides);
-  } catch (error) {
-    console.error("Get admin brides error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/brides", authenticateToken, async (req, res) => {
-  try {
-    const brides = await Profile.findAll({ gender: 'Female' });
-    res.json(brides);
-  } catch (error) {
-    console.error("Get admin brides error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/matrimony/grooms", authenticateToken, async (req, res) => {
-  try {
-    const grooms = await Profile.findAll({ gender: 'Male' });
-    res.json(grooms);
-  } catch (error) {
-    console.error("Get admin grooms error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/grooms", authenticateToken, async (req, res) => {
-  try {
-    const grooms = await Profile.findAll({ gender: 'Male' });
-    res.json(grooms);
-  } catch (error) {
-    console.error("Get admin grooms error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Test route without auth
-app.get("/test/grooms", async (req, res) => {
-  try {
-    const grooms = await Profile.findAll({ gender: 'Male' });
-    res.json({ count: grooms.length, grooms });
-  } catch (error) {
-    console.error("Test grooms error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Debug route to check all profiles
-app.get("/test/profiles", async (req, res) => {
-  try {
-    const allProfiles = await Profile.findAll();
-    const pendingProfiles = await Profile.findAll({ status: 'pending' });
-    res.json({ 
-      total: allProfiles.length, 
-      pending: pendingProfiles.length,
-      allProfiles: allProfiles.slice(0, 3), // Show first 3 for debugging
-      pendingProfiles 
-    });
-  } catch (error) {
-    console.error("Test profiles error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/business", authenticateToken, async (req, res) => {
-  try {
-    const { search, businessName, location } = req.query;
-    const filters = {};
-    if (search) filters.search = search; // Keep legacy support if needed, or remove
-    if (businessName) filters.businessName = businessName;
-    if (location) filters.location = location;
-
-    const businesses = await Business.findAll(filters);
-    res.json(businesses);
-  } catch (error) {
-    console.error("Get admin businesses error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 app.put("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
@@ -748,76 +853,6 @@ app.put("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
     res.json({ message: `Profile ${status} successfully` });
   } catch (error) {
     console.error("Update profile status error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/profiles", authenticateToken, async (req, res) => {
-  try {
-    const { status } = req.query;
-    const filters = {};
-    if (status) filters.status = status;
-    
-    const profiles = await Profile.findAll(filters);
-    res.json(profiles);
-  } catch (error) {
-    console.error("Get admin profiles error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
-  try {
-    const profile = await Profile.findById(req.params.id);
-    if (!profile) return res.status(404).json({ message: "Profile not found" });
-    res.json(profile);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Dashboard Counts
-app.get("/api/admin/dashboard/counts", authenticateToken, async (req, res) => {
-  try {
-    const totalBrides = (await Profile.findAll({ gender: 'Female' })).length;
-    const totalGrooms = (await Profile.findAll({ gender: 'Male' })).length;
-    const totalBusiness = (await Business.findAll()).length;
-    const totalEvents = (await Event.findAll()).length;
-    const pendingBusinessRequests = (await Business.findAll({ status: 'pending' })).length;
-    const pendingProfiles = (await Profile.findAll({ status: 'pending' })).length;
-
-    res.json({
-      totalBrides,
-      totalGrooms,
-      totalBusiness,
-      totalEvents,
-      pendingBusinessRequests,
-      pendingProfiles
-    });
-  } catch (error) {
-    console.error("Dashboard counts error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Admin Events
-app.get("/api/admin/events", authenticateToken, async (req, res) => {
-  try {
-    const events = await Event.findAll();
-    res.json(events);
-  } catch (error) {
-    console.error("Get admin events error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Admin Events
-app.get("/api/admin/events", authenticateToken, async (req, res) => {
-  try {
-    const events = await Event.findAll();
-    res.json(events);
-  } catch (error) {
-    console.error("Get admin events error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -884,16 +919,6 @@ app.delete("/api/admin/events/:id", authenticateToken, async (req, res) => {
   }
 });
 
-app.get("/api/admin/business/:id", authenticateToken, async (req, res) => {
-  try {
-    const business = await Business.findById(req.params.id);
-    if (!business) return res.status(404).json({ message: "Business not found" });
-    res.json(business);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 app.put("/api/admin/business/:id", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
   try {
     const { id } = req.params;
@@ -935,25 +960,6 @@ app.put("/api/admin/business/:id/status", authenticateToken, async (req, res) =>
     res.json({ message: `Business ${status} successfully` });
   } catch (error) {
     console.error("Update business status error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Get User Profile
-app.get("/profile", authenticateToken, async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const user = await User.findById(userId);
-    
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Remove password from response
-    const { password, ...userProfile } = user;
-    res.json(userProfile);
-  } catch (error) {
-    console.error("Get profile error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -1005,30 +1011,49 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-// Test SMTP Configuration
-app.get("/test-smtp", async (req, res) => {
+/* =========================
+   DB HEALTH CHECK
+========================= */
+app.get("/health/db", async (req, res) => {
   try {
-    const config = {
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      user: process.env.SMTP_USER ? '***configured***' : 'NOT SET',
-      pass: process.env.SMTP_PASS ? '***configured***' : 'NOT SET',
-      from: process.env.SMTP_FROM,
-      to: process.env.SMTP_TO
-    };
-    
-    res.json({ 
-      message: 'SMTP Configuration',
-      config,
-      isConfigured: !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
+    const pool = getPool();
+    await pool.query("SELECT 1");
+    res.json({ db: "connected" });
+  } catch (err) {
+    res.status(500).json({
+      db: "disconnected",
+      error: err.message
     });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
   }
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+/* =========================
+   GLOBAL ERROR LOGGING
+========================= */
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Rejection:", reason);
 });
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
+/* =========================
+   START SERVER
+========================= */
+const PORT = process.env.PORT || 3000;
+
+(async () => {
+  try {
+    console.log("🚀 Starting server...");
+    await connectDB();
+    await createTables();
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`✅ Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to start server:", err);
+    process.exit(1);
+  }
+})();

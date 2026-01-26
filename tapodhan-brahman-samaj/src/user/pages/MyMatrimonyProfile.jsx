@@ -1,63 +1,75 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
+import profileImg from "../../assets/images/profileimg.png";
+import brideDefault from "../../assets/images/defaultfemale.jpg";
+import groomDefault from "../../assets/images/defaultmale.jpg";
 import API_BASE_URL from '../../config/api';
 
 function MyMatrimonyProfile() {
     const navigate = useNavigate();
-    const [profile, setProfile] = useState(null);
+    const [profiles, setProfiles] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const profilesPerPage = 8;
 
     const breadcrumb = [
         { label: 'Home', link: '/' },
-        { label: 'My Matrimony Profile' }
+        { label: 'My Matrimony Profiles' }
     ];
 
     useEffect(() => {
-        fetchMatrimonyProfile();
+        fetchMyMatrimonyProfiles();
     }, []);
 
-    const fetchMatrimonyProfile = async () => {
+    const fetchMyMatrimonyProfiles = async () => {
         try {
             const token = localStorage.getItem('user_token');
             console.log('Token:', token ? 'Found' : 'Not found');
-            
+
             if (!token) {
                 setLoading(false);
                 return;
             }
-            
-            const url = `${API_BASE_URL}/my-matrimony-profile`;
+
+            const url = `${API_BASE_URL}/my-matrimony-profiles`;
             console.log('Fetching from:', url);
-            
+
             const response = await fetch(url, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            
+
             console.log('Response status:', response.status);
-            
+
             if (response.ok) {
                 const data = await response.json();
-                console.log('Profile data:', data);
-                setProfile(data);
+                console.log('Profiles data:', data);
+                setProfiles(data);
             } else {
                 const errorData = await response.json().catch(() => ({}));
                 console.error('API Error:', response.status, errorData);
             }
         } catch (error) {
-            console.error('Error fetching matrimony profile:', error);
+            console.error('Error fetching matrimony profiles:', error);
         } finally {
             setLoading(false);
         }
     };
-    
+
+    const indexOfLastProfile = currentPage * profilesPerPage;
+    const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
+    const currentProfiles = profiles.slice(indexOfFirstProfile, indexOfLastProfile);
+    const totalPages = Math.ceil(profiles.length / profilesPerPage);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     if (loading) {
         return (
             <>
-                <InnerBanner title="My Matrimony Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+                <InnerBanner title="My Matrimony Profiles" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
                 <section className="my-business-section">
                     <div className="container">
                         <div className="profile-loading">
@@ -69,274 +81,129 @@ function MyMatrimonyProfile() {
         );
     }
 
-    if (!profile) {
-        return (
-            <>
-                <InnerBanner title="My Matrimony Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-                <section className="my-business-section">
-                    <div className="container">
-                        <div className="profile-not-found">
-                            <h2>No Matrimony Profile Found</h2>
-                            <p>You haven't created a matrimony profile yet.</p>
-                            <button 
+    return (
+        <>
+            <InnerBanner title="My Matrimony Profiles" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+
+            <section className="list-section">
+                <div className="container">
+                    <div className="header-section">
+                        <span className="header-label">My Profiles</span>
+                        <h2 className="header-title-center">
+                            <strong>
+                                <span>Your </span>
+                                matrimony profiles
+                            </strong>
+                        </h2>
+                        <div className="create-profile-section" style={{ textAlign: 'center', margin: '30px 0' }}>
+                            <button
                                 className="user-profile-btn"
                                 onClick={() => navigate('/matrimonial-personal-info')}
+                                style={{
+                                    backgroundColor: '#007bff',
+                                    color: 'white',
+                                    padding: '10px 20px',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    fontSize: '16px'
+                                }}
                             >
-                                Create Matrimony Profile
+                                Create New Matrimony Profile
                             </button>
                         </div>
                     </div>
-                </section>
-            </>
-        );
-    }
+                </div>
+            </section>
 
-    return (
-        <>
-            <InnerBanner title="My Matrimony Profile" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <section className="my-profile-section">
+            <section className="profile-section">
                 <div className="container">
-                    <div className="user-profile-header">
-                        <h1 className="user-profile-title">My Matrimony Profile</h1>
-                        <div className="profile-status">
-                            <span className={`status-badge ${profile.status}`}>
-                                {profile.status.charAt(0).toUpperCase() + profile.status.slice(1)}
-                            </span>
+                    {profiles.length === 0 ? (
+                        <div style={{ textAlign: 'center', padding: '50px' }}>
+                            <h2>No Matrimony Profiles Found</h2>
+                            <p>You haven't created any matrimony profiles yet.</p>
+                            <button
+                                className="user-profile-btn"
+                                onClick={() => navigate('/matrimonial-personal-info')}
+                                style={{
+                                    backgroundColor: '#007bff',
+                                    color: 'white',
+                                    padding: '10px 20px',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    fontSize: '16px',
+                                    marginTop: '20px'
+                                }}
+                            >
+                                Create Your First Matrimony Profile
+                            </button>
                         </div>
-                    </div>
-
-                    <div className="user-profile-card">
-                        <div className="user-profile-content">
-                            <div className="user-profile-image">
-                                {profile.profilePhoto ? (
-                                    <img 
-                                        src={`${API_BASE_URL}/uploads/${profile.profilePhoto}`} 
-                                        alt="Profile" 
-                                    />
-                                ) : (
-                                    <div className="no-image">No Photo</div>
-                                )}
-                            </div>
-                            
-                            <div className="user-profile-details">
-                                <h2 className="business-name">
-                                    {profile.firstName} {profile.surname}
-                                </h2>
-
-                                {/* Personal Information Section */}
-                                <div className="profile-section">
-                                    <h3 className="section-title">Personal Information</h3>
-                                    <div className="business-info-grid">
-                                        <div className="business-info-item">
-                                            <strong>Profile For:</strong>
-                                            {profile.profileFor || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Gender:</strong>
-                                            {profile.gender || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Date of Birth:</strong>
-                                            {profile.dateOfBirth ? new Date(profile.dateOfBirth).toLocaleDateString('en-GB') : 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Time of Birth:</strong>
-                                            {profile.timeOfBirth || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Birth Place:</strong>
-                                            {profile.birthPlace || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Marital Status:</strong>
-                                            {profile.maritalStatus || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Number of Children:</strong>
-                                            {profile.noOfChildren || 'N/A'}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Physical Details Section */}
-                                <div className="profile-section">
-                                    <h3 className="section-title">Physical Details</h3>
-                                    <div className="business-info-grid">
-                                        <div className="business-info-item">
-                                            <strong>Height:</strong>
-                                            {profile.height || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Weight:</strong>
-                                            {profile.weight || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Physical Disability:</strong>
-                                            {profile.physicalDisability || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Glasses:</strong>
-                                            {profile.glasses || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Mangal:</strong>
-                                            {profile.mangal || 'N/A'}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Education & Occupation Section */}
-                                <div className="profile-section">
-                                    <h3 className="section-title">Education & Occupation</h3>
-                                    <div className="business-info-grid">
-                                        <div className="business-info-item">
-                                            <strong>Education Qualification:</strong>
-                                            {profile.educationQualification || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Education Details:</strong>
-                                            {profile.educationDetails || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Job Type:</strong>
-                                            {profile.jobType || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Job Description:</strong>
-                                            {profile.jobDescription || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Designation:</strong>
-                                            {profile.designation || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Current Location:</strong>
-                                            {profile.currentLocation || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Monthly Income:</strong>
-                                            {profile.monthlyIncome ? `${profile.incomeCurrency || ''} ${profile.monthlyIncome}` : 'N/A'}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Family Details Section */}
-                                <div className="profile-section">
-                                    <h3 className="section-title">Family Details</h3>
-                                    <div className="business-info-grid">
-                                        <div className="business-info-item">
-                                            <strong>Father's Full Name:</strong>
-                                            {profile.fatherFullName || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Mother's Full Name:</strong>
-                                            {profile.motherFullName || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Father's Occupation:</strong>
-                                            {profile.fatherOccupation || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Mother's Occupation:</strong>
-                                            {profile.motherOccupation || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Total Family Members:</strong>
-                                            {profile.totalFamilyMembers || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Total Brothers:</strong>
-                                            {profile.totalBrothers || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Total Sisters:</strong>
-                                            {profile.totalSisters || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Married Brothers:</strong>
-                                            {profile.marriedBrothers || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Married Sisters:</strong>
-                                            {profile.marriedSisters || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Family Type:</strong>
-                                            {profile.familyType || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Family Values:</strong>
-                                            {profile.familyValues || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Family Location:</strong>
-                                            {profile.familyLocation || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Native Place:</strong>
-                                            {profile.nativePlace || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Family Wealth:</strong>
-                                            {profile.familyWealth || 'N/A'}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Contact Information Section */}
-                                <div className="profile-section">
-                                    <h3 className="section-title">Contact Information</h3>
-                                    <div className="business-info-grid">
-                                        <div className="business-info-item">
-                                            <strong>Contact Person Name:</strong>
-                                            {profile.contactPersonName || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Contact Person Relation:</strong>
-                                            {profile.contactPersonRelation || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Contact Person Number:</strong>
-                                            {profile.contactPersonNumber || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Contact Person Email:</strong>
-                                            {profile.contactPersonEmail || 'N/A'}
-                                        </div>
-                                        <div className="business-info-item">
-                                            <strong>Contact Person Address:</strong>
-                                            {profile.contactPersonAddress || 'N/A'}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Expectations Section */}
-                                <div className="profile-section">
-                                    <h3 className="section-title">Expectations</h3>
-                                    <div className="business-info-grid">
-                                        <div className="business-info-item full-width">
-                                            <strong>Partner Expectations:</strong>
-                                            <div className="expectation-text">
-                                                {profile.expectation || 'N/A'}
+                    ) : (
+                        <>
+                            <div className="profile-grid">
+                                {currentProfiles.map((profile) => (
+                                    <Link to={`/matrimonial-detail/${profile.id}`} key={profile.id} className="profile-card-link">
+                                        <div className="profile-card">
+                                            <div className="profile-img">
+                                                <img
+                                                    src={profile.profilePhoto ?
+                                                        `${API_BASE_URL}/uploads/profile/${profile.profilePhoto}` :
+                                                        (profile.gender === 'Female' ? brideDefault : groomDefault)
+                                                    }
+                                                    alt={`${profile.firstName} ${profile.lastName}`}
+                                                />
+                                                <div className={`status-badge ${profile.status}`}>
+                                                    {profile.status.charAt(0).toUpperCase() + profile.status.slice(1)}
+                                                </div>
+                                            </div>
+                                            <div className="profile-content">
+                                                <span className="profile-id">
+                                                    Profile ID: {profile.gender === 'Female' ? 'F' : 'M'}-{profile.id}
+                                                </span>
+                                                <h4 className="profile-name">{profile.firstName} {profile.lastName}</h4>
+                                                <p className="profile-dob">
+                                                    Birth Date: {new Date(profile.dateOfBirth).toLocaleDateString()}
+                                                </p>
+                                                <p className="profile-info">
+                                                    Age: {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()}
+                                                </p>
+                                                <p className="profile-info">
+                                                    {profile.maritalStatus || 'N/A'}
+                                                </p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                {profile.status === 'pending' && (
-                                    <div className="status-message">
-                                        <p>Your profile is pending approval by the admin.</p>
-                                    </div>
-                                )}
-                                
-                                {profile.status === 'rejected' && (
-                                    <div className="status-message error">
-                                        <p>Your profile was rejected. Please contact support for more information.</p>
-                                    </div>
-                                )}
+                                    </Link>
+                                ))}
                             </div>
-                        </div>
-                    </div>
+
+                            {totalPages > 1 && (
+                                <div className="pagination">
+                                    <button
+                                        onClick={() => paginate(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                    >
+                                        «
+                                    </button>
+                                    {[...Array(totalPages)].map((_, index) => (
+                                        <button
+                                            key={index + 1}
+                                            onClick={() => paginate(index + 1)}
+                                            className={currentPage === index + 1 ? 'active' : ''}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    ))}
+                                    <button
+                                        onClick={() => paginate(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        »
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
             </section>
         </>

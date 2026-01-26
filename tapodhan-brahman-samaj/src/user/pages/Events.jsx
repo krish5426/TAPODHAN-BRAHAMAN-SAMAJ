@@ -16,13 +16,35 @@ const Events = () => {
     fetchEvents();
   }, []);
 
+  // Helper function to ensure event has day and month
+  const ensureEventDateFields = (event) => {
+    if (!event.day || !event.month) {
+      const eventDate = new Date(event.date);
+      event.day = eventDate.getDate().toString();
+      event.month = eventDate.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+    }
+    return event;
+  };
+
   const fetchEvents = async () => {
     try {
       const response = await fetch(API_ENDPOINTS.EVENTS);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-      setEvents(data);
+      // Ensure data is an array
+      if (Array.isArray(data)) {
+        // Ensure each event has day and month fields
+        const processedEvents = data.map(ensureEventDateFields);
+        setEvents(processedEvents);
+      } else {
+        console.error('Expected array of events, got:', data);
+        setEvents([]);
+      }
     } catch (error) {
       console.error('Error fetching events:', error);
+      setEvents([]);
     } finally {
       setLoading(false);
     }
