@@ -85,7 +85,7 @@ function MyMatrimonyProfile() {
         <>
             <InnerBanner title="My Matrimony Profiles" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
 
-            <section className="list-section">
+            <section className="list-section" style={{ display: profiles.length > 0 ? 'block' : 'none' }}>
                 <div className="container">
                     <div className="header-section">
                         <span className="header-label">My Profiles</span>
@@ -95,19 +95,10 @@ function MyMatrimonyProfile() {
                                 matrimony profiles
                             </strong>
                         </h2>
-                        <div className="create-profile-section" style={{ textAlign: 'center', margin: '30px 0' }}>
+                        <div className="create-profile-section">
                             <button
                                 className="user-profile-btn"
                                 onClick={() => navigate('/matrimonial-personal-info')}
-                                style={{
-                                    backgroundColor: '#007bff',
-                                    color: 'white',
-                                    padding: '10px 20px',
-                                    border: 'none',
-                                    borderRadius: '5px',
-                                    cursor: 'pointer',
-                                    fontSize: '16px'
-                                }}
                             >
                                 Create New Matrimony Profile
                             </button>
@@ -119,22 +110,12 @@ function MyMatrimonyProfile() {
             <section className="profile-section">
                 <div className="container">
                     {profiles.length === 0 ? (
-                        <div style={{ textAlign: 'center', padding: '50px' }}>
+                        <div className="no-profiles-state">
                             <h2>No Matrimony Profiles Found</h2>
                             <p>You haven't created any matrimony profiles yet.</p>
                             <button
                                 className="user-profile-btn"
                                 onClick={() => navigate('/matrimonial-personal-info')}
-                                style={{
-                                    backgroundColor: '#007bff',
-                                    color: 'white',
-                                    padding: '10px 20px',
-                                    border: 'none',
-                                    borderRadius: '5px',
-                                    cursor: 'pointer',
-                                    fontSize: '16px',
-                                    marginTop: '20px'
-                                }}
                             >
                                 Create Your First Matrimony Profile
                             </button>

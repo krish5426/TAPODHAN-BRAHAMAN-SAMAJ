@@ -327,14 +327,14 @@ const Matrimonialpersonalinfo = () => {
                 <h2 className="header-title">
                   <strong>My Matrimony Profiles</strong>
                 </h2>
-                <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
+                <p className="sub-text">
                   Manage your matrimony profiles. You can create multiple profiles for your children.
                 </p>
               </div>
 
               {existingProfiles.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                  <p style={{ fontSize: '16px', color: '#666', marginBottom: '20px' }}>
+                <div className="no-profiles-state">
+                  <p className="no-profiles-text">
                     No matrimony profiles found. Create your first profile to get started.
                   </p>
                   <button
@@ -346,7 +346,7 @@ const Matrimonialpersonalinfo = () => {
                 </div>
               ) : (
                 <div>
-                  <div style={{ marginBottom: '20px', textAlign: 'right' }}>
+                  <div className="add-profile-btn-wrapper">
                     <button
                       onClick={handleCreateNewProfile}
                       className="read-more-btn"
@@ -357,30 +357,23 @@ const Matrimonialpersonalinfo = () => {
 
                   <div className="profile-list">
                     {existingProfiles.map((profile) => (
-                      <div key={profile.id} className="profile-card" style={{
-                        border: '1px solid #ddd',
-                        borderRadius: '8px',
-                        padding: '20px',
-                        marginBottom: '15px',
-                        backgroundColor: '#fff'
-                      }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div>
-                            <h3 style={{ margin: '0 0 5px 0', color: '#333' }}>
+                      <div key={profile.id} className="profile-list-card">
+                        <div className="profile-list-content">
+                          <div className="profile-list-info">
+                            <h3 className="profile-list-name">
                               {profile.firstName} {profile.surname}
                             </h3>
-                            <p style={{ margin: '0', color: '#666', fontSize: '14px' }}>
+                            <p className="profile-list-details">
                               Profile for: {profile.profileFor} | Gender: {profile.gender} | Status: {profile.status}
                             </p>
-                            <p style={{ margin: '5px 0 0 0', color: '#666', fontSize: '14px' }}>
+                            <p className="profile-list-age">
                               Age: {new Date().getFullYear() - new Date(profile.dateOfBirth).getFullYear()} years
                             </p>
                           </div>
-                          <div>
+                          <div className="profile-list-actions">
                             <button
                               onClick={() => handleEditProfile(profile)}
                               className="read-more-btn"
-                              style={{ marginRight: '10px', padding: '8px 16px', fontSize: '14px' }}
                             >
                               <span>Edit</span>
                             </button>
@@ -413,13 +406,13 @@ const Matrimonialpersonalinfo = () => {
                   {editingProfile ? 'Edit Profile' : (currentStep === 1 ? 'Personal Information' : 'Family & Contact Information')}
                 </strong>
               </h2>
-              <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
+              <p className="sub-text">
                 {editingProfile ? 'Update profile information' : `Step ${currentStep} of 2`}
               </p>
             </div>
 
             {error && (
-              <div style={{ color: 'red', marginBottom: '20px', textAlign: 'center' }}>
+              <div className="error-message">
                 {error}
               </div>
             )}
@@ -700,13 +693,12 @@ const Matrimonialpersonalinfo = () => {
                 </div>
               )}
 
-              <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
+              <div className="form-button-group">
                 {currentStep === 2 && (
                   <button 
                     type="button" 
                     onClick={handlePrevious}
                     className="read-more-btn"
-                    style={{ flex: 1 }}
                   >
                     <span>Previous</span>
                   </button>
@@ -724,7 +716,6 @@ const Matrimonialpersonalinfo = () => {
                   <button 
                     type="submit" 
                     className="read-more-btn"
-                    style={{ flex: 1 }}
                     disabled={loading}
                   >
                     <span>{loading ? (editingProfile ? 'Updating Profile...' : 'Creating Profile...') : (editingProfile ? 'Update Profile' : 'Create Profile')}</span>

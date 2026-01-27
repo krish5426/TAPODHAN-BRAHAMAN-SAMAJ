@@ -1020,13 +1020,16 @@ nav ul li a.active {
 }
 
 /* ===============================
-   PROFILE SECTION
+   PROFILE SECTION (MATRIMONIAL)
 ================================ */
 .profile-section {
-  padding: 60px 0;
+  padding: 60px 0 80px;
   float: left;
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: #faf7f3;
+  background-image: url("/src/assets/images/profile-bg-6.png");
+  background-repeat: repeat;
+  background-size: auto;
 }
 
 .profile-card {
@@ -2566,9 +2569,141 @@ a.service-card {
 }
 
 .sub-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: 'Barlow', sans-serif;
 }
 
+/* ===============================
+   MATRIMONIAL PERSONAL INFO PAGE
+================================ */
+.sub-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  color: #666;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.no-profiles-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.no-profiles-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.add-profile-btn-wrapper {
+  margin-bottom: 25px;
+  text-align: right;
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-list-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.profile-list-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #b9252f;
+}
+
+.profile-list-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-list-info {
+  flex: 1;
+}
+
+.profile-list-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 8px 0;
+}
+
+.profile-list-details {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.profile-list-age {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.profile-list-actions {
+  flex-shrink: 0;
+}
+
+.error-message {
+  font-family: 'Barlow', sans-serif;
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 12px 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ef9a9a;
+}
+
+.form-button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.form-button-group .read-more-btn {
+  flex: 1;
+}
+
+.form-button-group .read-more-btn.full-width {
+  flex: 1;
+  width: 100%;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-group label {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+  cursor: pointer;
+}
 
 
 .business-directory {
@@ -2986,53 +3121,85 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     width: 100%;
-    padding-top: 60px;
+    padding-top: 40px;
+}
+
+/* Profile Card Link */
+.profile-card-link {
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.profile-card-link:hover {
+    transform: translateY(-5px);
 }
 
 /* Profile Card */
 .profile-card {
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #f0e6dc;
-    padding: 10px;
-    position: relative;
-    transition: 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card:hover {
+    box-shadow: 0 8px 20px rgba(185, 37, 47, 0.15);
+    border-color: #b9252f;
 }
 
 .profile-img {
-    border: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     background: #fff;
+    overflow: hidden;
+    position: relative;
 }
 
 .profile-img img {
     width: 100%;
-    height: 230px;
+    height: 280px;
     object-fit: cover;
     display: block;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover .profile-img img {
+    transform: scale(1.05);
 }
 
 /* Profile Content */
 .profile-content {
-    padding: 10px 6px 6px;
+    padding: 18px 16px;
 }
 
 .profile-id {
-    font-size: 14px;
-    color: #777;
+    font-size: 13px;
+    color: #999;
     font-family: 'Barlow', sans-serif;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .profile-name {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    margin: 3px 0;
-    color: #111;
-    font-family: 'Barlow', sans-serif;
+    margin: 8px 0;
+    color: #222;
+    font-family: 'Barlow Condensed', sans-serif;
+    text-transform: capitalize;
 }
 
-.profile-dob {
+.profile-dob,
+.profile-info {
     font-size: 14px;
-    color: #777;
+    color: #666;
     font-family: 'Barlow', sans-serif;
+    margin: 4px 0;
+    line-height: 1.5;
 }
 
 .bookmark-icon.active {
@@ -3045,38 +3212,55 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 /* Profile Pagination */
 .pagination {
-    margin-top: 45px;
+    margin-top: 50px;
     display: flex;
-    justify-content: right;
-    gap: 8px;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
 }
 
 .pagination button {
-    width: 32px;
-    height: 32px;
-    border: 1px solid #ddd;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
     background: #fff;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-family: 'Barlow', sans-serif;
+    color: #333;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #b9252f;
+    color: #fff;
+    border-color: #b9252f;
 }
 
 .pagination button.active {
-    background: #9b1c1c;
+    background: linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%);
     color: #fff;
-    border-color: #9b1c1c;
+    border-color: #b9252f;
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .pagination span {
-    font-size: 13px;
+    font-size: 15px;
+    font-family: 'Barlow', sans-serif;
 }
 
 
 /* ===============================
-   LIST SECTION
+   LIST SECTION (MATRIMONIAL)
 ================================ */
 .list-section {
-    padding: 100px 0;
-    padding-bottom: 10px;
+    padding: 80px 0 20px;
     float: left;
     align-content: center;
     width: 100%;
@@ -3084,13 +3268,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
     background-image: url("/src/assets/images/profile-bg-6.png");
     background-repeat: repeat;
     background-size: auto;
-    padding-top: 60px;
-    padding: 50px 0 0px;
-
 }
 
 .list-section .header-section {
     text-align: center;
+    margin-bottom: 40px;
 }
 
 .directory-table .business-hero-btn {
@@ -3591,6 +3773,42 @@ span[style*="border-left"] {
     .row {
         flex-direction: column;
         gap: 40px;
+    }
+
+    /* My Matrimony Profile */
+    .my-matrimony-section {
+        padding: 60px 0;
+    }
+
+    .create-profile-section {
+        margin: 25px 0;
+    }
+
+    .user-profile-btn {
+        padding: 12px 28px;
+        font-size: 13px;
+    }
+
+    .no-profiles-state h2 {
+        font-size: 32px;
+    }
+
+    .no-profiles-state p {
+        font-size: 16px;
+    }
+
+    /* Matrimonial Personal Info */
+    .profile-list-card {
+        padding: 18px;
+    }
+
+    .profile-list-name {
+        font-size: 20px;
+    }
+
+    .profile-list-details,
+    .profile-list-age {
+        font-size: 13px;
     }
 
     /* Header Buttons Fix */
@@ -4107,10 +4325,40 @@ span[style*="border-left"] {
         padding-top: 40px;
     }
 
+    .profile-img img {
+        height: 240px;
+    }
+
+    .profile-name {
+        font-size: 18px;
+    }
+
+    .pagination {
+        margin-top: 40px;
+        gap: 8px;
+    }
+
+    .pagination button {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
     /* List Section */
     .list-section {
         padding: 60px 0 10px;
-        
+    }
+
+    /* Filter Buttons */
+    .filter-buttons {
+        gap: 10px;
+        margin: 25px 0;
+    }
+
+    .filter-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        min-width: 120px;
     }
 
     /* Footer */
@@ -4239,6 +4487,70 @@ span[style*="border-left"] {
 
     .logo-container img {
         width: 180px;
+    }
+
+    /* My Matrimony Profile */
+    .my-matrimony-section {
+        padding: 50px 0;
+    }
+
+    .create-profile-section {
+        margin: 20px 0;
+    }
+
+    .user-profile-btn {
+        width: 100%;
+        max-width: 320px;
+        padding: 14px 24px;
+    }
+
+    .no-profiles-state {
+        padding: 60px 20px;
+    }
+
+    .no-profiles-state h2 {
+        font-size: 28px;
+    }
+
+    .no-profiles-state p {
+        font-size: 15px;
+    }
+
+    .status-badge {
+        top: 8px;
+        right: 8px;
+        padding: 5px 12px;
+        font-size: 10px;
+    }
+
+    /* Matrimonial Personal Info */
+    .profile-list-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-list-card {
+        padding: 16px;
+    }
+
+    .profile-list-name {
+        font-size: 19px;
+    }
+
+    .profile-list-actions {
+        width: 100%;
+    }
+
+    .profile-list-actions .read-more-btn {
+        width: 100%;
+    }
+
+    .add-profile-btn-wrapper {
+        text-align: center;
+    }
+
+    .form-button-group {
+        flex-direction: column;
     }
 
     /* Hide desktop nav and show burger menu */
@@ -4963,6 +5275,18 @@ span[style*="border-left"] {
     /* List Section */
     .list-section {
         padding: 50px 0 10px;
+    }
+
+    /* Filter Buttons */
+    .filter-buttons {
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .filter-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        min-width: 120px;
     }
 
     /* Footer */
@@ -8187,7 +8511,7 @@ span[style*="border-left"] {
 }
 
 /* ===============================
-   FILTER BUTTONS
+   FILTER BUTTONS (MATRIMONIAL)
 ================================ */
 .filter-buttons {
   display: flex;
@@ -8198,30 +8522,77 @@ span[style*="border-left"] {
 }
 
 .filter-btn {
-  padding: 12px 24px;
+  padding: 14px 32px;
   border: 2px solid #b9252f;
-  background: transparent;
+  background: #fff;
   color: #b9252f;
   font-family: 'Barlow', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
-  min-width: 120px;
+  min-width: 150px;
+  letter-spacing: 0.5px;
 }
 
-.filter-btn:hover {
-  background: #b9252f;
-  color: #fff;
-  transform: translateY(-2px);
-}
 
 .filter-btn.active {
   background: linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%);
   color: #fff;
   border-color: #b9252f;
+}
+
+/* ===============================
+   AGE & MARITAL STATUS FILTERS
+================================ */
+.age-filter,
+.marital-status-filter {
+  text-align: center;
+  margin: 20px 0;
+  font-family: 'Barlow', sans-serif;
+}
+
+.age-filter label,
+.marital-status-filter label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-right: 12px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.age-filter input,
+.marital-status-filter select {
+  padding: 10px 14px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: 'Barlow', sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.age-filter input:focus,
+.marital-status-filter select:focus {
+  border-color: #b9252f;
+}
+
+.age-filter input {
+  width: 100px;
+  text-align: center;
+}
+
+.marital-status-filter select {
+  width: 200px;
+  cursor: pointer;
+}
+
+.age-filter span {
+  margin: 0 10px;
+  font-weight: 500;
+  color: #666;
 }
 
 @media (max-width: 767px) {
@@ -8235,6 +8606,30 @@ span[style*="border-left"] {
     font-size: 13px;
     min-width: 100px;
   }
+
+  /* Age and Marital Status Filters */
+  .age-filter,
+  .marital-status-filter {
+    margin: 15px 0;
+  }
+
+  .age-filter label,
+  .marital-status-filter label {
+    font-size: 15px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .age-filter input {
+    width: 80px;
+    padding: 8px 10px;
+  }
+
+  .marital-status-filter select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 12px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -8247,6 +8642,17 @@ span[style*="border-left"] {
   .filter-btn {
     width: 200px;
     padding: 12px 20px;
+  }
+
+  /* Age and Marital Status Filters */
+  .age-filter input {
+    width: 70px;
+    padding: 8px 10px;
+  }
+
+  .marital-status-filter select {
+    width: 100%;
+    padding: 10px 12px;
   }
 }
 
@@ -8483,6 +8889,245 @@ span[style*="border-left"] {
   }
 }
 
+
+/* ===============================
+   MATRIMONIAL PERSONAL INFO PAGE
+================================ */
+.sub-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  color: #666;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.no-profiles-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.no-profiles-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.add-profile-btn-wrapper {
+  margin-bottom: 25px;
+  text-align: right;
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-list-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.profile-list-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #b9252f;
+}
+
+.profile-list-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-list-info {
+  flex: 1;
+}
+
+.profile-list-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 8px 0;
+}
+
+.profile-list-details {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.profile-list-age {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.profile-list-actions {
+  flex-shrink: 0;
+}
+
+.error-message {
+  font-family: 'Barlow', sans-serif;
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 12px 20px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid #ef9a9a;
+}
+
+.form-button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.form-button-group .read-more-btn {
+  flex: 1;
+}
+
+.form-button-group .read-more-btn.full-width {
+  flex: 1;
+  width: 100%;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.radio-group label {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+  cursor: pointer;
+}
+
+/* ===============================
+   MY MATRIMONY PROFILE PAGE
+================================ */
+.my-matrimony-section {
+  padding: 80px 0;
+  background-color: #faf7f3;
+  width: 100%;
+}
+
+.create-profile-section {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.user-profile-btn {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid #b9252f;
+  background: linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+
+
+/* Status Badge on Profile Card */
+.profile-img {
+  position: relative;
+}
+
+.status-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Barlow', sans-serif;
+  z-index: 2;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* No Profiles State */
+.no-profiles-state {
+  text-align: center;
+  padding: 120px 20px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.no-profiles-state h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.no-profiles-state p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 35px;
+  font-family: 'Barlow', sans-serif;
+  line-height: 1.6;
+}
+
+/* Loading State */
+.profile-loading {
+  text-align: center;
+  padding: 100px 20px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.profile-loading h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #666;
+}
 
 /* ===============================
    MY BUSINESS PAGE - RESPONSIVE
