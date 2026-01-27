@@ -92,9 +92,9 @@ const Header = () => {
                 <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""}>
                   Events
                 </NavLink></li>
-                <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
+               {/*} <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
                   Matrimonial
-                </NavLink></li> 
+                </NavLink></li> */}
                 <li> <NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""}>
                   Business Directory
                 </NavLink></li> <li> <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>
@@ -118,8 +118,8 @@ const Header = () => {
                       {dropdownOpen && (
                         <div className="dropdown-menu">
                           <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Profile</Link>
-                          <Link to="/my-matrimony-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Matrimony Profile</Link>
-                          <Link to="/matrimonial-personal-info" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Create Matrimonial Profile</Link> 
+                         {/* <Link to="/my-matrimony-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Matrimony Profile</Link>
+                         <Link to="/matrimonial-personal-info" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Create Matrimonial Profile</Link> */}
                           <Link to="/my-business" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Business</Link>
                           <button className="dropdown-item" onClick={handleLogout}>Logout</button>
                         </div>
@@ -168,7 +168,7 @@ const Header = () => {
             <li><NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Home</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>About Us</NavLink></li>
             <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Events</NavLink></li>
-            <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li>
+           {/* <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li> */}
             <li><NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Business Directory</NavLink></li>
             <li><NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Contact us</NavLink></li>
           </ul>
@@ -178,8 +178,9 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <Link to="/profile" className="mobile-menu-btn" onClick={toggleMenu}>Profile</Link>
-              <Link to="/my-matrimony-profile" className="mobile-menu-btn" onClick={toggleMenu}>My Matrimony Profile</Link>
+             {/*} <Link to="/my-matrimony-profile" className="mobile-menu-btn" onClick={toggleMenu}>My Matrimony Profile</Link>
               <Link to="/matrimonial-personal-info" className="mobile-menu-btn" onClick={toggleMenu}>Create Matrimonial Profile</Link>
+             */}
               <Link to="/my-business" className="mobile-menu-btn" onClick={toggleMenu}>My Business</Link>
               <button className="mobile-menu-btn logout-btn" onClick={() => {
                 handleLogout();
