@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import { API_ENDPOINTS } from '../../config/api';
-import './MyBusiness.css';
 
 const MyBusiness = () => {
   const [business, setBusiness] = useState(null);
