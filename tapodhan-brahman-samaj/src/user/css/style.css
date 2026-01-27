@@ -2824,6 +2824,7 @@ a.service-card {
     background: linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%);
     color: #fff;
     border: none;
+    text-decoration: none;
     padding: 15px 30px;
     font-size: 13px;
     font-weight: 600;
@@ -6062,12 +6063,6 @@ span[style*="border-left"] {
         min-width: 140px;
     }
 
-    .business-hero-btn {
-        height: 40px;
-        padding: 0 20px;
-        font-size: 13px;
-    }
-
     /* Profile Section */
     .profile-section {
         padding: 25px 0 40px;
@@ -8485,5 +8480,240 @@ span[style*="border-left"] {
   .directory-table th:nth-child(4),
   .directory-table td:nth-child(4) {
     display: none !important;
+  }
+}
+
+
+/* ===============================
+   MY BUSINESS PAGE - RESPONSIVE
+================================ */
+.my-business-section {
+  padding: 80px 0;
+  font-family: "Barlow", sans-serif;
+}
+
+.no-business-container {
+  padding: 450px 20px 200px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: "Barlow", sans-serif;
+}
+
+.no-business-container h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.no-business-container p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.business-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.business-profile-title {
+  font-size: 2rem;
+  color: #333;
+}
+
+
+
+.business-profile-btn:hover,
+.business-hero-btn:hover {
+  background-color: #6d1d28;
+}
+
+.business-profile-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 30px;
+}
+
+.business-profile-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.business-profile-image {
+  text-align: center;
+}
+
+.business-profile-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  height: auto;
+}
+
+.business-name {
+  font-size: 1.8rem;
+  color: #8B2635;
+  margin-bottom: 20px;
+}
+
+.business-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.business-info-item {
+  padding: 10px 0;
+}
+
+.business-info-item strong {
+  color: #333;
+  margin-right: 8px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.status-approved {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.business-info-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.business-info-section strong {
+  display: block;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.business-info-section p {
+  color: #666;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.business-info-section a {
+  color: #8B2635;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.business-info-section a:hover {
+  text-decoration: underline;
+}
+
+/* Tablet Responsive */
+@media (max-width: 768px) {
+  .my-business-section {
+    padding: 50px 0;
+  }
+
+  .no-business-container {
+    padding: 300px 20px 150px;
+  }
+
+  .no-business-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .business-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .business-profile-title {
+    font-size: 1.5rem;
+  }
+
+  .business-profile-card {
+    padding: 20px;
+  }
+
+  .business-name {
+    font-size: 1.5rem;
+  }
+
+  .business-info-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .my-business-section {
+    padding: 30px 0;
+  }
+
+  .no-business-container {
+    padding: 300px 15px 100px;
+  }
+
+  .no-business-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .no-business-container p {
+    font-size: 1rem;
+  }
+
+  .business-profile-title {
+    font-size: 1.3rem;
+  }
+
+  .business-profile-card {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .business-name {
+    font-size: 1.3rem;
+  }
+
+
+  .business-info-item {
+    padding: 8px 0;
+    font-size: 0.9rem;
+  }
+
+  .business-info-section {
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+
+  .status-badge {
+    display: block;
+    margin-left: 0;
+    margin-top: 5px;
+    width: fit-content;
   }
 }
