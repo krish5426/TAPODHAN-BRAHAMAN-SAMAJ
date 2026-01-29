@@ -3,6 +3,7 @@ import twitter from '../assets/images/twitter.svg';
 import facebook from '../assets/images/facebook.svg';
 import whatsapp from '../assets/images/whatsapp.svg';
 import instagram from '../assets/images/instagram.svg';
+import locationQR from '../assets/images/Location.jpeg';
 import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
@@ -28,9 +29,11 @@ const Footer = () => {
                 <ul>
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/about">About</Link></li>
+                  <li><Link to="/events">Events</Link></li>
+                  <li><Link to="/donate">Donate</Link></li>
                   <li><Link to="/contact">Contact Us</Link></li>
                   {/*<li><Link to="/matrimonial">Matrimonial</Link></li> */}
-                  <li><Link to="/events">Events</Link></li>
+                  
                 </ul>
               </div>
               <div className="footer-column">
@@ -47,6 +50,12 @@ const Footer = () => {
                 <div className="contact-info">
                   <p><strong>Phone :</strong><br />9662377530 <br/> 9825906646</p>
                   <p><strong>Email :</strong><br />ravalkb1@gmail.com <br/> maneeshdave79@gmail.com</p>
+                </div>
+              </div>
+              <div className="footer-column">
+                <h4>LOCATION</h4>
+                <div className="location-qr">
+                  <img src={locationQR} alt="Location QR Code" />
                 </div>
               </div>
             </div>

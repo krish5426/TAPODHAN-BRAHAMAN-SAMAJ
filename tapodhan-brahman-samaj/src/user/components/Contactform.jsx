@@ -63,9 +63,9 @@ const Contactform = () => {
       <div className="container">
         <div className="contact-content">
           <div className="contact-left">
-            <div className="header-section">
-              <span className="header-label">CONTACT US</span>
-              <h2 className="header-title">
+            <div className="header-section-top">
+              <span className="header-label-top">CONTACT US</span>
+              <h2 className="header-title-top">
                 <strong><span>LET'S STAY</span> CONNECTED <span>FOR A </span>
                   STRONGER COMMUNITY</strong>
               </h2>

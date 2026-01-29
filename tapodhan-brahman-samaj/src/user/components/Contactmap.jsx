@@ -1,10 +1,14 @@
 import React from "react";
+import locationImage from '../assets/images/Location.jpeg';
+
+
 
 
 const Contactmap = () => {
   return (
     <section className="contact-section-two">
-      <div className="container">
+      
+      <div className="container-contact">
 
         {/* Map Section */}
         <div className="map-wrapper">
@@ -16,8 +20,15 @@ const Contactmap = () => {
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
-
-      </div>
+        <div className="qr-map">
+       <img 
+        src={locationImage} 
+        alt="Location photo" 
+        className="location-img" 
+        style={{ width: '100%' }} 
+      />
+    </div>
+        </div>
     </section>
   );
 };

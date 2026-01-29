@@ -97,7 +97,11 @@ const Header = () => {
                 </NavLink></li> */}
                 <li> <NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""}>
                   Business Directory
-                </NavLink></li> <li> <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>
+                </NavLink></li>
+                <li><NavLink to="/donate" className={({ isActive }) => isActive ? "active" : ""}>
+                  Donate
+                </NavLink></li>
+                <li> <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>
                   Contact us
                 </NavLink></li>
               </ul>
@@ -170,6 +174,7 @@ const Header = () => {
             <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Events</NavLink></li>
            {/* <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li> */}
             <li><NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Business Directory</NavLink></li>
+            <li><NavLink to="/donate" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Donate</NavLink></li>
             <li><NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Contact us</NavLink></li>
           </ul>
         </nav>

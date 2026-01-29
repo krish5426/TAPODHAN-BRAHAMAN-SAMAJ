@@ -29,7 +29,7 @@ const Services = () => {
       id: 4,
       title: 'DONATE',
       icon: donateIcon,
-      link: '/contact'
+      link: '/donate'
     },
     {
       id: 5,

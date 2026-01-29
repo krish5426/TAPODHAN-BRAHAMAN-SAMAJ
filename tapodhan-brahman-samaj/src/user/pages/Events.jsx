@@ -16,7 +16,6 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  // Helper function to ensure event has day and month
   const ensureEventDateFields = (event) => {
     if (!event.day || !event.month) {
       const eventDate = new Date(event.date);

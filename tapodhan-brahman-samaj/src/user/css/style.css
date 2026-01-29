@@ -1422,7 +1422,7 @@ nav ul li a.active {
 }
 
 .footer-left {
-  width: 35%;
+  width: 30%;
 }
 
 .footer-logo img {
@@ -1443,7 +1443,7 @@ nav ul li a.active {
 }
 
 .footer-links {
-  width: 65%;
+  width: 70%;
 }
 
 .footer-column-row {
@@ -1494,6 +1494,17 @@ nav ul li a.active {
 
 .footer-links .footer-column:nth-child(4) {
   width: 35%;
+}
+
+.location-qr {
+  margin-top: 10px;
+}
+
+.location-qr img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .footer-bottom {
@@ -1554,7 +1565,7 @@ nav ul li a.active {
   height: 100%;
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   padding: 160px 0;
   margin-left: 0;
   border-radius: 0;
@@ -2296,7 +2307,7 @@ a.service-card {
 
 /* Map Styling */
 .map-wrapper {
-  width: 100%;
+  width: 70%;
   height: 400px;
   border-radius: 12px;
   overflow: hidden;
@@ -2983,8 +2994,9 @@ a.service-card {
     width: 220px;
 }
 
-.container {
+.container-contact {
     gap: 20px;
+    display: flex;
     width: 100%;
     max-width: 1280px;
     margin: auto;
@@ -3082,7 +3094,15 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .next-btn-wrapper {
   margin: 40px 0;
 }
-
+.qr-map{
+    width: 30%;
+    height: 30%;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    object-fit: contain;
+    border-radius: 8px;
+}
 /* NEXT Button */
 .next-btn {
   width: 100%;
@@ -3383,6 +3403,127 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 span[aria-hidden="true"],
 span[style*="border-left"] {
     display: none;
+}
+
+.donate-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.donate-left {
+  flex: 0 0 75%;
+  width: 70%;
+}
+
+.donate-right {
+  flex: 0 0 25%;
+  width: 30%;
+  margin: 8px 0 40px 0;
+}
+
+.donations-table-wrapper {
+  background: #fff;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.donations-table {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 40px;
+  border-collapse: collapse;
+  font-family: 'Barlow', sans-serif;
+}
+
+.donations-table thead {
+  background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
+}
+
+.donations-table th {
+  text-align: center;
+  padding: 18px 0px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.donations-table th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.donations-table th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.donations-table td {
+  text-align: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 18px;
+  color: #333;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+}
+
+.donations-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.donations-table tbody tr:hover {
+  background: linear-gradient(180deg, #f58b3a, #e35b0c);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.donations-table tbody tr:hover td {
+  color: #fff;
+}
+.qr-section {
+  background: #fff;
+  padding: 30px 30px;
+  border-radius: 8px;
+  text-align: center;
+  position: sticky;
+  top: 100px;
+  border: 1px solid #e0e0e0;
+}
+
+.qr-section h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qr-subtitle {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  color: #666;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+.qr-image {
+  margin-top: 20px;
+  padding: 0px;
+  border-radius: 8px;
+}
+
+.qr-image img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
 }
 /* ===============================
    RESPONSIVE MEDIA QUERIES
@@ -8366,8 +8507,221 @@ span[style*="border-left"] {
 }
 
 /* ===============================
-   UTILITY CLASSES FOR RESPONSIVENESS
+   DONATE PAGE
 ================================ */
+.donate-section {
+  padding: 80px 0;
+  background: #fff;
+  font-family: 'Barlow', sans-serif;
+  width: 100%;
+  float: left;
+}
+
+.donate-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.donate-section .header-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.donate-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.donate-left {
+  flex: 0 0 70%;
+  width: 70%;
+}
+
+.donate-right {
+  flex: 0 0 30%;
+  width: 30%;
+}
+
+.donations-table-wrapper {
+  background: #fff;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.donations-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Barlow', sans-serif;
+}
+
+.donations-table thead {
+  background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
+}
+
+.donations-table th {
+  text-align: center;
+  padding: 18px 20px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.donations-table th:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.donations-table th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.donations-table td {
+  text-align: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 18px;
+  color: #333;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+}
+
+.donations-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.donations-table tbody tr:hover {
+  background: linear-gradient(180deg, #f58b3a, #e35b0c);
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.donations-table tbody tr:hover td {
+  color: #fff;
+}
+
+.qr-section {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 8px;
+  text-align: center;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+}
+
+.qr-section h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qr-subtitle {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  color: #666;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+.qr-image {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.qr-image img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+@media (max-width: 991px) {
+  .donate-content {
+    flex-direction: column;
+  }
+
+  .donate-left,
+  .donate-right {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .qr-section {
+    position: static;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .donate-section {
+    padding: 50px 0;
+  }
+
+  .donate-content {
+    gap: 30px;
+  }
+
+  .donations-table th,
+  .donations-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .qr-section {
+    padding: 30px 20px;
+  }
+
+  .qr-section h3 {
+    font-size: 24px;
+  }
+
+  .qr-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .donate-section {
+    padding: 35px 0;
+  }
+
+  .donations-table th,
+  .donations-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .qr-section {
+    padding: 25px 15px;
+  }
+
+  .qr-section h3 {
+    font-size: 20px;
+  }
+
+  .qr-subtitle {
+    font-size: 13px;
+  }
+
+  .qr-image {
+    padding: 10px;
+  }
+}
 
 /* Hide on mobile */
 @media (max-width: 767px) {
