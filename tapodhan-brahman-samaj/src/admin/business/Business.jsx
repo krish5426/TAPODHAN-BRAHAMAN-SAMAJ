@@ -85,13 +85,19 @@ function Business() {
             <MDBox pt={3} pb={3}>
                 <MDBox mb={3}>
                     <Card>
-                        <MDBox p={3} lineHeight={1}>
-                            <MDTypography variant="h5" fontWeight="medium">
-                                Business List
-                            </MDTypography>
-                            <MDTypography variant="button" color="text">
-                                All approved businesses
-                            </MDTypography>
+                        <MDBox p={3} lineHeight={1} display="flex" justifyContent="space-between" alignItems="center">
+                            <MDBox>
+                                <MDTypography variant="h5" fontWeight="medium">
+                                    Business List
+                                </MDTypography>
+                                <MDTypography variant="button" color="text">
+                                    All approved businesses
+                                </MDTypography>
+                            </MDBox>
+                            <MDButton variant="gradient" color="info" onClick={() => navigate("/admin/business/add")}>
+                                <Icon sx={{ fontWeight: "bold" }}>add</Icon>
+                                &nbsp;Add Business
+                            </MDButton>
                         </MDBox>
                         <DataTable
                             table={{ columns, rows }}

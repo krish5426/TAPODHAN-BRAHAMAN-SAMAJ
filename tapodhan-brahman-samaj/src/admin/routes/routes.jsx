@@ -6,6 +6,7 @@ import PendingProfiles from "../matrimony/PendingProfiles";
 import Business from "../business/Business";
 import PendingBusinessRequests from "../business/PendingBusinessRequests";
 import EditBusiness from "../business/EditBusiness";
+import AddBusiness from "../business/AddBusiness";
 import ViewBusiness from "../business/ViewBusiness";
 import Events from "../events/Events";
 import Login from "../auth/Login";
@@ -94,6 +95,13 @@ const routes = [
     key: "edit-business",
     route: "/admin/business/edit/:id",
     component: <EditBusiness />,
+  },
+  {
+    type: "hidden",
+    name: "Add Business",
+    key: "add-business",
+    route: "/admin/business/add",
+    component: <AddBusiness />,
   },
   {
     type: "hidden",

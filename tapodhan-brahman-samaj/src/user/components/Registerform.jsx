@@ -38,7 +38,7 @@ const BusinessRegisterform = () => {
   const nextStep = (e) => {
     e.preventDefault();
     // Basic validation for Step 1
-    if (!formData.businessName || !formData.ownerName || !formData.email || !formData.contactNumber || !formData.category || !formData.businessType) {
+    if (!formData.businessName || !formData.ownerName || !formData.contactNumber) {
       setError("Please fill all required fields in Step 1.");
       return;
     }
@@ -63,14 +63,8 @@ const BusinessRegisterform = () => {
       return;
     }
 
-    if (!formData.address || !formData.city || !formData.state) {
+    if (!formData.address) {
       setError("Please fill all required fields in Step 2.");
-      setLoading(false);
-      return;
-    }
-
-    if (!posterPhoto) {
-      setError("Please upload a poster photo.");
       setLoading(false);
       return;
     }
@@ -162,16 +156,16 @@ const BusinessRegisterform = () => {
                       <input type="text" name="ownerName" placeholder="Owner Name" value={formData.ownerName} onChange={handleChange} required />
                     </div>
                     <div className="form-group">
-                      <label>Email*</label>
-                      <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
+                      <label>Email</label>
+                      <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                       <label>Contact Number*</label>
                       <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
                     </div>
                     <div className="form-group">
-                      <label>Category*</label>
-                      <select name="category" value={formData.category} onChange={handleChange} required>
+                      <label>Category</label>
+                      <select name="category" value={formData.category} onChange={handleChange}>
                         <option value="">Select Category</option>
                         <option value="Restaurant">Restaurant</option>
                         <option value="Shop">Shop</option>
@@ -181,8 +175,8 @@ const BusinessRegisterform = () => {
                       </select>
                     </div>
                     <div className="form-group">
-                      <label>Business Type*</label>
-                      <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} required />
+                      <label>Business Type</label>
+                      <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
                     </div>
                   </>
                 )}
@@ -190,20 +184,20 @@ const BusinessRegisterform = () => {
                 {step === 2 && (
                   <>
                     <div className="form-group">
-                      <label>City*</label>
-                      <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
+                      <label>City</label>
+                      <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
                     </div>
                     <div className="form-group">
-                      <label>State*</label>
-                      <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
+                      <label>State</label>
+                      <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} />
                     </div>
                     <div className="form-group">
                       <label>Website</label>
                       <input type="text" name="website" placeholder="Website URL" value={formData.website} onChange={handleChange} />
                     </div>
                     <div className="form-group full-width">
-                      <label>Poster Photo*</label>
-                      <input type="file" accept="image/*" onChange={handleFileChange} required={!posterPhoto} />
+                      <label>Poster Photo</label>
+                      <input type="file" accept="image/*" onChange={handleFileChange} />
                     </div>
                     <div className="form-group full-width">
                       <label>Description</label>

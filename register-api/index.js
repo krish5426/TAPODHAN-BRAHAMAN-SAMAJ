@@ -456,6 +456,121 @@ app.get("/api/admin/business/:id", authenticateToken, async (req, res) => {
   }
 });
 
+
+
+// Create Business by Admin
+app.post("/api/admin/business", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
+  try {
+    console.log("Admin create business body:", req.body);
+    console.log("Admin create business file:", req.file);
+
+    const { 
+      businessName, ownerName, email, contactNumber, address, 
+      status, category, businessType, description, website, city, state 
+    } = req.body;
+
+    if (!businessName || !ownerName || !contactNumber || !address) {
+      return res.status(400).json({ message: "All required fields must be provided: Business Name, Owner Name, Contact Number, Address." });
+    }
+
+    // 1. Find or Create User
+    let user = null;
+    
+    // Try to find by email if provided
+    if (email) {
+        user = await User.findByEmail(email);
+    }
+    
+    // If not found by email (or email not provided), try by mobile
+    if (!user) {
+        user = await User.findByMobile(contactNumber);
+    }
+
+    let userId;
+    if (user) {
+        userId = user.id;
+        // Check if user already has a business
+        const existingBusiness = await Business.findByUserId(userId);
+        if (existingBusiness) {
+            return res.status(400).json({ message: "This user already has a registered business." });
+        }
+    } else {
+        // Create new user
+        const hashedPassword = await bcrypt.hash("123456", 10); // Default password
+        const nameParts = ownerName.trim().split(" ");
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(" ") || "."; 
+
+        const newUser = await User.create({
+            firstName,
+            lastName,
+            email: email || null, // Allow null email if DB supports it, or it will fail if UNIQUE constraint is strict on empty strings
+            mobile: contactNumber,
+            password: hashedPassword,
+            registerForProfile: false,
+            acceptTerms: true
+        });
+        userId = newUser.id;
+    }
+
+    // 2. Create Business
+    // Handle optional poster photo
+    const posterPhoto = req.file ? req.file.filename : "default_business.jpg"; // Use a default or empty string if allowed
+
+    const businessData = {
+        userId,
+        businessName,
+        ownerName,
+        email: email || "", // Use empty string for business email if missing (DB requires NOT NULL)
+        contactNumber,
+        address,
+        posterPhoto, 
+        status: status || 'approved',
+        category,
+        businessType,
+        description,
+        website,
+        city,
+        state
+    };
+
+    const newBusiness = await Business.create(businessData);
+
+    // 3. Send Emails (Only if email exists)
+    if (email) {
+        try {
+            await sendBusinessStatusEmail(email, ownerName, businessName, status || 'approved');
+        } catch (emailError) {
+            console.error('Failed to send business registration emails:', emailError);
+        }
+    }
+
+    res.status(201).json({
+        message: "Business created successfully",
+        business: newBusiness
+    });
+
+  } catch (error) {
+    console.error("Create admin business error:", error);
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+});
+
+// Delete Business by Admin
+app.delete("/api/admin/business/:id", authenticateToken, async (req, res) => {
+    try {
+        const result = await Business.delete(req.params.id);
+        if (result) {
+            res.json({ message: "Business deleted successfully" });
+        } else {
+            res.status(404).json({ message: "Business not found" });
+        }
+    } catch (error) {
+        console.error("Delete business error:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 // Get User Profile
 app.get("/profile", authenticateToken, async (req, res) => {
   try {

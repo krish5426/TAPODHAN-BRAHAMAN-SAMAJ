@@ -161,6 +161,23 @@ export const updateAdminBusiness = async (id, formData) => {
     }
 };
 
+export const createAdminBusiness = async (formData) => {
+    try {
+        const token = localStorage.getItem("admin_token");
+        const response = await fetch(`${API_URL}/api/admin/business`, {
+            method: "POST",
+            headers: {
+                "Authorization": token ? `Bearer ${token}` : "",
+            },
+            body: formData
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("createAdminBusiness error:", error);
+        throw error;
+    }
+};
+
 export const fetchAdminProfileById = async (id) => {
     try {
         const response = await fetch(`${API_URL}/api/admin/profiles/${id}`, {
