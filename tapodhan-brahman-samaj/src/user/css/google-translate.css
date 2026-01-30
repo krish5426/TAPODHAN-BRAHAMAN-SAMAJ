@@ -1,6 +1,7 @@
 /* Google Translate Integration Styles */
 
 /* Make sure Google Translate widget is visible */
+
 #google_translate_element {
   display: block !important;
   visibility: visible !important;
@@ -9,6 +10,7 @@
 .goog-te-gadget {
   display: block !important;
   visibility: visible !important;
+  
 }
 
 .goog-te-gadget-simple {

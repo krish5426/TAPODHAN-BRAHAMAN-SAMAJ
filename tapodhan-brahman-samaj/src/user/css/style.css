@@ -353,7 +353,7 @@ nav ul li a.active {
     line-height: 14px;
     display: inline-block;
     position: relative;
-    margin-top: 70px;
+    margin-top: 100px;
     font-weight: 400 !important;
 }
 
@@ -516,6 +516,87 @@ nav ul li a.active {
 
 .service-card:hover .service-icon::after {
   transform: scale(1);
+}
+
+/* Events carousel styles */
+.events-carousel-container {
+  position: relative;
+  margin: 40px 0 60px;
+  display: block;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding: 12px;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  padding: 18px;
+}
+
+.event-content {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.event-image {
+  flex: 0 0 45%;
+  max-height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+}
+
+.event-detail {
+  flex: 1;
+  padding: 6px 6px 6px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-arrow { display: none; }
+
+.carousel-controls { display:flex; justify-content:center; margin-top:18px; }
+.carousel-controls.below-viewport { margin-top:22px; }
+.carousel-indicators { display:flex; gap:10px; align-items:center; }
+.indicator { width:10px; height:10px; border-radius:50%; background:#ddd; border:none; cursor:pointer; }
+.indicator.active { background:#F78D22; }
+
+@media (max-width: 992px) {
+  .event-image { flex: 0 0 50%; }
+}
+
+@media (max-width: 768px) {
+  .event-content { flex-direction: column; }
+  .event-image { flex: 0 0 auto; height: 240px; }
+  .event-detail { padding: 12px 0 0; }
+  .carousel-arrow { width:36px; height:36px; }
 }
 
 .service-card:hover .service-icon img {
@@ -775,6 +856,7 @@ nav ul li a.active {
 
 .event-card.featured {
   position: relative;
+  animation: fadeIn 0.7s ease;
 }
 
 .event-card .event-date {
@@ -925,6 +1007,80 @@ nav ul li a.active {
   color: #fff;
   display: inline-block;
   border: none;
+}
+
+/* Carousel Styles */
+.events-carousel-container {
+  position: relative;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.carousel-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.carousel-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(185, 37, 47, 0.3);
+}
+
+.carousel-btn:active {
+  transform: scale(0.95);
+}
+
+.carousel-btn span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+
+.carousel-indicators {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex: 1;
+}
+
+.carousel-indicators .indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.carousel-indicators .indicator:hover {
+  background-color: #999;
+}
+
+.carousel-indicators .indicator.active {
+  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+  width: 14px;
+  height: 14px;
 }
 
 .events-section .header-section .header-title {
@@ -2114,6 +2270,7 @@ a.read-more-btn {
 .contact-content {
   display: flex;
   gap: 60px;
+  margin-top: 25px;
   align-items: flex-start;
 }
 
@@ -2900,7 +3057,7 @@ a.service-card {
     line-height: 14px;
     display: inline-block;
     position: relative;
-    margin-top: 70px;
+    margin-top: 100px;
     font-weight: 300 !important;
 }
 
@@ -3421,6 +3578,9 @@ span[style*="border-left"] {
   flex: 0 0 25%;
   width: 30%;
   margin: 8px 0 40px 0;
+   position: sticky;
+  top: 100px;
+  height: fit-content;
 }
 
 .donations-table-wrapper {
@@ -3525,6 +3685,55 @@ span[style*="border-left"] {
   border-radius: 8px;
   display: block;
 }
+
+/* Smooth carousel transitions */
+.event-card {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.event-card.transitioning {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.carousel-image {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.event-card.transitioning .carousel-image {
+  opacity: 0;
+}
+
+/* Carousel indicators styling */
+.carousel-indicators {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator:hover {
+  background-color: #888;
+  transform: scale(1.2);
+}
+
+.indicator.active {
+  background-color: #333;
+  width: 14px;
+  height: 14px;
+}
+
+
 /* ===============================
    RESPONSIVE MEDIA QUERIES
    Professional Non-Overlapping Breakpoints
@@ -8543,6 +8752,9 @@ span[style*="border-left"] {
 .donate-right {
   flex: 0 0 30%;
   width: 30%;
+  position: sticky;
+  top: 0px;
+  height: fit-content;
 }
 
 .donations-table-wrapper {
@@ -8610,8 +8822,6 @@ span[style*="border-left"] {
   padding: 40px 30px;
   border-radius: 8px;
   text-align: center;
-  position: sticky;
-  top: 100px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid #e0e0e0;
 }
@@ -8661,7 +8871,7 @@ span[style*="border-left"] {
   }
 
   .qr-section {
-    position: static;
+    position: relative;
     max-width: 500px;
     margin: 0 auto;
   }
