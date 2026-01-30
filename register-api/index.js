@@ -47,33 +47,30 @@ const JWT_SECRET = process.env.JWT_SECRET || "MY_SECRET_KEY";
 // Upload Configuration
 const UPLOAD_DIR = path.join(__dirname, "uploads");
 const PROFILE_UPLOAD_DIR = path.join(UPLOAD_DIR, "profile");
+const EVENTS_UPLOAD_DIR = path.join(UPLOAD_DIR, "events");
 
-if (!fs.existsSync(PROFILE_UPLOAD_DIR)) {
-  try {
-    fs.mkdirSync(PROFILE_UPLOAD_DIR, { recursive: true });
-  } catch (err) {
-    console.error("Failed to create profile upload directory:", err);
+const ensureDir = (dir) => {
+  if (!fs.existsSync(dir)) {
+    try {
+      fs.mkdirSync(dir, { recursive: true });
+      console.log('Created directory:', dir);
+    } catch (err) {
+      console.error("Failed to create directory:", dir, err);
+    }
   }
-}
+};
 
+ensureDir(PROFILE_UPLOAD_DIR);
+ensureDir(EVENTS_UPLOAD_DIR);
+
+// Profile Storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    try {
-      // Ensure the profile directory exists
-      if (!fs.existsSync(PROFILE_UPLOAD_DIR)) {
-        fs.mkdirSync(PROFILE_UPLOAD_DIR, { recursive: true });
-        console.log('Created profile upload directory:', PROFILE_UPLOAD_DIR);
-      }
-      cb(null, PROFILE_UPLOAD_DIR);
-    } catch (error) {
-      console.error('Error creating upload directory:', error);
-      cb(error);
-    }
+    cb(null, PROFILE_UPLOAD_DIR);
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
-    const fname = `profile_${Date.now()}${ext}`;
-    console.log('Generated filename:', fname);
+    const fname = `profile_${Date.now()}_${Math.round(Math.random() * 1E9)}${ext}`;
     cb(null, fname);
   }
 });
@@ -82,24 +79,35 @@ const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png/i;
+    const allowed = /jpeg|jpg|png|webp/i;
     const ext = path.extname(file.originalname);
     if (allowed.test(ext)) cb(null, true);
-    else cb(new Error("Only images (jpg, jpeg, png) are allowed"));
+    else cb(new Error("Only images (jpg, jpeg, png, webp) are allowed"));
   }
 });
 
-// Create a flexible upload middleware for events
-const eventUpload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png/i;
+// Event Storage
+const eventStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, EVENTS_UPLOAD_DIR);
+  },
+  filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
-    if (allowed.test(ext)) cb(null, true);
-    else cb(new Error("Only images (jpg, jpeg, png) are allowed"));
+    const fname = `event_${Date.now()}_${Math.round(Math.random() * 1E9)}${ext}`;
+    cb(null, fname);
   }
-}).any(); // Accept any field names
+});
+
+const eventUpload = multer({
+    storage: eventStorage,
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+      const allowed = /jpeg|jpg|png|webp/i;
+      const ext = path.extname(file.originalname);
+      if (allowed.test(ext)) cb(null, true);
+      else cb(new Error("Only images (jpg, jpeg, png, webp) are allowed"));
+    }
+  }).any();
 
 // Middleware
 const authenticateToken = (req, res, next) => {
@@ -763,32 +771,35 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
       return res.status(400).json({ message: "Business already registered for this user" });
     }
 
-    if (!req.file) {
-      return res.status(400).json({ message: "Poster photo is required" });
-    }
-
     const { businessName, ownerName, email, contactNumber, address } = req.body;
     
-    if (!businessName || !ownerName || !email || !contactNumber || !address) {
-      return res.status(400).json({ message: "All required fields must be provided" });
+    // Removed email from required fields to match admin route consistency
+    if (!businessName || !ownerName || !contactNumber || !address) {
+      return res.status(400).json({ message: "All required fields must be provided: Business Name, Owner Name, Contact Number, Address." });
     }
+
+    // Handle optional poster photo
+    const posterPhoto = req.file ? req.file.filename : "default_business.jpg";
 
     const businessData = {
       ...req.body,
       userId,
-      posterPhoto: req.file.filename,
+      email: email || "", // Allow empty email
+      posterPhoto,
       status: 'pending'
     };
 
     const newBusiness = await Business.create(businessData);
 
-    // Send email notifications
-    console.log('Attempting to send business registration emails...');
-    try {
-      await sendBusinessRegistrationEmails(email, ownerName, businessName);
-      console.log('Business registration emails sent successfully');
-    } catch (emailError) {
-      console.error('Failed to send business registration emails:', emailError);
+    // Send email notifications only if email is provided
+    if (email) {
+        console.log('Attempting to send business registration emails...');
+        try {
+          await sendBusinessRegistrationEmails(email, ownerName, businessName);
+          console.log('Business registration emails sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send business registration emails:', emailError);
+        }
     }
 
     res.status(201).json({
@@ -798,6 +809,7 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
   } catch (error) {
     console.error("Business registration error:", error);
     res.status(500).json({ message: "Internal server error", error: error.message });
+
   }
 });
 
@@ -979,13 +991,13 @@ app.post("/api/admin/events", authenticateToken, eventUpload, async (req, res) =
     // Handle poster image (single)
     const posterFiles = req.files?.filter(file => file.fieldname === 'posterImage');
     if (posterFiles && posterFiles.length > 0) {
-      eventData.posterImage = posterFiles[0].filename;
+      eventData.posterImage = `events/${posterFiles[0].filename}`;
     }
     
     // Handle event images (multiple)
     const imageFiles = req.files?.filter(file => file.fieldname === 'images');
     if (imageFiles && imageFiles.length > 0) {
-      eventData.images = imageFiles.map(file => file.filename);
+      eventData.images = imageFiles.map(file => `events/${file.filename}`);
     }
 
     const newEvent = await Event.create(eventData);
@@ -1004,13 +1016,13 @@ app.put("/api/admin/events/:id", authenticateToken, eventUpload, async (req, res
     // Handle poster image (single)
     const posterFiles = req.files?.filter(file => file.fieldname === 'posterImage');
     if (posterFiles && posterFiles.length > 0) {
-      eventData.posterImage = posterFiles[0].filename;
+      eventData.posterImage = `events/${posterFiles[0].filename}`;
     }
     
     // Handle event images (multiple)
     const imageFiles = req.files?.filter(file => file.fieldname === 'images');
     if (imageFiles && imageFiles.length > 0) {
-      eventData.images = imageFiles.map(file => file.filename);
+      eventData.images = imageFiles.map(file => `events/${file.filename}`);
     }
 
     const updatedEvent = await Event.update(id, eventData);

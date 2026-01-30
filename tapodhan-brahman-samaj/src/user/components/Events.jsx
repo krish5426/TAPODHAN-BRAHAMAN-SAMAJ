@@ -1,9 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { API_ENDPOINTS } from '../../config/api';
-import shivaImage from '../assets/images/about-image.jpg';
-import team from '../assets/images/team.jpg'
-import grid from '../assets/images/grid-image.png'
-import qr from '../assets/images/Location.jpeg'
 import '../css/style.css';
 
 const Events = () => {
@@ -14,62 +10,36 @@ const Events = () => {
   const eventImageRef = useRef(null);
   const eventDetailRef = useRef(null);
 
-  // Static event data with multiple events
-  const staticEvents = [
-    {
-      id: 1,
-      day: '25',
-      month: 'MAR',
-      category: 'Organized by Tapodhan Brahmin Samaj Charitable Trust',
-      title: 'Recitation of the Shiva Mahapuran for the salvation of the ancestors',
-      description: 'Vyas Peeth ',
-      details: 'Date : Chaitra Sud Satam, Wednesday',
-      address: 'Address : Tapodhan Brahmins Community Farm, Ramji Pura, Sukhsagar - 382015',
-      posterImage: shivaImage,
-      featured: true
-    },
-    {
-      id: 2,
-      day: '15',
-      month: 'APR',
-      category: 'Organized by Tapodhan Brahmin Samaj Charitable Trust',
-      title: 'Annual Brahmin Community Gathering and Cultural Program',
-      description: 'Vyas Peeth : Shri Girdharidas Shastri Shri Rami Patan',
-      details: 'Date : April 15, 2025',
-      address: 'Address : Tapodhan Brahmins Community Farm, Ramji Pura, Sukhsagar - 382015',
-      posterImage: team,
-      featured: true
-    },
-    {
-      id: 3,
-      day: '05',
-      month: 'MAY',
-      category: 'Organized by Tapodhan Brahmin Samaj Charitable Trust',
-      title: 'Religious Discourse and Meditation Session',
-      description: 'Vyas Peeth : Shri Girdharidas Shastri Shri Rami Patan',
-      details: 'Date : May 5-7, 2025',
-      address: 'Address : Tapodhan Brahmins Community Farm, Ramji Pura, Sukhsagar - 382015',
-      posterImage: grid,
-      featured: true
-    },
-    {
-      id: 4,
-      day: '20',
-      month: 'JUN',
-      category: 'Organized by Tapodhan Brahmin Samaj Charitable Trust',
-      title: 'Youth Empowerment and Skill Development Workshop',
-      description: 'Vyas Peeth : Shri Girdharidas Shastri Shri Rami Patan',
-      details: 'Date : June 20-22, 2025',
-      address: 'Address : Tapodhan Brahmins Community Farm, Ramji Pura, Sukhsagar - 382015',
-      posterImage: qr,
-      featured: true
-    }
-  ];
-
   useEffect(() => {
-    // Set static events
-    setEvents(staticEvents);
-    setLoading(false);
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(API_ENDPOINTS.EVENTS);
+        if (!response.ok) {
+          throw new Error('Failed to fetch events');
+        }
+        const data = await response.json();
+        
+        // Transform data if needed
+        // Backend returns: id, title, description, date, day, month, category, details, address, posterImage
+        // We need to ensure posterImage has full URL if it's a filename
+        const processedEvents = data.map(event => ({
+          ...event,
+          posterImage: event.posterImage ? 
+            (event.posterImage.startsWith('http') ? event.posterImage : `${API_ENDPOINTS.UPLOADS}/${event.posterImage}`) 
+            : null,
+            featured: true 
+        }));
+        
+        setEvents(processedEvents);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
   }, []);
 
   const handleEventChange = (newIndex) => {
