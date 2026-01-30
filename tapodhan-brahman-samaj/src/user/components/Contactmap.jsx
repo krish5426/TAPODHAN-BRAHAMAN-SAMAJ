@@ -25,7 +25,7 @@ const Contactmap = () => {
         src={locationImage} 
         alt="Location photo" 
         className="location-img" 
-        style={{ width: '100%' }} 
+        
       />
     </div>
         </div>

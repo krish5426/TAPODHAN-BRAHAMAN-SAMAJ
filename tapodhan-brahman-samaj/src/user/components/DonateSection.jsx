@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import donationQR from '../assets/images/donations.jpeg';
+import '../css/donate-responsive.css';
 
 const DonateSection = () => {
   const [donations, setDonations] = useState([
