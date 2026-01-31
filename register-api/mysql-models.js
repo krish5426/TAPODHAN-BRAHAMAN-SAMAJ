@@ -95,6 +95,12 @@ class Profile {
     return rows[0] || null;
   }
 
+  static async findAllByUserId(userId) {
+    const pool = getPool();
+    const [rows] = await pool.execute('SELECT * FROM profiles WHERE userId = ? ORDER BY createdAt DESC', [userId]);
+    return rows;
+  }
+
   static async findById(id) {
     const pool = getPool();
     const [rows] = await pool.execute('SELECT * FROM profiles WHERE id = ?', [id]);
@@ -114,6 +120,21 @@ class Profile {
     if (filters.gender) {
       query += ' AND gender = ?';
       params.push(filters.gender);
+    }
+
+    if (filters.ageMin !== undefined) {
+      query += ' AND TIMESTAMPDIFF(YEAR, dateOfBirth, CURDATE()) >= ?';
+      params.push(filters.ageMin);
+    }
+
+    if (filters.ageMax !== undefined) {
+      query += ' AND TIMESTAMPDIFF(YEAR, dateOfBirth, CURDATE()) <= ?';
+      params.push(filters.ageMax);
+    }
+
+    if (filters.maritalStatus) {
+      query += ' AND maritalStatus = ?';
+      params.push(filters.maritalStatus);
     }
 
     query += ' ORDER BY createdAt DESC';
@@ -237,6 +258,12 @@ class Business {
     if (result.affectedRows === 0) return null;
 
     return { id, ...businessData };
+  }
+
+  static async delete(id) {
+    const pool = getPool();
+    const [result] = await pool.execute('DELETE FROM businesses WHERE id = ?', [id]);
+    return result.affectedRows > 0;
   }
 }
 

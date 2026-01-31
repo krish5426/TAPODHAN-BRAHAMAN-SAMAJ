@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
+import defaultBusinessImage from '../assets/images/business.png';
 import { API_ENDPOINTS } from '../../config/api';
 
 
@@ -82,12 +83,13 @@ const MyBusiness = () => {
           <div className="business-profile-card">
             <div className="business-profile-content">
               <div className="business-profile-image">
-                {business.posterPhoto && (
                   <img 
-                    src={`${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`} 
+                    src={business.posterPhoto && business.posterPhoto !== "default_business.jpg" 
+                      ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}` 
+                      : defaultBusinessImage} 
                     alt={business.businessName}
+                    onError={(e) => { e.target.src = defaultBusinessImage; }}
                   />
-                )}
               </div>
               <div className="business-profile-details">
                 <h2 className="business-name">{business.businessName}</h2>
