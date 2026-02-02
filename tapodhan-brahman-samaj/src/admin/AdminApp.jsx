@@ -5,6 +5,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Icon from "@mui/material/Icon";
 import MDBox from "./components/MDBox";
+import SettingsIcon from "@mui/icons-material/Settings";
+import CloseIcon from "@mui/icons-material/Close";
 import Sidebar from "./layout/Sidebar"; // New Sidebar
 import Configurator from "./components/Configurator";
 import theme from "./assets/theme";
@@ -129,22 +131,31 @@ function AdminAppContent() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            width="3.25rem"
-            height="3.25rem"
-            bgColor="white"
-            shadow="sm"
+            width="3.5rem"
+            height="3.5rem"
+            shadow="lg"
             borderRadius="50%"
             position="fixed"
-            right="2rem"
-            bottom="2rem"
-            zIndex={99}
-            color="dark"
-            sx={{ cursor: "pointer" }}
+            right={{ xs: "1rem", sm: "1.5rem", md: "2rem" }}
+            bottom={{ xs: "1rem", sm: "1.5rem", md: "2rem" }}
+            zIndex={120}
+            sx={{
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: openConfigurator
+                    ? "linear-gradient(135deg, rgba(44,62,80,1) 0%, rgba(32,45,60,1) 100%)"
+                    : "linear-gradient(135deg, rgba(74,144,226,1) 0%, rgba(114,181,255,1) 100%)",
+                color: "white",
+                boxShadow: openConfigurator ? "0 12px 30px rgba(0,0,0,0.18)" : undefined,
+            }}
             onClick={handleConfiguratorOpen}
+            aria-label={openConfigurator ? "close-configurator" : "open-configurator"}
+            title={openConfigurator ? "Close Configurator" : "Open Configurator"}
         >
-            <Icon fontSize="small" color="inherit">
-                settings
-            </Icon>
+{openConfigurator ? <CloseIcon sx={{ fontSize: "24px" }} /> : <SettingsIcon sx={{ fontSize: "24px" }} />}
         </MDBox>
     );
 

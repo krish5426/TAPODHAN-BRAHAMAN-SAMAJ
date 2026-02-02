@@ -26,7 +26,7 @@ function AdminLayout({ children }) {
                     }),
                 },
                 [breakpoints.down("xl")]: {
-                    marginLeft: miniSidenav ? pxToRem(120) : pxToRem(274), // Force margin
+                    marginLeft: 0,
                     transition: transitions.create(["margin-left", "margin-right"], {
                         easing: transitions.easing.easeInOut,
                         duration: transitions.duration.standard,

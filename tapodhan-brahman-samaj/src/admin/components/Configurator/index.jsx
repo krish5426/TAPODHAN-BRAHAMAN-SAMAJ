@@ -28,6 +28,7 @@ import Icon from "@mui/material/Icon";
 // @mui icons
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import CloseIcon from "@mui/icons-material/Close";
 
 // Material Dashboard 2 React components
 import MDBox from "../MDBox";
@@ -132,7 +133,7 @@ function Configurator() {
       <MDBox
         display="flex"
         justifyContent="space-between"
-        alignItems="baseline"
+        alignItems="center"
         pt={4}
         pb={0.5}
         px={3}
@@ -144,19 +145,28 @@ function Configurator() {
           </MDTypography>
         </MDBox>
 
-        <Icon
-          sx={({ typography: { size }, palette: { dark, white } }) => ({
-            fontSize: `${size.lg} !important`,
-            color: darkMode ? white.main : dark.main,
-            stroke: "currentColor",
-            strokeWidth: "2px",
-            cursor: "pointer",
-            transform: "translateY(5px)",
-          })}
+        <IconButton
           onClick={handleCloseConfigurator}
+          sx={{
+            p: 1,
+            borderRadius: "8px",
+            backgroundColor: darkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)",
+            "&:hover": {
+              backgroundColor: darkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)",
+            },
+            transition: "all 0.2s ease",
+          }}
+          title="Close Configurator"
+          aria-label="close-configurator"
         >
-          close
-        </Icon>
+          <CloseIcon
+            sx={{
+              fontSize: "24px",
+              color: darkMode ? "white" : "dark",
+              fontWeight: "bold",
+            }}
+          />
+        </IconButton>
       </MDBox>
 
       <Divider />

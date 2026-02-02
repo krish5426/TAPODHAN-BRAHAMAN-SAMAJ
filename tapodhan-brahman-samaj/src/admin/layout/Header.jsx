@@ -60,15 +60,13 @@ function Header({ absolute, light, isMini }) {
         </Menu>
     );
 
-    const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({
-        color: () => {
-            let colorValue = light || darkMode ? white.main : dark.main;
-            if (transparentNavbar && !light) {
-                colorValue = darkMode ? rgba(text.main, 0.6) : text.main;
-            }
-            return colorValue;
-        },
-    });
+    const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => {
+        let colorValue = light || darkMode ? white.main : dark.main;
+        if (transparentNavbar && !light) {
+            colorValue = darkMode ? rgba(text.main, 0.6) : text.main;
+        }
+        return { color: colorValue };
+    };
 
     return (
         <AppBar
@@ -87,14 +85,23 @@ function Header({ absolute, light, isMini }) {
                                 <Icon sx={iconsStyle}>account_circle</Icon>
                             </IconButton>
                             <IconButton
-                                sx={navbarIconButton}
+                                sx={(theme) => ({
+                                    ...(typeof navbarIconButton === "function" ? navbarIconButton(theme) : navbarIconButton),
+                                    bgcolor: "#e53935",
+                                    color: "#fff",
+                                    '&:hover': { bgcolor: '#d32f2f' },
+                                    boxShadow: 'none',
+                                    borderRadius: '50%',
+                                    padding: 0.5,
+                                    minWidth: 36,
+                                    minHeight: 36,
+                                })}
                                 size="small"
                                 disableRipple
-                                color="inherit"
                                 onClick={handleLogout}
                                 title="Logout"
                             >
-                                <Icon sx={iconsStyle}>logout</Icon>
+                                <Icon sx={{ color: '#fff', fontSize: 20 }}>logout</Icon>
                             </IconButton>
                             <IconButton
                                 size="small"
@@ -113,8 +120,13 @@ function Header({ absolute, light, isMini }) {
                                 color="inherit"
                                 sx={navbarIconButton}
                                 onClick={handleOpenMenu}
+                                title="Notifications"
                             >
-                                <Badge badgeContent={2} color="error">
+                                <Badge
+                                    badgeContent={<Icon sx={{ fontSize: 12, color: "white" }}>add</Icon>}
+                                    color="error"
+                                    overlap="circular"
+                                >
                                     <Icon sx={iconsStyle}>notifications</Icon>
                                 </Badge>
                             </IconButton>

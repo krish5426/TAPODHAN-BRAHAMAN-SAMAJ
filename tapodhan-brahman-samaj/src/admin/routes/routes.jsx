@@ -83,7 +83,7 @@ const routes = [
     ],
   },
   {
-    type: "hidden", // Helper for routing, not sidebar
+    type: "hidden", 
     name: "Edit Profile",
     key: "edit-profile",
     route: "/admin/matrimony/edit/:id",

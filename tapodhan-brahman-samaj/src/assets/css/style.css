@@ -22,6 +22,7 @@
 .header-buttons .header-button{
 
 }
+
 nav ul {
     margin: 0;
     padding: 0;
@@ -494,3 +495,15 @@ nav ul li a {
 .event-card.regular .event-content .event-image {border-radius:5px;}
 .gallery-item {border-radius:5px;}
 .gallery-grid .gallery-item img {border-radius:5px;}
+
+/* Override generated MUI avatar icon fill (remove `fill: currentColor`) */
+/* Targets both generated classname and MUI class names to be robust */
+.MuiSvgIcon-root.MuiAvatar-fallback,
+.MuiAvatar-fallback .MuiSvgIcon-root,
+.css-1yb9rhk-MuiSvgIcon-root-MuiAvatar-fallback {
+    fill: none !important;
+}
+
+.css-12sz6rz-MuiInputBase-root-MuiOutlinedInput-root {
+    padding: 11px;
+}
