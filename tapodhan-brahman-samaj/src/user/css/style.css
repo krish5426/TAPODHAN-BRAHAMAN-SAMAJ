@@ -1128,7 +1128,7 @@ nav ul li a.active {
 }
 
 .gallery-item:nth-child(2) {
-  grid-column: span 2;
+  grid-column: span 1;
   grid-row: span 1;
 }
 
