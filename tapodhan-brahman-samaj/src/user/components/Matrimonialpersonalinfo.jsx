@@ -276,8 +276,8 @@ const Matrimonialpersonalinfo = () => {
       }
 
       const url = editingProfile
-        ? `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/admin/profiles/${editingProfile.id}`
-        : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profile`;
+        ? `${API_ENDPOINTS.ADMIN_PROFILES}/${editingProfile.id}`
+        : API_ENDPOINTS.PROFILE;
 
       const method = editingProfile ? 'PUT' : 'POST';
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import profileImg from "../../assets/images/profileimg.png";
 import brideDefault from "../../assets/images/defaultfemale.jpg"; // Default for brides
 import groomDefault from "../../assets/images/defaultmale.jpg"; // Default for grooms
+import { API_ENDPOINTS } from "../../config/api";
 
 const MatrimonialList = () => {
   const [profiles, setProfiles] = useState([]);
@@ -30,7 +31,7 @@ const MatrimonialList = () => {
       if (ageMax) params.append('ageMax', ageMax);
       if (maritalStatus) params.append('maritalStatus', maritalStatus);
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/profiles?${params}`);
+      const response = await fetch(`${API_ENDPOINTS.PROFILES}?${params}`);
       const data = await response.json();
       setProfiles(data);
     } catch (error) {
@@ -136,7 +137,7 @@ const MatrimonialList = () => {
                       <div className="profile-img">
                         <img
                           src={profile.profilePhoto ?
-                            `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/uploads/profile/${profile.profilePhoto}` :
+                            `${API_ENDPOINTS.UPLOADS}/profile/${profile.profilePhoto}` :
                             (profile.gender === 'Female' ? brideDefault : groomDefault)
                           }
                           alt={`${profile.firstName} ${profile.lastName}`}
