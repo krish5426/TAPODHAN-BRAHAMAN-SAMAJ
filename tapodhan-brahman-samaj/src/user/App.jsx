@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 import MatrimonialPersonalInfo from "./pages/MatrimonialPersonalInfo";
 import MatrimonialDetail from "./pages/MatrimonialDetail";
 import Donate from "./pages/Donate";
+import Announcements from "./pages/Announcements";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './css/style.css';
@@ -31,6 +32,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/donate" element={<Donate />} />
+        <Route path="/announcements" element={<Announcements />} />
         <Route path="/register" element={<Register />} />
         <Route path="/business-register" element={
           <ProtectedRoute>

@@ -74,6 +74,14 @@ const Header = () => {
 
   return (
     <>
+      <Link to="/announcements" className="top-announcement-bar">
+        <div className="container">
+          <div className="announcement-bar-content">
+            <span className="announcement-text">New Announcement: Tapodhan Akshay Patram February 2026!</span>
+          </div>
+        </div>
+      </Link>
+      
       <header className={`header ${scrolled ? 'header-alt' : ''}`}>
         <div className="container">
           
@@ -101,6 +109,7 @@ const Header = () => {
                 <li><NavLink to="/donate" className={({ isActive }) => isActive ? "active" : ""}>
                   Donate
                 </NavLink></li>
+
                 <li> <NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""}>
                   Contact us
                 </NavLink></li>
@@ -175,6 +184,7 @@ const Header = () => {
            {/* <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li> */}
             <li><NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Business Directory</NavLink></li>
             <li><NavLink to="/donate" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Donate</NavLink></li>
+            <li><NavLink to="/announcements" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Announcements</NavLink></li>
             <li><NavLink to="/contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Contact us</NavLink></li>
           </ul>
         </nav>
