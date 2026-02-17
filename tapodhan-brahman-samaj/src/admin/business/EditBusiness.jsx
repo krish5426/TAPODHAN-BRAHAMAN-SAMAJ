@@ -12,6 +12,7 @@ import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/Save";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { fetchAdminBusinessById, updateAdminBusiness, API_URL } from "../services/api";
 
 function EditBusiness() {
@@ -82,55 +83,26 @@ function EditBusiness() {
     return (
         <AdminLayout>
             <Header title="Edit Business" />
-            <MDBox py={3}>
-                <Card sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
+            <MDBox py={{ xs: 2, md: 3 }}>
+                <Card sx={{ p: { xs: 1.5, md: 3 }, maxWidth: 800, mx: "auto" }}>
                     <MDTypography variant="h5" mb={2} sx={{ fontWeight: 700 }}>Edit Business</MDTypography>
-                    <MDBox
-                        display="grid"
-                        gridTemplateColumns={{ xs: "1fr", md: "1fr 1fr" }}
-                        columnGap={3}
-                        rowGap={3}
-                    >
-                        <MDBox>
-                            <MDInput fullWidth label="Business Name" name="businessName" value={formData.businessName || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Owner Name" name="ownerName" value={formData.ownerName || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Status (approved/pending/rejected)" name="status" value={formData.status || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Email" name="email" value={formData.email || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Contact Number" name="contactNumber" value={formData.contactNumber || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Website" name="website" value={formData.website || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Category" name="category" value={formData.category || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="City" name="city" value={formData.city || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox>
-                            <MDInput fullWidth label="State" name="state" value={formData.state || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox sx={{ gridColumn: { md: "span 2" } }}>
-                            <MDInput fullWidth multiline rows={3} label="Description" name="description" value={formData.description || ""} onChange={handleChange} />
-                        </MDBox>
-                        <MDBox sx={{ gridColumn: { md: "span 2" } }}>
-                            <MDInput fullWidth multiline rows={3} label="Address" name="address" value={formData.address || ""} onChange={handleChange} />
-                        </MDBox>
+                    <MDBox display="flex" flexDirection="column" gap={{ xs: 2, md: 3 }}>
+                        <MDInput fullWidth label="Business Name" name="businessName" value={formData.businessName || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Owner Name" name="ownerName" value={formData.ownerName || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Status (approved/pending/rejected)" name="status" value={formData.status || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Email" name="email" value={formData.email || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Contact Number" name="contactNumber" value={formData.contactNumber || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Website" name="website" value={formData.website || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Category" name="category" value={formData.category || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="City" name="city" value={formData.city || ""} onChange={handleChange} />
+                        <MDInput fullWidth label="State" name="state" value={formData.state || ""} onChange={handleChange} />
+                        <MDInput fullWidth multiline rows={3} label="Description" name="description" value={formData.description || ""} onChange={handleChange} />
+                        <MDInput fullWidth multiline rows={3} label="Address" name="address" value={formData.address || ""} onChange={handleChange} />
                     </MDBox>
 
                     <MDBox mt={3}>
-                        <MDTypography variant="button" display="block" mb={1.5} sx={{ fontWeight: 600 }}>Poster Photo</MDTypography>
+                        <MDTypography variant="button" display="block" mb={1}>Poster Photo</MDTypography>
                         <input
                             type="file"
                             onChange={handleImageChange}
@@ -138,34 +110,38 @@ function EditBusiness() {
                             accept="image/*"
                             style={{ display: 'none' }}
                         />
-                        <label htmlFor="poster-upload-edit">
+                        <label htmlFor="poster-upload-edit" style={{ width: '100%', display: 'block' }}>
                             <MDButton
                                 variant="outlined"
-                                color="info"
+                                color="dark"
                                 component="span"
+                                fullWidth
                                 sx={{
-                                    textTransform: 'none',
-                                    fontWeight: 500,
-                                    px: 3,
-                                    py: 1
+                                    py: 1.5,
+                                    borderStyle: 'dashed',
+                                    borderWidth: 2,
+                                    '&:hover': {
+                                        borderStyle: 'dashed',
+                                        borderWidth: 2,
+                                    }
                                 }}
                             >
-                                Choose File
+                                <CloudUploadIcon sx={{ mr: 1 }} />
+                                {posterPreview ? 'Change Photo' : 'Choose Photo'}
                             </MDButton>
                         </label>
                         {posterPreview && (
-                            <MDBox mt={2} borderRadius={2} sx={{ overflow: 'hidden', width: 200, border: '2px solid rgba(0,0,0,0.08)', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                                <img src={posterPreview} alt="Preview" style={{ width: '100%', height: 140, objectFit: 'cover', display: 'block' }} />
+                            <MDBox mt={2} borderRadius={1} sx={{ overflow: 'hidden', width: '100%', maxWidth: 300, mx: 'auto', border: '1px solid rgba(0,0,0,0.06)' }}>
+                                <img src={posterPreview} alt="Preview" style={{ width: '100%', height: 180, objectFit: 'cover' }} />
                             </MDBox>
                         )}
                     </MDBox>
 
-                    <MDBox mt={3} display="flex" flexDirection={{ xs: "column", md: "row" }} gap={3}>
+                    <MDBox mt={3} display="flex" flexDirection="column" gap={2}>
                         <MDButton
                             variant="outlined"
                             color="secondary"
                             onClick={() => navigate(-1)}
-                            sx={{ flex: 1 }}
                             fullWidth
                         >
                             <ArrowBackIcon sx={{ mr: 1 }} /> Cancel
@@ -174,7 +150,6 @@ function EditBusiness() {
                             variant="gradient"
                             color="info"
                             onClick={handleSave}
-                            sx={{ flex: 1 }}
                             fullWidth
                         >
                             <SaveIcon sx={{ mr: 1 }} /> Save Changes

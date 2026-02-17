@@ -7,6 +7,7 @@ import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
 import MDInput from "../components/MDInput";
 import { MenuItem } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
@@ -70,10 +71,10 @@ function AddBusiness() {
     return (
         <AdminLayout>
             <Header />
-            <MDBox py={4}>
+            <MDBox py={{ xs: 2, md: 4 }}>
                 <Card
                     sx={(theme) => ({
-                        p: { xs: 3, md: 4 },
+                        p: { xs: 1.5, md: 4 },
                         maxWidth: 1100,
                         mx: "auto",
                         borderRadius: 2,
@@ -81,83 +82,98 @@ function AddBusiness() {
                         backgroundColor: theme.palette.background.paper,
                     })}
                 >
-                    <MDTypography variant="h4" mb={3} sx={{ fontWeight: 700 }}>Add Business</MDTypography>
-                    <Grid container spacing={4}>
-                        {/* Left Column */}
-                        <Grid item xs={12} md={6}>
-                            <MDBox display="flex" flexDirection="column" gap={3}>
-                                <MDInput fullWidth label="Business Name*" name="businessName" value={formData.businessName} onChange={handleChange} required />
-                                <MDInput fullWidth label="Owner Name*" name="ownerName" value={formData.ownerName} onChange={handleChange} required />
-                                <MDInput
-                                    select
-                                    label="Category"
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    type="text"
-                                    InputLabelProps={{ shrink: true }}
-                                    SelectProps={{ sx: { padding: '11px' } }}
-                                >
-                                    <MenuItem value="">Select Category</MenuItem>
-                                    <MenuItem value="Restaurant">Restaurant</MenuItem>
-                                    <MenuItem value="Shop">Shop</MenuItem>
-                                    <MenuItem value="Service">Service</MenuItem>
-                                    <MenuItem value="Freelancer">Freelancer</MenuItem>
-                                    <MenuItem value="Other">Other</MenuItem>
-                                </MDInput>
-                                <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType} onChange={handleChange} />
-                                <MDInput
-                                    select
-                                    label="Status"
-                                    name="status"
-                                    value={formData.status}
-                                    onChange={handleChange}
-                                    fullWidth
-                                    type="text"
-                                    InputLabelProps={{ shrink: true }}
-                                    SelectProps={{ sx: { padding: '11px' } }}
-                                >
-                                    <MenuItem value="approved">Approved</MenuItem>
-                                    <MenuItem value="pending">Pending</MenuItem>
-                                    <MenuItem value="rejected">Rejected</MenuItem>
-                                </MDInput>
-                                <MDInput fullWidth multiline rows={3} label="Description" name="description" value={formData.description} onChange={handleChange} />
-                            </MDBox>
-                        </Grid>
+                    <MDTypography variant="h4" mb={{ xs: 2, md: 3 }} sx={{ fontWeight: 700 }}>Add Business</MDTypography>
+                    <MDBox display="flex" flexDirection="column" gap={{ xs: 2, md: 3 }}>
+                        <MDInput fullWidth label="Business Name*" name="businessName" value={formData.businessName} onChange={handleChange} required />
+                        <MDInput fullWidth label="Owner Name*" name="ownerName" value={formData.ownerName} onChange={handleChange} required />
+                        <MDInput
+                            select
+                            label="Category"
+                            name="category"
+                            value={formData.category}
+                            onChange={handleChange}
+                            fullWidth
+                            type="text"
+                            InputLabelProps={{ shrink: true }}
+                            SelectProps={{ sx: { padding: '11px' } }}
+                        >
+                            <MenuItem value="">Select Category</MenuItem>
+                            <MenuItem value="Restaurant">Restaurant</MenuItem>
+                            <MenuItem value="Shop">Shop</MenuItem>
+                            <MenuItem value="Service">Service</MenuItem>
+                            <MenuItem value="Freelancer">Freelancer</MenuItem>
+                            <MenuItem value="Other">Other</MenuItem>
+                        </MDInput>
+                        <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType} onChange={handleChange} />
+                        <MDInput
+                            select
+                            label="Status"
+                            name="status"
+                            value={formData.status}
+                            onChange={handleChange}
+                            fullWidth
+                            type="text"
+                            InputLabelProps={{ shrink: true }}
+                            SelectProps={{ sx: { padding: '11px' } }}
+                        >
+                            <MenuItem value="approved">Approved</MenuItem>
+                            <MenuItem value="pending">Pending</MenuItem>
+                            <MenuItem value="rejected">Rejected</MenuItem>
+                        </MDInput>
+                        <MDInput fullWidth multiline rows={3} label="Description" name="description" value={formData.description} onChange={handleChange} />
+                        <MDInput fullWidth label="Contact Number*" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required />
+                        <MDInput fullWidth label="Email" name="email" value={formData.email} onChange={handleChange} />
+                        <MDInput fullWidth label="Website" name="website" value={formData.website} onChange={handleChange} />
+                        <MDInput fullWidth multiline rows={3} label="Address*" name="address" value={formData.address} onChange={handleChange} required />
+                        <MDInput fullWidth label="City" name="city" value={formData.city} onChange={handleChange} />
+                        <MDInput fullWidth label="State" name="state" value={formData.state} onChange={handleChange} />
+                    </MDBox>
 
-                        {/* Right Column */}
-                        <Grid item xs={12} md={6}>
-                            <MDBox display="flex" flexDirection="column" gap={3}>
-                                <MDInput fullWidth label="Contact Number*" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required />
-                                <MDInput fullWidth label="Email" name="email" value={formData.email} onChange={handleChange} />
-                                <MDInput fullWidth label="Website" name="website" value={formData.website} onChange={handleChange} />
-                                <MDInput fullWidth multiline rows={3} label="Address*" name="address" value={formData.address} onChange={handleChange} required />
-                                <MDInput fullWidth label="City" name="city" value={formData.city} onChange={handleChange} />
-                                <MDInput fullWidth label="State" name="state" value={formData.state} onChange={handleChange} />
-                            </MDBox>
-                        </Grid>
-                    </Grid>
-
-                    <MDBox mt={4} display="flex" flexDirection={{ xs: "column", sm: "row" }} gap={2} alignItems="center">
-                        <MDBox flex={1}>
+                    <MDBox mt={4}>
+                        <MDBox mb={2}>
                             <MDTypography variant="button" display="block" mb={1}>Poster Photo</MDTypography>
-                            <input type="file" onChange={handleImageChange} />
+                            <input
+                                type="file"
+                                onChange={handleImageChange}
+                                id="poster-upload"
+                                style={{ display: 'none' }}
+                                accept="image/*"
+                            />
+                            <label htmlFor="poster-upload" style={{ width: '100%', display: 'block' }}>
+                                <MDButton
+                                    variant="outlined"
+                                    color="dark"
+                                    component="span"
+                                    fullWidth
+                                    sx={{
+                                        py: 1.5,
+                                        borderStyle: 'dashed',
+                                        borderWidth: 2,
+                                        '&:hover': {
+                                            borderStyle: 'dashed',
+                                            borderWidth: 2,
+                                        }
+                                    }}
+                                >
+                                    <CloudUploadIcon sx={{ mr: 1 }} />
+                                    {posterPreview ? 'Change Photo' : 'Choose Photo'}
+                                </MDButton>
+                            </label>
                             {posterPreview && (
-                                <MDBox mt={2} borderRadius={1} sx={{ overflow: 'hidden', width: 180, border: '1px solid rgba(0,0,0,0.06)' }}>
-                                    <img src={posterPreview} alt="Preview" style={{ width: '100%', height: 120, objectFit: 'cover' }} />
+                                <MDBox mt={2} borderRadius={1} sx={{ overflow: 'hidden', width: '100%', maxWidth: 300, mx: 'auto', border: '1px solid rgba(0,0,0,0.06)' }}>
+                                    <img src={posterPreview} alt="Preview" style={{ width: '100%', height: 180, objectFit: 'cover' }} />
                                 </MDBox>
                             )}
                         </MDBox>
 
-                        <MDBox display="flex" justifyContent="flex-end" flex={1}>
-                            <MDButton variant="outlined" color="secondary" onClick={() => navigate(-1)} sx={{ mr: { xs: 0, sm: 2 } }}>Cancel</MDButton>
-                            <MDButton variant="gradient" color="info" onClick={handleSave}>Create Business</MDButton>
+                        <MDBox display="flex" flexDirection="column" gap={2}>
+                            <MDButton variant="outlined" color="secondary" onClick={() => navigate(-1)} fullWidth>Cancel</MDButton>
+                            <MDButton variant="gradient" color="info" onClick={handleSave} fullWidth>Create Business</MDButton>
                         </MDBox>
                     </MDBox>
                 </Card>
             </MDBox>
-            <AdminCustomDialog 
+            <AdminCustomDialog
                 isOpen={dialog.isOpen}
                 message={dialog.message}
                 type={dialog.type}
