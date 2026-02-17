@@ -5,7 +5,7 @@ import bannerImage from '../assets/images/contact-banner.jpg';
 import profileImg from "../../assets/images/profileimg.png";
 import brideDefault from "../../assets/images/defaultfemale.jpg";
 import groomDefault from "../../assets/images/defaultmale.jpg";
-import API_BASE_URL from '../../config/api';
+import { API_ENDPOINTS } from '../../config/api';
 
 function MyMatrimonyProfile() {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ function MyMatrimonyProfile() {
                 return;
             }
 
-            const url = `${API_BASE_URL}/my-matrimony-profiles`;
+            const url = API_ENDPOINTS.MY_MATRIMONY_PROFILES;
             console.log('Fetching from:', url);
 
             const response = await fetch(url, {
@@ -129,7 +129,7 @@ function MyMatrimonyProfile() {
                                             <div className="profile-img">
                                                 <img
                                                     src={profile.profilePhoto ?
-                                                        `${API_BASE_URL}/uploads/profile/${profile.profilePhoto}` :
+                                                        `${API_ENDPOINTS.UPLOADS}/profile/${profile.profilePhoto}` :
                                                         (profile.gender === 'Female' ? brideDefault : groomDefault)
                                                     }
                                                     alt={`${profile.firstName} ${profile.lastName}`}

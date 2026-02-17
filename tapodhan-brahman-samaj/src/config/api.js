@@ -1,5 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000';
-//const API_BASE_URL = 'http://tbsapi.trajinfotech.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.tapodhanbrahmansamaj.com';
 
 export const API_ENDPOINTS = {
   EVENTS: `${API_BASE_URL}/events`,
@@ -12,7 +11,10 @@ export const API_ENDPOINTS = {
   ADMIN_BUSINESS: `${API_BASE_URL}/api/admin/business`,
   REGISTER: `${API_BASE_URL}/register`,
   CONTACT: `${API_BASE_URL}/contact`,
-  PROFILE: `${API_BASE_URL}/profile`
+  PROFILE: `${API_BASE_URL}/profile`,
+  PROFILES: `${API_BASE_URL}/profiles`,
+  ADMIN_PROFILES: `${API_BASE_URL}/api/admin/profiles`,
+  MY_MATRIMONY_PROFILES: `${API_BASE_URL}/my-matrimony-profiles`
 };
 
 export default API_BASE_URL;
