@@ -41,7 +41,10 @@ const Announcements = () => {
               <img src={donorList2} alt="Donor List 2" />
             </div>
           </div>
+
         </div>
+
+
       </section >
     </>
   );
