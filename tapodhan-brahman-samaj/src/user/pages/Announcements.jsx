@@ -27,24 +27,27 @@ const Announcements = () => {
       <section className="announcements-section">
         <div className="container">
           <div className="featured-announcements">
-            <div className="announcement-image-card">
-              <img src={yellowPoster} alt="Tapodhan Akshay Patram Information 1" />
-            </div>
-            <div className="announcement-image-card">
-              <img src={donorList} alt="Donor List 1" />
-            </div>
-            <div className="announcement-image-card">
-              <img src={yellowPoster2} alt="Tapodhan Akshay Patram Information 2" />
+            {/* Announcement Posters Container */}
+            <div className="announcement-posters">
+              <div className="announcement-image-card">
+                <img src={yellowPoster} alt="Tapodhan Akshay Patram Information 1" />
+              </div>
+              <div className="announcement-image-card">
+                <img src={yellowPoster2} alt="Tapodhan Akshay Patram Information 2" />
+              </div>
             </div>
 
-            <div className="announcement-image-card">
-              <img src={donorList2} alt="Donor List 2" />
+            {/* Donor Lists Container */}
+            <div className="donor-lists">
+              <div className="announcement-image-card">
+                <img src={donorList} alt="Donor List 1" />
+              </div>
+              <div className="announcement-image-card">
+                <img src={donorList2} alt="Donor List 2" />
+              </div>
             </div>
           </div>
-
         </div>
-
-
       </section >
     </>
   );
