@@ -7,18 +7,24 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
 import Badge from "@mui/material/Badge";
+import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import MDBox from "../components/MDBox";
 import Breadcrumbs from "../components/Breadcrumbs";
 import NotificationItem from "../components/Items/NotificationItem";
 import { useMaterialUIController, setTransparentNavbar, setMiniSidenav } from "../context";
 import { navbar, navbarContainer, navbarRow, navbarIconButton, navbarMobileMenu } from "../components/Navbars/DashboardNavbar/styles";
 
-function Header({ absolute, light, isMini }) {
+function Header({ absolute, light, isMini, title }) {
     const [navbarType, setNavbarType] = useState();
     const [controller, dispatch] = useMaterialUIController();
     const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
     const [openMenu, setOpenMenu] = useState(false);
     const route = useLocation().pathname.split("/").slice(1);
+
+    const displayTitle = title || route[route.length - 1];
 
     useEffect(() => {
         if (fixedNavbar) {
@@ -39,7 +45,7 @@ function Header({ absolute, light, isMini }) {
     const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
-    
+
     const handleLogout = () => {
         localStorage.removeItem('admin_token');
         localStorage.removeItem('admin_details');
@@ -74,16 +80,25 @@ function Header({ absolute, light, isMini }) {
             color="inherit"
             sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
         >
-            <Toolbar sx={(theme) => navbarContainer(theme)}>
-                <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-                    <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
+            <Toolbar sx={(theme) => ({
+                ...navbarContainer(theme),
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between"
+            })}>
+                <MDBox color="inherit" sx={(theme) => ({
+                    ...navbarRow(theme, { isMini }),
+                    width: "auto"
+                })}>
+                    <Breadcrumbs icon="home" title={displayTitle} route={route} light={light} />
                 </MDBox>
                 {isMini ? null : (
-                    <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-                        <MDBox color={light ? "white" : "inherit"}>
-                            <IconButton sx={navbarIconButton} size="small" disableRipple>
-                                <Icon sx={iconsStyle}>account_circle</Icon>
-                            </IconButton>
+                    <MDBox sx={(theme) => ({
+                        ...navbarRow(theme, { isMini }),
+                        width: "auto",
+                        justifyContent: "flex-end"
+                    })}>
+                        <MDBox color={light ? "white" : "inherit"} display="flex" justifyContent="flex-end">
                             <IconButton
                                 sx={(theme) => ({
                                     ...(typeof navbarIconButton === "function" ? navbarIconButton(theme) : navbarIconButton),
@@ -93,6 +108,7 @@ function Header({ absolute, light, isMini }) {
                                     boxShadow: 'none',
                                     borderRadius: '50%',
                                     padding: 0.5,
+                                    marginRight: 1,
                                     minWidth: 36,
                                     minHeight: 36,
                                 })}
@@ -101,20 +117,34 @@ function Header({ absolute, light, isMini }) {
                                 onClick={handleLogout}
                                 title="Logout"
                             >
-                                <Icon sx={{ color: '#fff', fontSize: 20 }}>logout</Icon>
+                                <LogoutIcon sx={{ color: '#fff', fontSize: 20 }} />
                             </IconButton>
                             <IconButton
+                                sx={(theme) => ({
+                                    ...(typeof navbarIconButton === "function" ? navbarIconButton(theme) : navbarIconButton),
+                                    ...(typeof navbarMobileMenu === "function" ? navbarMobileMenu(theme) : navbarMobileMenu),
+                                    bgcolor: "#e53935",
+                                    color: "#fff",
+                                    '&:hover': { bgcolor: '#d32f2f' },
+                                    boxShadow: 'none',
+                                    borderRadius: '50%',
+                                    padding: 0.5,
+                                    marginRight: 1,
+                                    minWidth: 36,
+                                    minHeight: 36,
+                                })}
                                 size="small"
                                 disableRipple
                                 color="inherit"
-                                sx={navbarMobileMenu}
                                 onClick={handleMiniSidenav}
                             >
-                                <Icon sx={iconsStyle} fontSize="medium">
-                                    {miniSidenav ? "menu_open" : "menu"}
-                                </Icon>
+                                {miniSidenav ? (
+                                    <MenuIcon sx={{ color: '#fff', fontSize: 20 }} />
+                                ) : (
+                                    <MenuOpenIcon sx={{ color: '#fff', fontSize: 20 }} />
+                                )}
                             </IconButton>
-                            <IconButton
+                            {/* <IconButton
                                 size="small"
                                 disableRipple
                                 color="inherit"
@@ -127,9 +157,9 @@ function Header({ absolute, light, isMini }) {
                                     color="error"
                                     overlap="circular"
                                 >
-                                    <Icon sx={iconsStyle}>notifications</Icon>
+                                    <NotificationsIcon sx={iconsStyle} />
                                 </Badge>
-                            </IconButton>
+                            </IconButton> */}
                             {renderMenu()}
                         </MDBox>
                     </MDBox>
@@ -143,12 +173,14 @@ Header.defaultProps = {
     absolute: false,
     light: false,
     isMini: false,
+    title: "",
 };
 
 Header.propTypes = {
     absolute: PropTypes.bool,
     light: PropTypes.bool,
     isMini: PropTypes.bool,
+    title: PropTypes.string,
 };
 
 export default Header;

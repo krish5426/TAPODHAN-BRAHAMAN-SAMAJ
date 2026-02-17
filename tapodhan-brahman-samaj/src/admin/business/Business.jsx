@@ -5,6 +5,9 @@ import Icon from "@mui/material/Icon";
 import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import MDButton from "../components/MDButton";
+import AddIcon from "@mui/icons-material/Add";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import DataTable from "../components/Tables/DataTable";
@@ -60,10 +63,10 @@ function Business() {
                     action: (
                         <MDBox display="flex" gap={1}>
                             <MDButton variant="outlined" color="info" size="small" onClick={() => navigate(`/admin/business/view/${biz.id}`)}>
-                                <Icon>visibility</Icon>&nbsp;View
+                                <VisibilityIcon sx={{ fontSize: "18px" }} />&nbsp;View
                             </MDButton>
                             <MDButton variant="text" color="info" onClick={() => navigate(`/admin/business/edit/${biz.id}`)}>
-                                <Icon>edit</Icon>&nbsp;Edit
+                                <EditIcon sx={{ fontSize: "18px" }} />&nbsp;Edit
                             </MDButton>
                         </MDBox>
                     )
@@ -85,7 +88,7 @@ function Business() {
             <MDBox pt={3} pb={3}>
                 <MDBox mb={3}>
                     <Card>
-                        <MDBox p={3} lineHeight={1} display="flex" justifyContent="space-between" alignItems="center">
+                        <MDBox p={3} lineHeight={1} display="flex" flexDirection={{ xs: "column-reverse", md: "row" }} justifyContent="space-between" alignItems={{ xs: "stretch", md: "center" }} gap={2}>
                             <MDBox>
                                 <MDTypography variant="h5" fontWeight="medium">
                                     Business List
@@ -94,8 +97,8 @@ function Business() {
                                     All approved businesses
                                 </MDTypography>
                             </MDBox>
-                            <MDButton variant="gradient" color="info" onClick={() => navigate("/admin/business/add")}>
-                                <Icon sx={{ fontWeight: "bold" }}>add</Icon>
+                            <MDButton variant="gradient" color="info" onClick={() => navigate("/admin/business/add")} fullWidth={{ xs: true, md: false }}>
+                                <AddIcon sx={{ fontWeight: "bold" }} />
                                 &nbsp;Add Business
                             </MDButton>
                         </MDBox>

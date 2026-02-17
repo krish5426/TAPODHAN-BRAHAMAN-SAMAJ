@@ -10,6 +10,8 @@ import MDInput from "../components/MDInput";
 import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SaveIcon from "@mui/icons-material/Save";
 import { fetchAdminBusinessById, updateAdminBusiness, API_URL } from "../services/api";
 
 function EditBusiness() {
@@ -79,66 +81,108 @@ function EditBusiness() {
 
     return (
         <AdminLayout>
-            <Header />
+            <Header title="Edit Business" />
             <MDBox py={3}>
                 <Card sx={{ p: 3, maxWidth: 800, mx: "auto" }}>
-                    <MDTypography variant="h4" mb={2}>Edit Business</MDTypography>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={6}>
+                    <MDTypography variant="h5" mb={2} sx={{ fontWeight: 700 }}>Edit Business</MDTypography>
+                    <MDBox
+                        display="grid"
+                        gridTemplateColumns={{ xs: "1fr", md: "1fr 1fr" }}
+                        columnGap={3}
+                        rowGap={3}
+                    >
+                        <MDBox>
                             <MDInput fullWidth label="Business Name" name="businessName" value={formData.businessName || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Owner Name" name="ownerName" value={formData.ownerName || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Status (approved/pending/rejected)" name="status" value={formData.status || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Email" name="email" value={formData.email || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Contact Number" name="contactNumber" value={formData.contactNumber || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Website" name="website" value={formData.website || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Category" name="category" value={formData.category || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="City" name="city" value={formData.city || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
+                        </MDBox>
+                        <MDBox>
                             <MDInput fullWidth label="State" name="state" value={formData.state || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12}>
+                        </MDBox>
+                        <MDBox sx={{ gridColumn: { md: "span 2" } }}>
                             <MDInput fullWidth multiline rows={3} label="Description" name="description" value={formData.description || ""} onChange={handleChange} />
-                        </Grid>
-                        <Grid item xs={12}>
+                        </MDBox>
+                        <MDBox sx={{ gridColumn: { md: "span 2" } }}>
                             <MDInput fullWidth multiline rows={3} label="Address" name="address" value={formData.address || ""} onChange={handleChange} />
-                        </Grid>
-                    </Grid>
+                        </MDBox>
+                    </MDBox>
 
                     <MDBox mt={3}>
-                        <MDTypography variant="button" display="block" mb={1}>Poster Photo</MDTypography>
-                        <input type="file" onChange={handleImageChange} />
+                        <MDTypography variant="button" display="block" mb={1.5} sx={{ fontWeight: 600 }}>Poster Photo</MDTypography>
+                        <input
+                            type="file"
+                            onChange={handleImageChange}
+                            id="poster-upload-edit"
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                        />
+                        <label htmlFor="poster-upload-edit">
+                            <MDButton
+                                variant="outlined"
+                                color="info"
+                                component="span"
+                                sx={{
+                                    textTransform: 'none',
+                                    fontWeight: 500,
+                                    px: 3,
+                                    py: 1
+                                }}
+                            >
+                                Choose File
+                            </MDButton>
+                        </label>
                         {posterPreview && (
-                            <MDBox mt={2} border="1px solid #ccc" borderRadius="8px" p={1} width="fit-content">
-                                <img src={posterPreview} alt="Preview" style={{ height: 150, borderRadius: "8px" }} />
+                            <MDBox mt={2} borderRadius={2} sx={{ overflow: 'hidden', width: 200, border: '2px solid rgba(0,0,0,0.08)', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                                <img src={posterPreview} alt="Preview" style={{ width: '100%', height: 140, objectFit: 'cover', display: 'block' }} />
                             </MDBox>
                         )}
                     </MDBox>
 
-                    <MDBox mt={3} display="flex" justifyContent="flex-end">
-                        <MDButton variant="outlined" color="secondary" onClick={() => navigate(-1)} sx={{ mr: 2 }}>Cancel</MDButton>
-                        <MDButton variant="gradient" color="info" onClick={handleSave}>Save Changes</MDButton>
+                    <MDBox mt={3} display="flex" flexDirection={{ xs: "column", md: "row" }} gap={3}>
+                        <MDButton
+                            variant="outlined"
+                            color="secondary"
+                            onClick={() => navigate(-1)}
+                            sx={{ flex: 1 }}
+                            fullWidth
+                        >
+                            <ArrowBackIcon sx={{ mr: 1 }} /> Cancel
+                        </MDButton>
+                        <MDButton
+                            variant="gradient"
+                            color="info"
+                            onClick={handleSave}
+                            sx={{ flex: 1 }}
+                            fullWidth
+                        >
+                            <SaveIcon sx={{ mr: 1 }} /> Save Changes
+                        </MDButton>
                     </MDBox>
                 </Card>
             </MDBox>
-            <AdminCustomDialog 
+            <AdminCustomDialog
                 isOpen={dialog.isOpen}
                 message={dialog.message}
                 type={dialog.type}

@@ -4,6 +4,14 @@ import PropTypes from "prop-types";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
+import CloseIcon from "@mui/icons-material/Close";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import BusinessIcon from "@mui/icons-material/Business";
+import EventIcon from "@mui/icons-material/Event";
+import SettingsIcon from "@mui/icons-material/Settings";
+import WomanIcon from "@mui/icons-material/Woman";
+import ManIcon from "@mui/icons-material/Man";
 import Collapse from "@mui/material/Collapse";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -65,7 +73,13 @@ function Sidebar({ brand, brandName, ...rest }) {
                             collapseIconBox(theme, { transparentSidenav, whiteSidenav, darkMode, active: route ? isActive(route) : false })
                         }
                     >
-                        <Icon sx={(theme) => collapseIcon(theme, { active: route ? isActive(route) : false })}>{icon}</Icon>
+                        {typeof icon === "string" ? (
+                            <Icon sx={(theme) => collapseIcon(theme, { active: route ? isActive(route) : false })}>{icon}</Icon>
+                        ) : (
+                            <MDBox sx={(theme) => collapseIcon(theme, { active: route ? isActive(route) : false })} display="flex" alignItems="center">
+                                {icon}
+                            </MDBox>
+                        )}
                     </ListItemIcon>
 
                     <ListItemText
@@ -110,9 +124,19 @@ function Sidebar({ brand, brandName, ...rest }) {
                     onClick={closeSidenav}
                     sx={{ cursor: "pointer" }}
                 >
-                    <MDTypography variant="h6" color="secondary">
-                        <Icon sx={{ fontWeight: "bold" }}>close</Icon>
-                    </MDTypography>
+                    <MDBox sx={{
+                        color: "secondary.main",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "50%",
+                        backgroundColor: "rgba(0,0,0,0.05)",
+                        '&:hover': { backgroundColor: "rgba(0,0,0,0.1)" }
+                    }}>
+                        <CloseIcon sx={{ fontWeight: "bold", fontSize: "20px" }} />
+                    </MDBox>
                 </MDBox>
                 <MDBox component={NavLink} to="/admin/dashboard" display="flex" alignItems="center">
                     {brand && <MDBox component="img" src={brand} alt="Brand" width="2rem" />}
@@ -129,26 +153,26 @@ function Sidebar({ brand, brandName, ...rest }) {
             <Divider />
 
             <List>
-                <SidebarItem name="Dashboard" icon="dashboard" route="/admin/dashboard" />
+                <SidebarItem name="Dashboard" icon={<DashboardIcon />} route="/admin/dashboard" />
 
                 {/* Matrimony - Collapsible */}
                 <SidebarItem
                     name="Matrimony"
-                    icon="favorite"
+                    icon={<FavoriteIcon />}
                     onClick={() => setOpenMatrimony(!openMatrimony)}
                     hasCollapse={true}
                     isOpen={openMatrimony}
                 />
                 <Collapse in={openMatrimony} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding sx={{ pl: 2 }}>
-                        <SidebarItem name="Brides" icon="woman" route="/admin/matrimony/brides" />
-                        <SidebarItem name="Grooms" icon="man" route="/admin/matrimony/grooms" />
+                        <SidebarItem name="Brides" icon={<WomanIcon />} route="/admin/matrimony/brides" />
+                        <SidebarItem name="Grooms" icon={<ManIcon />} route="/admin/matrimony/grooms" />
                     </List>
                 </Collapse>
 
-                <SidebarItem name="Business" icon="business" route="/admin/business" />
-                <SidebarItem name="Events" icon="event" route="/admin/events" />
-                <SidebarItem name="Master" icon="settings" route="/admin/master" />
+                <SidebarItem name="Business" icon={<BusinessIcon />} route="/admin/business" />
+                <SidebarItem name="Events" icon={<EventIcon />} route="/admin/events" />
+                <SidebarItem name="Master" icon={<SettingsIcon />} route="/admin/master" />
 
             </List>
         </SidenavRoot>

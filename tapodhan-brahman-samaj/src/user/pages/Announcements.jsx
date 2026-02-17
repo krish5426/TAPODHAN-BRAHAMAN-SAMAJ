@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import InnerBanner from '../components/InnerBanner';
 import AnnouncementHeader from '../components/AnnouncementHeader';
 import bannerImage from '../assets/images/announcement-banner.jpg';
-import announcement1 from '../assets/images/announcement1.jpeg';
-import announcement2 from '../assets/images/announcement2.jpeg';
+import yellowPoster from '../assets/images/event-announc1.png';
+import yellowPoster2 from '../assets/images/event-announc2.png';
+import donorList from '../assets/images/event-list.png';
+import donorList2 from '../assets/images/event-list2.png';
 import { API_ENDPOINTS } from '../../config/api';
 import '../css/style.css';
 
@@ -61,20 +63,27 @@ const Announcements = () => {
         breadcrumb={breadcrumb}
         backgroundImage={bannerImage}
       />
-      
+
       <AnnouncementHeader />
-      
+
       <section className="announcements-section">
         <div className="container">
           <div className="featured-announcements">
             <div className="announcement-image-card">
-              <img src={announcement1} alt="Tapodhan Akshay Patram February 2026" />
+              <img src={yellowPoster} alt="Tapodhan Akshay Patram Information 1" />
             </div>
             <div className="announcement-image-card">
-              <img src={announcement2} alt="Kitchen Kit Donation Information" />
+              <img src={donorList} alt="Donor List 1" />
+            </div>
+            <div className="announcement-image-card">
+              <img src={yellowPoster2} alt="Tapodhan Akshay Patram Information 2" />
+            </div>
+
+            <div className="announcement-image-card">
+              <img src={donorList2} alt="Donor List 2" />
             </div>
           </div>
-          
+
           {announcements.length > 0 && (
             <div className="announcements-grid">
               {announcements.map((announcement) => (
