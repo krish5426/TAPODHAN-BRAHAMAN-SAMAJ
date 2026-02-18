@@ -31,7 +31,7 @@ const Header = () => {
   useEffect(() => {
     const token = localStorage.getItem('user_token');
     const userData = localStorage.getItem('user_details');
-    
+
     if (token && userData) {
       try {
         setIsLoggedIn(true);
@@ -77,14 +77,14 @@ const Header = () => {
       <Link to="/announcements" className="top-announcement-bar">
         <div className="container">
           <div className="announcement-bar-content">
-            <span className="announcement-text">New Announcement: Tapodhan Akshay Patram February 2026!</span>
+            <span className="announcement-text">New Announcement: Tapodhan Akshay Patram!</span>
           </div>
         </div>
       </Link>
-      
+
       <header className={`header ${scrolled ? 'header-alt' : ''}`}>
         <div className="container">
-          
+
           <div className="header-row">
             <div className="logo-container">
               <a href='/'><img src={logo} className="logo-image" alt="Tapodhan Brahman Samaj Logo" /></a>
@@ -100,7 +100,7 @@ const Header = () => {
                 <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""}>
                   Events
                 </NavLink></li>
-               {/*} <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
+                {/*} <li> <NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""}>
                   Matrimonial
                 </NavLink></li> */}
                 <li> <NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""}>
@@ -121,8 +121,8 @@ const Header = () => {
                 <div className="mobile_div_hide" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                   {isLoggedIn ? (
                     <div className="user-dropdown">
-                      <button 
-                        className="user-dropdown-btn" 
+                      <button
+                        className="user-dropdown-btn"
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                       >
                         Hi, {user?.firstName || 'User'}
@@ -131,7 +131,7 @@ const Header = () => {
                       {dropdownOpen && (
                         <div className="dropdown-menu">
                           <Link to="/profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Profile</Link>
-                         {/* <Link to="/my-matrimony-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Matrimony Profile</Link>
+                          {/* <Link to="/my-matrimony-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Matrimony Profile</Link>
                          <Link to="/matrimonial-personal-info" className="dropdown-item" onClick={() => setDropdownOpen(false)}>Create Matrimonial Profile</Link> */}
                           <Link to="/my-business" className="dropdown-item" onClick={() => setDropdownOpen(false)}>My Business</Link>
                           <button className="dropdown-item" onClick={handleLogout}>Logout</button>
@@ -175,13 +175,13 @@ const Header = () => {
             ✕
           </button>
         </div>
-        
+
         <nav className="mobile-nav">
           <ul>
             <li><NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Home</NavLink></li>
             <li><NavLink to="/about" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>About Us</NavLink></li>
             <li><NavLink to="/events" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Events</NavLink></li>
-           {/* <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li> */}
+            {/* <li><NavLink to="/matrimonial" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Matrimonial</NavLink></li> */}
             <li><NavLink to="/business-contact" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Business Directory</NavLink></li>
             <li><NavLink to="/donate" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Donate</NavLink></li>
             <li><NavLink to="/announcements" className={({ isActive }) => isActive ? "active" : ""} onClick={toggleMenu}>Announcements</NavLink></li>
@@ -193,7 +193,7 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <Link to="/profile" className="mobile-menu-btn" onClick={toggleMenu}>Profile</Link>
-             {/*} <Link to="/my-matrimony-profile" className="mobile-menu-btn" onClick={toggleMenu}>My Matrimony Profile</Link>
+              {/*} <Link to="/my-matrimony-profile" className="mobile-menu-btn" onClick={toggleMenu}>My Matrimony Profile</Link>
               <Link to="/matrimonial-personal-info" className="mobile-menu-btn" onClick={toggleMenu}>Create Matrimonial Profile</Link>
              */}
               <Link to="/my-business" className="mobile-menu-btn" onClick={toggleMenu}>My Business</Link>

@@ -122,19 +122,19 @@ const BusinessRegisterform = () => {
 
             {success ? (
               <div style={{ textAlign: "center", padding: "40px 20px" }}>
-                <div style={{ 
-                  background: "#d4edda", 
-                  color: "#155724", 
-                  padding: "20px", 
-                  borderRadius: "8px", 
+                <div style={{
+                  background: "#d4edda",
+                  color: "#155724",
+                  padding: "20px",
+                  borderRadius: "8px",
                   border: "1px solid #c3e6cb",
                   marginBottom: "20px"
                 }}>
                   <h3 style={{ margin: "0 0 10px 0" }}>✓ Business Registered Successfully!</h3>
                   <p style={{ margin: 0 }}>Your business has been registered and will be visible once approved within 24 hours.</p>
                 </div>
-                <button 
-                  className="read-more-btn" 
+                <button
+                  className="read-more-btn"
                   onClick={() => navigate("/business-contact")}
                   style={{ marginTop: "15px" }}
                 >
@@ -142,148 +142,155 @@ const BusinessRegisterform = () => {
                 </button>
               </div>
             ) : (
-            <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
-              <div className="form-grid">
+              <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
+                <div className="form-grid">
 
-                {step === 1 && (
-                  <>
-                    <div className="form-group">
-                      <label>Business Name*</label>
-                      <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                      <label>Owner Name*</label>
-                      <input type="text" name="ownerName" placeholder="Owner Name" value={formData.ownerName} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                      <label>Email</label>
-                      <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
-                      <label>Contact Number*</label>
-                      <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                      <label>Category</label>
-                      <select name="category" value={formData.category} onChange={handleChange}>
-                        <option value="">Select Category</option>
-                        <option value="Restaurant">Restaurant</option>
-                        <option value="Shop">Shop</option>
-                        <option value="Service">Service</option>
-                        <option value="Freelancer">Freelancer</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label>Business Type</label>
-                      <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
-                    </div>
-                  </>
-                )}
+                  {step === 1 && (
+                    <>
+                      <div className="form-group">
+                        <label>Business Name*</label>
+                        <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
+                      </div>
+                      <div className="form-group">
+                        <label>Owner Name*</label>
+                        <input type="text" name="ownerName" placeholder="Owner Name" value={formData.ownerName} onChange={handleChange} required />
+                      </div>
+                      <div className="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
+                      </div>
+                      <div className="form-group">
+                        <label>Contact Number*</label>
+                        <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
+                      </div>
+                      <div className="form-group">
+                        <label>Category</label>
+                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
+                          <option value="">Select Category</option>
+                          <option value="Restaurant">Restaurant</option>
+                          <option value="Shop">Shop</option>
+                          <option value="Service">Service</option>
+                          <option value="Freelancer">Freelancer</option>
+                          <option value="Education">Education</option>
+                          <option value="Consultancy">Consultancy</option>
+                          <option value="Medical & Health">Medical &amp; Health</option>
+                          <option value="Trading">Trading</option>
+                          <option value="Professional Services">Professional Services</option>
+                          <option value="Karm Kand">Karm Kand</option>
+                          <option value="Transport / Travel">Transport / Travel</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div className="form-group">
+                        <label>Business Type</label>
+                        <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
+                      </div>
+                    </>
+                  )}
 
-                {step === 2 && (
-                  <>
-                    <div className="form-group">
-                      <label>City</label>
-                      <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
-                      <label>State</label>
-                      <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
-                      <label>Website</label>
-                      <input type="text" name="website" placeholder="Website URL" value={formData.website} onChange={handleChange} />
-                    </div>
-                    <div className="form-group full-width">
-                      <label>Poster Photo</label>
-                      <input type="file" accept="image/*" onChange={handleFileChange} />
-                    </div>
-                    <div className="form-group full-width">
-                      <label>Description</label>
-                      <textarea name="description" placeholder="Business Description" value={formData.description} onChange={handleChange}></textarea>
-                    </div>
-                    <div className="form-group full-width">
-                      <label>Business Address*</label>
-                      <textarea name="address" placeholder="Full Address" value={formData.address} onChange={handleChange} required></textarea>
-                    </div>
-                  </>
-                )}
+                  {step === 2 && (
+                    <>
+                      <div className="form-group">
+                        <label>City</label>
+                        <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
+                      </div>
+                      <div className="form-group">
+                        <label>State</label>
+                        <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} />
+                      </div>
+                      <div className="form-group">
+                        <label>Website</label>
+                        <input type="text" name="website" placeholder="Website URL" value={formData.website} onChange={handleChange} />
+                      </div>
+                      <div className="form-group full-width">
+                        <label>Poster Photo</label>
+                        <input type="file" accept="image/*" onChange={handleFileChange} />
+                      </div>
+                      <div className="form-group full-width">
+                        <label>Description</label>
+                        <textarea name="description" placeholder="Business Description" value={formData.description} onChange={handleChange}></textarea>
+                      </div>
+                      <div className="form-group full-width">
+                        <label>Business Address*</label>
+                        <textarea name="address" placeholder="Full Address" value={formData.address} onChange={handleChange} required></textarea>
+                      </div>
+                    </>
+                  )}
 
-              </div>
+                </div>
 
-              {error === "login_required" ? (
-                <div style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: "rgba(0,0,0,0.5)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  zIndex: 1000
-                }}>
+                {error === "login_required" ? (
                   <div style={{
-                    background: "white",
-                    padding: "30px",
-                    borderRadius: "12px",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                    textAlign: "center",
-                    maxWidth: "400px",
-                    width: "90%"
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    zIndex: 1000
                   }}>
                     <div style={{
-                      width: "60px",
-                      height: "60px",
-                      background: "#dc3545",
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 20px",
-                      fontSize: "24px",
-                      color: "white"
+                      background: "white",
+                      padding: "30px",
+                      borderRadius: "12px",
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                      textAlign: "center",
+                      maxWidth: "400px",
+                      width: "90%"
                     }}>
-                      !
-                    </div>
-                    <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>Login Required</h3>
-                    <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5" }}>
-                      Please login to access business registration.
-                    </p>
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                      <button 
-                        className="read-more-btn" 
-                        onClick={() => navigate("/login")}
-                        style={{ background: "#007bff" }}
-                      >
-                        <span>Login</span>
-                      </button>
-                      <button 
-                        className="read-more-btn" 
-                        onClick={() => setError("")}
-                        style={{ background: "#6c757d" }}
-                      >
-                        <span>Cancel</span>
-                      </button>
+                      <div style={{
+                        width: "60px",
+                        height: "60px",
+                        background: "#dc3545",
+                        borderRadius: "50%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 20px",
+                        fontSize: "24px",
+                        color: "white"
+                      }}>
+                        !
+                      </div>
+                      <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>Login Required</h3>
+                      <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5" }}>
+                        Please login to access business registration.
+                      </p>
+                      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button
+                          className="read-more-btn"
+                          onClick={() => navigate("/login")}
+                          style={{ background: "#007bff" }}
+                        >
+                          <span>Login</span>
+                        </button>
+                        <button
+                          className="read-more-btn"
+                          onClick={() => setError("")}
+                          style={{ background: "#6c757d" }}
+                        >
+                          <span>Cancel</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+                ) : error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
 
-              <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-                {step === 2 && (
-                  <button type="button" className="read-more-btn" onClick={prevStep} style={{ background: "#ccc" }}>
-                    <span>Back</span>
+                <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                  {step === 2 && (
+                    <button type="button" className="read-more-btn" onClick={prevStep} style={{ background: "#ccc" }}>
+                      <span>Back</span>
+                    </button>
+                  )}
+
+                  <button type="submit" className="read-more-btn" disabled={loading}>
+                    <span>{loading ? "Processing..." : (step === 1 ? "Continue" : "Submit")}</span>
                   </button>
-                )}
-
-                <button type="submit" className="read-more-btn" disabled={loading}>
-                  <span>{loading ? "Processing..." : (step === 1 ? "Continue" : "Submit")}</span>
-                </button>
-              </div>
-            </form>
+                </div>
+              </form>
             )}
           </div>
         </div>
