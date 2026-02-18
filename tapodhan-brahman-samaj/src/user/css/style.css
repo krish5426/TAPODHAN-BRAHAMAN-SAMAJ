@@ -815,20 +815,6 @@ nav ul li a.active {
   font-weight: 400 !important;
 }
 
-.header-section-top .header-label-top::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: no-repeat;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  z-index: -1;
-  top: 1px;
-  border: 1px solid #525252;
-  border-radius: 5px;
-}
 
 .header-section-top .header-title-top {
   font-family: "Barlow Condensed", sans-serif;
