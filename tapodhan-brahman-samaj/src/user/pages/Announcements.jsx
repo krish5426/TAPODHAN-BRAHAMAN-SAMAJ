@@ -17,7 +17,7 @@ const Announcements = () => {
   return (
     <>
       <InnerBanner
-        title="Tapodhan Akshay Patram"
+        title="Tapodhan Akshay Patram "
         breadcrumb={breadcrumb}
         backgroundImage={bannerImage}
       />

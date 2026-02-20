@@ -106,7 +106,7 @@ const EditBusiness = () => {
     return (
       <>
         <InnerBanner title="Edit Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-        <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div>
+        <div className="container eb-loading">Loading...</div>
       </>
     );
   }
@@ -121,177 +121,202 @@ const EditBusiness = () => {
           </div>
 
           <div className="user-profile-card">
-            <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Barlow", sans-serif' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Business Name *</label>
-                  <input
-                    type="text"
-                    name="businessName"
-                    value={formData.businessName || ''}
-                    onChange={handleInputChange}
-                    required
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box' }}
-                  />
+            <form onSubmit={handleSubmit} className="eb-form">
+
+              {/* Business Identity */}
+              <div className="eb-section">
+                <h3 className="eb-section-title">Business Information</h3>
+                <div className="eb-form-grid">
+                  <div className="eb-field">
+                    <label className="eb-label">Business Name <span className="eb-required">*</span></label>
+                    <input
+                      type="text"
+                      name="businessName"
+                      value={formData.businessName || ''}
+                      onChange={handleInputChange}
+                      required
+                      className="eb-input"
+                      placeholder="Enter business name"
+                    />
+                  </div>
+                  <div className="eb-field">
+                    <label className="eb-label">Owner Name <span className="eb-required">*</span></label>
+                    <input
+                      type="text"
+                      name="ownerName"
+                      value={formData.ownerName || ''}
+                      onChange={handleInputChange}
+                      required
+                      className="eb-input"
+                      placeholder="Enter owner name"
+                    />
+                  </div>
+                  <div className="eb-field">
+                    <label className="eb-label">Category</label>
+                    <select
+                      name="category"
+                      value={formData.category || ''}
+                      onChange={handleInputChange}
+                      className="eb-input eb-select"
+                    >
+                      <option value="">Select Category</option>
+                      <option value="Restaurant">Restaurant</option>
+                      <option value="Shop">Shop</option>
+                      <option value="Service">Service</option>
+                      <option value="Freelancer">Freelancer</option>
+                      <option value="Education">Education</option>
+                      <option value="Consultancy">Consultancy</option>
+                      <option value="Medical & Health">Medical &amp; Health</option>
+                      <option value="Trading">Trading</option>
+                      <option value="Professional Services">Professional Services</option>
+                      <option value="Karm Kand">Karm Kand</option>
+                      <option value="Transport / Travel">Transport / Travel</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div className="eb-field">
+                    <label className="eb-label">Business Type</label>
+                    <input
+                      type="text"
+                      name="businessType"
+                      value={formData.businessType || ''}
+                      onChange={handleInputChange}
+                      className="eb-input"
+                      placeholder="e.g. Pvt. Ltd., Sole Proprietor"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Owner Name *</label>
-                  <input
-                    type="text"
-                    name="ownerName"
-                    value={formData.ownerName || ''}
+              </div>
+
+              {/* Contact Details */}
+              <div className="eb-section">
+                <h3 className="eb-section-title">Contact Details</h3>
+                <div className="eb-form-grid">
+                  <div className="eb-field">
+                    <label className="eb-label">Email <span className="eb-required">*</span></label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email || ''}
+                      onChange={handleInputChange}
+                      required
+                      disabled
+                      className="eb-input eb-input-disabled"
+                    />
+                  </div>
+                  <div className="eb-field">
+                    <label className="eb-label">Contact Number <span className="eb-required">*</span></label>
+                    <input
+                      type="tel"
+                      name="contactNumber"
+                      value={formData.contactNumber || ''}
+                      onChange={handleInputChange}
+                      required
+                      className="eb-input"
+                      placeholder="Enter contact number"
+                    />
+                  </div>
+                  <div className="eb-field">
+                    <label className="eb-label">Website</label>
+                    <input
+                      type="url"
+                      name="website"
+                      value={formData.website || ''}
+                      onChange={handleInputChange}
+                      className="eb-input"
+                      placeholder="https://example.com"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="eb-section">
+                <h3 className="eb-section-title">Location</h3>
+                <div className="eb-form-grid">
+                  <div className="eb-field">
+                    <label className="eb-label">City</label>
+                    <input
+                      type="text"
+                      name="city"
+                      value={formData.city || ''}
+                      onChange={handleInputChange}
+                      className="eb-input"
+                      placeholder="Enter city"
+                    />
+                  </div>
+                  <div className="eb-field">
+                    <label className="eb-label">State</label>
+                    <input
+                      type="text"
+                      name="state"
+                      value={formData.state || ''}
+                      onChange={handleInputChange}
+                      className="eb-input"
+                      placeholder="Enter state"
+                    />
+                  </div>
+                  <div className="eb-field eb-field-full">
+                    <label className="eb-label">Address <span className="eb-required">*</span></label>
+                    <textarea
+                      name="address"
+                      value={formData.address || ''}
+                      onChange={handleInputChange}
+                      required
+                      rows="3"
+                      className="eb-input eb-textarea"
+                      placeholder="Enter full address"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="eb-section">
+                <h3 className="eb-section-title">About the Business</h3>
+                <div className="eb-field">
+                  <label className="eb-label">Description</label>
+                  <textarea
+                    name="description"
+                    value={formData.description || ''}
                     onChange={handleInputChange}
-                    required
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box' }}
+                    rows="5"
+                    className="eb-input eb-textarea"
+                    placeholder="Describe your business..."
                   />
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email || ''}
-                    onChange={handleInputChange}
-                    required
-                    disabled
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', backgroundColor: '#f5f5f5', color: '#666', boxSizing: 'border-box' }}
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Contact Number *</label>
-                  <input
-                    type="tel"
-                    name="contactNumber"
-                    value={formData.contactNumber || ''}
-                    onChange={handleInputChange}
-                    required
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box' }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Category</label>
-                  <select
-                    name="category"
-                    value={formData.category || ''}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box', fontFamily: 'Barlow, sans-serif' }}
-                  >
-                    <option value="">Select Category</option>
-                    <option value="Restaurant">Restaurant</option>
-                    <option value="Shop">Shop</option>
-                    <option value="Service">Service</option>
-                    <option value="Freelancer">Freelancer</option>
-                    <option value="Education">Education</option>
-                    <option value="Consultancy">Consultancy</option>
-                    <option value="Medical & Health">Medical &amp; Health</option>
-                    <option value="Trading">Trading</option>
-                    <option value="Professional Services">Professional Services</option>
-                    <option value="Karm Kand">Karm Kand</option>
-                    <option value="Transport / Travel">Transport / Travel</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Business Type</label>
-                  <input
-                    type="text"
-                    name="businessType"
-                    value={formData.businessType || ''}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box' }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>City</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city || ''}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box' }}
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>State</label>
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.state || ''}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box' }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Website</label>
-                <input
-                  type="url"
-                  name="website"
-                  value={formData.website || ''}
-                  onChange={handleInputChange}
-                  style={{ width: '100%', padding: '10px', border: '1px solid #ddd' }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Address *</label>
-                <textarea
-                  name="address"
-                  value={formData.address || ''}
-                  onChange={handleInputChange}
-                  required
-                  rows="3"
-                  style={{ width: '100%', padding: '10px', border: '1px solid #ddd' }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Description</label>
-                <textarea
-                  name="description"
-                  value={formData.description || ''}
-                  onChange={handleInputChange}
-                  rows="4"
-                  style={{ width: '100%', padding: '10px', border: '1px solid #ddd' }}
-                />
-              </div>
-
-              <div style={{ marginBottom: '30px' }}>
-                <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Poster Photo</label>
+              {/* Poster Photo */}
+              <div className="eb-section">
+                <h3 className="eb-section-title">Poster Photo</h3>
                 {business?.posterPhoto && (
-                  <div style={{ marginBottom: '10px' }}>
+                  <div className="eb-current-photo">
                     <img
                       src={`${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`}
                       alt="Current poster"
-                      style={{ width: '150px', height: '100px', objectFit: 'cover', border: '1px solid #ddd' }}
+                      className="eb-preview-img"
                     />
-                    <p style={{ fontSize: '12px', color: '#666', margin: '5px 0' }}>Current poster photo</p>
+                    <p className="eb-photo-hint">Current poster photo</p>
                   </div>
                 )}
-                <input
-                  type="file"
-                  id="posterPhoto"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  style={{ display: 'none' }}
-                />
-                <label htmlFor="posterPhoto" className="user-profile-btn" style={{ display: 'inline-block', cursor: 'pointer', padding: '6px 8px', fontSize: '14px', width: 'auto' }}>
-                  Choose File
-                </label>
-                {posterPhoto && <span style={{ marginLeft: '10px', fontSize: '14px' }}>{posterPhoto.name}</span>}
+                <div className="eb-file-wrap">
+                  <input
+                    type="file"
+                    id="posterPhoto"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="eb-file-input"
+                  />
+                  <label htmlFor="posterPhoto" className="user-profile-btn eb-file-btn">
+                    Choose File
+                  </label>
+                  {posterPhoto && <span className="eb-file-name">{posterPhoto.name}</span>}
+                </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '15px' }}>
+              {/* Action Buttons */}
+              <div className="eb-actions">
                 <button
                   type="submit"
                   disabled={saving}
@@ -302,12 +327,12 @@ const EditBusiness = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/my-business')}
-                  className="user-profile-btn"
-                  style={{ background: 'transparent', color: '#b9252f', border: '2px solid #b9252f' }}
+                  className="user-profile-btn eb-cancel-btn"
                 >
                   Cancel
                 </button>
               </div>
+
             </form>
           </div>
         </div>

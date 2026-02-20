@@ -53,7 +53,7 @@ const MatrimonialList = () => {
       <section className="list-section">
         <div className="container">
           <div className="header-section">
-            <span className="header-label">Listing</span>
+            <span className="header-label center-top">Listing</span>
             <h2 className="header-title-center">
               <strong>
                 <span>Turning </span>
@@ -61,7 +61,7 @@ const MatrimonialList = () => {
               </strong>
             </h2>
           </div>
-          
+
           {/* Filter Buttons */}
           <div className="filter-buttons" style={{ textAlign: 'center', margin: '30px 0' }}>
             <button
@@ -84,40 +84,45 @@ const MatrimonialList = () => {
             </button>
           </div>
 
-          {/* Age Filter */}
-          <div className="age-filter" style={{ textAlign: 'center', margin: '20px 0' }}>
-            <label style={{ marginRight: '10px' }}>Age Range:</label>
-            <input
-              type="number"
-              placeholder="Min Age"
-              value={ageMin}
-              onChange={(e) => setAgeMin(e.target.value)}
-              style={{ marginRight: '10px', padding: '5px', width: '80px' }}
-            />
-            <span style={{ marginRight: '10px' }}>to</span>
-            <input
-              type="number"
-              placeholder="Max Age"
-              value={ageMax}
-              onChange={(e) => setAgeMax(e.target.value)}
-              style={{ padding: '5px', width: '80px' }}
-            />
-          </div>
+          {/* Combined Filter Bar */}
+          <div className="filter-bar">
+            <div className="filter-bar-group">
+              <label className="filter-bar-label">Age Range:</label>
+              <div className="filter-bar-age-inputs">
+                <input
+                  type="number"
+                  placeholder="Min"
+                  value={ageMin}
+                  onChange={(e) => setAgeMin(e.target.value)}
+                  className="filter-bar-input filter-bar-age"
+                />
+                <span className="filter-bar-sep">to</span>
+                <input
+                  type="number"
+                  placeholder="Max"
+                  value={ageMax}
+                  onChange={(e) => setAgeMax(e.target.value)}
+                  className="filter-bar-input filter-bar-age"
+                />
+              </div>
+            </div>
 
-          {/* Marital Status Filter */}
-          <div className="marital-status-filter" style={{ textAlign: 'center', margin: '20px 0' }}>
-            <label style={{ marginRight: '10px' }}>Marital Status:</label>
-            <select
-              value={maritalStatus}
-              onChange={(e) => setMaritalStatus(e.target.value)}
-              style={{ padding: '5px', width: '150px' }}
-            >
-              <option value="">All</option>
-              <option value="Never Married">Never Married</option>
-              <option value="Divorced">Divorced</option>
-              <option value="Widowed">Widowed</option>
-              <option value="Separated">Separated</option>
-            </select>
+            <div className="filter-bar-divider"></div>
+
+            <div className="filter-bar-group">
+              <label className="filter-bar-label">Marital Status:</label>
+              <select
+                value={maritalStatus}
+                onChange={(e) => setMaritalStatus(e.target.value)}
+                className="filter-bar-input filter-bar-select"
+              >
+                <option value="">All</option>
+                <option value="Never Married">Never Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+              </select>
+            </div>
           </div>
         </div>
       </section>
@@ -168,7 +173,7 @@ const MatrimonialList = () => {
 
               {totalPages > 1 && (
                 <div className="pagination">
-                  <button 
+                  <button
                     onClick={() => paginate(currentPage - 1)}
                     disabled={currentPage === 1}
                   >
@@ -183,7 +188,7 @@ const MatrimonialList = () => {
                       {index + 1}
                     </button>
                   ))}
-                  <button 
+                  <button
                     onClick={() => paginate(currentPage + 1)}
                     disabled={currentPage === totalPages}
                   >
