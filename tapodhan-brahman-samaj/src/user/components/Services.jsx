@@ -17,7 +17,8 @@ const Services = () => {
       id: 2,
       title: 'MATRIMONIAL',
       icon: matrimonialIcon,
-      link: '/matrimonial'
+     // link: '/matrimonial'
+     link:''
     },
     {
       id: 3,
