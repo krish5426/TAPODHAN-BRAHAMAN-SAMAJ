@@ -91,27 +91,29 @@ function MatrimonialDetail() {
 
                     <div className="user-profile-card">
                         <div className="user-profile-content">
-                            <div className="user-profile-image">
-                                {profile.profilePhoto ? (
-                                    <img
-                                        src={`${API_BASE_URL}/uploads/profile/${profile.profilePhoto}`}
-                                        alt="Profile"
-                                    />
-                                ) : (
-                                    <img
-                                        src={profile.gender === 'Female' ? brideDefault : groomDefault}
-                                        alt="Default Profile"
-                                    />
-                                )}
-                            </div>
-
-                            <div className="user-profile-details">
+                            <div className="user-profile-sticky-section">
+                                <div className="user-profile-image">
+                                    {profile.profilePhoto ? (
+                                        <img
+                                            src={`${API_BASE_URL}/uploads/profile/${profile.profilePhoto}`}
+                                            alt="Profile"
+                                        />
+                                    ) : (
+                                        <img
+                                            src={profile.gender === 'Female' ? brideDefault : groomDefault}
+                                            alt="Default Profile"
+                                        />
+                                    )}
+                                </div>
                                 <h2 className="business-name">
                                     {profile.firstName} {profile.surname}
                                 </h2>
                                 <span className="profile-id">
                                     Profile ID: {profile.gender === 'Female' ? 'F' : 'M'}-{profile.id}
                                 </span>
+                            </div>
+
+                            <div className="user-profile-details">
 
                                 {/* Personal Information Section */}
                                 <div className="profile-section">

@@ -101,16 +101,18 @@ function Profile() {
 
                     <div className="user-profile-card">
                         <div className="user-profile-content">
-                            <div className="user-profile-image">
-                                <img 
-                                    src={ogImg} 
-                                    alt="Profile" 
-                                />
+                            <div className="user-profile-sticky-section">
+                                <div className="user-profile-image">
+                                    <img 
+                                        src={ogImg} 
+                                        alt="Profile" 
+                                    />
+                                </div>
+                                <h2 className="business-name">{user.firstName} {user.lastName}</h2>
+                                <span className="profile-id">Profile ID: {user.userId || user.id || 'N/A'}</span>
                             </div>
                             
                             <div className="user-profile-details">
-                                <h2 className="business-name">{user.firstName} {user.lastName}</h2>
-                                
                                 <div className="business-info-grid">
                                     <div className="business-info-item">
                                         <strong>First Name:</strong>

@@ -346,15 +346,6 @@ const Matrimonialpersonalinfo = () => {
                 </div>
               ) : (
                 <div>
-                  <div className="add-profile-btn-wrapper">
-                    <button
-                      onClick={handleCreateNewProfile}
-                      className="read-more-btn"
-                    >
-                      <span>+ Add New Profile</span>
-                    </button>
-                  </div>
-
                   <div className="profile-list">
                     {existingProfiles.map((profile) => (
                       <div key={profile.id} className="profile-list-card">
@@ -381,6 +372,15 @@ const Matrimonialpersonalinfo = () => {
                         </div>
                       </div>
                     ))}
+                  </div>
+
+                  <div className="add-profile-btn-wrapper">
+                    <button
+                      onClick={handleCreateNewProfile}
+                      className="read-more-btn"
+                    >
+                      <span>+ Add New Profile</span>
+                    </button>
                   </div>
                 </div>
               )}
