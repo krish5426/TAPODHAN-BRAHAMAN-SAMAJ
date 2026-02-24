@@ -27,17 +27,10 @@ function MyBusiness() {
   const fetchMyBusiness = async () => {
     try {
       const token = localStorage.getItem('user_token');
-      console.log('Token:', token ? 'Found' : 'Not found');
 
-      if (!token) {
-        setLoading(false);
-        return;
-      }
+      console.log('Fetching business with token:', token ? 'Token exists' : 'No token');
 
-      const url = API_ENDPOINTS.MY_BUSINESS;
-      console.log('Fetching from:', url);
-
-      const response = await fetch(url, {
+      const response = await fetch(API_ENDPOINTS.MY_BUSINESS, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -72,13 +65,21 @@ function MyBusiness() {
     return (
       <>
         <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-        <section className="my-business-section">
-          <div className="container">
-            <div className="profile-loading">
-              <h2>Loading...</h2>
-            </div>
-          </div>
-        </section>
+
+        <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div>
+      </>
+    );
+  }
+
+  if (!business) {
+    return (
+      <>
+        <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
+        <div className="no-business-container">
+          <h2>No Business Registered</h2>
+          <p>You haven't registered a business yet.</p>
+          <Link to="/business-register" className="business-hero-btn">Register Business</Link>
+        </div>
       </>
     );
   }
@@ -89,21 +90,72 @@ function MyBusiness() {
 
       <section className="list-section" style={{ display: businesses.length > 0 ? 'block' : 'none' }}>
         <div className="container">
-          <div className="header-section">
-            <span className="header-label">My Businesses</span>
-            <h2 className="header-title-center">
-              <strong>
-                <span>Your </span>
-                registered businesses
-              </strong>
-            </h2>
-            <div className="create-profile-section">
-              <button
-                className="user-profile-btn"
-                onClick={() => navigate('/business-register')}
-              >
-                Register New Business
-              </button>
+
+          <div className="business-profile-header">
+            <h1 className="business-profile-title">My Business Profile</h1>
+            <Link to="/edit-business" className="business-profile-btn">Edit Business</Link>
+          </div>
+
+          <div className="business-profile-card">
+            <div className="business-profile-content">
+              <div className="business-profile-image">
+                <img
+                  src={business.posterPhoto && business.posterPhoto !== "default_business.jpg"
+                    ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
+                    : defaultBusinessImage}
+                  alt={business.businessName}
+                  onError={(e) => { e.target.src = defaultBusinessImage; }}
+                />
+              </div>
+              <div className="business-profile-details">
+                <h2 className="business-name">{business.businessName}</h2>
+                <div className="business-info-grid">
+                  <div className="business-info-item">
+                    <strong>Owner:</strong> {business.ownerName}
+                  </div>
+                  <div className="business-info-item">
+                    <strong>Email:</strong> {business.email}
+                  </div>
+                  <div className="business-info-item">
+                    <strong>Contact:</strong> {business.contactNumber}
+                  </div>
+                  <div className="business-info-item">
+                    <strong>Status:</strong>
+                    <span className={`status-badge status-${business.status}`}>
+                      {business.status?.toUpperCase()}
+                    </span>
+                  </div>
+                  {business.category && (
+                    <div className="business-info-item">
+                      <strong>Category:</strong> {business.category}
+                    </div>
+                  )}
+                  {business.city && (
+                    <div className="business-info-item">
+                      <strong>City:</strong> {business.city}
+                    </div>
+                  )}
+                </div>
+                <div className="business-info-section">
+                  <strong>Address:</strong>
+                  <p>{business.address}</p>
+                </div>
+                {business.description && (
+                  <div className="business-info-section">
+                    <strong>Description:</strong>
+                    <p>{business.description}</p>
+                  </div>
+                )}
+                {business.website && (
+                  <div className="business-info-section">
+                    <strong>Website:</strong>
+                    <a href={business.website} target="_blank" rel="noopener noreferrer">
+                      {business.website}
+                    </a>
+                  </div>
+                )}
+              </div>
+
             </div>
           </div>
         </div>
