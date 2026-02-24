@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import InnerBanner from '../components/InnerBanner';
 import CustomDialog from '../components/CustomDialog';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import API_BASE_URL, { API_ENDPOINTS } from '../../config/api';
+import { INDIAN_STATES } from '../../config/constants';
 
 const EditBusiness = () => {
   const [business, setBusiness] = useState(null);
@@ -12,7 +13,9 @@ const EditBusiness = () => {
   const [saving, setSaving] = useState(false);
   const [posterPhoto, setPosterPhoto] = useState(null);
   const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
+  const [owners, setOwners] = useState([""]);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const breadcrumb = [
     { label: 'Home', link: '/' },
@@ -35,8 +38,19 @@ const EditBusiness = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setBusiness(data);
-        setFormData(data);
+        const businesses = Array.isArray(data) ? data : (data ? [data] : []);
+        const foundBusiness = businesses.find(b => b.id.toString() === id);
+        
+        if (foundBusiness) {
+          setBusiness(foundBusiness);
+          setFormData(foundBusiness);
+          if (foundBusiness.ownerName) {
+            setOwners(foundBusiness.ownerName.split(',').map(n => n.trim()));
+          }
+        } else {
+          console.error("Business not found with ID:", id);
+          navigate('/my-business');
+        }
       } else {
         navigate('/my-business');
       }
@@ -53,6 +67,30 @@ const EditBusiness = () => {
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handleOwnerChange = (index, value) => {
+    const newOwners = [...owners];
+    newOwners[index] = value;
+    setOwners(newOwners);
+    setFormData(prev => ({
+      ...prev,
+      ownerName: newOwners.filter(n => n.trim() !== "").join(", ")
+    }));
+  };
+
+  const addOwner = () => {
+    setOwners([...owners, ""]);
+  };
+
+  const removeOwner = (index) => {
+    const newOwners = [...owners];
+    newOwners.splice(index, 1);
+    setOwners(newOwners);
+    setFormData(prev => ({
+      ...prev,
+      ownerName: newOwners.filter(n => n.trim() !== "").join(", ")
     }));
   };
 
@@ -141,15 +179,44 @@ const EditBusiness = () => {
                   </div>
                   <div className="eb-field">
                     <label className="eb-label">Owner Name <span className="eb-required">*</span></label>
-                    <input
-                      type="text"
-                      name="ownerName"
-                      value={formData.ownerName || ''}
-                      onChange={handleInputChange}
-                      required
-                      className="eb-input"
-                      placeholder="Enter owner name"
-                    />
+                    {owners.map((owner, index) => (
+                      <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                        <input
+                          type="text"
+                          name="ownerName"
+                          value={owner}
+                          onChange={(e) => handleOwnerChange(index, e.target.value)}
+                          required={index === 0}
+                          className="eb-input"
+                          placeholder="Enter owner name"
+                        />
+                        {index === owners.length - 1 ? (
+                          <button 
+                            type="button" 
+                            onClick={addOwner}
+                            style={{
+                              background: '#4CAF50', color: 'white', border: 'none', 
+                              width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                              fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                            }}
+                          >
+                            +
+                          </button>
+                        ) : (
+                          <button 
+                            type="button" 
+                            onClick={() => removeOwner(index)}
+                            style={{
+                              background: '#f44336', color: 'white', border: 'none', 
+                              width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                              fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                            }}
+                          >
+                            -
+                          </button>
+                        )}
+                      </div>
+                    ))}
                   </div>
                   <div className="eb-field">
                     <label className="eb-label">Category</label>
@@ -219,12 +286,12 @@ const EditBusiness = () => {
                   <div className="eb-field">
                     <label className="eb-label">Website</label>
                     <input
-                      type="url"
+                      type="text"
                       name="website"
                       value={formData.website || ''}
                       onChange={handleInputChange}
                       className="eb-input"
-                      placeholder="https://example.com"
+                      placeholder="e.g. www.example.com"
                     />
                   </div>
                 </div>
@@ -247,14 +314,17 @@ const EditBusiness = () => {
                   </div>
                   <div className="eb-field">
                     <label className="eb-label">State</label>
-                    <input
-                      type="text"
+                    <select
                       name="state"
                       value={formData.state || ''}
                       onChange={handleInputChange}
-                      className="eb-input"
-                      placeholder="Enter state"
-                    />
+                      className="eb-input eb-select"
+                    >
+                      <option value="">Select State</option>
+                      {INDIAN_STATES.map((state) => (
+                        <option key={state} value={state}>{state}</option>
+                      ))}
+                    </select>
                   </div>
                   <div className="eb-field eb-field-full">
                     <label className="eb-label">Address <span className="eb-required">*</span></label>

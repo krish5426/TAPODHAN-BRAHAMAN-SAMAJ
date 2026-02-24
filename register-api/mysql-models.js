@@ -182,6 +182,12 @@ class Business {
     return rows[0] || null;
   }
 
+  static async findAllByUserId(userId) {
+    const pool = getPool();
+    const [rows] = await pool.execute('SELECT * FROM businesses WHERE userId = ? ORDER BY createdAt DESC', [userId]);
+    return rows;
+  }
+
   static async findById(id) {
     const pool = getPool();
     const [rows] = await pool.execute('SELECT * FROM businesses WHERE id = ?', [id]);

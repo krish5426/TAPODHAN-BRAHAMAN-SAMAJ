@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import registerImg from "../assets/images/mobile.png";
 import { API_ENDPOINTS } from '../../config/api';
+import { INDIAN_STATES } from "../../config/constants";
+import CustomDialog from "../components/CustomDialog";
 
 const BusinessRegisterform = () => {
   const navigate = useNavigate();
@@ -22,12 +24,37 @@ const BusinessRegisterform = () => {
   const [posterPhoto, setPosterPhoto] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [dialog, setDialog] = useState({ isOpen: false, message: '', type: 'success' });
+  const [owners, setOwners] = useState([""]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const handleOwnerChange = (index, value) => {
+    const newOwners = [...owners];
+    newOwners[index] = value;
+    setOwners(newOwners);
+    setFormData({
+      ...formData,
+      ownerName: newOwners.filter(n => n.trim() !== "").join(", ")
+    });
+  };
+
+  const addOwner = () => {
+    setOwners([...owners, ""]);
+  };
+
+  const removeOwner = (index) => {
+    const newOwners = [...owners];
+    newOwners.splice(index, 1);
+    setOwners(newOwners);
+    setFormData({
+      ...formData,
+      ownerName: newOwners.filter(n => n.trim() !== "").join(", ")
     });
   };
 
@@ -90,7 +117,7 @@ const BusinessRegisterform = () => {
         throw new Error(result.message || "Failed to register business");
       }
 
-      setSuccess(true);
+      setDialog({ isOpen: true, message: 'Business Registered Successfully! We will let you know once approved by admin within 24 hrs.', type: 'success' });
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -120,30 +147,8 @@ const BusinessRegisterform = () => {
               {step === 1 ? "Enter your business basics" : "Tell us where you are located"}
             </p>
 
-            {success ? (
-              <div style={{ textAlign: "center", padding: "40px 20px" }}>
-                <div style={{
-                  background: "#d4edda",
-                  color: "#155724",
-                  padding: "20px",
-                  borderRadius: "8px",
-                  border: "1px solid #c3e6cb",
-                  marginBottom: "20px"
-                }}>
-                  <h3 style={{ margin: "0 0 10px 0" }}>✓ Business Registered Successfully!</h3>
-                  <p style={{ margin: 0 }}>Your business has been registered and will be visible once approved within 24 hours.</p>
-                </div>
-                <button
-                  className="read-more-btn"
-                  onClick={() => navigate("/business-contact")}
-                  style={{ marginTop: "15px" }}
-                >
-                  <span>View Business Listings</span>
-                </button>
-              </div>
-            ) : (
-              <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
-                <div className="form-grid">
+            <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
+              <div className="form-grid">
 
                   {step === 1 && (
                     <>
@@ -153,7 +158,42 @@ const BusinessRegisterform = () => {
                       </div>
                       <div className="form-group">
                         <label>Owner Name*</label>
-                        <input type="text" name="ownerName" placeholder="Owner Name" value={formData.ownerName} onChange={handleChange} required />
+                        {owners.map((owner, index) => (
+                          <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                            <input 
+                              type="text" 
+                              placeholder="Owner Name" 
+                              value={owner} 
+                              onChange={(e) => handleOwnerChange(index, e.target.value)} 
+                              required={index === 0} 
+                            />
+                            {index === owners.length - 1 ? (
+                              <button 
+                                type="button" 
+                                onClick={addOwner}
+                                style={{
+                                  background: '#4CAF50', color: 'white', border: 'none', 
+                                  width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                                  fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                              >
+                                +
+                              </button>
+                            ) : (
+                              <button 
+                                type="button" 
+                                onClick={() => removeOwner(index)}
+                                style={{
+                                  background: '#f44336', color: 'white', border: 'none', 
+                                  width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                                  fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                              >
+                                -
+                              </button>
+                            )}
+                          </div>
+                        ))}
                       </div>
                       <div className="form-group">
                         <label>Email</label>
@@ -190,13 +230,19 @@ const BusinessRegisterform = () => {
 
                   {step === 2 && (
                     <>
+                      
+                      <div className="form-group">
+                        <label>State</label>
+                        <select name="state" value={formData.state} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
+                          <option value="">Select State</option>
+                          {INDIAN_STATES.map((state) => (
+                            <option key={state} value={state}>{state}</option>
+                          ))}
+                        </select>
+                      </div>
                       <div className="form-group">
                         <label>City</label>
                         <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
-                      </div>
-                      <div className="form-group">
-                        <label>State</label>
-                        <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} />
                       </div>
                       <div className="form-group">
                         <label>Website</label>
@@ -291,10 +337,21 @@ const BusinessRegisterform = () => {
                   </button>
                 </div>
               </form>
-            )}
           </div>
         </div>
       </div>
+      
+      <CustomDialog
+        isOpen={dialog.isOpen}
+        message={dialog.message}
+        type={dialog.type}
+        onClose={() => {
+          setDialog(prev => ({ ...prev, isOpen: false }));
+          if (dialog.type === 'success') {
+            navigate('/business-contact');
+          }
+        }}
+      />
     </section>
   );
 };
