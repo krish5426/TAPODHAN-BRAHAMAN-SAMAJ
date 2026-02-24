@@ -21,8 +21,8 @@ const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mys
 ========================= */
 app.use(cors({
   origin: [
-    "https://tapodhanbrahmansamaj.com",
-    "https://www.tapodhanbrahmansamaj.com",
+   // "https://tapodhanbrahmansamaj.com",
+    //"https://www.tapodhanbrahmansamaj.com",
     "http://localhost:5173",
     "http://localhost:3000"
   ],
@@ -247,17 +247,13 @@ app.get("/my-matrimony-profile", authenticateToken, async (req, res) => {
   }
 });
 
-// Get User's Business
+// Get User's Businesses
 app.get("/my-business", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const business = await Business.findByUserId(userId);
+    const businesses = await Business.findAllByUserId(userId);
 
-    if (!business) {
-      return res.status(404).json({ message: "No business found for this user" });
-    }
-
-    res.json(business);
+    res.json(businesses || []);
   } catch (error) {
     console.error("Get my business error:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -766,11 +762,6 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
     const userId = req.user.userId;
     console.log('Business registration request:', { userId, body: req.body, file: req.file });
 
-    const existingBusiness = await Business.findByUserId(userId);
-    if (existingBusiness) {
-      return res.status(400).json({ message: "Business already registered for this user" });
-    }
-
     const { businessName, ownerName, email, contactNumber, address } = req.body;
     
     // Removed email from required fields to match admin route consistency
@@ -779,7 +770,7 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
     }
 
     // Handle optional poster photo
-    const posterPhoto = req.file ? req.file.filename : "default_business.jpg";
+    const posterPhoto = req.file ? `profile/${req.file.filename}` : "default_business.jpg";
 
     const businessData = {
       ...req.body,
@@ -1052,7 +1043,7 @@ app.put("/api/admin/business/:id", authenticateToken, upload.single("posterPhoto
     const businessData = { ...req.body };
 
     if (req.file) {
-      businessData.posterPhoto = req.file.filename;
+      businessData.posterPhoto = `profile/${req.file.filename}`;
     }
 
     const updatedBusiness = await Business.update(id, businessData);
