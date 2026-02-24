@@ -645,13 +645,19 @@ app.post("/register", async (req, res) => {
 // User Login
 app.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email: identifier, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
+    if (!identifier || !password) {
+      return res.status(400).json({ message: "Email/Mobile and password are required" });
     }
 
-    const user = await User.findByEmail(email);
+    let user;
+    if (identifier.includes('@')) {
+      user = await User.findByEmail(identifier);
+    } else {
+      user = await User.findByMobile(identifier);
+    }
+
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }

@@ -82,8 +82,8 @@ const Login = () => {
                             <form className="register-form" onSubmit={handleSubmit}>
                                 <div className="form-grid">
                                     <div className="form-group full-width">
-                                        <label>Email*</label>
-                                        <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
+                                        <label>Email or Mobile Number*</label>
+                                        <input type="text" name="email" placeholder="Email Address or Mobile Number" value={formData.email} onChange={handleChange} required />
                                     </div>
                                     <div className="form-group full-width">
                                         <label>Password*</label>
