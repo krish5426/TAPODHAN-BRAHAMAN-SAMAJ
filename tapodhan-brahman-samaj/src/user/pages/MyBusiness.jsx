@@ -23,16 +23,16 @@ const MyBusiness = () => {
     try {
       const token = localStorage.getItem('user_token');
       console.log('Fetching business with token:', token ? 'Token exists' : 'No token');
-      
+
       const response = await fetch(API_ENDPOINTS.MY_BUSINESS, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      
+
       console.log('Response status:', response.status);
-      
+
       if (response.ok) {
         const data = await response.json();
         console.log('Business data:', data);
@@ -52,7 +52,7 @@ const MyBusiness = () => {
     return (
       <>
         <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-        <div className="container" style={{padding: '100px 0', textAlign: 'center'}}>Loading...</div>
+        <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>Loading...</div>
       </>
     );
   }
@@ -79,17 +79,17 @@ const MyBusiness = () => {
             <h1 className="business-profile-title">My Business Profile</h1>
             <Link to="/edit-business" className="business-profile-btn">Edit Business</Link>
           </div>
-          
+
           <div className="business-profile-card">
             <div className="business-profile-content">
               <div className="business-profile-image">
-                  <img 
-                    src={business.posterPhoto && business.posterPhoto !== "default_business.jpg" 
-                      ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}` 
-                      : defaultBusinessImage} 
-                    alt={business.businessName}
-                    onError={(e) => { e.target.src = defaultBusinessImage; }}
-                  />
+                <img
+                  src={business.posterPhoto && business.posterPhoto !== "default_business.jpg"
+                    ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
+                    : defaultBusinessImage}
+                  alt={business.businessName}
+                  onError={(e) => { e.target.src = defaultBusinessImage; }}
+                />
               </div>
               <div className="business-profile-details">
                 <h2 className="business-name">{business.businessName}</h2>
@@ -104,7 +104,7 @@ const MyBusiness = () => {
                     <strong>Contact:</strong> {business.contactNumber}
                   </div>
                   <div className="business-info-item">
-                    <strong>Status:</strong> 
+                    <strong>Status:</strong>
                     <span className={`status-badge status-${business.status}`}>
                       {business.status?.toUpperCase()}
                     </span>

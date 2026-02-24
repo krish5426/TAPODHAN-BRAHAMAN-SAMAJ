@@ -19,6 +19,9 @@ const GoogleTranslate = () => {
       if (!document.querySelector('script[src*="translate.google.com"]')) {
         const script = document.createElement('script');
         script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.onerror = () => {
+          console.warn('Google Translate script failed to load (likely blocked by Ad-blocker).');
+        };
         document.body.appendChild(script);
       } else if (window.google && window.google.translate) {
         window.googleTranslateElementInit();
@@ -29,7 +32,7 @@ const GoogleTranslate = () => {
   }, []);
 
   return (
-    <div 
+    <div
       id="google_translate_element"
       style={{
         display: 'block',

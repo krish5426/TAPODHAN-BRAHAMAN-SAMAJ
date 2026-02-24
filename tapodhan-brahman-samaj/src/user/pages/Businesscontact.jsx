@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import imageIcon from "../assets/images/contactpage.png"; // fallback icon if needed
+import imageIcon from "../../assets/images/cz.png";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from '../../config/api';
 import InnerBanner from '../components/InnerBanner';
@@ -14,6 +14,7 @@ export default function Businesscontact() {
   const [searchName, setSearchName] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [selectedBusiness, setSelectedBusiness] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
   const breadcrumb = [
@@ -70,6 +71,34 @@ export default function Businesscontact() {
     setCurrentPage(pageNumber);
   };
 
+  const openDrawer = (business) => {
+    setSelectedBusiness(business);
+    // Tiny delay to ensure React has rendered the drawer elements before adding 'active' class
+    setTimeout(() => setIsDrawerOpen(true), 10);
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+    // Wait for transition to finish before clearing data
+    setTimeout(() => setSelectedBusiness(null), 500);
+  };
+
+  const handleNextBusiness = () => {
+    if (!selectedBusiness) return;
+    const currentIndex = businesses.findIndex(b => b.id === selectedBusiness.id);
+    if (currentIndex < businesses.length - 1) {
+      setSelectedBusiness(businesses[currentIndex + 1]);
+    }
+  };
+
+  const handlePrevBusiness = () => {
+    if (!selectedBusiness) return;
+    const currentIndex = businesses.findIndex(b => b.id === selectedBusiness.id);
+    if (currentIndex > 0) {
+      setSelectedBusiness(businesses[currentIndex - 1]);
+    }
+  };
+
   const handleImageUpload = (e, rowId) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -86,159 +115,221 @@ export default function Businesscontact() {
         backgroundImage={bannerImage}
       />
       <section className="business-directory">
-      <div className="directory-container">
+        <div className="directory-container">
 
-        {/* HERO SECTION */}
-        <div className="business-hero">
-          <span className="business-hero-label">BUSINESS GROW</span>
-          <h1 className="business-hero-title">
-            Connecting <span>Businesses</span>.<br />
-            Creating <span>Growth</span>.
-          </h1>
-          <div className="business-hero-actions">
-            <input
-              type="text"
-              placeholder="Search by Business Name..."
-              value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Search by Location (City)..."
-              value={searchLocation}
-              onChange={(e) => setSearchLocation(e.target.value)}
-            />
-            <button
-              className="business-hero-btn"
-              onClick={() => navigate("/business-register")}
-            >
-              Add Register
-            </button>
-          </div>
-        </div>
-
-        {/* TABLE */}
-        <div className="directory-table-wrapper">
-          <table className="directory-table">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Business Name</th>
-                <th>Owner Name</th>
-                <th>Category</th>
-                <th>City</th>
-                <th>Contact Number</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading ? (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: 'center' }}>Loading businesses...</td>
-                </tr>
-              ) : businesses.length === 0 ? (
-                <tr>
-                  <td colSpan="7" style={{ textAlign: 'center' }}>No businesses found.</td>
-                </tr>
-              ) : (
-                currentBusinesses.map((business, index) => (
-                  <tr key={business.id} className={index % 2 !== 0 ? "creative" : ""}>
-                    <td>{indexOfFirstItem + index + 1}</td>
-                    <td>{business.businessName}</td>
-                    <td>{business.ownerName}</td>
-                    <td>{business.category || "-"}</td>
-                    <td>{business.city || "-"}</td>
-                    <td>{business.contactNumber}</td>
-                    <td>
-                      <button
-                        className="business-hero-btn"
-                        style={{ padding: "5px 10px", fontSize: "12px", minWidth: "auto" }}
-                        onClick={() => setSelectedBusiness(business)}
-                      >
-                        More
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* MODAL */}
-        {selectedBusiness && (
-          <div style={{
-            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-            backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000
-          }}>
-            <div style={{
-              backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '90%', maxWidth: '700px',
-              maxHeight: '90vh', overflowY: 'auto', position: 'relative', display: 'flex', flexWrap: 'wrap', gap: '20px'
-            }}>
+          {/* HERO SECTION */}
+          <div className="business-hero">
+            <span className="business-hero-label">BUSINESS GROW</span>
+            <h1 className="business-hero-title">
+              Connecting <span>Businesses</span>.<br />
+              Creating <span>Growth</span>.
+            </h1>
+            <div className="business-hero-actions">
+              <input
+                type="text"
+                placeholder="Search by Business Name..."
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Search by Location (City)..."
+                value={searchLocation}
+                onChange={(e) => setSearchLocation(e.target.value)}
+              />
               <button
-                onClick={() => setSelectedBusiness(null)}
-                style={{ position: 'absolute', top: '10px', right: '10px', background: 'linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%)', border: 'none', fontSize: '20px', cursor: 'pointer', color: 'white', width: '30px', height: '30px', borderRadius: '30%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                className="business-hero-btn"
+                onClick={() => navigate("/business-register")}
               >
-                &times;
+                Add Register
               </button>
-              <h2 style={{ marginBottom: '15px', width: '100%' }}>{selectedBusiness.businessName}</h2>
-              <div className="business-left" style={{ flex: '1 1 250px', minWidth: '250px' }}>
-              {selectedBusiness.posterPhoto && (
-                
-                <img
-                  src={`${API_ENDPOINTS.UPLOADS}/${selectedBusiness.posterPhoto}`}
-                  alt="Poster"
-                  style={{ width: '100%', borderRadius: '8px', marginBottom: '15px' }}
-                />
-              )}
-              </div>
-              <div className="business-right" style={{ flex: '1 1 300px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
-                <p><strong>Owner:</strong> {selectedBusiness.ownerName}</p>
-                <p><strong>Type:</strong> {selectedBusiness.businessType}</p>
-                <p><strong>Category:</strong> {selectedBusiness.category}</p>
-                <p><strong>Email:</strong> {selectedBusiness.email}</p>
-                <p><strong>Contact:</strong> {selectedBusiness.contactNumber}</p>
-                <p><strong>Website:</strong> <a href={selectedBusiness.website} target="_blank" rel="noreferrer">{selectedBusiness.website}</a></p>
-                <p><strong>City:</strong> {selectedBusiness.city}</p>
-                <p><strong>State:</strong> {selectedBusiness.state}</p>
-              </div>
-              <p style={{ marginTop: '10px' }}><strong>Address:</strong><br />{selectedBusiness.address}</p>
-              <p style={{ marginTop: '10px' }}><strong>Description:</strong><br />{selectedBusiness.description}</p>
-              </div>
             </div>
           </div>
-        )}
 
-        {/* PAGINATION */}
-        <div className="directory-pagination">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            &laquo;
-          </button>
+          {/* TABLE */}
+          <div className="directory-table-wrapper">
+            <table className="directory-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Business Name</th>
+                  <th>Owner Name</th>
+                  <th>Category</th>
+                  <th>City</th>
+                  <th>Contact Number</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan="7" style={{ textAlign: 'center' }}>Loading businesses...</td>
+                  </tr>
+                ) : businesses.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" style={{ textAlign: 'center' }}>No businesses found.</td>
+                  </tr>
+                ) : (
+                  currentBusinesses.map((business, index) => (
+                    <tr key={business.id} className={index % 2 !== 0 ? "creative" : ""}>
+                      <td>{indexOfFirstItem + index + 1}</td>
+                      <td>{business.businessName}</td>
+                      <td>{business.ownerName}</td>
+                      <td>{business.category || "-"}</td>
+                      <td>{business.city || "-"}</td>
+                      <td>{business.contactNumber}</td>
+                      <td>
+                        <button
+                          className="business-hero-btn"
+                          style={{ padding: "5px 10px", fontSize: "12px", minWidth: "auto" }}
+                          onClick={() => openDrawer(business)}
+                        >
+                          More
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
 
-          {[...Array(totalPages)].map((_, index) => (
+          {/* SIDE DRAWER */}
+          <div
+            className={`business-drawer-overlay ${isDrawerOpen ? 'active' : ''}`}
+            onClick={closeDrawer}
+          />
+          <div className={`business-drawer-content ${isDrawerOpen ? 'active' : ''}`}>
+            {selectedBusiness && (
+              <>
+                <div className="business-drawer-header">
+                  <button className="business-drawer-close" onClick={closeDrawer}>
+                    &times;
+                  </button>
+
+                  <div className="business-drawer-image-container">
+                    <img
+                      src={selectedBusiness.posterPhoto && selectedBusiness.posterPhoto !== 'default_business.jpg'
+                        ? `${API_ENDPOINTS.UPLOADS}/${selectedBusiness.posterPhoto}`
+                        : imageIcon
+                      }
+                      alt={selectedBusiness.businessName}
+                      className="business-drawer-image"
+                      onError={(e) => { e.target.src = imageIcon; }}
+                    />
+                  </div>
+                </div>
+
+                <div className="business-drawer-body">
+                  <span className="business-drawer-category">{selectedBusiness.category || "General"}</span>
+                  <h2 className="business-drawer-title">{selectedBusiness.businessName}</h2>
+
+                  <div className="business-drawer-description">
+                    {selectedBusiness.city}, {selectedBusiness.state}
+                  </div>
+
+                  <div className="business-drawer-details-grid">
+                    <div className="business-drawer-detail-card">
+                      <span className="business-drawer-detail-label">Owner Name</span>
+                      <span className="business-drawer-detail-value">{selectedBusiness.ownerName}</span>
+                    </div>
+
+                    <div className="business-drawer-detail-card">
+                      <span className="business-drawer-detail-label">Business Type</span>
+                      <span className="business-drawer-detail-value">{selectedBusiness.businessType}</span>
+                    </div>
+
+                    <div className="business-drawer-detail-card">
+                      <span className="business-drawer-detail-label">Contact Number</span>
+                      <span className="business-drawer-detail-value">{selectedBusiness.contactNumber}</span>
+                    </div>
+
+                    <div className="business-drawer-detail-card">
+                      <span className="business-drawer-detail-label">Email Address</span>
+                      <span className="business-drawer-detail-value">{selectedBusiness.email || "N/A"}</span>
+                    </div>
+
+                    {selectedBusiness.website && (
+                      <div className="business-drawer-detail-card">
+                        <span className="business-drawer-detail-label">Website</span>
+                        <span className="business-drawer-detail-value">
+                          <a href={selectedBusiness.website} target="_blank" rel="noreferrer">
+                            {selectedBusiness.website.replace(/^https?:\/\//, '')}
+                          </a>
+                        </span>
+                      </div>
+                    )}
+
+                    {selectedBusiness.description && (
+                      <div className="business-drawer-detail-card">
+                        <span className="business-drawer-detail-label">Description</span>
+                        <span className="business-drawer-detail-value" style={{ whiteSpace: 'pre-wrap' }}>
+                          {selectedBusiness.description}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="business-address-grid">
+                    <div className="business-drawer-detail-card">
+                      <span className="business-drawer-detail-label">Full Address</span>
+                      <span className="business-drawer-detail-value">{selectedBusiness.address}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sticky Navigation Footer */}
+                <div className="business-drawer-footer">
+                  <div className="business-drawer-footer-nav">
+                    <button
+                      className="footer-nav-btn prev"
+                      onClick={handlePrevBusiness}
+                      disabled={businesses.findIndex(b => b.id === selectedBusiness.id) === 0}
+                    >
+                      <span className="nav-arrow">&lsaquo;</span> Previous Business
+                    </button>
+                    <button
+                      className="footer-nav-btn next"
+                      onClick={handleNextBusiness}
+                      disabled={businesses.findIndex(b => b.id === selectedBusiness.id) === businesses.length - 1}
+                    >
+                      Next Business <span className="nav-arrow">&rsaquo;</span>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* PAGINATION */}
+          <div className="directory-pagination">
             <button
-              key={index + 1}
-              className={currentPage === index + 1 ? "active" : ""}
-              onClick={() => handlePageChange(index + 1)}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
             >
-              {index + 1}
+              &laquo;
             </button>
-          ))}
 
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            &raquo;
-          </button>
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              &raquo;
+            </button>
+          </div>
+
         </div>
-
-      </div>
-    </section>
+      </section>
     </>
   );
 }
