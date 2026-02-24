@@ -327,7 +327,7 @@ const BusinessRegisterform = () => {
 
                 <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
                   {step === 2 && (
-                    <button type="button" className="read-more-btn" onClick={prevStep}>
+                    <button type="button" className="read-more-btn back-btn" onClick={prevStep}>
                       <span>Back</span>
                     </button>
                   )}

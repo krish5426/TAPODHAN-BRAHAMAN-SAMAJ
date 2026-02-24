@@ -168,7 +168,7 @@ const Matrimonialpersonalinfo = () => {
     glasses: 'No',
     mangal: 'No',
     expectation: '',
-    
+
     // Step 2: Education, Job & Family Information
     educationQualification: '',
     educationDetails: '',
@@ -695,26 +695,26 @@ const Matrimonialpersonalinfo = () => {
 
               <div className="form-button-group">
                 {currentStep === 2 && (
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={handlePrevious}
-                    className="read-more-btn"
+                    className="read-more-btn back-btn"
                   >
                     <span>Previous</span>
                   </button>
                 )}
-                
+
                 {currentStep === 1 ? (
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={handleNext}
                     className="read-more-btn full-width"
                   >
                     <span>Next</span>
                   </button>
                 ) : (
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="read-more-btn"
                     disabled={loading}
                   >
@@ -726,7 +726,7 @@ const Matrimonialpersonalinfo = () => {
           </div>
         </div>
       </div>
-      
+
       <CustomDialog
         isOpen={dialog.isOpen}
         onClose={handleDialogClose}

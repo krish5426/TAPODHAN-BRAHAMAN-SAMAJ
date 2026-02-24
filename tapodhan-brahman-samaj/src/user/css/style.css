@@ -1103,6 +1103,10 @@ nav ul li a.active {
   border-radius: 5px;
 }
 
+.read-more-btn.back-btn::after {
+  transform: scaleX(-1);
+}
+
 .read-more-btn:hover::after {
   width: 100%;
 }
@@ -3048,6 +3052,7 @@ a.service-card {
   outline: none;
   background: #fff;
   transition: border 0.2s ease;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .form-group input::placeholder,
@@ -12106,15 +12111,15 @@ span[style*="border-left"] {
 }
 
 .business-drawer-detail-label {
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   color: #aaa;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
 }
 
 .business-drawer-detail-value {
-  font-size: 17px;
+  font-size: 20px;
   color: #222;
   font-weight: 500;
 }
