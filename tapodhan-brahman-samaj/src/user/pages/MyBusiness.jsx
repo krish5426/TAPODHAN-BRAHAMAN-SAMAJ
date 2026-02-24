@@ -71,14 +71,14 @@ function MyBusiness() {
     );
   }
 
-  if (!business) {
+  if (businesses.length === 0) {
     return (
       <>
         <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-        <div className="no-business-container">
+        <div className="no-business-container" style={{ textAlign: 'center', padding: '100px 0' }}>
           <h2>No Business Registered</h2>
-          <p>You haven't registered a business yet.</p>
-          <Link to="/business-register" className="business-hero-btn">Register Business</Link>
+          <p style={{ margin: '20px 0' }}>You haven't registered a business yet.</p>
+          <Link to="/business-register" className="business-profile-btn" style={{ display: 'inline-block', textDecoration: 'none' }}>Register Business</Link>
         </div>
       </>
     );
@@ -90,72 +90,21 @@ function MyBusiness() {
 
       <section className="list-section" style={{ display: businesses.length > 0 ? 'block' : 'none' }}>
         <div className="container">
-
-          <div className="business-profile-header">
-            <h1 className="business-profile-title">My Business Profile</h1>
-            <Link to="/edit-business" className="business-profile-btn">Edit Business</Link>
-          </div>
-
-          <div className="business-profile-card">
-            <div className="business-profile-content">
-              <div className="business-profile-image">
-                <img
-                  src={business.posterPhoto && business.posterPhoto !== "default_business.jpg"
-                    ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
-                    : defaultBusinessImage}
-                  alt={business.businessName}
-                  onError={(e) => { e.target.src = defaultBusinessImage; }}
-                />
-              </div>
-              <div className="business-profile-details">
-                <h2 className="business-name">{business.businessName}</h2>
-                <div className="business-info-grid">
-                  <div className="business-info-item">
-                    <strong>Owner:</strong> {business.ownerName}
-                  </div>
-                  <div className="business-info-item">
-                    <strong>Email:</strong> {business.email}
-                  </div>
-                  <div className="business-info-item">
-                    <strong>Contact:</strong> {business.contactNumber}
-                  </div>
-                  <div className="business-info-item">
-                    <strong>Status:</strong>
-                    <span className={`status-badge status-${business.status}`}>
-                      {business.status?.toUpperCase()}
-                    </span>
-                  </div>
-                  {business.category && (
-                    <div className="business-info-item">
-                      <strong>Category:</strong> {business.category}
-                    </div>
-                  )}
-                  {business.city && (
-                    <div className="business-info-item">
-                      <strong>City:</strong> {business.city}
-                    </div>
-                  )}
-                </div>
-                <div className="business-info-section">
-                  <strong>Address:</strong>
-                  <p>{business.address}</p>
-                </div>
-                {business.description && (
-                  <div className="business-info-section">
-                    <strong>Description:</strong>
-                    <p>{business.description}</p>
-                  </div>
-                )}
-                {business.website && (
-                  <div className="business-info-section">
-                    <strong>Website:</strong>
-                    <a href={business.website} target="_blank" rel="noopener noreferrer">
-                      {business.website}
-                    </a>
-                  </div>
-                )}
-              </div>
-
+          <div className="header-section">
+            <span className="header-label">My Businesses</span>
+            <h2 className="header-title-center">
+              <strong>
+                <span>Your </span>
+                registered businesses
+              </strong>
+            </h2>
+            <div className="create-profile-section">
+              <button
+                className="user-profile-btn"
+                onClick={() => navigate('/business-register')}
+              >
+                Register New Business
+              </button>
             </div>
           </div>
         </div>
@@ -178,41 +127,43 @@ function MyBusiness() {
             <>
               <div className="profile-grid">
                 {currentBusinesses.map((business) => (
-                  <div key={business.id} className="profile-card">
-                    <div className="profile-img">
-                      <img
-                        src={business.posterPhoto && business.posterPhoto !== "default_business.jpg"
-                          ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
-                          : defaultBusinessImage}
-                        alt={business.businessName}
-                        onError={(e) => { e.target.src = defaultBusinessImage; }}
-                      />
-                      <div className={`status-badge ${business.status?.toLowerCase() || 'pending'}`}>
-                        {business.status ? business.status.charAt(0).toUpperCase() + business.status.slice(1) : 'Pending'}
+                  <div key={business.id} style={{ position: 'relative' }}>
+                    <Link to={`/business-detail/${business.id}`} className="profile-card-link" style={{ display: 'block' }}>
+                      <div className="profile-card" style={{ height: '100%' }}>
+                        <div className="profile-img">
+                          <img
+                            src={business.posterPhoto && business.posterPhoto !== "default_business.jpg"
+                              ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
+                              : defaultBusinessImage}
+                            alt={business.businessName}
+                            onError={(e) => { e.target.src = defaultBusinessImage; }}
+                          />
+                          <div className={`status-badge ${business.status?.toLowerCase() || 'pending'}`}>
+                            {business.status ? business.status.charAt(0).toUpperCase() + business.status.slice(1) : 'Pending'}
+                          </div>
+                        </div>
+                        <div className="profile-content">
+                          <span className="profile-id">
+                            Business ID: B-{business.id}
+                          </span>
+                          <h4 className="profile-name">{business.businessName}</h4>
+                          <p className="profile-info">
+                            Owner: {business.ownerName}
+                          </p>
+                          <p className="profile-info">
+                            City: {business.city || 'N/A'}
+                          </p>
+                          <p className="profile-info">
+                            Category: {business.category || 'N/A'}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="profile-content">
-                      <span className="profile-id">
-                        Business ID: {business.id}
-                      </span>
-                      <h4 className="profile-name">{business.businessName}</h4>
-                      <p className="profile-info">
-                        Owner: {business.ownerName}
-                      </p>
-                      <p className="profile-info">
-                        City: {business.city || 'N/A'}
-                      </p>
-                      <p className="profile-info">
-                        Category: {business.category || 'N/A'}
-                      </p>
-                      <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-                        <Link to={`/business-detail/${business.id}`} className="business-profile-btn" style={{ fontSize: '13px', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none' }}>
-                          <VisibilityIcon fontSize="small" /> View
+                    </Link>
+                    {/* Floating Edit Button Overlay */}
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+                        <Link to={`/edit-business/${business.id}`} onClick={(e) => e.stopPropagation()} style={{ background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '6px', borderRadius: '50%', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: '0.3s' }} className="edit-icon-hover">
+                          <EditIcon fontSize="small" />
                         </Link>
-                        <Link to={`/edit-business/${business.id}`} className="business-profile-btn" style={{ fontSize: '13px', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '5px', textDecoration: 'none' }}>
-                          <EditIcon fontSize="small" /> Edit
-                        </Link>
-                      </div>
                     </div>
                   </div>
                 ))}
