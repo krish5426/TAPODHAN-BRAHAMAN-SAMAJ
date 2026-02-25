@@ -286,14 +286,14 @@ export default function Businesscontact() {
                       onClick={handlePrevBusiness}
                       disabled={businesses.findIndex(b => b.id === selectedBusiness.id) === 0}
                     >
-                      <span className="nav-arrow">&lsaquo;</span> Previous Business
+                      Previous Business
                     </button>
                     <button
                       className="footer-nav-btn next"
                       onClick={handleNextBusiness}
                       disabled={businesses.findIndex(b => b.id === selectedBusiness.id) === businesses.length - 1}
                     >
-                      Next Business <span className="nav-arrow">&rsaquo;</span>
+                      Next Business
                     </button>
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function Businesscontact() {
           </div>
 
         </div>
-      </section>
+      </section >
     </>
   );
 }

@@ -145,7 +145,7 @@ const Header = () => {
                     </>
                   )}
                 </div>
-                <div className="mobile_language" style={{ display: 'block', minHeight: '30px', position: 'fixed', bottom: '10px', right: '25px' }}>
+                <div className="mobile_language">
                   <GoogleTranslate />
                 </div>
               </div>

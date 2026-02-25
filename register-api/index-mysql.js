@@ -271,7 +271,7 @@ app.post("/admin/login", async (req, res) => {
 app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (req, res) => {
   try {
     const userId = req.user.userId;
-    
+
     // Check if profile already exists
     const existingProfile = await Profile.findByUserId(userId);
     if (existingProfile) {
@@ -279,7 +279,7 @@ app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (re
     }
 
     const profileData = { ...req.body, userId };
-    
+
     if (req.file) {
       profileData.profilePhoto = req.file.filename;
     }
@@ -301,7 +301,7 @@ app.get("/profiles", async (req, res) => {
   try {
     const { status, gender } = req.query;
     const filters = {};
-    
+
     if (status) filters.status = status;
     if (gender) filters.gender = gender;
 
@@ -317,7 +317,7 @@ app.get("/profiles", async (req, res) => {
 app.post("/business", authenticateToken, upload.single("posterPhoto"), async (req, res) => {
   try {
     const userId = req.user.userId;
-    
+
     const existingBusiness = await Business.findByUserId(userId);
     if (existingBusiness) {
       return res.status(400).json({ message: "Business already registered for this user" });
@@ -350,7 +350,7 @@ app.get("/businesses", async (req, res) => {
   try {
     const { status } = req.query;
     const filters = {};
-    
+
     if (status) filters.status = status;
 
     const businesses = await Business.findAll(filters);
@@ -365,7 +365,7 @@ app.get("/businesses", async (req, res) => {
 app.post("/events", upload.array("images", 5), async (req, res) => {
   try {
     const { title, description, date } = req.body;
-    
+
     if (!title || !date) {
       return res.status(400).json({ message: "Title and date are required" });
     }

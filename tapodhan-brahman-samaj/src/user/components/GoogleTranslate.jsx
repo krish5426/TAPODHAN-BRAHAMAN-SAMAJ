@@ -1,15 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const GoogleTranslate = () => {
+  const [currentLang, setCurrentLang] = useState('en');
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef(null);
+
+  const langNames = {
+    'en': 'ENGLISH',
+    'hi': 'HINDI',
+    'gu': 'GUJARATI'
+  };
+
   useEffect(() => {
+    // 1. Force English Cookie immediately if none exists
+    const forceEnglish = () => {
+      if (!document.cookie.includes('googtrans')) {
+        const domains = [window.location.hostname, `.${window.location.hostname}`];
+        const val = '/auto/en';
+        document.cookie = `googtrans=${val}; path=/`;
+        domains.forEach(d => {
+          document.cookie = `googtrans=${val}; path=/; domain=${d}`;
+        });
+      }
+    };
+    forceEnglish();
+
+    // 2. Identify current language for UI
+    const getActiveLang = () => {
+      const match = document.cookie.match(/googtrans=\/([^/]+)\/([^/]+)/);
+      if (match && match[2] && langNames[match[2]]) {
+        return match[2];
+      }
+      return 'en';
+    };
+    setCurrentLang(getActiveLang());
+
+    // 3. Initialize Google Translate
     const timer = setTimeout(() => {
       window.googleTranslateElementInit = () => {
         if (window.google && window.google.translate) {
           new window.google.translate.TranslateElement(
             {
-              pageLanguage: 'en',
+              pageLanguage: 'auto',
               includedLanguages: 'en,gu,hi',
-              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
+              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+              autoDisplay: true
             },
             'google_translate_element'
           );
@@ -19,28 +54,65 @@ const GoogleTranslate = () => {
       if (!document.querySelector('script[src*="translate.google.com"]')) {
         const script = document.createElement('script');
         script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-        script.onerror = () => {
-          console.warn('Google Translate script failed to load (likely blocked by Ad-blocker).');
-        };
         document.body.appendChild(script);
-      } else if (window.google && window.google.translate) {
-        window.googleTranslateElementInit();
       }
-    }, 100);
+    }, 300);
 
-    return () => clearTimeout(timer);
+    // 4. Click outside to close
+    const clickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', clickOutside);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('mousedown', clickOutside);
+    };
   }, []);
 
+  const changeLanguage = (code) => {
+    const domains = [window.location.hostname, `.${window.location.hostname}`];
+    const val = `/auto/${code}`;
+
+    document.cookie = `googtrans=${val}; path=/`;
+    domains.forEach(d => {
+      document.cookie = `googtrans=${val}; path=/; domain=${d}`;
+    });
+
+    setCurrentLang(code);
+    setIsOpen(false);
+    window.location.reload();
+  };
+
   return (
-    <div
-      id="google_translate_element"
-      style={{
-        display: 'block',
-        visibility: 'visible',
-        minHeight: '20px',
-        minWidth: '100px'
-      }}
-    ></div>
+    <div className="language-dropdown-container notranslate" ref={containerRef}>
+      <button
+        className="language-active-pill"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle Language Menu"
+      >
+        <span>{langNames[currentLang]}</span>
+      </button>
+
+      {isOpen && (
+        <div className="language-popup-menu">
+          {Object.keys(langNames).map((code) => (
+            <button
+              key={code}
+              className={`lang-option ${currentLang === code ? 'active' : ''}`}
+              onClick={() => changeLanguage(code)}
+            >
+              {langNames[code]}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Target for Google (hidden) */}
+      <div id="google_translate_element" style={{ display: 'none' }}></div>
+    </div>
   );
 };
 

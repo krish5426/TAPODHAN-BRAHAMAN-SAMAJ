@@ -478,10 +478,12 @@ nav ul li a {
     position: relative;
     z-index: 1;
     border: none;
-    background: transparent;
-    padding: 15px 20px 15px 60px;
+    background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
+    padding: 15px 30px;
     cursor: pointer;
     transition: 0.3s;
+    border-radius: 5px;
+    display: inline-block;
 }
 
 .read-more-btn span {
@@ -489,29 +491,18 @@ nav ul li a {
     font-size: 20px;
     line-height: 24px;
     font-weight: 500;
-    color: #F78D22;
+    color: #fff;
     text-decoration: none;
     text-transform: capitalize;
     transition: 0.3s;
 }
 
 .read-more-btn::after {
-    position: absolute;
-    width: 50px;
-    height: 100%;
-    content: "";
-    left: 0;
-    top: 0;
-    background: url(/src/assets/images/button-arrow.png), linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
-    background-repeat: no-repeat;
-    background-position: 19px 17px, center;
-    background-size: 11px, 100%;
-    transition: 0.3s;
-    z-index: -1;
+    display: none !important;
 }
 
-.read-more-btn:hover::after {
-    width: 100%;
+.read-more-btn:hover {
+    opacity: 0.9;
 }
 
 .read-more-btn:hover span {
@@ -799,7 +790,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
     direction: rtl;
 }
 
-.vision-card.reverse > * {
+.vision-card.reverse>* {
     direction: ltr;
 }
 
@@ -1438,7 +1429,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
     width: 100%;
 }
 
-.two-inputs > div {
+.two-inputs>div {
     flex: 1;
     display: flex;
     flex-direction: column;

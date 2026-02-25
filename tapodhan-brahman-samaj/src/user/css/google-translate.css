@@ -1,67 +1,112 @@
-/* Google Translate Integration Styles */
+/* Google Translate Dropdown Switcher Styles */
 
-/* Make sure Google Translate widget is visible */
-
-#google_translate_element {
-  display: block !important;
-  visibility: visible !important;
+.language-dropdown-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000000;
+  font-family: 'Barlow', sans-serif;
 }
 
-.goog-te-gadget {
-  display: block !important;
-  visibility: visible !important;
-  
+.language-active-pill {
+  background: #B9252F;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background 0.3s ease;
 }
 
-.goog-te-gadget-simple {
-  display: block !important;
-  visibility: visible !important;
+.language-active-pill:hover {
+  background: #a11f28;
 }
 
-/* Hide Google Translate top bar only */
-.goog-te-banner-frame {
+.language-active-pill .arrow {
   display: none !important;
+}
+
+.language-active-pill .arrow.up {
+  transform: rotate(180deg);
+}
+
+.language-popup-menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lang-option {
+  background: transparent;
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.lang-option:hover {
+  background: #fdf2f2;
+  color: #B9252F;
+}
+
+.lang-option.active {
+  background: #B9252F;
+  color: #ffffff;
+}
+
+/* Aggressive hidden rules to remove "Select Language" widget */
+#google_translate_element,
+.goog-te-gadget,
+.goog-te-gadget-simple,
+.goog-te-banner-frame,
+.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+iframe[id*="goog-te-menu-frame"],
+.goog-te-menu-value {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
 }
 
 body {
   top: 0 !important;
-}
-
-/* Hide only the top notification bar iframe */
-body > .skiptranslate:first-child {
-  display: none !important;
-}
-
-iframe.goog-te-banner-frame {
-  display: none !important;
-}
-
-/* Header buttons styling with translate button */
-.header-buttons-cols {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Mobile menu translate button */
-.mobile-menu-buttons {
-  padding: 20px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .header-buttons-cols {
-    gap: 10px;
-  }
-}
-
-/* Fix for Google Translate iframe issues */
-.goog-te-menu-frame {
-  max-height: 400px !important;
-  overflow-y: auto !important;
-}
-
-/* Ensure translate button doesn't break layout */
-.header-buttons-cols > * {
-  flex-shrink: 0;
 }

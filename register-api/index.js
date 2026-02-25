@@ -23,10 +23,14 @@ const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mys
 ========================= */
 app.use(cors({
   origin: [
-   // "https://tapodhanbrahmansamaj.com",
+
+    // "https://tapodhanbrahmansamaj.com",
     //"https://www.tapodhanbrahmansamaj.com",
+
     "http://localhost:5173",
-    "http://localhost:3000"
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -101,15 +105,15 @@ const eventStorage = multer.diskStorage({
 });
 
 const eventUpload = multer({
-    storage: eventStorage,
-    limits: { fileSize: 10 * 1024 * 1024 },
-    fileFilter: (req, file, cb) => {
-      const allowed = /jpeg|jpg|png|webp/i;
-      const ext = path.extname(file.originalname);
-      if (allowed.test(ext)) cb(null, true);
-      else cb(new Error("Only images (jpg, jpeg, png, webp) are allowed"));
-    }
-  }).any();
+  storage: eventStorage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowed = /jpeg|jpg|png|webp/i;
+    const ext = path.extname(file.originalname);
+    if (allowed.test(ext)) cb(null, true);
+    else cb(new Error("Only images (jpg, jpeg, png, webp) are allowed"));
+  }
+}).any();
 
 // Middleware
 const authenticateToken = (req, res, next) => {
@@ -205,11 +209,11 @@ app.get("/profile", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    
+
     // Remove password from response
     const { password, ...userProfile } = user;
     res.json(userProfile);
@@ -353,11 +357,11 @@ app.get("/test/profiles", async (req, res) => {
   try {
     const allProfiles = await Profile.findAll();
     const pendingProfiles = await Profile.findAll({ status: 'pending' });
-    res.json({ 
-      total: allProfiles.length, 
+    res.json({
+      total: allProfiles.length,
       pending: pendingProfiles.length,
       allProfiles: allProfiles.slice(0, 3), // Show first 3 for debugging
-      pendingProfiles 
+      pendingProfiles
     });
   } catch (error) {
     console.error("Test profiles error:", error);
@@ -386,7 +390,7 @@ app.get("/api/admin/profiles", authenticateToken, async (req, res) => {
     const { status } = req.query;
     const filters = {};
     if (status) filters.status = status;
-    
+
     const profiles = await Profile.findAll(filters);
     res.json(profiles);
   } catch (error) {
@@ -470,9 +474,9 @@ app.post("/api/admin/business", authenticateToken, upload.single("posterPhoto"),
     console.log("Admin create business body:", req.body);
     console.log("Admin create business file:", req.file);
 
-    const { 
-      businessName, ownerName, email, contactNumber, address, 
-      status, category, businessType, description, website, city, state 
+    const {
+      businessName, ownerName, email, contactNumber, address,
+      status, category, businessType, description, website, city, state
     } = req.body;
 
     if (!businessName || !ownerName || !contactNumber || !address) {
@@ -481,42 +485,42 @@ app.post("/api/admin/business", authenticateToken, upload.single("posterPhoto"),
 
     // 1. Find or Create User
     let user = null;
-    
+
     // Try to find by email if provided
     if (email) {
-        user = await User.findByEmail(email);
+      user = await User.findByEmail(email);
     }
-    
+
     // If not found by email (or email not provided), try by mobile
     if (!user) {
-        user = await User.findByMobile(contactNumber);
+      user = await User.findByMobile(contactNumber);
     }
 
     let userId;
     if (user) {
-        userId = user.id;
-        // Check if user already has a business
-        const existingBusiness = await Business.findByUserId(userId);
-        if (existingBusiness) {
-            return res.status(400).json({ message: "This user already has a registered business." });
-        }
+      userId = user.id;
+      // Check if user already has a business
+      const existingBusiness = await Business.findByUserId(userId);
+      if (existingBusiness) {
+        return res.status(400).json({ message: "This user already has a registered business." });
+      }
     } else {
-        // Create new user
-        const hashedPassword = await bcrypt.hash("123456", 10); // Default password
-        const nameParts = ownerName.trim().split(" ");
-        const firstName = nameParts[0];
-        const lastName = nameParts.slice(1).join(" ") || "."; 
+      // Create new user
+      const hashedPassword = await bcrypt.hash("123456", 10); // Default password
+      const nameParts = ownerName.trim().split(" ");
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(" ") || ".";
 
-        const newUser = await User.create({
-            firstName,
-            lastName,
-            email: email || null, // Allow null email if DB supports it, or it will fail if UNIQUE constraint is strict on empty strings
-            mobile: contactNumber,
-            password: hashedPassword,
-            registerForProfile: false,
-            acceptTerms: true
-        });
-        userId = newUser.id;
+      const newUser = await User.create({
+        firstName,
+        lastName,
+        email: email || null, // Allow null email if DB supports it, or it will fail if UNIQUE constraint is strict on empty strings
+        mobile: contactNumber,
+        password: hashedPassword,
+        registerForProfile: false,
+        acceptTerms: true
+      });
+      userId = newUser.id;
     }
 
     // 2. Create Business
@@ -524,36 +528,36 @@ app.post("/api/admin/business", authenticateToken, upload.single("posterPhoto"),
     const posterPhoto = req.file ? req.file.filename : "default_business.jpg"; // Use a default or empty string if allowed
 
     const businessData = {
-        userId,
-        businessName,
-        ownerName,
-        email: email || "", // Use empty string for business email if missing (DB requires NOT NULL)
-        contactNumber,
-        address,
-        posterPhoto, 
-        status: status || 'approved',
-        category,
-        businessType,
-        description,
-        website,
-        city,
-        state
+      userId,
+      businessName,
+      ownerName,
+      email: email || "", // Use empty string for business email if missing (DB requires NOT NULL)
+      contactNumber,
+      address,
+      posterPhoto,
+      status: status || 'approved',
+      category,
+      businessType,
+      description,
+      website,
+      city,
+      state
     };
 
     const newBusiness = await Business.create(businessData);
 
     // 3. Send Emails (Only if email exists)
     if (email) {
-        try {
-            await sendBusinessStatusEmail(email, ownerName, businessName, status || 'approved');
-        } catch (emailError) {
-            console.error('Failed to send business registration emails:', emailError);
-        }
+      try {
+        await sendBusinessStatusEmail(email, ownerName, businessName, status || 'approved');
+      } catch (emailError) {
+        console.error('Failed to send business registration emails:', emailError);
+      }
     }
 
     res.status(201).json({
-        message: "Business created successfully",
-        business: newBusiness
+      message: "Business created successfully",
+      business: newBusiness
     });
 
   } catch (error) {
@@ -564,17 +568,17 @@ app.post("/api/admin/business", authenticateToken, upload.single("posterPhoto"),
 
 // Delete Business by Admin
 app.delete("/api/admin/business/:id", authenticateToken, async (req, res) => {
-    try {
-        const result = await Business.delete(req.params.id);
-        if (result) {
-            res.json({ message: "Business deleted successfully" });
-        } else {
-            res.status(404).json({ message: "Business not found" });
-        }
-    } catch (error) {
-        console.error("Delete business error:", error);
-        res.status(500).json({ message: "Internal server error" });
+  try {
+    const result = await Business.delete(req.params.id);
+    if (result) {
+      res.json({ message: "Business deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Business not found" });
     }
+  } catch (error) {
+    console.error("Delete business error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 // Get User Profile
@@ -582,7 +586,7 @@ app.get("/profile", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -731,7 +735,7 @@ app.post("/forgot-password", async (req, res) => {
           pass: process.env.SMTP_PASS
         }
       });
-      
+
       const mailOptions = {
         from: `"Tapodhan Brahman Samaj" <${process.env.SMTP_USER}>`,
         to: user.email,
@@ -748,8 +752,8 @@ app.post("/forgot-password", async (req, res) => {
       await transporter.sendMail(mailOptions);
     } else {
       // Send SMS via Brevo
-      const brevoApiKey = process.env.BREVO_API_KEY; 
-      
+      const brevoApiKey = process.env.BREVO_API_KEY;
+
       if (!brevoApiKey) {
         console.warn("BREVO_API_KEY not configured. Falling back to returning OTP in response for development.");
         return res.json({ message: "OTP generated", devOtp: otp });
@@ -931,7 +935,7 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
     console.log('Business registration request:', { userId, body: req.body, file: req.file });
 
     const { businessName, ownerName, email, contactNumber, address } = req.body;
-    
+
     // Removed email from required fields to match admin route consistency
     if (!businessName || !ownerName || !contactNumber || !address) {
       return res.status(400).json({ message: "All required fields must be provided: Business Name, Owner Name, Contact Number, Address." });
@@ -952,13 +956,13 @@ app.post("/business", authenticateToken, upload.single("posterPhoto"), async (re
 
     // Send email notifications only if email is provided
     if (email) {
-        console.log('Attempting to send business registration emails...');
-        try {
-          await sendBusinessRegistrationEmails(email, ownerName, businessName);
-          console.log('Business registration emails sent successfully');
-        } catch (emailError) {
-          console.error('Failed to send business registration emails:', emailError);
-        }
+      console.log('Attempting to send business registration emails...');
+      try {
+        await sendBusinessRegistrationEmails(email, ownerName, businessName);
+        console.log('Business registration emails sent successfully');
+      } catch (emailError) {
+        console.error('Failed to send business registration emails:', emailError);
+      }
     }
 
     res.status(201).json({
@@ -1044,7 +1048,7 @@ async function sendBusinessStatusEmail(userEmail, ownerName, businessName, statu
 
   const isApproved = status === 'approved';
   const subject = isApproved ? 'Business Approved!' : 'Business Registration Update';
-  const message = isApproved 
+  const message = isApproved
     ? `<h2>Congratulations!</h2>
        <p>Dear ${ownerName},</p>
        <p>Your business "${businessName}" has been approved and is now live on our platform.</p>
@@ -1071,20 +1075,20 @@ app.put("/profile", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { firstName, lastName, mobile } = req.body;
-    
+
     if (!firstName || !lastName || !mobile) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    
+
     const pool = getPool();
     await pool.execute(
       'UPDATE users SET firstName = ?, lastName = ?, mobile = ? WHERE id = ?',
       [firstName, lastName, mobile, userId]
     );
-    
+
     const updatedUser = await User.findById(userId);
     const { password, ...userProfile } = updatedUser;
-    
+
     res.json({ message: "Profile updated successfully", user: userProfile });
   } catch (error) {
     console.error("Update profile error:", error);
@@ -1146,13 +1150,13 @@ app.put("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
 app.post("/api/admin/events", authenticateToken, eventUpload, async (req, res) => {
   try {
     const eventData = { ...req.body };
-    
+
     // Handle poster image (single)
     const posterFiles = req.files?.filter(file => file.fieldname === 'posterImage');
     if (posterFiles && posterFiles.length > 0) {
       eventData.posterImage = `events/${posterFiles[0].filename}`;
     }
-    
+
     // Handle event images (multiple)
     const imageFiles = req.files?.filter(file => file.fieldname === 'images');
     if (imageFiles && imageFiles.length > 0) {
@@ -1171,13 +1175,13 @@ app.put("/api/admin/events/:id", authenticateToken, eventUpload, async (req, res
   try {
     const { id } = req.params;
     const eventData = { ...req.body };
-    
+
     // Handle poster image (single)
     const posterFiles = req.files?.filter(file => file.fieldname === 'posterImage');
     if (posterFiles && posterFiles.length > 0) {
       eventData.posterImage = `events/${posterFiles[0].filename}`;
     }
-    
+
     // Handle event images (multiple)
     const imageFiles = req.files?.filter(file => file.fieldname === 'images');
     if (imageFiles && imageFiles.length > 0) {
@@ -1186,7 +1190,7 @@ app.put("/api/admin/events/:id", authenticateToken, eventUpload, async (req, res
 
     const updatedEvent = await Event.update(id, eventData);
     if (!updatedEvent) return res.status(404).json({ message: "Event not found" });
-    
+
     res.json({ message: "Event updated successfully", event: updatedEvent });
   } catch (error) {
     console.error("Update event error:", error);
