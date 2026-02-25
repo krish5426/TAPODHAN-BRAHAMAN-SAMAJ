@@ -15,6 +15,8 @@ const createTables = async () => {
         password VARCHAR(255),
         registerForProfile BOOLEAN DEFAULT FALSE,
         acceptTerms BOOLEAN DEFAULT FALSE,
+        resetOtp VARCHAR(10) DEFAULT NULL,
+        resetOtpExpiry DATETIME DEFAULT NULL,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
@@ -44,7 +46,7 @@ const createTables = async () => {
     await pool.execute(`
       CREATE TABLE IF NOT EXISTS profiles (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        userId INT UNIQUE NOT NULL,
+        userId INT NOT NULL,
         profileFor VARCHAR(255) NOT NULL,
         maritalStatus VARCHAR(255) NOT NULL,
         noOfChildren VARCHAR(255) NOT NULL,

@@ -36,6 +36,22 @@ class User {
     const [rows] = await pool.execute('SELECT * FROM users ORDER BY createdAt DESC');
     return rows;
   }
+
+  static async saveOtp(userId, otp, expiry) {
+    const pool = getPool();
+    await pool.execute(
+      'UPDATE users SET resetOtp = ?, resetOtpExpiry = ? WHERE id = ?',
+      [otp, expiry, userId]
+    );
+  }
+
+  static async updatePassword(userId, newPassword) {
+    const pool = getPool();
+    await pool.execute(
+      'UPDATE users SET password = ?, resetOtp = NULL, resetOtpExpiry = NULL WHERE id = ?',
+      [newPassword, userId]
+    );
+  }
 }
 
 class Admin {

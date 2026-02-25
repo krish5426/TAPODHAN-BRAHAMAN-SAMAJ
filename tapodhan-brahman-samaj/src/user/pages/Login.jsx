@@ -88,6 +88,9 @@ const Login = () => {
                                     <div className="form-group full-width">
                                         <label>Password*</label>
                                         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+                                        <div style={{ textAlign: 'right', marginTop: '5px' }}>
+                                            <a href="/forgot-password" style={{ color: '#b9252f', fontSize: '14px', textDecoration: 'none' }}>Forgot Password?</a>
+                                        </div>
                                     </div>
                                 </div>
 

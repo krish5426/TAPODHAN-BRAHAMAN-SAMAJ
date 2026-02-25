@@ -8,6 +8,7 @@ const multer = require("multer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
+const axios = require("axios");
 
 /* =========================
    DB IMPORTS
@@ -690,6 +691,166 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Forgot Password
+app.post("/forgot-password", async (req, res) => {
+  try {
+    const { identifier } = req.body;
+
+    if (!identifier) {
+      return res.status(400).json({ message: "Email or Mobile Number is required" });
+    }
+
+    let user;
+    let isEmail = false;
+
+    if (identifier.includes('@')) {
+      user = await User.findByEmail(identifier);
+      isEmail = true;
+    } else {
+      user = await User.findByMobile(identifier);
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiry = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes expiry
+
+    await User.saveOtp(user.id, otp, expiry);
+
+    if (isEmail) {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+        port: process.env.SMTP_PORT || 465,
+        secure: process.env.SMTP_PORT == 465, // Use `true` for port 465, `false` for all other ports
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS
+        }
+      });
+      
+      const mailOptions = {
+        from: `"Tapodhan Brahman Samaj" <${process.env.SMTP_USER}>`,
+        to: user.email,
+        subject: 'Password Reset OTP - Tapodhan Brahman Samaj',
+        html: `
+          <h3>Password Reset Request</h3>
+          <p>Dear ${user.firstName},</p>
+          <p>Your OTP for password reset is <strong>${otp}</strong>.</p>
+          <p>This OTP is valid for 15 minutes.</p>
+          <p>If you didn't request this, you can safely ignore this email.</p>
+        `
+      };
+
+      await transporter.sendMail(mailOptions);
+    } else {
+      // Send SMS via Brevo
+      const brevoApiKey = process.env.BREVO_API_KEY; 
+      
+      if (!brevoApiKey) {
+        console.warn("BREVO_API_KEY not configured. Falling back to returning OTP in response for development.");
+        return res.json({ message: "OTP generated", devOtp: otp });
+      }
+
+      try {
+        await axios.post(
+          'https://api.brevo.com/v3/transactionalSMS/sms',
+          {
+            sender: 'TAPODHAN', // Customize sender up to 11 chars
+            recipient: `+91${user.mobile}`, // Assuming Indian numbers, or format accordingly
+            content: `Your OTP for Tapodhan Brahman Samaj password reset is ${otp}. Valid for 15 mins.`,
+            type: "transactional"
+          },
+          {
+            headers: {
+              'accept': 'application/json',
+              'api-key': brevoApiKey,
+              'content-type': 'application/json'
+            }
+          }
+        );
+      } catch (smsError) {
+        console.warn("SMS sending failed (likely out of credits). Returning OTP in response for development.", smsError.response?.data || smsError.message);
+        return res.json({ message: "OTP generated but SMS failed. Use this OTP for testing.", devOtp: otp });
+      }
+    }
+
+    res.json({ message: "OTP sent successfully" });
+  } catch (error) {
+    console.error("Forgot password error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Reset Password
+app.post("/reset-password", async (req, res) => {
+  try {
+    const { identifier, otp, newPassword } = req.body;
+
+    if (!identifier || !otp || !newPassword) {
+      return res.status(400).json({ message: "Identifier, OTP, and new password are required" });
+    }
+
+    let user;
+    if (identifier.includes('@')) {
+      user = await User.findByEmail(identifier);
+    } else {
+      user = await User.findByMobile(identifier);
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.resetOtp !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    if (new Date() > new Date(user.resetOtpExpiry)) {
+      return res.status(400).json({ message: "OTP has expired" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.updatePassword(user.id, hashedPassword);
+
+    res.json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error("Reset password error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Change Password
+app.post("/change-password", authenticateToken, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user.userId;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ message: "Current password and new password are required" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Incorrect current password" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.updatePassword(user.id, hashedPassword);
+
+    res.json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Change password error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // Admin Login
 app.post("/admin/login", async (req, res) => {

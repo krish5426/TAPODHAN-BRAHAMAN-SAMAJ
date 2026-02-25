@@ -10,6 +10,7 @@ function EditProfile() {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
+        email: '',
         mobile: ''
     });
     const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ function EditProfile() {
                 setFormData({
                     firstName: data.firstName || '',
                     lastName: data.lastName || '',
+                    email: data.email || '',
                     mobile: data.mobile || ''
                 });
             }
@@ -121,8 +123,13 @@ function EditProfile() {
                             </div>
 
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Mobile Number *</label>
-                                <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Email Address</label>
+                                <input type="email" name="email" value={formData.email} disabled style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#f0f0f0', color: '#666', cursor: 'not-allowed' }} />
+                            </div>
+
+                            <div style={{ marginBottom: '25px' }}>
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Mobile Number</label>
+                                <input type="tel" name="mobile" value={formData.mobile} disabled style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#f0f0f0', color: '#666', cursor: 'not-allowed' }} />
                             </div>
 
                             <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>

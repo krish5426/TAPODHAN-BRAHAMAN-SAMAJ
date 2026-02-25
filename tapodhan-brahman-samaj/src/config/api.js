@@ -14,7 +14,10 @@ export const API_ENDPOINTS = {
   PROFILE: `${API_BASE_URL}/profile`,
   PROFILES: `${API_BASE_URL}/profiles`,
   ADMIN_PROFILES: `${API_BASE_URL}/api/admin/profiles`,
-  MY_MATRIMONY_PROFILES: `${API_BASE_URL}/my-matrimony-profiles`
+  MY_MATRIMONY_PROFILES: `${API_BASE_URL}/my-matrimony-profiles`,
+  FORGOT_PASSWORD: `${API_BASE_URL}/forgot-password`,
+  RESET_PASSWORD: `${API_BASE_URL}/reset-password`,
+  CHANGE_PASSWORD: `${API_BASE_URL}/change-password`
 };
 
 export default API_BASE_URL;
