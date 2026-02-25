@@ -82,12 +82,15 @@ const Login = () => {
                             <form className="register-form" onSubmit={handleSubmit}>
                                 <div className="form-grid">
                                     <div className="form-group full-width">
-                                        <label>Email*</label>
-                                        <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required />
+                                        <label>Email or Mobile Number*</label>
+                                        <input type="text" name="email" placeholder="Email Address or Mobile Number" value={formData.email} onChange={handleChange} required />
                                     </div>
                                     <div className="form-group full-width">
                                         <label>Password*</label>
                                         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+                                        <div style={{ textAlign: 'right', marginTop: '5px' }}>
+                                            <a href="/forgot-password" style={{ color: '#b9252f', fontSize: '14px', textDecoration: 'none' }}>Forgot Password?</a>
+                                        </div>
                                     </div>
                                 </div>
 

@@ -7,11 +7,14 @@ import Register from "./pages/Register";
 import BusinessRegister from "./pages/BusinessRegister";
 import MyBusiness from "./pages/MyBusiness";
 import EditBusiness from "./pages/EditBusiness";
+import BusinessDetail from "./pages/BusinessDetail";
 import EditProfile from "./pages/EditProfile";
 import MyMatrimonyProfile from "./pages/MyMatrimonyProfile";
 import Businesscontact from "./pages/Businesscontact";
 import Signup from "./pages/Signup";
+import ChangePassword from "./pages/ChangePassword";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 import Matrimonial from "./pages/Matrimonial";
 import Profile from "./pages/Profile";
 import MatrimonialPersonalInfo from "./pages/MatrimonialPersonalInfo";
@@ -44,14 +47,20 @@ function App() {
             <MyBusiness />
           </ProtectedRoute>
         } />
-        <Route path="/edit-business" element={
+        <Route path="/edit-business/:id" element={
           <ProtectedRoute>
             <EditBusiness />
+          </ProtectedRoute>
+        } />
+        <Route path="/business-detail/:id" element={
+          <ProtectedRoute>
+            <BusinessDetail />
           </ProtectedRoute>
         } />
         <Route path="/business-contact" element={<Businesscontact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/events" element={<Events />} />
         <Route path="/matrimonial" element={<Matrimonial />} />
         <Route path="/matrimonial-detail/:id" element={<MatrimonialDetail />} />
@@ -64,6 +73,11 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/change-password" element={
+          <ProtectedRoute>
+            <ChangePassword />
           </ProtectedRoute>
         } />
         <Route path="/my-matrimony-profile" element={

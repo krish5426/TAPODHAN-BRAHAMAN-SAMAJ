@@ -91,12 +91,21 @@ function Profile() {
 
                     <div className="user-profile-header">
                         <h1 className="user-profile-title">My Profile</h1>
-                        <button 
-                            className="user-profile-btn"
-                            onClick={() => navigate('/edit-profile')}
-                        >
-                            Edit Profile
-                        </button>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            <button 
+                                className="user-profile-btn"
+                                onClick={() => navigate('/edit-profile')}
+                            >
+                                Edit Profile
+                            </button>
+                            <button 
+                                className="user-profile-btn"
+                                style={{ backgroundColor: '#6c757d', borderColor: '#6c757d' }}
+                                onClick={() => navigate('/change-password')}
+                            >
+                                Change Password
+                            </button>
+                        </div>
                     </div>
 
                     <div className="user-profile-card">
