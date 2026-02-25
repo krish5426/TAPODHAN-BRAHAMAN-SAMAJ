@@ -2,9 +2,11 @@ import gallery01 from '../assets/images/gallery01.jpg';
 import gallery02 from '../assets/images/gallery02.jpg';
 import gallery03 from '../assets/images/gallery03.jpg';
 import gallery04 from '../assets/images/gallery04.jpg';
+import gallery05 from '../assets/images/gallery05.jpg';
 import gallery06 from '../assets/images/gallery06.jpg';
 import gallery07 from '../assets/images/gallery07.jpg';
 import gallery08 from '../assets/images/gallery08.jpg';
+import gallery09 from '../assets/images/gallery09.jpg';
 
 const Gallery = () => {
   const galleryImages = [
@@ -26,22 +28,17 @@ const Gallery = () => {
     {
       id: 4,
       src: gallery04,
-      alt: "Community Meeting"
-    },
-    {
-      id: 5,
-      src: gallery06,
-      alt: "Innovation Awards"
-    },
-    {
-      id: 6,
-      src: gallery07,
       alt: "Education Awards"
     },
     {
-      id: 7,
+      id: 5,
       src: gallery08,
       alt: "Community Event"
+    },
+    {
+      id: 6,
+      src: gallery09,
+      alt: "Innovation Awards"
     }
   ];
 
@@ -49,15 +46,15 @@ const Gallery = () => {
     <section className="gallery-section">
       <div className="container">
         <div className="header-section">
-          <span className="header-label">Gallery</span>
+          <span className="header-label">GALLARY</span>
           <h2 className="header-title-center">
             <strong> Capturing </strong><span>Our</span><br />
-              <span>Community </span><strong>Spirit</strong>
+            <span>Community </span><strong>Spirit</strong>
           </h2>
         </div>
 
         <div className="gallery-grid">
-          {galleryImages.map((image) => (
+          {galleryImages.slice(0, 6).map((image) => (
             <div key={image.id} className="gallery-item">
               <img src={image.src} alt={image.alt} />
             </div>
