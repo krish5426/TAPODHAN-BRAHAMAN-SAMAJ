@@ -241,4 +241,24 @@ export const updateProfileStatus = async (id, status) => {
     }
 };
 
+export const importAdminBusiness = async (file) => {
+    try {
+        const token = localStorage.getItem("admin_token");
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(`${API_URL}/api/admin/business/import`, {
+            method: "POST",
+            headers: {
+                "Authorization": token ? `Bearer ${token}` : "",
+            },
+            body: formData
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("importAdminBusiness error:", error);
+        throw error;
+    }
+};
+
 export { API_URL };

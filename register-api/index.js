@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
 const axios = require("axios");
+const csv = require("csv-parser");
 
 /* =========================
    DB IMPORTS
@@ -1248,6 +1249,143 @@ app.put("/api/admin/business/:id/status", authenticateToken, async (req, res) =>
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// Parse CSV Memory Upload
+const memoryUpload = multer({ storage: multer.memoryStorage() });
+const streamifier = require('stream');
+
+app.post("/api/admin/business/import", authenticateToken, memoryUpload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No CSV file uploaded" });
+    }
+
+    const results = [];
+    const bufferStream = new streamifier.PassThrough();
+    bufferStream.end(req.file.buffer);
+
+    bufferStream
+      .pipe(csv())
+      .on("data", (data) => results.push(data))
+      .on("end", async () => {
+        const importSummary = { success: 0, errors: [], total: results.length };
+
+        for (let i = 0; i < results.length; i++) {
+          const row = results[i];
+          try {
+            // Trim keys in case of bad CSV headers
+            const getCol = (name) => {
+              const key = Object.keys(row).find(k => k.trim() === name);
+              return key ? row[key].trim() : '';
+            };
+
+            const userFirstName = getCol('User First Name');
+            const userLastName = getCol('User Last Name');
+            const userEmail = getCol('User Email');
+            const userMobile = getCol('User Mobile');
+
+            const businessName = getCol('Business Name');
+            const ownerName = getCol('Owner Name');
+            const businessEmail = getCol('Business Email');
+            const contactNumber = getCol('Contact Number');
+            const address = getCol('Address');
+            const category = getCol('Category');
+            const businessType = getCol('Business Type');
+            const description = getCol('Description');
+            const website = getCol('Website');
+            const city = getCol('City');
+            const state = getCol('State');
+            const status = getCol('Status') || 'approved'; // Default approved if admin uploads it
+
+            if (!businessName || !ownerName || !contactNumber) {
+              importSummary.errors.push(`Row ${i + 2}: Missing required business fields (Name, Owner, or Contact).`);
+              continue; // Skip this row
+            }
+
+            let userId = null;
+            let existingUser = null;
+
+            if (userMobile) {
+              existingUser = await User.findByMobile(userMobile);
+            }
+            if (!existingUser && userEmail) {
+              existingUser = await User.findByEmail(userEmail);
+            }
+
+            if (existingUser) {
+              userId = existingUser.id;
+            } else {
+              // Create user if missing
+              if (!userFirstName || !userMobile) {
+                 importSummary.errors.push(`Row ${i + 2}: User does not exist, but missing User First Name or Mobile to create one.`);
+                 continue;
+              }
+
+              // Password strategy: first 4 chars of firstname (lowercase) + last 4 chars of mobile
+              const baseName = userFirstName.replace(/[^a-zA-Z]/g, '').toLowerCase().padEnd(4, 'a').substring(0, 4);
+              const baseMobile = userMobile.slice(-4).padStart(4, '0');
+              const rawPassword = `${baseName}${baseMobile}`;
+              const hashedPassword = await bcrypt.hash(rawPassword, 10);
+
+              const newUser = await User.create({
+                firstName: userFirstName,
+                lastName: userLastName || '',
+                email: userEmail || '',
+                mobile: userMobile,
+                password: hashedPassword,
+                registerForProfile: 0,
+                acceptTerms: 1
+              });
+              userId = newUser.id;
+            }
+
+            // Create the business
+            await Business.create({
+              userId,
+              businessName,
+              ownerName,
+              email: businessEmail,
+              contactNumber,
+              address,
+              category,
+              businessType,
+              description,
+              website,
+              city,
+              state,
+              status,
+              posterPhoto: null
+            });
+
+            // Send email notification if businessEmail is provided
+            if (businessEmail) {
+              try {
+                await sendBusinessRegistrationEmails(businessEmail, ownerName, businessName);
+              } catch (emailError) {
+                console.error(`Failed to send import business email for row ${i + 2}:`, emailError);
+              }
+            }
+
+            importSummary.success++;
+
+          } catch (rowError) {
+             console.error(`Bulk import error on row ${i + 2}:`, rowError);
+             importSummary.errors.push(`Row ${i + 2}: ${rowError.message}`);
+          }
+        }
+
+        res.json({
+          message: "Import processing finished",
+          summary: importSummary
+        });
+      });
+
+  } catch (error) {
+    console.error("CSV Import error:", error);
+    res.status(500).json({ message: "Internal server error during import" });
+  }
+});
+
 
 // Contact Form Submission
 app.post("/contact", async (req, res) => {
