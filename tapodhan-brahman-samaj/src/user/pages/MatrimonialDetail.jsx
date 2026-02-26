@@ -58,7 +58,7 @@ function MatrimonialDetail() {
         return (
             <>
                 <InnerBanner title="Matrimonial Profile Detail" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-                <section className="my-business-section">
+                <section className="my-business-section matrimonial-page">
                     <div className="container">
                         <div className="profile-not-found">
                             <h2>Profile not found</h2>
@@ -78,7 +78,7 @@ function MatrimonialDetail() {
     return (
         <>
             <InnerBanner title="Matrimonial Profile Detail" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <section className="my-profile-section">
+            <section className="my-profile-section matrimonial-page">
                 <div className="container">
                     <div className="user-profile-header">
                         <h1 className="user-profile-title">Matrimonial Profile Detail 11</h1>

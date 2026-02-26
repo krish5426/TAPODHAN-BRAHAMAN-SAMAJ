@@ -3,12 +3,12 @@
    Font Family: Barlow & Barlow Condensed
 ================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap');
 
 /* ===============================
    LIST SECTION
 ================================ */
-.list-section {
+.list-section.matrimonial-page {
   padding: 80px 0 20px;
   background-color: #faf7f3;
   background-image: url("/src/assets/images/profile-bg-6.png");
@@ -35,7 +35,6 @@
   display: inline-block;
   position: relative;
   font-weight: 400;
-  border: 1px solid #525252;
   border-radius: 5px;
   margin-bottom: 15px;
 }
@@ -80,7 +79,7 @@
   border: 2px solid #b9252f;
   background: #fff;
   color: #b9252f;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
@@ -111,7 +110,7 @@
 .marital-status-filter {
   text-align: center;
   margin: 20px 0;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .age-filter label,
@@ -120,7 +119,7 @@
   font-weight: 600;
   color: #333;
   margin-right: 12px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .age-filter input,
@@ -129,7 +128,7 @@
   border: 2px solid #ddd;
   border-radius: 4px;
   font-size: 15px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   transition: border-color 0.3s ease;
   outline: none;
 }
@@ -158,9 +157,16 @@
 /* ===============================
    PROFILE SECTION
 ================================ */
-.profile-section {
+.profile-section.matrimonial-page {
   padding: 60px 0 80px;
   background-color: #faf7f3;
+  background-image: url("/src/assets/images/profile-bg-6.png");
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+/* My Profile Section used in Matrimonial Detail */
+.my-profile-section.matrimonial-page {
   background-image: url("/src/assets/images/profile-bg-6.png");
   background-repeat: repeat;
   background-size: auto;
@@ -239,7 +245,7 @@
 .profile-id {
   font-size: 13px;
   color: #999;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   font-weight: 500;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -259,7 +265,7 @@
 .profile-info {
   font-size: 14px;
   color: #666;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   margin: 4px 0;
   line-height: 1.5;
 }
@@ -285,7 +291,7 @@
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
   color: #333;
 }
 
@@ -506,7 +512,7 @@
 .loading-container {
   text-align: center;
   padding: 80px 20px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .loading-container p {
@@ -521,7 +527,7 @@
 .no-profiles-container {
   text-align: center;
   padding: 80px 20px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
 .no-profiles-container p {

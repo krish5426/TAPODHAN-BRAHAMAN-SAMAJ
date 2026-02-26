@@ -27,7 +27,7 @@
 
 .announcement-text {
   color: #fff;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   font-weight: 500;
 }
@@ -179,7 +179,7 @@
 }
 
 .announcement-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 24px;
   line-height: 30px;
   font-weight: 600;
@@ -189,7 +189,7 @@
 
 .announcement-date {
   display: inline-block;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   color: #666;
   margin-bottom: 15px;
@@ -199,7 +199,7 @@
 }
 
 .announcement-description {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   line-height: 24px;
   color: #555;
@@ -211,7 +211,7 @@
 }
 
 .no-announcements p {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   color: #666;
 }
@@ -461,7 +461,7 @@ nav ul li {
 }
 
 nav ul li a {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
@@ -478,7 +478,7 @@ nav ul li a.active {
 }
 
 .header-buttons-cols a.header-button {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
@@ -664,7 +664,7 @@ nav ul li a.active {
 }
 
 .mobile-nav ul li a {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   line-height: 18px;
   font-weight: 500;
@@ -694,7 +694,7 @@ nav ul li a.active {
 .mobile-menu-btn {
   padding: 15px 20px;
   text-align: center;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -740,6 +740,24 @@ nav ul li a.active {
   width: 100%;
 }
 
+.header-label.header-label-left {
+  text-align: left;
+  margin-left: 0;
+  margin-top: 80px !important;
+  margin-right: auto;
+  display: table;
+}
+
+@media (min-width: 1200px) {
+  .header-label.header-label-left {
+    text-align: left;
+    margin-left: 0;
+    margin-top: 80px !important;
+    margin-right: auto;
+    display: table;
+  }
+}
+
 .header-section .header-label {
   background: #000;
   -webkit-background-clip: text;
@@ -749,12 +767,12 @@ nav ul li a.active {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
   position: relative;
-  margin-top: 100px;
+  margin-top: 80px;
   font-weight: 400 !important;
 }
 
@@ -781,6 +799,8 @@ nav ul li a.active {
   font-weight: 500;
   text-transform: capitalize;
   margin-bottom: 10px;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .header-section .header-title strong {
@@ -808,7 +828,7 @@ nav ul li a.active {
   border-radius: 5px;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -1060,7 +1080,7 @@ nav ul li a.active {
 
 .about-description p {
   color: #525252;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -1080,7 +1100,7 @@ nav ul li a.active {
 }
 
 .read-more-btn span {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 20px;
   line-height: 24px;
   font-weight: 500;
@@ -1230,7 +1250,7 @@ nav ul li a.active {
 }
 
 .matrimonial-description {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -1283,7 +1303,7 @@ nav ul li a.active {
   background: #000;
   border-radius: 5px 0 0 0;
   padding: 18px 20px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   line-height: 20px;
   font-weight: 400;
@@ -1349,7 +1369,7 @@ nav ul li a.active {
 .event-cont-row {
   font-size: 18px;
   line-height: 24px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   color: #000000;
   margin-bottom: 12px;
   max-width: 100%;
@@ -1398,7 +1418,7 @@ nav ul li a.active {
 
 .event-card.regular .event-title {
   border: none;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
@@ -1603,7 +1623,7 @@ nav ul li a.active {
   padding: 60px 0 80px;
   float: left;
   width: 100%;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   background-color: #ffffff;
   background-repeat: repeat;
   background-size: auto;
@@ -1644,7 +1664,7 @@ nav ul li a.active {
 }
 
 .profile-subtitle {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
@@ -1660,7 +1680,7 @@ nav ul li a.active {
   padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
@@ -1681,7 +1701,7 @@ nav ul li a.active {
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
+  gap: 0;
 }
 
 .profile-field {
@@ -1690,7 +1710,7 @@ nav ul li a.active {
 
 .profile-label {
   display: block;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: #666;
@@ -1700,7 +1720,7 @@ nav ul li a.active {
 }
 
 .profile-value {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   font-weight: 500;
   color: #333;
@@ -1712,7 +1732,7 @@ nav ul li a.active {
 .profile-loading {
   padding: 100px 40px;
   text-align: center;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   color: #666;
 }
 
@@ -1734,7 +1754,7 @@ nav ul li a.active {
 
 .contact-description {
   color: #525252;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -1796,7 +1816,7 @@ nav ul li a.active {
   font-size: 18px;
   line-height: 22px;
   color: #525252;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 /* ===============================
@@ -1832,7 +1852,7 @@ nav ul li a.active {
 }
 
 .business-profile-btn {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -1910,7 +1930,7 @@ nav ul li a.active {
 }
 
 .business-info-item {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   line-height: 22px;
   color: #525252;
@@ -1954,7 +1974,7 @@ nav ul li a.active {
 }
 
 .business-info-section strong {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 600;
   color: #000;
   display: block;
@@ -1963,7 +1983,7 @@ nav ul li a.active {
 }
 
 .business-info-section p {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   line-height: 22px;
   color: #525252;
@@ -1972,7 +1992,7 @@ nav ul li a.active {
 }
 
 .business-info-section a {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   line-height: 22px;
   color: #B9252F;
@@ -2013,7 +2033,7 @@ nav ul li a.active {
   color: #686868;
   font-size: 16px;
   line-height: 22px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   max-width: 325px;
   line-height: 22px;
 }
@@ -2053,7 +2073,7 @@ nav ul li a.active {
   color: #828282;
   font-size: 18px;
   line-height: 22px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-decoration: none;
 
 }
@@ -2062,7 +2082,7 @@ nav ul li a.active {
   color: #828282;
   font-size: 18px;
   line-height: 22px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-decoration: none;
   margin-bottom: 20px;
 
@@ -2199,7 +2219,7 @@ nav ul li a.active {
   color: #FFFFFF;
   font-size: 18px;
   line-height: 22px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 400;
   max-width: 550px;
   margin-bottom: 30px;
@@ -2331,7 +2351,7 @@ section.about-intro {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -2358,7 +2378,7 @@ section.about-intro {
 .about-intro-content h2 {
   color: #000;
   margin-bottom: 0;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 28px;
   font-weight: 400;
   line-height: 36px;
@@ -2450,7 +2470,7 @@ section.about-founders {
   text-wrap: balance;
   max-width: 190px;
   margin: 0 auto;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
@@ -2492,7 +2512,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
   color: #525252;
   font-size: 18px;
   line-height: 22px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 400;
   max-width: 550px;
   margin-bottom: 30px;
@@ -2652,7 +2672,7 @@ section.global-cta {
 
 .vision-card-content p {
   color: #525252;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -2665,7 +2685,7 @@ a.read-more-btn {
 }
 
 .global-cta-content h2 {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   margin-bottom: 0;
   font-size: 42px;
   line-height: 50px;
@@ -2731,7 +2751,7 @@ a.read-more-btn {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 
 }
 
@@ -2741,7 +2761,7 @@ a.read-more-btn {
   color: #5F5F5F;
   font-weight: 400;
   /* light */
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .info-row p {
@@ -2752,7 +2772,7 @@ a.read-more-btn {
   font-weight: 500;
   /* bold */
   width: 276px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 a.service-card {
@@ -2772,7 +2792,7 @@ a.service-card {
   font-weight: 600;
   display: block;
   margin-bottom: 6px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .contact-form input,
@@ -2782,7 +2802,7 @@ a.service-card {
   border: 1px solid #ddd;
   margin-bottom: 20px;
   outline: none;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   border-radius: 5px;
 }
 
@@ -2958,7 +2978,7 @@ a.service-card {
 
 .contact-description-two {
   color: #525252;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -2976,7 +2996,7 @@ a.service-card {
   background: #fff;
   z-index: 1;
   margin-bottom: 15px;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 /* Gradient Border */
@@ -3100,9 +3120,11 @@ a.service-card {
 .register-section {
   width: 100%;
   padding: 80px 0;
-  background: #ffffff;
+  background: #faf9f7;
   font-family: "Barlow Condensed", sans-serif;
+  float: left;
 }
+
 
 .register-section .container {
   max-width: 1200px;
@@ -3159,14 +3181,14 @@ a.service-card {
 }
 
 .sub-text {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 /* ===============================
    MATRIMONIAL PERSONAL INFO PAGE
 ================================ */
 .sub-text {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   color: #666;
   margin-top: 12px;
@@ -3179,7 +3201,7 @@ a.service-card {
 }
 
 .no-profiles-text {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   color: #666;
   margin-bottom: 25px;
@@ -3222,7 +3244,7 @@ a.service-card {
 }
 
 .profile-list-name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: #222;
@@ -3230,14 +3252,14 @@ a.service-card {
 }
 
 .profile-list-details {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0 0 5px 0;
 }
 
 .profile-list-age {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0;
@@ -3248,7 +3270,7 @@ a.service-card {
 }
 
 .error-message {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   color: #d32f2f;
   background: #ffebee;
   padding: 12px 20px;
@@ -3281,7 +3303,7 @@ a.service-card {
 }
 
 .radio-group label {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #333;
@@ -3477,7 +3499,7 @@ a.service-card {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -3557,7 +3579,7 @@ a.service-card {
   cursor: pointer;
   align-items: center;
   gap: 8px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-transform: uppercase;
   border-radius: 4px;
   transition: opacity 0.3s ease;
@@ -3600,7 +3622,7 @@ a.service-card {
 
 .contact-form label {
   margin-bottom: 6px;
-  font-family: Barlow, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 600;
   display: block;
@@ -3615,7 +3637,7 @@ a.service-card {
 .contact-info-box .info-row {
   gap: 22px;
   margin-bottom: 20px;
-  font-family: Barlow, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   display: flex;
 }
 
@@ -3624,13 +3646,13 @@ a.service-card {
   font-size: 18px;
   color: #5F5F5F;
   font-weight: 500;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 
 .service-card h3 {
   text-transform: uppercase;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 26px;
   font-weight: 500;
   line-height: 36px;
@@ -3640,7 +3662,7 @@ a.service-card {
 
 main.main-content h1,
 main.main-content p {
-  font-family: Barlow, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .form-group label {
@@ -3658,7 +3680,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 .contact-info p strong {
   color: #444;
-  font-family: Barlow, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   font-weight: 600;
   grid-template-columns: 2fr;
@@ -3727,7 +3749,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   width: 100%;
-  padding-top: 40px;
+  padding-top: 30px;
 }
 
 /* Profile Card Link */
@@ -3784,7 +3806,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .profile-id {
   font-size: 13px;
   color: #999;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 500;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -3796,7 +3818,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   font-weight: 600;
   margin: 8px 0;
   color: #222;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-transform: capitalize;
 }
 
@@ -3804,7 +3826,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .profile-info {
   font-size: 14px;
   color: #666;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   margin: 4px 0;
   line-height: 1.5;
 }
@@ -3836,7 +3858,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   color: #333;
 }
 
@@ -3859,7 +3881,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 .pagination span {
   font-size: 15px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 
@@ -3872,10 +3894,8 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   align-content: center;
   width: 100%;
   background-color: #faf7f3;
-  background-image: url("/src/assets/images/profile-bg-6.png");
-  background-repeat: repeat;
-  background-size: auto;
 }
+
 
 .list-section .header-section {
   text-align: center;
@@ -3918,7 +3938,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-transform: uppercase;
   border-radius: 4px;
   transition: opacity 0.3s ease;
@@ -3959,7 +3979,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   transition: all 0.2s ease;
   text-transform: capitalize;
   border-bottom: 1px solid #f0f0f0;
@@ -4028,7 +4048,7 @@ span[style*="border-left"] {
   margin-top: 8px;
   margin-bottom: 40px;
   border-collapse: collapse;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .donations-table thead {
@@ -4042,7 +4062,7 @@ span[style*="border-left"] {
   font-size: 18px;
   color: #fff;
   border: none;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -4061,7 +4081,7 @@ span[style*="border-left"] {
   border-bottom: 1px solid #f0f0f0;
   font-size: 18px;
   color: #333;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-weight: 400;
 }
 
@@ -4090,7 +4110,7 @@ span[style*="border-left"] {
 }
 
 .qr-section h3 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: #333;
@@ -4100,7 +4120,7 @@ span[style*="border-left"] {
 }
 
 .qr-subtitle {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   color: #666;
   margin: 0 0 25px 0;
@@ -4229,7 +4249,7 @@ span[style*="border-left"] {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: Barlow Condensed, sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -4260,7 +4280,7 @@ span[style*="border-left"] {
   color: #333;
   margin-bottom: 20px;
   line-height: 1.2;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-align: left;
 }
 
@@ -4273,7 +4293,7 @@ span[style*="border-left"] {
   color: #666;
   line-height: 1.6;
   margin-bottom: 30px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .read-more-btn {
@@ -4286,7 +4306,7 @@ span[style*="border-left"] {
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: transform 0.3s ease;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   cursor: pointer;
   border-radius: 5px;
   border: none;
@@ -9175,7 +9195,7 @@ span[style*="border-left"] {
   .donate-section {
     padding: 80px 0;
     background: #fff;
-    font-family: 'Barlow', sans-serif;
+    font-family: "Barlow Condensed", sans-serif;
     width: 100%;
     float: left;
   }
@@ -9187,8 +9207,12 @@ span[style*="border-left"] {
   }
 
   .donate-section .header-section {
-    text-align: center;
+    text-align: left;
     margin-bottom: 50px;
+  }
+
+  .donate-section .header-label {
+    margin-top: 80px !important;
   }
 
   .donate-content {
@@ -9220,7 +9244,7 @@ span[style*="border-left"] {
   .donations-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Barlow', sans-serif;
+    font-family: "Barlow Condensed", sans-serif;
   }
 
   .donations-table thead {
@@ -9234,7 +9258,7 @@ span[style*="border-left"] {
     font-size: 18px;
     color: #fff;
     border: none;
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: "Barlow Condensed", sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
@@ -9253,7 +9277,7 @@ span[style*="border-left"] {
     border-bottom: 1px solid #f0f0f0;
     font-size: 18px;
     color: #333;
-    font-family: 'Barlow', sans-serif;
+    font-family: "Barlow Condensed", sans-serif;
     font-weight: 400;
   }
 
@@ -9281,7 +9305,7 @@ span[style*="border-left"] {
   }
 
   .qr-section h3 {
-    font-family: 'Barlow Condensed', sans-serif;
+    font-family: "Barlow Condensed", sans-serif;
     font-size: 28px;
     font-weight: 600;
     color: #333;
@@ -9291,7 +9315,7 @@ span[style*="border-left"] {
   }
 
   .qr-subtitle {
-    font-family: 'Barlow', sans-serif;
+    font-family: "Barlow Condensed", sans-serif;
     font-size: 15px;
     color: #666;
     margin: 0 0 25px 0;
@@ -9439,7 +9463,7 @@ span[style*="border-left"] {
 }
 
 .user-profile-btn {
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -9513,11 +9537,12 @@ span[style*="border-left"] {
   color: #333;
   margin-bottom: 20px;
   line-height: 1.2;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   text-align: center;
 }
 
-.header-section .header-title-center strong {
+.header-section .header-title-center strong,
+.user-profile-title strong {
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -9525,7 +9550,8 @@ span[style*="border-left"] {
   font-weight: 600;
 }
 
-.header-section .header-title-center span {
+.header-section .header-title-center span,
+.user-profile-title span {
   color: #000000;
   font-weight: 400;
   -webkit-text-fill-color: #000;
@@ -9547,7 +9573,7 @@ span[style*="border-left"] {
   border: 2px solid #b9252f;
   background: #fff;
   color: #b9252f;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
@@ -9572,7 +9598,7 @@ span[style*="border-left"] {
 .marital-status-filter {
   text-align: center;
   margin: 20px 0;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .age-filter label,
@@ -9581,7 +9607,7 @@ span[style*="border-left"] {
   font-weight: 600;
   color: #333;
   margin-right: 12px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .age-filter input,
@@ -9590,7 +9616,7 @@ span[style*="border-left"] {
   border: 2px solid #ddd;
   border-radius: 4px;
   font-size: 15px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   transition: border-color 0.3s ease;
   outline: none;
 }
@@ -9710,7 +9736,7 @@ span[style*="border-left"] {
 }
 
 .filter-bar-label {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: #444;
@@ -9730,7 +9756,7 @@ span[style*="border-left"] {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -9742,7 +9768,7 @@ span[style*="border-left"] {
 
 /* Shared input / select styling */
 .filter-bar-input {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   color: #333;
   padding: 9px 12px;
@@ -9780,7 +9806,7 @@ span[style*="border-left"] {
 
 /* "to" separator between age inputs */
 .filter-bar-sep {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   color: #888;
   font-weight: 500;
@@ -9847,7 +9873,7 @@ span[style*="border-left"] {
   }
 
   .user-profile-btn {
-    width: 100%;
+    width: auto;
     text-align: center;
   }
 
@@ -9875,7 +9901,7 @@ span[style*="border-left"] {
   }
 
   .user-profile-card form {
-    padding: 20px !important;
+    padding: 0px !important;
   }
 }
 
@@ -9883,12 +9909,39 @@ span[style*="border-left"] {
    MY PROFILE SECTION
 ================================ */
 .my-profile-section {
-  padding: 80px 0 100px;
-  background: #faf9f7;
+  padding: 50px 0 100px;
+  background: #ffffff;
   width: 100%;
-  background-image: url("/src/assets/images/profile-bg-6.png");
   float: left;
 }
+
+.my-profile-section .header-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.floating-edit-btn {
+  background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
+  color: #fff !important;
+  padding: 8px;
+  border-radius: 50%;
+  text-decoration: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  cursor: pointer;
+}
+
+.floating-edit-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0.95;
+}
+
+
 
 /* ===============================
    EDIT BUSINESS FORM STYLES
@@ -9896,40 +9949,68 @@ span[style*="border-left"] {
 .eb-loading {
   padding: 100px 0;
   text-align: center;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   color: #666;
 }
 
 .eb-form {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
+  width: 100%;
+  display: block;
 }
+
 
 /* Section block inside form */
-.eb-section {
-  margin-bottom: 36px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid #eeeeee;
+.eb-add-btn {
+  background: #4CAF50 !important;
+  color: white !important;
+  border: none !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+  font-size: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
 }
 
-.eb-section:last-of-type {
+.eb-remove-btn {
+  background: #f44336 !important;
+  color: white !important;
+  border: none !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+  font-size: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.eb-add-btn:hover,
+.eb-remove-btn:hover {
+  opacity: 0.9;
+}
+
+.eb-form .profile-section {
+  padding-bottom: 30px;
+}
+
+.eb-form .profile-section:last-of-type {
   border-bottom: none;
   margin-bottom: 0;
 }
 
-/* Section heading — red badge style matching page design */
-.eb-section-title {
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #ffffff;
-  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
-  display: inline-block;
-  padding: 6px 18px;
-  border-radius: 4px;
-  margin-bottom: 22px;
+.eb-form .section-title {
+  margin-bottom: 0px !important;
+  border-radius: 8px 8px 0 0 !important;
 }
 
 /* 2-column responsive grid */
@@ -9937,24 +10018,49 @@ span[style*="border-left"] {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px 30px;
+  border: 1px #e0e0e0 solid;
+  padding: 20px;
+  margin: 0;
+  border-radius: 0px 8px 8px 8px;
 }
 
-/* A field that spans both columns */
+.eb-field {
+  display: block;
+  padding-top: 0px;
+}
+
 .eb-field-full {
   grid-column: 1 / -1;
 }
 
+/* Standalone fields (like Description) get the boxed look */
+.profile-section>.eb-field {
+  border: 1px #e0e0e0 solid;
+  padding: 20px;
+  margin-top: 0;
+  background: #fff;
+  border-radius: 0 8px 8px 8px;
+}
+
+/* Fields inside a grid should be simple */
+.eb-form-grid .eb-field {
+  margin-bottom: 0px;
+}
+
+
 /* Label */
 .eb-label {
   display: block;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #444;
   text-transform: uppercase;
   letter-spacing: 0.3px;
   margin-bottom: 8px;
+  padding: 1px 0;
 }
+
 
 .eb-required {
   color: #b9252f;
@@ -9968,7 +10074,7 @@ span[style*="border-left"] {
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #fff;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   color: #333;
   box-sizing: border-box;
@@ -10012,9 +10118,14 @@ span[style*="border-left"] {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  border-radius: 0 8px 8px 8px;
+  padding: 20px;
+  border: 1px #e0e0e0 solid;
   margin-bottom: 18px;
+  padding-top: 20px;
   flex-wrap: wrap;
 }
+
 
 .eb-preview-img {
   width: 160px;
@@ -10028,7 +10139,7 @@ span[style*="border-left"] {
   font-size: 12px;
   color: #888;
   margin-top: 6px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 /* File upload row */
@@ -10050,7 +10161,7 @@ span[style*="border-left"] {
 }
 
 .eb-file-name {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   color: #555;
 }
@@ -10060,8 +10171,10 @@ span[style*="border-left"] {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 30px;
+  width: 100%;
 }
+
 
 .eb-cancel-btn {
   background: transparent !important;
@@ -10079,7 +10192,7 @@ span[style*="border-left"] {
 ================================ */
 @media (max-width: 768px) {
   .my-profile-section {
-    padding: 60px 0 80px;
+    padding: 50px 0 80px;
   }
 
   .eb-form-grid {
@@ -10095,14 +10208,14 @@ span[style*="border-left"] {
   }
 
   .eb-actions .user-profile-btn {
-    width: 100%;
+    width: auto;
     text-align: center;
   }
 }
 
 @media (max-width: 480px) {
   .my-profile-section {
-    padding: 50px 0 60px;
+    padding: 40px 0 60px;
   }
 
   .eb-section-title {
@@ -10141,7 +10254,7 @@ span[style*="border-left"] {
   border: 1px solid #666666 !important;
   padding: 0px 21px 10px 21px !important;
   border-radius: 32px !important;
-  font-family: "Barlow", sans-serif !important;
+  font-family: "Barlow Condensed", sans-serif !important;
   font-size: 24px !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
@@ -10156,7 +10269,7 @@ span[style*="border-left"] {
 .goog-te-gadget-simple a {
   color: #fff !important;
   text-decoration: none !important;
-  font-family: "Barlow", sans-serif !important;
+  font-family: "Barlow Condensed", sans-serif !important;
   font-size: 14px !important;
   font-weight: 500 !important;
 }
@@ -10178,7 +10291,7 @@ span[style*="border-left"] {
 }
 
 .goog-te-gadget {
-  font-family: "Barlow", sans-serif !important;
+  font-family: "Barlow Condensed", sans-serif !important;
   color: #fff !important;
 }
 
@@ -10202,7 +10315,7 @@ span[style*="border-left"] {
   cursor: pointer;
   background: transparent;
   font-weight: 500;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 
@@ -10308,7 +10421,7 @@ span[style*="border-left"] {
    MATRIMONIAL PERSONAL INFO PAGE
 ================================ */
 .sub-text {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   color: #666;
   margin-top: 12px;
@@ -10321,7 +10434,7 @@ span[style*="border-left"] {
 }
 
 .no-profiles-text {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   color: #666;
   margin-bottom: 25px;
@@ -10364,7 +10477,7 @@ span[style*="border-left"] {
 }
 
 .profile-list-name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: #222;
@@ -10372,14 +10485,14 @@ span[style*="border-left"] {
 }
 
 .profile-list-details {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0 0 5px 0;
 }
 
 .profile-list-age {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0;
@@ -10390,7 +10503,7 @@ span[style*="border-left"] {
 }
 
 .error-message {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   color: #d32f2f;
   background: #ffebee;
   padding: 12px 20px;
@@ -10423,7 +10536,7 @@ span[style*="border-left"] {
 }
 
 .radio-group label {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #333;
@@ -10452,7 +10565,7 @@ span[style*="border-left"] {
 }
 
 .user-profile-btn {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -10482,7 +10595,7 @@ span[style*="border-left"] {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   z-index: 2;
 }
 
@@ -10508,11 +10621,11 @@ span[style*="border-left"] {
 .no-profiles-state {
   text-align: center;
   padding: 120px 20px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .no-profiles-state h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 42px;
   font-weight: 600;
   color: #222;
@@ -10524,7 +10637,7 @@ span[style*="border-left"] {
   font-size: 18px;
   color: #666;
   margin-bottom: 35px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   line-height: 1.6;
 }
 
@@ -10532,11 +10645,11 @@ span[style*="border-left"] {
 .profile-loading {
   text-align: center;
   padding: 100px 20px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .profile-loading h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 32px;
   font-weight: 500;
   color: #666;
@@ -10547,7 +10660,7 @@ span[style*="border-left"] {
 ================================ */
 .my-business-section {
   padding: 80px 0;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .no-business-container {
@@ -10555,7 +10668,7 @@ span[style*="border-left"] {
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .no-business-container h2 {
@@ -11438,7 +11551,7 @@ span[style*="border-left"] {
   min-width: 250px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 0px;
   align-self: flex-start;
 }
 
@@ -11490,7 +11603,7 @@ span[style*="border-left"] {
 .section-title {
   background: linear-gradient(90deg, #9B2F3F 0%, #C9353F 50%, #9B2F3F 100%);
   color: #ffffff;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   font-weight: 600;
   padding: 12px 20px;
@@ -11543,7 +11656,6 @@ span[style*="border-left"] {
 
 .profile-section .business-info-item {
   padding: 7px 0;
-  border-bottom: 1px solid #f5f5f5;
 }
 
 .profile-section .business-info-item:last-child {
@@ -11571,7 +11683,7 @@ span[style*="border-left"] {
 .user-profile-sticky-section .profile-id {
   display: block;
   text-align: center;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   color: #999;
   font-weight: 500;
@@ -11593,7 +11705,7 @@ span[style*="border-left"] {
   padding: 80px 0;
   background-color: #faf7f3;
   width: 100%;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .my-matrimony-section .container {
@@ -11608,7 +11720,7 @@ span[style*="border-left"] {
 }
 
 .my-matrimony-section .user-profile-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 48px;
   line-height: 52px;
   font-weight: 500;
@@ -11618,7 +11730,7 @@ span[style*="border-left"] {
 }
 
 .my-matrimony-section .sub-text {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   color: #666;
   margin: 0 0 30px 0;
@@ -11632,7 +11744,7 @@ span[style*="border-left"] {
 }
 
 .create-profile-section .user-profile-btn {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -11689,7 +11801,7 @@ span[style*="border-left"] {
 }
 
 .profile-list-name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 26px;
   font-weight: 600;
   color: #222;
@@ -11698,7 +11810,7 @@ span[style*="border-left"] {
 }
 
 .profile-list-details {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   color: #666;
   margin: 0 0 8px 0;
@@ -11706,7 +11818,7 @@ span[style*="border-left"] {
 }
 
 .profile-list-age {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   color: #666;
   margin: 0;
@@ -11714,7 +11826,7 @@ span[style*="border-left"] {
 
 /* Edit Button */
 .profile-list-actions .user-profile-btn {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
@@ -11740,11 +11852,11 @@ span[style*="border-left"] {
 .no-profiles-state {
   text-align: center;
   padding: 80px 20px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 .no-profiles-state h2 {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 36px;
   font-weight: 600;
   color: #222;
@@ -11756,7 +11868,7 @@ span[style*="border-left"] {
   font-size: 16px;
   color: #666;
   margin-bottom: 30px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   line-height: 1.6;
 }
 
@@ -11978,7 +12090,7 @@ span[style*="border-left"] {
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   color: #333;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -12047,7 +12159,7 @@ span[style*="border-left"] {
 
 .business-drawer-category {
   display: block;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   color: #888;
   margin-bottom: 8px;
@@ -12056,7 +12168,7 @@ span[style*="border-left"] {
 }
 
 .business-drawer-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 52px;
   line-height: 1;
   font-weight: 700;
@@ -12066,7 +12178,7 @@ span[style*="border-left"] {
 }
 
 .business-drawer-description {
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   line-height: 1.8;
   color: #555;
@@ -12203,5 +12315,276 @@ span[style*="border-left"] {
     width: 34px;
     height: 34px;
     font-size: 20px;
+  }
+}
+
+/* ===============================
+   REFACTORED BUSINESS DETAIL STYLES
+================================ */
+
+.user-profile-header {
+  padding: 30px 30px;
+  border-radius: 12px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.status-badge {
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.user-profile-card {
+  display: block;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (max-width: 991px) {
+  .user-profile-card {
+    padding: 20px;
+  }
+}
+
+
+.user-profile-content {
+  display: flex !important;
+  width: 100%;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.user-profile-sticky-section {
+  flex: 0 0 300px;
+  max-width: 300px;
+}
+
+.user-profile-image {
+  margin-bottom: 20px;
+}
+
+.user-profile-image img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.business-name {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 600;
+  color: #222;
+}
+
+.profile-id {
+  color: #666;
+  font-size: 14px;
+  display: block;
+}
+
+.user-profile-details {
+  flex: 1 1 500px;
+}
+
+/* Profiles and Info Grid */
+
+
+.business-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.contact-link {
+  color: #B9252F;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.contact-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.description-text {
+  line-height: 1.8 !important;
+  color: #555 !important;
+}
+
+.business-info-item strong {
+  display: block;
+  color: #666;
+  margin-bottom: 5px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===============================
+   MEDIA QUERIES FOR BUSINESS DETAIL
+================================ */
+
+@media (max-width: 1199px) {
+  .user-profile-card {
+    padding: 25px;
+  }
+
+  .user-profile-sticky-section {
+    flex: 0 0 250px;
+    max-width: 250px;
+  }
+
+  .eb-form-grid {
+    gap: 20px 20px;
+  }
+}
+
+
+@media (max-width: 991px) {
+  .user-profile-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .user-profile-sticky-section {
+    flex: 1 1 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .user-profile-sticky-section img {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .user-profile-details {
+    flex: 1 1 100%;
+  }
+
+  .eb-form-grid {
+    gap: 20px 20px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .user-profile-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 15px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .user-profile-title {
+    font-size: 28px;
+  }
+
+  .user-profile-card {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .profile-section {
+    margin-bottom: 25px;
+  }
+
+  .business-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .eb-form-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .eb-field {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 15px;
+  }
+
+
+  .eb-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .eb-actions button {
+    width: 100%;
+  }
+
+  .eb-file-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+
+@media (max-width: 575px) {
+  .my-profile-section {
+    padding: 40px 0 !important;
+  }
+
+  .user-profile-header {
+    padding: 15px 20px;
+  }
+
+  .user-profile-card {
+    padding: 15px;
+  }
+
+  .business-name {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile-header {
+    margin-top: 15px;
+  }
+
+  .user-profile-title {
+    font-size: 24px;
+  }
+
+  .section-title {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    padding: 12px 20px !important;
+    border-radius: 8px 8px 0 0 !important;
+    margin: 0 0 20px 0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .user-profile-header {
+    padding: 12px 15px;
+  }
+
+  .user-profile-card {
+    padding: 12px;
   }
 }

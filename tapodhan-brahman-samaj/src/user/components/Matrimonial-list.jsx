@@ -1,5 +1,5 @@
 import React from "react";
-import profileImg from "../../assets/images/profileimg.png"; 
+import profileImg from "../../assets/images/profileimg.png";
 
 const profiles = [
   {
@@ -99,7 +99,7 @@ const MatrimonialList = () => {
                   </p>
                 </div>
 
-                </div>
+              </div>
             ))}
           </div>
 

@@ -41,7 +41,7 @@ function BusinessDetail() {
                 const data = await response.json();
                 const businesses = Array.isArray(data) ? data : (data ? [data] : []);
                 const foundBusiness = businesses.find(b => b.id.toString() === id);
-                
+
                 if (foundBusiness) {
                     setBusiness(foundBusiness);
                 } else {
@@ -97,78 +97,77 @@ function BusinessDetail() {
     return (
         <>
             <InnerBanner title="Business Detail" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
-            <section className="my-profile-section" style={{ padding: '60px 0' }}>
+            <section className="my-profile-section">
                 <div className="container">
-                    <div className="user-profile-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                        <h1 className="user-profile-title" style={{ margin: 0 }}>Business Detail</h1>
+                    <div className="user-profile-header">
+                        <h1 className="user-profile-title"><strong><span>Business </span> Detail</strong></h1>
                         <div className="profile-status">
-                            <span className={`status-badge status-${business.status?.toLowerCase() || 'pending'}`} style={{ padding: '5px 15px', borderRadius: '20px', fontWeight: 'bold' }}>
+                            <span className={`status-badge status-${business.status?.toLowerCase() || 'pending'}`}>
                                 {business.status ? business.status.charAt(0).toUpperCase() + business.status.slice(1) : 'Pending'}
                             </span>
                         </div>
                     </div>
 
-                    <div className="user-profile-card" style={{ display: 'flex', gap: '30px', background: '#fff', padding: '30px', borderRadius: '8px', boxShadow: '0 0 15px rgba(0,0,0,0.1)' }}>
-                        <div className="user-profile-content" style={{ display: 'flex', width: '100%', gap: '30px', flexWrap: 'wrap' }}>
-                            <div className="user-profile-sticky-section" style={{ flex: '1 1 300px', maxWidth: '300px' }}>
-                                <div className="user-profile-image" style={{ marginBottom: '20px' }}>
+                    <div className="user-profile-card">
+                        <div className="user-profile-content">
+                            <div className="user-profile-sticky-section">
+                                <div className="user-profile-image">
                                     <img
-                                        src={business.posterPhoto && business.posterPhoto !== "default_business.jpg" 
-                                            ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}` 
+                                        src={business.posterPhoto && business.posterPhoto !== "default_business.jpg"
+                                            ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
                                             : defaultBusinessImage}
                                         alt={business.businessName}
-                                        style={{ width: '100%', borderRadius: '8px', objectFit: 'cover' }}
                                         onError={(e) => { e.target.src = defaultBusinessImage; }}
                                     />
                                 </div>
-                                <h2 className="business-name" style={{ margin: '0 0 10px 0', fontSize: '24px' }}>
+                                <h2 className="business-name">
                                     {business.businessName}
                                 </h2>
-                                <span className="profile-id" style={{ color: '#666', fontSize: '14px' }}>
+                                <span className="profile-id">
                                     Business ID: {business.id}
                                 </span>
                             </div>
 
-                            <div className="user-profile-details" style={{ flex: '1 1 500px' }}>
+                            <div className="user-profile-details">
                                 {/* General Information Section */}
-                                <div className="profile-section" style={{ marginBottom: '30px' }}>
-                                    <h3 className="section-title" style={{ borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '20px', color: '#B9252F' }}>General Information</h3>
-                                    <div className="business-info-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '15px' }}>
+                                <div className="profile-section">
+                                    <h3 className="section-title">General Information</h3>
+                                    <div className="business-info-grid">
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Owner Name:</strong>
+                                            <strong>Owner Name:</strong>
                                             {business.ownerName || 'N/A'}
                                         </div>
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Business Type:</strong>
+                                            <strong>Business Type:</strong>
                                             {business.businessType || 'N/A'}
                                         </div>
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Category:</strong>
+                                            <strong>Category:</strong>
                                             {business.category || 'N/A'}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Contact Information Section */}
-                                <div className="profile-section" style={{ marginBottom: '30px' }}>
-                                    <h3 className="section-title" style={{ borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '20px', color: '#B9252F' }}>Contact Information</h3>
-                                    <div className="business-info-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '15px' }}>
+                                <div className="profile-section">
+                                    <h3 className="section-title">Contact Information</h3>
+                                    <div className="business-info-grid">
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Email:</strong>
-                                            <a href={`mailto:${business.email}`} style={{ color: '#B9252F', textDecoration: 'none' }}>{business.email || 'N/A'}</a>
+                                            <strong>Email:</strong>
+                                            <a href={`mailto:${business.email}`} className="contact-link">{business.email || 'N/A'}</a>
                                         </div>
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Contact Number:</strong>
+                                            <strong>Contact Number:</strong>
                                             {business.contactNumber || 'N/A'}
                                         </div>
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Website:</strong>
+                                            <strong>Website:</strong>
                                             {business.website ? (
-                                                <a 
-                                                    href={business.website.startsWith('http://') || business.website.startsWith('https://') ? business.website : `https://${business.website}`} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer" 
-                                                    style={{ color: '#B9252F', textDecoration: 'none' }}
+                                                <a
+                                                    href={business.website.startsWith('http://') || business.website.startsWith('https://') ? business.website : `https://${business.website}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="contact-link"
                                                 >
                                                     {business.website}
                                                 </a>
@@ -178,19 +177,19 @@ function BusinessDetail() {
                                 </div>
 
                                 {/* Location Section */}
-                                <div className="profile-section" style={{ marginBottom: '30px' }}>
-                                    <h3 className="section-title" style={{ borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '20px', color: '#B9252F' }}>Location</h3>
-                                    <div className="business-info-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '15px' }}>
+                                <div className="profile-section">
+                                    <h3 className="section-title">Location</h3>
+                                    <div className="business-info-grid">
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>City:</strong>
+                                            <strong>City:</strong>
                                             {business.city || 'N/A'}
                                         </div>
                                         <div className="business-info-item">
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>State:</strong>
+                                            <strong>State:</strong>
                                             {business.state || 'N/A'}
                                         </div>
-                                        <div className="business-info-item" style={{ gridColumn: '1 / -1' }}>
-                                            <strong style={{ display: 'block', color: '#666', marginBottom: '5px' }}>Address:</strong>
+                                        <div className="business-info-item full-width">
+                                            <strong>Address:</strong>
                                             {business.address || 'N/A'}
                                         </div>
                                     </div>
@@ -198,9 +197,9 @@ function BusinessDetail() {
 
                                 {/* Description Section */}
                                 <div className="profile-section">
-                                    <h3 className="section-title" style={{ borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '20px', color: '#B9252F' }}>Business Description</h3>
+                                    <h3 className="section-title">Business Description</h3>
                                     <div className="business-info-grid">
-                                        <div className="business-info-item full-width" style={{ lineHeight: '1.6' }}>
+                                        <div className="business-info-item full-width description-text">
                                             {business.description || 'No description provided.'}
                                         </div>
                                     </div>

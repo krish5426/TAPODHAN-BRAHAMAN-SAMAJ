@@ -40,7 +40,7 @@ const EditBusiness = () => {
         const data = await response.json();
         const businesses = Array.isArray(data) ? data : (data ? [data] : []);
         const foundBusiness = businesses.find(b => b.id.toString() === id);
-        
+
         if (foundBusiness) {
           setBusiness(foundBusiness);
           setFormData(foundBusiness);
@@ -155,15 +155,22 @@ const EditBusiness = () => {
       <section className="my-profile-section">
         <div className="container">
           <div className="user-profile-header">
-            <h1 className="user-profile-title">Edit Business</h1>
+            <h1 className="user-profile-title"><strong><span>Edit </span> Business</strong></h1>
+            {business && (
+              <div className="profile-status">
+                <span className={`status-badge status-${business.status?.toLowerCase() || 'pending'}`}>
+                  {business.status ? business.status.charAt(0).toUpperCase() + business.status.slice(1) : 'Pending'}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="user-profile-card">
             <form onSubmit={handleSubmit} className="eb-form">
 
               {/* Business Identity */}
-              <div className="eb-section">
-                <h3 className="eb-section-title">Business Information</h3>
+              <div className="profile-section">
+                <h3 className="section-title">Business Information</h3>
                 <div className="eb-form-grid">
                   <div className="eb-field">
                     <label className="eb-label">Business Name <span className="eb-required">*</span></label>
@@ -191,26 +198,18 @@ const EditBusiness = () => {
                           placeholder="Enter owner name"
                         />
                         {index === owners.length - 1 ? (
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             onClick={addOwner}
-                            style={{
-                              background: '#4CAF50', color: 'white', border: 'none', 
-                              width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
-                              fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                            }}
+                            className="eb-add-btn"
                           >
                             +
                           </button>
                         ) : (
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             onClick={() => removeOwner(index)}
-                            style={{
-                              background: '#f44336', color: 'white', border: 'none', 
-                              width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
-                              fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                            }}
+                            className="eb-remove-btn"
                           >
                             -
                           </button>
@@ -256,8 +255,8 @@ const EditBusiness = () => {
               </div>
 
               {/* Contact Details */}
-              <div className="eb-section">
-                <h3 className="eb-section-title">Contact Details</h3>
+              <div className="profile-section">
+                <h3 className="section-title">Contact Details</h3>
                 <div className="eb-form-grid">
                   <div className="eb-field">
                     <label className="eb-label">Email <span className="eb-required">*</span></label>
@@ -298,8 +297,8 @@ const EditBusiness = () => {
               </div>
 
               {/* Location */}
-              <div className="eb-section">
-                <h3 className="eb-section-title">Location</h3>
+              <div className="profile-section">
+                <h3 className="section-title">Location</h3>
                 <div className="eb-form-grid">
                   <div className="eb-field">
                     <label className="eb-label">City</label>
@@ -342,8 +341,8 @@ const EditBusiness = () => {
               </div>
 
               {/* Description */}
-              <div className="eb-section">
-                <h3 className="eb-section-title">About the Business</h3>
+              <div className="profile-section">
+                <h3 className="section-title">About the Business</h3>
                 <div className="eb-field">
                   <label className="eb-label">Description</label>
                   <textarea
@@ -358,8 +357,8 @@ const EditBusiness = () => {
               </div>
 
               {/* Poster Photo */}
-              <div className="eb-section">
-                <h3 className="eb-section-title">Poster Photo</h3>
+              <div className="profile-section">
+                <h3 className="section-title">Poster Photo</h3>
                 {business?.posterPhoto && (
                   <div className="eb-current-photo">
                     <img

@@ -90,7 +90,7 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
         <button
           onClick={onClose}
           style={{
-            backgroundColor: '#b9252f',
+            background: 'linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%)',
             color: '#fff',
             border: 'none',
             padding: '12px 30px',
@@ -102,8 +102,8 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
             textTransform: 'uppercase',
             transition: 'all 0.3s ease'
           }}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#a01e28'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#b9252f'}
+          onMouseOver={(e) => e.target.style.opacity = '0.9'}
+          onMouseOut={(e) => e.target.style.opacity = '1'}
         >
           OK
         </button>

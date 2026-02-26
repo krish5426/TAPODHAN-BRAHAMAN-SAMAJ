@@ -24,6 +24,7 @@ import Announcements from "./pages/Announcements";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './css/style.css';
+import './css/matrimonial.css';
 import './css/google-translate.css';
 
 

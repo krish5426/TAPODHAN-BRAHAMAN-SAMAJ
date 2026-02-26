@@ -50,7 +50,7 @@ const MatrimonialList = () => {
 
   return (
     <>
-      <section className="list-section">
+      <section className="list-section matrimonial-page">
         <div className="container">
           <div className="header-section">
             <span className="header-label center-top">Listing</span>
@@ -127,7 +127,7 @@ const MatrimonialList = () => {
         </div>
       </section>
 
-      <section className="profile-section">
+      <section className="profile-section matrimonial-page">
         <div className="container">
           {loading ? (
             <div style={{ textAlign: 'center', padding: '50px' }}>

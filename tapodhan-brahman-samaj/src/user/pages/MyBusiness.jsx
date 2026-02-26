@@ -88,17 +88,17 @@ function MyBusiness() {
     <>
       <InnerBanner title="My Business" breadcrumb={breadcrumb} backgroundImage={bannerImage} />
 
-      <section className="list-section" style={{ display: businesses.length > 0 ? 'block' : 'none' }}>
+      <section className="my-profile-section">
         <div className="container">
-          <div className="header-section">
-            <span className="header-label">My Businesses</span>
-            <h2 className="header-title-center">
+          <div className="header-section" style={{ textAlign: 'left' }}>
+            <span className="header-label header-label-left">My Businesses</span>
+            <h2 className="header-title" style={{ textAlign: 'left', marginBottom: '30px' }}>
               <strong>
                 <span>Your </span>
                 registered businesses
               </strong>
             </h2>
-            <div className="create-profile-section">
+            <div className="create-profile-section" style={{ textAlign: 'left', margin: '20px 0' }}>
               <button
                 className="user-profile-btn"
                 onClick={() => navigate('/business-register')}
@@ -107,11 +107,8 @@ function MyBusiness() {
               </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="profile-section">
-        <div className="container">
+          {/* Profile Grid Area */}
           {businesses.length === 0 ? (
             <div className="no-profiles-state">
               <h2>No Business Registered</h2>
@@ -160,10 +157,14 @@ function MyBusiness() {
                       </div>
                     </Link>
                     {/* Floating Edit Button Overlay */}
-                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
-                        <Link to={`/edit-business/${business.id}`} onClick={(e) => e.stopPropagation()} style={{ background: 'rgba(0,0,0,0.6)', color: '#fff', padding: '6px', borderRadius: '50%', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: '0.3s' }} className="edit-icon-hover">
-                          <EditIcon fontSize="small" />
-                        </Link>
+                    <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 0 }}>
+                      <Link
+                        to={`/edit-business/${business.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="floating-edit-btn"
+                      >
+                        <EditIcon fontSize="small" />
+                      </Link>
                     </div>
                   </div>
                 ))}
