@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import registerImg from "../assets/images/mobile.png";
 import { API_ENDPOINTS } from '../../config/api';
-import { INDIAN_STATES } from "../../config/constants";
+import { INDIAN_STATES, INDUSTRY_OPTIONS } from "../../config/constants";
 import CustomDialog from "../components/CustomDialog";
 
 const BusinessRegisterform = () => {
@@ -204,21 +204,12 @@ const BusinessRegisterform = () => {
                         <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
                       </div>
                       <div className="form-group">
-                        <label>Category</label>
+                        <label>Industry</label>
                         <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
-                          <option value="">Select Category</option>
-                          <option value="Restaurant">Restaurant</option>
-                          <option value="Shop">Shop</option>
-                          <option value="Service">Service</option>
-                          <option value="Freelancer">Freelancer</option>
-                          <option value="Education">Education</option>
-                          <option value="Consultancy">Consultancy</option>
-                          <option value="Medical & Health">Medical &amp; Health</option>
-                          <option value="Trading">Trading</option>
-                          <option value="Professional Services">Professional Services</option>
-                          <option value="Karm Kand">Karm Kand</option>
-                          <option value="Transport / Travel">Transport / Travel</option>
-                          <option value="Other">Other</option>
+                          <option value="">Select Industry</option>
+                          {INDUSTRY_OPTIONS.map((industry) => (
+                            <option key={industry} value={industry}>{industry}</option>
+                          ))}
                         </select>
                       </div>
                       <div className="form-group">

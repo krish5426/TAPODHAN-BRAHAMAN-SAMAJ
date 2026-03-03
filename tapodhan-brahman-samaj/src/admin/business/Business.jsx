@@ -140,6 +140,16 @@ function Business() {
                                     onChange={handleFileChange}
                                 />
                                 <MDButton 
+                                    variant="outlined" 
+                                    color="info" 
+                                    component="a"
+                                    href="/sample_business_import.csv"
+                                    download="sample_business_import.csv"
+                                >
+                                    <UploadFileIcon sx={{ fontWeight: "bold" }} />
+                                    &nbsp;Download Sample
+                                </MDButton>
+                                <MDButton 
                                     variant="gradient" 
                                     color="success" 
                                     onClick={handleImportClick} 
