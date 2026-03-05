@@ -97,5 +97,6 @@ export const INDUSTRY_OPTIONS = [
     "Textile",
     "Tourism",
     "Transportation",
-    "Waste Management"
+    "Waste Management",
+    "Others"
 ];
