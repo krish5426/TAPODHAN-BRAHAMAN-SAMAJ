@@ -5,7 +5,7 @@ const AboutFounders = ({ founders }) => {
 
         <h3 className="founders-text">
           Our Trust was founded in the{" "}
-          <strong>year 2013</strong> by following visionary, <br />
+          <strong>year 2013</strong> by following visionary,
           <strong> passionate & dedicated individuals</strong> from
           Tapodhan Brahman Samaj.
         </h3>
@@ -14,7 +14,7 @@ const AboutFounders = ({ founders }) => {
           {founders.map((item, index) => (
             <div className="founder-card" key={index}>
               <div className="founder-image">
-            <img src={item.image} alt={item.name} /></div>
+                <img src={item.image} alt={item.name} /></div>
               <p className="founder-name">{item.name}</p>
             </div>
           ))}

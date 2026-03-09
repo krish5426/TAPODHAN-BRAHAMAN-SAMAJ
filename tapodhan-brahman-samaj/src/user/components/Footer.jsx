@@ -25,7 +25,7 @@ const Footer = () => {
           <div className="footer-links">
             <div className="footer-column-row">
               <div className="footer-column">
-                <h4>USEFUL LINKS</h4>
+                <h4>Useful Links</h4>
                 <ul>
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/about">About</Link></li>
@@ -33,11 +33,11 @@ const Footer = () => {
                   <li><Link to="/donate">Donate</Link></li>
                   <li><Link to="/contact">Contact Us</Link></li>
                   {/*<li><Link to="/matrimonial">Matrimonial</Link></li> */}
-                  
+
                 </ul>
               </div>
               <div className="footer-column">
-                <h4>QUICK LINKS</h4>
+                <h4>Quick Links</h4>
                 <ul>
                   <li><Link to="/business-contact">Business Directory</Link></li>
                   <li><Link to="/signup">Register</Link></li>
@@ -46,14 +46,14 @@ const Footer = () => {
                 </ul>
               </div>
               <div className="footer-column">
-                <h4>CONTACT DETAILS</h4>
+                <h4>Contact Details</h4>
                 <div className="contact-info">
-                  <p><strong>Phone :</strong><br />9662377530 <br/> 9825906646</p>
-                  <p><strong>Email :</strong><br />ravalkb1@gmail.com <br/> maneeshdave79@gmail.com</p>
+                  <p><strong>Phone :</strong><br />9662377530 <br /> 9825906646</p>
+                  <p><strong>Email :</strong><br />ravalkb1@gmail.com <br /> maneeshdave79@gmail.com</p>
                 </div>
               </div>
               <div className="footer-column">
-                <h4>LOCATION</h4>
+                <h4>Location</h4>
                 <div className="location-qr">
                   <img src={locationQR} alt="Location QR Code" />
                 </div>

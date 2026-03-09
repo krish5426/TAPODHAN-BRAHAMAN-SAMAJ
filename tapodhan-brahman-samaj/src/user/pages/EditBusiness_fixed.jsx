@@ -119,7 +119,7 @@ const EditBusiness = () => {
           </div>
 
           <div className="user-profile-card">
-            <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Barlow", sans-serif' }}>
+            <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Inter Tight", sans-serif' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '20px' }}>
                 <div>
                   <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Business Name *</label>
@@ -178,7 +178,7 @@ const EditBusiness = () => {
                     name="category"
                     value={formData.category || ''}
                     onChange={handleInputChange}
-                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box', fontFamily: 'Barlow, sans-serif' }}
+                    style={{ width: '100%', padding: '10px', border: '1px solid #ddd', boxSizing: 'border-box', fontFamily: 'Inter Tight, sans-serif' }}
                   >
                     <option value="">Select Category</option>
                     <option value="Restaurant">Restaurant</option>

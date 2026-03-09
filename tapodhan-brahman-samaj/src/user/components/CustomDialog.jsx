@@ -72,7 +72,7 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
           fontSize: '20px',
           fontWeight: '600',
           color: '#333',
-          fontFamily: 'Barlow Condensed, sans-serif'
+          fontFamily: 'Inter Tight, sans-serif'
         }}>
           {title}
         </h3>
@@ -82,7 +82,7 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
           fontSize: '16px',
           color: '#666',
           lineHeight: '1.5',
-          fontFamily: 'Barlow, sans-serif'
+          fontFamily: 'Inter Tight, sans-serif'
         }}>
           {message}
         </p>
@@ -98,8 +98,8 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
             fontSize: '14px',
             fontWeight: '600',
             cursor: 'pointer',
-            fontFamily: 'Barlow, sans-serif',
-            textTransform: 'uppercase',
+            fontFamily: 'Inter Tight, sans-serif',
+            textTransform: 'none',
             transition: 'all 0.3s ease'
           }}
           onMouseOver={(e) => e.target.style.opacity = '0.9'}
@@ -113,3 +113,4 @@ const CustomDialog = ({ isOpen, onClose, title, message, type = 'success' }) => 
 };
 
 export default CustomDialog;
+

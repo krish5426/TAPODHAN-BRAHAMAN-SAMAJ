@@ -9,32 +9,32 @@ const Services = () => {
   const services = [
     {
       id: 1,
-      title: 'BUSINESS DIRECTORY',
+      title: 'Business Directory',
       icon: businessDirectoryIcon,
       link: '/business-contact'
     },
     {
       id: 2,
-      title: 'MATRIMONIAL',
+      title: 'Matrimonial',
       icon: matrimonialIcon,
-     // link: '/matrimonial'
-     link:''
+      // link: '/matrimonial'
+      link: ''
     },
     {
       id: 3,
-      title: 'STUDENT LIFE',
+      title: 'Student Life',
       icon: studentLifeIcon,
       link: '/profile'
     },
     {
       id: 4,
-      title: 'DONATE',
+      title: 'Donate',
       icon: donateIcon,
       link: '/donate'
     },
     {
       id: 5,
-      title: 'CONTACT US',
+      title: 'Contact Us',
       icon: contactIcon,
       link: '/contact'
     }
@@ -44,10 +44,10 @@ const Services = () => {
     <section className="services-section">
       <div className="container">
         <div className="header-section">
-          <h4 className="header-label">SERVICES</h4>
+          <h4 className="header-label">Services</h4>
           <h2 className="header-title">
-            <span>QUICK ACCESS TO ALL</span> <br />
-            <strong> ESSENTIAL COMMUNITY SERVICES</strong>
+            <span>Quick access to all</span> <br />
+            <strong> essential community services</strong>
           </h2>
         </div>
 

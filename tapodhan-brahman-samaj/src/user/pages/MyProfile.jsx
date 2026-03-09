@@ -121,8 +121,8 @@ function MyProfile() {
                                         fontWeight: '600', 
                                         color: '#666', 
                                         marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
+                                        textTransform: 'none',
+                                        letterSpacing: '0.3px'
                                     }}>
                                         First Name
                                     </label>
@@ -144,8 +144,8 @@ function MyProfile() {
                                         fontWeight: '600', 
                                         color: '#666', 
                                         marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
+                                        textTransform: 'none',
+                                        letterSpacing: '0.3px'
                                     }}>
                                         Email Address
                                     </label>
@@ -169,8 +169,8 @@ function MyProfile() {
                                         fontWeight: '600', 
                                         color: '#666', 
                                         marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
+                                        textTransform: 'none',
+                                        letterSpacing: '0.3px'
                                     }}>
                                         Last Name
                                     </label>
@@ -192,8 +192,8 @@ function MyProfile() {
                                         fontWeight: '600', 
                                         color: '#666', 
                                         marginBottom: '8px',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
+                                        textTransform: 'none',
+                                        letterSpacing: '0.3px'
                                     }}>
                                         Mobile Number
                                     </label>
@@ -217,3 +217,5 @@ function MyProfile() {
 }
 
 export default MyProfile;
+
+

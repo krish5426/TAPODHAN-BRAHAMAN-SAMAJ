@@ -44,9 +44,11 @@ nav ul li a {
     font-weight: 500;
     color: #000000;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
 }
-
+eb-field{
+    
+}
 .header-buttons-cols a.header-button {
     font-family: "Barlow", sans-serif;
     font-size: 17px;
@@ -54,11 +56,11 @@ nav ul li a {
     font-weight: 500;
     color: #fff;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
     border: 1px solid #666666;
     padding: 17px 40px;
     background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
-    letter-spacing: 0;
+    letter-spacing: 0.3px !important;
 }
 
 .header-buttons-cols a.header-button.dark-button {
@@ -135,7 +137,7 @@ nav ul li a {
     font-size: 48px;
     line-height: 52px;
     font-weight: 500;
-    text-transform: uppercase;
+    text-transform: none;
     margin-bottom: 30px;
 }
 
@@ -173,7 +175,7 @@ nav ul li a {
     font-size: 26px;
     line-height: 36px;
     font-weight: 500;
-    text-transform: uppercase;
+    text-transform: none;
     transition: background 0.3s;
 }
 
@@ -257,7 +259,7 @@ nav ul li a {
     font-weight: 500;
     color: #fff;
     text-decoration: none;
-    text-transform: capitalize;
+    text-transform: none;
     transition: 0.3s;
 }
 
@@ -321,12 +323,12 @@ nav ul li a {
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-transform: none;
+    letter-spacing: 0.3px !important;
 }
 
 .matrimonial-content .header-section .header-title {
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .matrimonial-title {
@@ -335,7 +337,7 @@ nav ul li a {
     line-height: 1.2;
     font-weight: 400;
     margin-bottom: 24px;
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .matrimonial-title .highlight {
@@ -575,3 +577,5 @@ nav ul li a {
 .css-12sz6rz-MuiInputBase-root-MuiOutlinedInput-root {
     padding: 11px;
 }
+
+

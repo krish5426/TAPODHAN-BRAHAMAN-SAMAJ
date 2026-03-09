@@ -10,8 +10,8 @@ const Homeabout = () => {
             <div className="header-section-top">
               <span className="header-label-top">ABOUT US</span>
               <h2 className="header-title-top">
-                <strong> <span>UNITED BY </span>HERITAGE,<br />
-                  COMMITTED <span>TO</span> HUMANITY.</strong>
+                <strong> <span>United by </span>Heritage,<br />
+                  Committed <span>to</span> Humanity.</strong>
               </h2>
             </div>
             <div className="about-description">

@@ -79,7 +79,7 @@ function Dashboard() {
                                 fontSize: "14px",
                                 fontWeight: 500,
                                 opacity: 0.9,
-                                letterSpacing: "0.5px",
+                                letterSpacing: '0.3px',
                                 marginBottom: "8px"
                             }}
                         >
@@ -89,7 +89,7 @@ function Dashboard() {
                             sx={{
                                 fontSize: "42px",
                                 fontWeight: 700,
-                                letterSpacing: "-1px",
+                                letterSpacing: '0.3px',
                                 marginBottom: "12px"
                             }}
                         >
@@ -100,7 +100,7 @@ function Dashboard() {
                                 fontSize: "12px",
                                 opacity: 0.85,
                                 fontWeight: 500,
-                                letterSpacing: "0.3px"
+                                letterSpacing: '0.3px'
                             }}
                         >
                             {label}
@@ -254,3 +254,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+

@@ -44,7 +44,7 @@
   font-size: 48px;
   line-height: 52px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   margin-bottom: 30px;
   color: #000;
 }
@@ -82,12 +82,12 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 16px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
   min-width: 150px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
 }
 
 .filter-btn:hover {
@@ -248,8 +248,8 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 500;
   margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .profile-name {
@@ -258,7 +258,7 @@
   margin: 8px 0;
   color: #222;
   font-family: 'Barlow Condensed', sans-serif;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .profile-dob,
@@ -535,3 +535,5 @@
   color: #999;
   font-weight: 500;
 }
+
+

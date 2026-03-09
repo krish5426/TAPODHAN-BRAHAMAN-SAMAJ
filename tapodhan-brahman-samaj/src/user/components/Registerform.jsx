@@ -205,7 +205,7 @@ const BusinessRegisterform = () => {
                       </div>
                       <div className="form-group">
                         <label>Category</label>
-                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
+                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
                           <option value="">Select Category</option>
                           <option value="Restaurant">Restaurant</option>
                           <option value="Shop">Shop</option>
@@ -233,7 +233,7 @@ const BusinessRegisterform = () => {
                       
                       <div className="form-group">
                         <label>State</label>
-                        <select name="state" value={formData.state} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
+                        <select name="state" value={formData.state} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
                           <option value="">Select State</option>
                           {INDIAN_STATES.map((state) => (
                             <option key={state} value={state}>{state}</option>

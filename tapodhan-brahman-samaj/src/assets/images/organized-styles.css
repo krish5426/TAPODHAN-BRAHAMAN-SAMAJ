@@ -56,7 +56,7 @@ nav ul li a {
     font-weight: 500;
     color: #000000;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 /* Header Buttons */
@@ -72,11 +72,11 @@ nav ul li a {
     font-weight: 500;
     color: #fff;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
     border: 1px solid #666666;
     padding: 17px 40px;
     background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
-    letter-spacing: 0;
+    letter-spacing: 0.3px !important;
 }
 
 .header-buttons-cols a.header-button.dark-button {
@@ -140,7 +140,7 @@ nav ul li a {
     font-size: 48px;
     line-height: 52px;
     font-weight: 500;
-    text-transform: capitalize;
+    text-transform: none;
     margin-bottom: 10px;
 }
 
@@ -378,7 +378,7 @@ nav ul li a {
     font-size: 26px;
     line-height: 36px;
     font-weight: 500;
-    text-transform: uppercase;
+    text-transform: none;
     transition: background 0.3s;
 }
 
@@ -493,7 +493,7 @@ nav ul li a {
     font-weight: 500;
     color: #fff;
     text-decoration: none;
-    text-transform: capitalize;
+    text-transform: none;
     transition: 0.3s;
 }
 
@@ -686,7 +686,7 @@ section.intro-section.mission-statement {
 }
 
 section.intro-section.mission-statement .about-intro-content h2 {
-    text-transform: uppercase;
+    text-transform: none;
     margin-bottom: 20px;
 }
 
@@ -763,7 +763,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
     font-size: 48px;
     line-height: 52px;
     font-weight: 300;
-    text-transform: capitalize;
+    text-transform: none;
     margin-bottom: 30px;
 }
 
@@ -886,12 +886,12 @@ section.intro-section.mission-statement .about-intro-content h2 {
     font-size: 14px;
     font-weight: 500;
     margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-transform: none;
+    letter-spacing: 0.3px !important;
 }
 
 .matrimonial-content .header-section .header-title {
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .matrimonial-title {
@@ -900,7 +900,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
     line-height: 1.2;
     font-weight: 400;
     margin-bottom: 24px;
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .matrimonial-title .highlight {
@@ -1625,9 +1625,9 @@ section.global-cta {
     line-height: 50px;
     font-weight: 500;
     color: #fff;
-    text-transform: uppercase;
+    text-transform: none;
     margin-bottom: 50px;
-    letter-spacing: 0;
+    letter-spacing: 0.3px !important;
 }
 
 
@@ -1793,9 +1793,9 @@ section.global-cta {
     color: #fff;
     font-size: 18px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.3px !important;
     cursor: pointer;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 
@@ -2028,7 +2028,7 @@ Personal-Info-right .register-form {
     padding: 12px 22px;
     font-size: 13px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.3px !important;
     color: #c1272d;
     border: 1px solid #c1272d;
     margin-bottom: 20px;
@@ -2386,3 +2386,5 @@ Personal-Info-right .register-form {
         grid-template-columns: 1fr;
     }
 }
+
+

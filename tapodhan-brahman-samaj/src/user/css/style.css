@@ -1,4 +1,4 @@
-* {
+﻿* {
   margin: 0;
   padding: 0;
 }
@@ -6,47 +6,73 @@
 /* Top Announcement Bar */
 .top-announcement-bar {
   background: linear-gradient(90deg, #9B2F3F 0%, #C9353F 50%, #9B2F3F 100%);
-  padding: 12px 0;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  display: block;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.announcement-bar-content {
-  display: flex;
-  justify-content: center;
+.announcement-container {
+  display: flex !important;
+  justify-content: space-between;
   align-items: center;
+  padding: 15px 0px;
+}
+
+.announcement-link {
+  display: flex;
+  padding: 16px 20px;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .announcement-text {
   color: #fff;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   font-weight: 500;
+  letter-spacing: 0.3px !important;
+  text-align: center;
+}
+
+.shiv-parayan-text {
+  font-family: 'Chakra Petch', sans-serif;
+  display: inline-flex;
+}
+
+.txt-animate {
+  display: inline-block;
+  animation: txt-color 2s ease-in-out infinite alternate;
+}
+
+@keyframes txt-color {
+  0% {
+    color: #fff;
+  }
+
+  100% {
+    color: grey;
+  }
 }
 
 .header {
-  margin-top: 42px;
+  margin-top: 50px;
 }
 
 @media (max-width: 767px) {
   .top-announcement-bar {
-    padding: 10px 0;
+    flex-direction: row;
   }
 
-  .announcement-bar-content {
-    text-align: center;
+  .announcement-container {
+    padding: 10px 15px;
   }
 
   .announcement-text {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .header {
@@ -56,14 +82,14 @@
 
 @media (max-width: 480px) {
   .announcement-text {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 0px;
   box-sizing: border-box;
 }
 
@@ -179,7 +205,7 @@
 }
 
 .announcement-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 24px;
   line-height: 30px;
   font-weight: 600;
@@ -189,7 +215,7 @@
 
 .announcement-date {
   display: inline-block;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   color: #666;
   margin-bottom: 15px;
@@ -199,7 +225,7 @@
 }
 
 .announcement-description {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   line-height: 24px;
   color: #555;
@@ -211,7 +237,7 @@
 }
 
 .no-announcements p {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   color: #666;
 }
@@ -461,13 +487,14 @@ nav ul li {
 }
 
 nav ul li a {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   line-height: 20px;
+  letter-spacing: 0.3px !important;
   font-weight: 500;
   color: #000000;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   display: block;
   transition: color 0.3s ease;
 }
@@ -478,17 +505,17 @@ nav ul li a.active {
 }
 
 .header-buttons-cols a.header-button {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
   color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   border: 1px solid #666666;
   padding: 12px 30px;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
-  letter-spacing: 0;
+  letter-spacing: 0.3px !important;
   display: inline-block;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -664,13 +691,13 @@ nav ul li a.active {
 }
 
 .mobile-nav ul li a {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   line-height: 18px;
   font-weight: 500;
   color: #000;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   display: block;
   padding: 16px 20px;
   width: 100%;
@@ -694,11 +721,11 @@ nav ul li a.active {
 .mobile-menu-btn {
   padding: 15px 20px;
   text-align: center;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   border: 2px solid #000;
   background-color: transparent;
   color: #000;
@@ -764,16 +791,19 @@ nav ul li a.active {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   z-index: 1;
+  letter-spacing: 1px;
+  letter-spacing: 0.5px !important;
   color: #525252;
   margin-bottom: 10px;
-  padding: 8px 16px;
-  font-family: "Barlow Condensed", sans-serif;
+  padding: 12px 16px;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
   position: relative;
   margin-top: 80px;
   font-weight: 400 !important;
+  text-transform: uppercase;
 }
 
 .header-section .header-label::before {
@@ -793,11 +823,11 @@ nav ul li a.active {
 
 
 .header-section .header-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   margin-bottom: 10px;
   max-width: 100%;
   overflow-wrap: break-word;
@@ -808,6 +838,7 @@ nav ul li a.active {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: 0.5px;
   font-weight: 600;
 }
 
@@ -827,23 +858,25 @@ nav ul li a.active {
   border: solid 1px #000;
   border-radius: 5px;
   margin-bottom: 10px;
-  padding: 8px 16px;
-  font-family: "Barlow Condensed", sans-serif;
+  padding: 12px 16px;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
   position: relative;
   margin-top: 0px;
   font-weight: 400 !important;
+  text-transform: uppercase;
 }
 
 
 .header-section-top .header-title-top {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
+
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   margin-bottom: 10px;
 }
 
@@ -878,11 +911,11 @@ nav ul li a.active {
 }
 
 .service-card h3 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 26px;
   line-height: 36px;
   font-weight: 500;
-  text-transform: uppercase;
+  text-transform: none;
   transition: background 0.3s;
 }
 
@@ -1080,11 +1113,12 @@ nav ul li a.active {
 
 .about-description p {
   color: #525252;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
   margin-bottom: 20px;
+  letter-spacing: 0.5px;
 }
 
 .read-more-btn {
@@ -1100,15 +1134,15 @@ nav ul li a.active {
 }
 
 .read-more-btn span {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 20px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
   line-height: 24px;
+  letter-spacing: 0.5px !important;
   font-weight: 500;
   color: #fff;
   text-decoration: none;
-  text-transform: capitalize;
-  transition: 0.3s;
-  letter-spacing: 0;
+  text-transform: none;
+  transition: 0.5s;
 }
 
 .read-more-btn::after {
@@ -1155,10 +1189,9 @@ nav ul li a.active {
 }
 
 .matrimonial-text {
-  width: 100%;
   color: white;
   padding: 146px 0 0 0;
-  width: 45%;
+  width: 50%;
   float: right;
 }
 
@@ -1169,21 +1202,21 @@ nav ul li a.active {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .matrimonial-content .header-section .header-title {
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .matrimonial-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 1.2;
   font-weight: 400;
   margin-bottom: 24px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .matrimonial-title .highlight {
@@ -1250,10 +1283,12 @@ nav ul li a.active {
 }
 
 .matrimonial-description {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 24px;
+  width: 95%;
   font-weight: 400;
+  letter-spacing: 0.5px !important;
   color: #525252;
 }
 
@@ -1303,7 +1338,7 @@ nav ul li a.active {
   background: #000;
   border-radius: 5px 0 0 0;
   padding: 18px 20px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   line-height: 20px;
   font-weight: 400;
@@ -1352,13 +1387,13 @@ nav ul li a.active {
   line-height: 22px;
   color: #000000;
   padding: 10px 30px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   display: inline-block;
   margin-bottom: 10px;
 }
 
 .event-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 500;
   font-size: 32px;
   line-height: 34px;
@@ -1369,7 +1404,7 @@ nav ul li a.active {
 .event-cont-row {
   font-size: 18px;
   line-height: 24px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #000000;
   margin-bottom: 12px;
   max-width: 100%;
@@ -1418,7 +1453,7 @@ nav ul li a.active {
 
 .event-card.regular .event-title {
   border: none;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 500;
   font-size: 28px;
   line-height: 34px;
@@ -1434,7 +1469,7 @@ nav ul li a.active {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   z-index: 1;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   margin-bottom: 10px;
   font-size: 18px;
   line-height: 22px;
@@ -1623,7 +1658,7 @@ nav ul li a.active {
   padding: 60px 0 80px;
   float: left;
   width: 100%;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   background-color: #ffffff;
   background-repeat: repeat;
   background-size: auto;
@@ -1655,7 +1690,7 @@ nav ul li a.active {
 }
 
 .profile-main-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 36px;
   line-height: 40px;
   font-weight: 600;
@@ -1664,13 +1699,13 @@ nav ul li a.active {
 }
 
 .profile-subtitle {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 18px;
   font-weight: 400;
   margin: 0;
   opacity: 0.9;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
 }
 
 .profile-edit-btn {
@@ -1680,10 +1715,10 @@ nav ul li a.active {
   padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   transition: all 0.3s ease;
   white-space: nowrap;
 }
@@ -1710,17 +1745,17 @@ nav ul li a.active {
 
 .profile-label {
   display: block;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 12px;
   font-weight: 600;
   color: #666;
   margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .profile-value {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   font-weight: 500;
   color: #333;
@@ -1732,7 +1767,7 @@ nav ul li a.active {
 .profile-loading {
   padding: 100px 40px;
   text-align: center;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #666;
 }
 
@@ -1754,7 +1789,7 @@ nav ul li a.active {
 
 .contact-description {
   color: #525252;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -1794,7 +1829,7 @@ nav ul li a.active {
 .info-item h3 {
   font-size: 28px;
   line-height: 34px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 500;
   color: #000;
   position: relative;
@@ -1816,7 +1851,7 @@ nav ul li a.active {
   font-size: 18px;
   line-height: 22px;
   color: #525252;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 /* ===============================
@@ -1840,11 +1875,11 @@ nav ul li a.active {
 }
 
 .business-profile-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   color: #000;
   margin: 0;
   flex: 1;
@@ -1852,11 +1887,11 @@ nav ul li a.active {
 }
 
 .business-profile-btn {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   border: 1px solid #B9252F;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   color: #fff;
@@ -1912,13 +1947,13 @@ nav ul li a.active {
 }
 
 .business-name {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 36px;
   line-height: 42px;
   font-weight: 600;
   color: #B9252F;
   margin: 0 0 25px 0;
-  text-transform: capitalize;
+  text-transform: none;
   word-wrap: break-word;
 }
 
@@ -1930,7 +1965,7 @@ nav ul li a.active {
 }
 
 .business-info-item {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   line-height: 22px;
   color: #525252;
@@ -1949,7 +1984,7 @@ nav ul li a.active {
   padding: 4px 12px;
   border-radius: 4px;
   font-size: 12px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .status-badge.status-approved {
@@ -1974,7 +2009,7 @@ nav ul li a.active {
 }
 
 .business-info-section strong {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 600;
   color: #000;
   display: block;
@@ -1983,7 +2018,7 @@ nav ul li a.active {
 }
 
 .business-info-section p {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   line-height: 22px;
   color: #525252;
@@ -1992,7 +2027,7 @@ nav ul li a.active {
 }
 
 .business-info-section a {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   line-height: 22px;
   color: #B9252F;
@@ -2032,8 +2067,8 @@ nav ul li a.active {
 .footer-left p {
   color: #686868;
   font-size: 16px;
-  line-height: 22px;
-  font-family: "Barlow Condensed", sans-serif;
+  line-height: 24px;
+  font-family: "Inter Tight", sans-serif;
   max-width: 325px;
   line-height: 22px;
 }
@@ -2057,9 +2092,10 @@ nav ul li a.active {
 }
 
 .footer-links .footer-column h4 {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
+  letter-spacing: 0.5px;
   font-weight: 600;
   color: #000;
   margin: 0 0 20px 0;
@@ -2071,18 +2107,19 @@ nav ul li a.active {
 
 .footer-column ul li a {
   color: #828282;
-  font-size: 18px;
-  line-height: 22px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  font-family: "Inter Tight", sans-serif;
   text-decoration: none;
 
 }
 
 .contact-info p {
   color: #828282;
-  font-size: 18px;
-  line-height: 22px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "Inter Tight", sans-serif;
   text-decoration: none;
   margin-bottom: 20px;
 
@@ -2113,7 +2150,8 @@ nav ul li a.active {
 .footer-bottom p {
   font-size: 16px;
   line-height: 22px;
-  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.5px;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 400;
   color: #828282;
 }
@@ -2199,18 +2237,18 @@ nav ul li a.active {
 
 .hero-text h2 {
   color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   font-weight: 200;
-  font-size: 52px;
-  line-height: 56px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .hero-text h1 {
   font-weight: 600;
-  font-size: 50px;
-  line-height: 50px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-family: "Inter Tight", sans-serif;
   color: #ffffff;
   margin-bottom: 10px;
 }
@@ -2218,8 +2256,8 @@ nav ul li a.active {
 .hero-text p {
   color: #FFFFFF;
   font-size: 18px;
-  line-height: 22px;
-  font-family: "Barlow Condensed", sans-serif;
+  line-height: 24px;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 400;
   max-width: 550px;
   margin-bottom: 30px;
@@ -2270,11 +2308,12 @@ nav ul li a.active {
 
 .inner-banner h1 {
   font-weight: 600;
-  font-size: 56px;
-  line-height: 56px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: 48px;
+  line-height: 60px;
+  letter-spacing: 0.5px;
+  font-family: "Inter Tight", sans-serif;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .breadcrumb {
@@ -2284,19 +2323,20 @@ nav ul li a.active {
 .breadcrumb span {
   color: #fff;
   text-decoration: none;
-  font-family: "Barlow Condensed", sans-serif;
-  color: #ffffff;
-  font-size: 22px;
-  line-height: 26px;
+  font-family: "Inter Tight", sans-serif;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .breadcrumb a {
   color: #fff;
   text-decoration: none;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #ffffff;
-  font-size: 22px;
-  line-height: 26px;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .breadcrumb .separator {
@@ -2351,13 +2391,14 @@ section.about-intro {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 14px;
-  line-height: 14px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
   display: inline-block;
   position: relative;
   margin-top: 0px;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
+  text-transform: uppercase;
 }
 
 .about-intro-content .about-tag::before {
@@ -2378,15 +2419,16 @@ section.about-intro {
 .about-intro-content h2 {
   color: #000;
   margin-bottom: 0;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 28px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.5px !important;
   font-weight: 400;
-  line-height: 36px;
+  line-height: 30px;
 }
 
 .about-intro-content h2 strong {
 
-  font-weight: 400;
+  font-weight: 600;
 }
 
 section.about-founders {
@@ -2396,10 +2438,11 @@ section.about-founders {
 }
 
 .about-founders .founders-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   margin-bottom: 0;
-  font-size: 40px;
-  line-height: 48px;
+  font-size: 48px;
+  letter-spacing: 0.5px !important;
+  line-height: 52px;
   font-weight: 400;
   color: #000000;
   margin-bottom: 50px;
@@ -2470,16 +2513,16 @@ section.about-founders {
   text-wrap: balance;
   max-width: 190px;
   margin: 0 auto;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
 }
 
 .founder-name {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 24px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #000;
   font-weight: 500;
   max-width: 190px;
@@ -2504,15 +2547,15 @@ section.intro-section.mission-statement {
 }
 
 section.intro-section.mission-statement .about-intro-content h2 {
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: 20px;
 }
 
 .intro-section.mission-statement .about-intro-content p {
   color: #525252;
-  font-size: 18px;
-  line-height: 22px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 400;
   max-width: 550px;
   margin-bottom: 30px;
@@ -2549,11 +2592,13 @@ section.intro-section.mission-statement .about-intro-content h2 {
   background: #fff;
   border-radius: 5px;
   color: #c93a1d;
-  font-size: 12px;
-  padding: 4px 12px;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+  letter-spacing: 0.5px !important;
   display: inline-block;
   margin-bottom: 15px;
-
+  text-transform: uppercase;
 }
 
 .vision-header h2 {
@@ -2599,7 +2644,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
 .vision-card-content h3 {
   font-size: 28px;
   line-height: 34px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 500;
   color: #000;
   position: relative;
@@ -2633,10 +2678,10 @@ section.intro-section.mission-statement .about-intro-content h2 {
 
 .vision-tag {
   position: relative;
-  padding: 5px 10px;
+  padding: 8px 16px;
   margin-bottom: 10px;
   display: inline-block;
-
+  text-transform: uppercase;
 }
 
 .vision-tag span {
@@ -2648,15 +2693,15 @@ section.intro-section.mission-statement .about-intro-content h2 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   z-index: 1;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .vision-header h2 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
-  font-weight: 300;
-  text-transform: capitalize;
+  font-weight: 400;
+  text-transform: none;
   margin-bottom: 30px;
 }
 
@@ -2672,7 +2717,7 @@ section.global-cta {
 
 .vision-card-content p {
   color: #525252;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -2685,15 +2730,15 @@ a.read-more-btn {
 }
 
 .global-cta-content h2 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   margin-bottom: 0;
   font-size: 42px;
   line-height: 50px;
   font-weight: 500;
   color: #fff;
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: 50px;
-  letter-spacing: 0;
+  letter-spacing: 0.5px !important;
 }
 
 .contact-section {
@@ -2709,7 +2754,7 @@ a.read-more-btn {
 
 .contact-content {
   display: flex;
-  gap: 60px;
+  gap: 40px;
   margin-top: 25px;
   align-items: flex-start;
 }
@@ -2751,7 +2796,8 @@ a.read-more-btn {
   display: flex;
   gap: 15px;
   margin-bottom: 20px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
+  letter-spacing: 0.5px !important;
 
 }
 
@@ -2761,18 +2807,18 @@ a.read-more-btn {
   color: #5F5F5F;
   font-weight: 400;
   /* light */
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .info-row p {
-  margin: 4px 0 0;
+
   color: #000000;
   width: 600px;
   font-size: 18px;
   font-weight: 500;
   /* bold */
   width: 276px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 a.service-card {
@@ -2792,7 +2838,7 @@ a.service-card {
   font-weight: 600;
   display: block;
   margin-bottom: 6px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .contact-form input,
@@ -2802,7 +2848,7 @@ a.service-card {
   border: 1px solid #ddd;
   margin-bottom: 20px;
   outline: none;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   border-radius: 5px;
 }
 
@@ -2906,7 +2952,7 @@ a.service-card {
 /* Map Styling */
 .map-wrapper {
   width: 70%;
-  height: 400px;
+  height: 380px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -2978,7 +3024,7 @@ a.service-card {
 
 .contact-description-two {
   color: #525252;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -2996,7 +3042,7 @@ a.service-card {
   background: #fff;
   z-index: 1;
   margin-bottom: 15px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 /* Gradient Border */
@@ -3025,7 +3071,7 @@ a.service-card {
 .register-form {
   margin-top: 30px;
   max-width: 520px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 /* GRID */
@@ -3045,7 +3091,7 @@ a.service-card {
 .form-group label {
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
   color: #111;
   margin-bottom: 6px;
 }
@@ -3064,7 +3110,7 @@ a.service-card {
   outline: none;
   background: #fff;
   transition: border 0.2s ease;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .form-group input::placeholder,
@@ -3121,7 +3167,7 @@ a.service-card {
   width: 100%;
   padding: 80px 0;
   background: #faf9f7;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   float: left;
 }
 
@@ -3181,14 +3227,14 @@ a.service-card {
 }
 
 .sub-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 /* ===============================
    MATRIMONIAL PERSONAL INFO PAGE
 ================================ */
 .sub-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   color: #666;
   margin-top: 12px;
@@ -3201,7 +3247,7 @@ a.service-card {
 }
 
 .no-profiles-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   color: #666;
   margin-bottom: 25px;
@@ -3244,7 +3290,7 @@ a.service-card {
 }
 
 .profile-list-name {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: #222;
@@ -3252,14 +3298,14 @@ a.service-card {
 }
 
 .profile-list-details {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0 0 5px 0;
 }
 
 .profile-list-age {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0;
@@ -3270,7 +3316,7 @@ a.service-card {
 }
 
 .error-message {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #d32f2f;
   background: #ffebee;
   padding: 12px 20px;
@@ -3303,7 +3349,7 @@ a.service-card {
 }
 
 .radio-group label {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #333;
@@ -3321,7 +3367,7 @@ a.service-card {
 .business-directory {
   padding: 60px 0;
   background: #fff;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 
 }
 
@@ -3388,6 +3434,7 @@ a.service-card {
 .directory-table {
   width: 100%;
   border-collapse: collapse;
+  letter-spacing: 0.5px;
   font-size: 14px;
 }
 
@@ -3486,7 +3533,7 @@ a.service-card {
   margin: 0;
   padding: 50px 0 0;
   text-align: left;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 /* --------------------- LABEL --------------------- */
@@ -3498,8 +3545,9 @@ a.service-card {
   z-index: 1;
   color: #525252;
   margin-bottom: 10px;
-  padding: 8px 16px;
-  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.5px;
+  padding: 12px 16px;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -3527,7 +3575,8 @@ a.service-card {
 
 /* --------------------- TITLE --------------------- */
 .business-hero-title {
-  font-size: 54px;
+  font-size: 48px;
+  line-height: 52px;
   font-weight: 400;
   color: #222;
   margin-bottom: 15px;
@@ -3556,6 +3605,7 @@ a.service-card {
 .business-hero-actions input {
   width: 240px;
   height: 48px;
+  letter-spacing: 0.5px;
   border-radius: 5px;
   padding: 0 16px;
   font-size: 14px;
@@ -3574,13 +3624,13 @@ a.service-card {
   border: none;
   text-decoration: none;
   padding: 15px 30px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   align-items: center;
   gap: 8px;
-  font-family: "Barlow Condensed", sans-serif;
-  text-transform: uppercase;
+  font-family: "Inter Tight", sans-serif;
+  text-transform: none;
   border-radius: 4px;
   transition: opacity 0.3s ease;
 }
@@ -3622,7 +3672,7 @@ a.service-card {
 
 .contact-form label {
   margin-bottom: 6px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 600;
   display: block;
@@ -3637,22 +3687,22 @@ a.service-card {
 .contact-info-box .info-row {
   gap: 22px;
   margin-bottom: 20px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   display: flex;
 }
 
 .info-row h4 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   color: #5F5F5F;
   font-weight: 500;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 
 .service-card h3 {
-  text-transform: uppercase;
-  font-family: "Barlow Condensed", sans-serif;
+  text-transform: none;
+  font-family: "Inter Tight", sans-serif;
   font-size: 26px;
   font-weight: 500;
   line-height: 36px;
@@ -3662,7 +3712,7 @@ a.service-card {
 
 main.main-content h1,
 main.main-content p {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .form-group label {
@@ -3680,8 +3730,9 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 .contact-info p strong {
   color: #444;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
+  letter-spacing: 0.5px;
   font-weight: 600;
   grid-template-columns: 2fr;
   line-height: 22px;
@@ -3721,9 +3772,9 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   color: #fff;
   font-size: 18px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.3px !important;
   cursor: pointer;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 /* ===============================
@@ -3806,11 +3857,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .profile-id {
   font-size: 13px;
   color: #999;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 500;
   margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .profile-name {
@@ -3818,15 +3869,15 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   font-weight: 600;
   margin: 8px 0;
   color: #222;
-  font-family: "Barlow Condensed", sans-serif;
-  text-transform: capitalize;
+  font-family: "Inter Tight", sans-serif;
+  text-transform: none;
 }
 
 .profile-dob,
 .profile-info {
   font-size: 14px;
   color: #666;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   margin: 4px 0;
   line-height: 1.5;
 }
@@ -3858,7 +3909,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #333;
 }
 
@@ -3881,7 +3932,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 
 .pagination span {
   font-size: 15px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 
@@ -3938,7 +3989,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   text-transform: uppercase;
   border-radius: 4px;
   transition: opacity 0.3s ease;
@@ -3979,9 +4030,9 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   transition: all 0.2s ease;
-  text-transform: capitalize;
+  text-transform: uppercase;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -3995,7 +4046,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 }
 
 .desktop-nav ul {
-  gap: 7px !important;
+  gap: 5px !important;
 }
 
 .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
@@ -4048,7 +4099,7 @@ span[style*="border-left"] {
   margin-top: 8px;
   margin-bottom: 40px;
   border-collapse: collapse;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .donations-table thead {
@@ -4062,9 +4113,9 @@ span[style*="border-left"] {
   font-size: 18px;
   color: #fff;
   border: none;
-  font-family: "Barlow Condensed", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-family: "Inter Tight", sans-serif;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .donations-table th:first-child {
@@ -4081,7 +4132,8 @@ span[style*="border-left"] {
   border-bottom: 1px solid #f0f0f0;
   font-size: 18px;
   color: #333;
-  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.5px !important;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 400;
 }
 
@@ -4110,17 +4162,17 @@ span[style*="border-left"] {
 }
 
 .qr-section h3 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: #333;
   margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .qr-subtitle {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   color: #666;
   margin: 0 0 25px 0;
@@ -4249,7 +4301,7 @@ span[style*="border-left"] {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
@@ -4280,7 +4332,7 @@ span[style*="border-left"] {
   color: #333;
   margin-bottom: 20px;
   line-height: 1.2;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   text-align: left;
 }
 
@@ -4293,7 +4345,7 @@ span[style*="border-left"] {
   color: #666;
   line-height: 1.6;
   margin-bottom: 30px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .read-more-btn {
@@ -4303,10 +4355,10 @@ span[style*="border-left"] {
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
   transition: transform 0.3s ease;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   cursor: pointer;
   border-radius: 5px;
   border: none;
@@ -8713,6 +8765,7 @@ span[style*="border-left"] {
       padding: 3px 8px;
       font-size: 9px;
       margin-bottom: 8px;
+      text-transform: uppercase;
     }
 
     .contact-title {
@@ -8940,6 +8993,7 @@ span[style*="border-left"] {
       padding: 2px 5px;
       font-size: 9px;
       margin-bottom: 5px;
+      text-transform: uppercase;
     }
 
     .directory-title {
@@ -9195,7 +9249,7 @@ span[style*="border-left"] {
   .donate-section {
     padding: 80px 0;
     background: #fff;
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Inter Tight", sans-serif;
     width: 100%;
     float: left;
   }
@@ -9244,7 +9298,7 @@ span[style*="border-left"] {
   .donations-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Inter Tight", sans-serif;
   }
 
   .donations-table thead {
@@ -9258,9 +9312,9 @@ span[style*="border-left"] {
     font-size: 18px;
     color: #fff;
     border: none;
-    font-family: "Barlow Condensed", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-family: "Inter Tight", sans-serif;
+    text-transform: none;
+    letter-spacing: 0.3px !important;
   }
 
   .donations-table th:first-child {
@@ -9277,7 +9331,7 @@ span[style*="border-left"] {
     border-bottom: 1px solid #f0f0f0;
     font-size: 18px;
     color: #333;
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-weight: 400;
   }
 
@@ -9305,17 +9359,17 @@ span[style*="border-left"] {
   }
 
   .qr-section h3 {
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-size: 28px;
     font-weight: 600;
     color: #333;
     margin: 0 0 10px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    text-transform: none;
+    letter-spacing: 0.3px !important;
   }
 
   .qr-subtitle {
-    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Inter Tight", sans-serif;
     font-size: 15px;
     color: #666;
     margin: 0 0 25px 0;
@@ -9451,11 +9505,11 @@ span[style*="border-left"] {
 }
 
 .user-profile-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   color: #000;
   margin: 0;
   flex: 1;
@@ -9463,11 +9517,11 @@ span[style*="border-left"] {
 }
 
 .user-profile-btn {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
   border: 1px solid #B9252F;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   color: #fff;
@@ -9523,11 +9577,11 @@ span[style*="border-left"] {
 }
 
 .header-section .header-title-center {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
-  line-height: 48px;
+  line-height: 52px;
   font-weight: 500;
-  text-transform: capitalize;
+  text-transform: none;
   margin-bottom: 30px;
 }
 
@@ -9537,7 +9591,7 @@ span[style*="border-left"] {
   color: #333;
   margin-bottom: 20px;
   line-height: 1.2;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   text-align: center;
 }
 
@@ -9573,15 +9627,15 @@ span[style*="border-left"] {
   border: 2px solid #b9252f;
   background: #fff;
   color: #b9252f;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.3s ease;
   min-width: 150px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
 }
 
 
@@ -9598,7 +9652,7 @@ span[style*="border-left"] {
 .marital-status-filter {
   text-align: center;
   margin: 20px 0;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .age-filter label,
@@ -9607,7 +9661,7 @@ span[style*="border-left"] {
   font-weight: 600;
   color: #333;
   margin-right: 12px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .age-filter input,
@@ -9616,7 +9670,7 @@ span[style*="border-left"] {
   border: 2px solid #ddd;
   border-radius: 4px;
   font-size: 15px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   transition: border-color 0.3s ease;
   outline: none;
 }
@@ -9736,12 +9790,12 @@ span[style*="border-left"] {
 }
 
 .filter-bar-label {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: #444;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
   white-space: nowrap;
   margin: 0;
 }
@@ -9756,19 +9810,20 @@ span[style*="border-left"] {
   color: #525252;
   margin-bottom: 10px;
   padding: 8px 16px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 14px;
   display: inline-block;
   position: relative;
   margin-top: 0;
   font-weight: 400 !important;
+  text-transform: uppercase;
   border-radius: 5px;
 }
 
 /* Shared input / select styling */
 .filter-bar-input {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   color: #333;
   padding: 9px 12px;
@@ -9806,7 +9861,7 @@ span[style*="border-left"] {
 
 /* "to" separator between age inputs */
 .filter-bar-sep {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   color: #888;
   font-weight: 500;
@@ -9941,7 +9996,9 @@ span[style*="border-left"] {
   opacity: 0.95;
 }
 
-
+.contact-info-box {
+  margin-top: 35px;
+}
 
 /* ===============================
    EDIT BUSINESS FORM STYLES
@@ -9949,13 +10006,13 @@ span[style*="border-left"] {
 .eb-loading {
   padding: 100px 0;
   text-align: center;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   color: #666;
 }
 
 .eb-form {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   width: 100%;
   display: block;
 }
@@ -10051,12 +10108,12 @@ span[style*="border-left"] {
 /* Label */
 .eb-label {
   display: block;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #444;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
   margin-bottom: 8px;
   padding: 1px 0;
 }
@@ -10074,7 +10131,7 @@ span[style*="border-left"] {
   border: 1px solid #ddd;
   border-radius: 4px;
   background: #fff;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   color: #333;
   box-sizing: border-box;
@@ -10139,7 +10196,7 @@ span[style*="border-left"] {
   font-size: 12px;
   color: #888;
   margin-top: 6px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 /* File upload row */
@@ -10161,7 +10218,7 @@ span[style*="border-left"] {
 }
 
 .eb-file-name {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   color: #555;
 }
@@ -10254,10 +10311,10 @@ span[style*="border-left"] {
   border: 1px solid #666666 !important;
   padding: 0px 21px 10px 21px !important;
   border-radius: 32px !important;
-  font-family: "Barlow Condensed", sans-serif !important;
+  font-family: "Inter Tight", sans-serif !important;
   font-size: 24px !important;
   font-weight: 500 !important;
-  text-transform: uppercase !important;
+  text-transform: none !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
 }
@@ -10269,7 +10326,7 @@ span[style*="border-left"] {
 .goog-te-gadget-simple a {
   color: #fff !important;
   text-decoration: none !important;
-  font-family: "Barlow Condensed", sans-serif !important;
+  font-family: "Inter Tight", sans-serif !important;
   font-size: 14px !important;
   font-weight: 500 !important;
 }
@@ -10291,7 +10348,7 @@ span[style*="border-left"] {
 }
 
 .goog-te-gadget {
-  font-family: "Barlow Condensed", sans-serif !important;
+  font-family: "Inter Tight", sans-serif !important;
   color: #fff !important;
 }
 
@@ -10315,7 +10372,7 @@ span[style*="border-left"] {
   cursor: pointer;
   background: transparent;
   font-weight: 500;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 
@@ -10330,8 +10387,8 @@ span[style*="border-left"] {
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .status-badge.pending {
@@ -10421,7 +10478,7 @@ span[style*="border-left"] {
    MATRIMONIAL PERSONAL INFO PAGE
 ================================ */
 .sub-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   color: #666;
   margin-top: 12px;
@@ -10434,7 +10491,7 @@ span[style*="border-left"] {
 }
 
 .no-profiles-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   color: #666;
   margin-bottom: 25px;
@@ -10477,7 +10534,7 @@ span[style*="border-left"] {
 }
 
 .profile-list-name {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 22px;
   font-weight: 600;
   color: #222;
@@ -10485,14 +10542,14 @@ span[style*="border-left"] {
 }
 
 .profile-list-details {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0 0 5px 0;
 }
 
 .profile-list-age {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   color: #666;
   margin: 0;
@@ -10503,7 +10560,7 @@ span[style*="border-left"] {
 }
 
 .error-message {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   color: #d32f2f;
   background: #ffebee;
   padding: 12px 20px;
@@ -10536,7 +10593,7 @@ span[style*="border-left"] {
 }
 
 .radio-group label {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #333;
@@ -10565,10 +10622,10 @@ span[style*="border-left"] {
 }
 
 .user-profile-btn {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   border: 1px solid #b9252f;
   background: linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%);
   color: #fff;
@@ -10576,7 +10633,7 @@ span[style*="border-left"] {
   border-radius: 4px;
   transition: all 0.3s ease;
   cursor: pointer;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
 }
 
 
@@ -10593,9 +10650,9 @@ span[style*="border-left"] {
   border-radius: 20px;
   font-size: 11px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: "Barlow Condensed", sans-serif;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
+  font-family: "Inter Tight", sans-serif;
   z-index: 2;
 }
 
@@ -10621,23 +10678,23 @@ span[style*="border-left"] {
 .no-profiles-state {
   text-align: center;
   padding: 120px 20px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .no-profiles-state h2 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 42px;
   font-weight: 600;
   color: #222;
   margin-bottom: 20px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .no-profiles-state p {
   font-size: 18px;
   color: #666;
   margin-bottom: 35px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   line-height: 1.6;
 }
 
@@ -10645,11 +10702,11 @@ span[style*="border-left"] {
 .profile-loading {
   text-align: center;
   padding: 100px 20px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .profile-loading h2 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 32px;
   font-weight: 500;
   color: #666;
@@ -10660,7 +10717,7 @@ span[style*="border-left"] {
 ================================ */
 .my-business-section {
   padding: 80px 0;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .no-business-container {
@@ -10668,7 +10725,7 @@ span[style*="border-left"] {
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .no-business-container h2 {
@@ -10901,14 +10958,14 @@ span[style*="border-left"] {
     gap: 20px;
     display: flex;
     width: 100%;
-    max-width: 1280px;
+    max-width: 1200px;
     margin: auto;
-    padding: 0 20px;
+    padding: 0 0px;
   }
 
   .map-wrapper {
     width: 70%;
-    height: 400px;
+    height: 370px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -10917,7 +10974,7 @@ span[style*="border-left"] {
   .qr-map {
     width: 30%;
     height: auto;
-    min-height: 370px;
+    min-height: 340px;
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -11146,6 +11203,7 @@ span[style*="border-left"] {
   .footer-left p {
     color: #686868;
     font-size: 16px;
+    letter-spacing: 0.5px;
     line-height: 22px;
     max-width: 325px;
   }
@@ -11556,14 +11614,14 @@ span[style*="border-left"] {
 }
 
 .user-profile-sticky-section .business-name {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 24px;
   line-height: 28px;
   font-weight: 600;
   color: #B9252F;
   margin: 0;
   text-align: center;
-  text-transform: capitalize;
+  text-transform: none;
   word-wrap: break-word;
 }
 
@@ -11603,14 +11661,13 @@ span[style*="border-left"] {
 .section-title {
   background: linear-gradient(90deg, #9B2F3F 0%, #C9353F 50%, #9B2F3F 100%);
   color: #ffffff;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 18px;
   font-weight: 600;
   padding: 12px 20px;
   border-radius: 8px 8px 0 0;
   margin: 0 0 20px 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
   display: inline-block;
 }
 
@@ -11683,12 +11740,12 @@ span[style*="border-left"] {
 .user-profile-sticky-section .profile-id {
   display: block;
   text-align: center;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   color: #999;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 @media (max-width: 767px) {
@@ -11705,7 +11762,7 @@ span[style*="border-left"] {
   padding: 80px 0;
   background-color: #faf7f3;
   width: 100%;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .my-matrimony-section .container {
@@ -11720,17 +11777,17 @@ span[style*="border-left"] {
 }
 
 .my-matrimony-section .user-profile-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
   font-weight: 500;
   color: #8B2635;
   margin: 0 0 15px 0;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .my-matrimony-section .sub-text {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   color: #666;
   margin: 0 0 30px 0;
@@ -11744,10 +11801,10 @@ span[style*="border-left"] {
 }
 
 .create-profile-section .user-profile-btn {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   border: none;
   background: linear-gradient(180deg, #ff8a1f 0%, #d45a00 100%);
   color: #fff;
@@ -11755,7 +11812,7 @@ span[style*="border-left"] {
   border-radius: 4px;
   transition: all 0.3s ease;
   cursor: pointer;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -11801,16 +11858,16 @@ span[style*="border-left"] {
 }
 
 .profile-list-name {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 26px;
   font-weight: 600;
   color: #222;
   margin: 0 0 12px 0;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .profile-list-details {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   color: #666;
   margin: 0 0 8px 0;
@@ -11818,7 +11875,7 @@ span[style*="border-left"] {
 }
 
 .profile-list-age {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 15px;
   color: #666;
   margin: 0;
@@ -11826,10 +11883,10 @@ span[style*="border-left"] {
 
 /* Edit Button */
 .profile-list-actions .user-profile-btn {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   border: none;
   background: linear-gradient(180deg, #ff8a1f 0%, #d45a00 100%);
   color: #fff;
@@ -11837,7 +11894,7 @@ span[style*="border-left"] {
   border-radius: 4px;
   transition: all 0.3s ease;
   cursor: pointer;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -11852,23 +11909,23 @@ span[style*="border-left"] {
 .no-profiles-state {
   text-align: center;
   padding: 80px 20px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
 }
 
 .no-profiles-state h2 {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 36px;
   font-weight: 600;
   color: #222;
   margin-bottom: 15px;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 .no-profiles-state p {
   font-size: 16px;
   color: #666;
   margin-bottom: 30px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   line-height: 1.6;
 }
 
@@ -12090,7 +12147,7 @@ span[style*="border-left"] {
   border: 1px solid #e5e5e5;
   border-radius: 8px;
   color: #333;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -12137,7 +12194,7 @@ span[style*="border-left"] {
   .footer-nav-btn {
     font-size: 13px;
     padding: 10px 8px;
-    letter-spacing: -0.2px;
+    letter-spacing: 0.3px !important;
   }
 }
 
@@ -12159,26 +12216,26 @@ span[style*="border-left"] {
 
 .business-drawer-category {
   display: block;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   color: #888;
   margin-bottom: 8px;
-  text-transform: capitalize;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 .business-drawer-title {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 52px;
   line-height: 1;
   font-weight: 700;
   color: #111;
   margin: 0;
-  letter-spacing: -0.5px;
+  letter-spacing: 0.3px !important;
 }
 
 .business-drawer-description {
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   line-height: 1.8;
   color: #555;
@@ -12214,10 +12271,10 @@ span[style*="border-left"] {
 
 .business-drawer-detail-label {
   font-size: 12px;
-  text-transform: uppercase;
+  text-transform: none;
   font-weight: 600;
   color: #aaa;
-  letter-spacing: 1px;
+  letter-spacing: 0.3px !important;
 }
 
 .business-drawer-detail-value {
@@ -12384,7 +12441,7 @@ span[style*="border-left"] {
 .business-name {
   margin: 0 0 10px 0;
   font-size: 24px;
-  font-family: "Barlow Condensed", sans-serif;
+  font-family: "Inter Tight", sans-serif;
   font-weight: 600;
   color: #222;
 }
@@ -12430,8 +12487,8 @@ span[style*="border-left"] {
   color: #666;
   margin-bottom: 5px;
   font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-transform: none;
+  letter-spacing: 0.3px !important;
 }
 
 /* ===============================
@@ -12571,8 +12628,8 @@ span[style*="border-left"] {
     padding: 12px 20px !important;
     border-radius: 8px 8px 0 0 !important;
     margin: 0 0 20px 0 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
+    text-transform: none !important;
+    letter-spacing: 0.3px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     display: block !important;
@@ -12586,5 +12643,80 @@ span[style*="border-left"] {
 
   .user-profile-card {
     padding: 12px;
+  }
+}
+
+/* ===============================
+   HOME PAGE POPUP
+================================ */
+.home-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  backdrop-filter: blur(5px);
+}
+
+.home-popup-content {
+  position: relative;
+  background: transparent;
+  max-width: 90%;
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: popupFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.home-popup-image {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.home-popup-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(180deg, #C9353F 0%, #9B2F3F 100%);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 2;
+}
+
+.home-popup-close:hover {
+  transform: scale(1.1);
+  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

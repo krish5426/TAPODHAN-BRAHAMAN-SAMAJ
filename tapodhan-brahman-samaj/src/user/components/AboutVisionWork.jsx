@@ -9,7 +9,7 @@ const AboutVisionWork = () => {
       <div className="container">
 
         <div className="vision-header">
-          <h4 className="vision-tag"><span>Vision & Our Work</span></h4>
+          <h4 className="vision-tag"><span>VISION & OUR WORK</span></h4>
           <h2>
             To build a <strong>strong, united,</strong> and
             <br />

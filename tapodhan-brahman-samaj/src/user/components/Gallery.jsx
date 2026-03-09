@@ -46,7 +46,7 @@ const Gallery = () => {
     <section className="gallery-section">
       <div className="container">
         <div className="header-section">
-          <span className="header-label">GALLARY</span>
+          <span className="header-label">Gallary</span>
           <h2 className="header-title-center">
             <strong> Capturing </strong><span>Our</span><br />
             <span>Community </span><strong>Spirit</strong>

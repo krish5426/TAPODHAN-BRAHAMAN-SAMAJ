@@ -66,9 +66,9 @@ const DonateSection = () => {
     <section className="donate-section">
       <div className="container">
         <div className="header-section">
-          <span className="header-label header-label-left">SUPPORT US</span>
+          <span className="header-label">Support Us</span>
           <h2 className="header-title">
-            <strong><span>YOUR</span> CONTRIBUTION <span>MAKES A</span> DIFFERENCE</strong>
+            <strong><span>Your</span> Contribution <span>Makes A</span> Difference</strong>
           </h2>
         </div>
 
@@ -110,7 +110,7 @@ const DonateSection = () => {
 
           <div className="donate-right">
             <div className="qr-section">
-              <h3>HDFC BANK</h3>
+              <h3>HDFC Bank</h3>
               <p className="qr-subtitle">QR Code for direct donations transfer</p>
               <div className="qr-image">
                 <img src={donationQR} alt="HDFC Bank QR Code" />

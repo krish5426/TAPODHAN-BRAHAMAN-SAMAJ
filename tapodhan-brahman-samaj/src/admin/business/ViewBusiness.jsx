@@ -122,7 +122,7 @@ function ViewBusiness() {
                                             variant="button" 
                                             color={business.status === 'pending' ? 'warning' : business.status === 'approved' ? 'success' : 'error'} 
                                             fontWeight="medium"
-                                            sx={{ textTransform: 'capitalize' }}
+                                            sx={{ textTransform: 'none' }}
                                         >
                                             {business.status}
                                         </MDTypography>

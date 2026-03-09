@@ -74,13 +74,31 @@ const Header = () => {
 
   return (
     <>
-      <Link to="/announcements" className="top-announcement-bar">
-        <div className="container">
-          <div className="announcement-bar-content">
+      <div className="top-announcement-bar">
+        <div className="container announcement-container">
+          <Link to="/announcements" className="announcement-link">
             <span className="announcement-text">New Announcement: Tapodhan Akshay Patram!</span>
-          </div>
+          </Link>
+          <a
+            href="/shiv-mahapuran-parayan.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="announcement-link"
+          >
+            <span className="announcement-text shiv-parayan-text notranslate" translate="no">
+              {"Shiv Mahapuran Parayan".split("").map((letter, index) => (
+                <span
+                  key={index}
+                  className="txt-animate"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </span>
+              ))}
+            </span>
+          </a>
         </div>
-      </Link>
+      </div>
 
       <header className={`header ${scrolled ? 'header-alt' : ''}`}>
         <div className="container">

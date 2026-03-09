@@ -48,7 +48,7 @@ function DataTableHeadCell({ width, children, sorted, align, ...rest }) {
         sx={({ typography: { size, fontWeightBold } }) => ({
           fontSize: size.xxs,
           fontWeight: fontWeightBold,
-          textTransform: "uppercase",
+          textTransform: 'none',
           cursor: sorted && "pointer",
           userSelect: sorted && "none",
         })}
@@ -103,3 +103,5 @@ DataTableHeadCell.propTypes = {
 };
 
 export default DataTableHeadCell;
+
+

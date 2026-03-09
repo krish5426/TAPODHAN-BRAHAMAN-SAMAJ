@@ -111,7 +111,7 @@ function EditProfile() {
                     </div>
                     
                     <div className="user-profile-card">
-                        <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Barlow Condensed", sans-serif' }}>
+                        <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Inter Tight", sans-serif' }}>
                             <div style={{ marginBottom: '25px' }}>
                                 <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>First Name *</label>
                                 <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />

@@ -78,7 +78,7 @@ nav ul li a:hover {
     border: 1px solid #666666;
     padding: 17px 40px;
     background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
-    letter-spacing: 0;
+    letter-spacing: 0.3px !important;
     transition: all 0.3s;
     display: inline-block;
 }
@@ -340,3 +340,5 @@ nav ul li a:hover {
         height: 2.5px;
     }
 }
+
+

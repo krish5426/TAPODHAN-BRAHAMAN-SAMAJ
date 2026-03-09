@@ -119,7 +119,7 @@ export default function Businesscontact() {
 
           {/* HERO SECTION */}
           <div className="business-hero">
-            <span className="business-hero-label">BUSINESS GROW</span>
+            <span className="business-hero-label">Business Grow</span>
             <h1 className="business-hero-title">
               Connecting <span>Businesses</span>.<br />
               Creating <span>Growth</span>.
