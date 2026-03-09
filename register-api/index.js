@@ -23,12 +23,12 @@ const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mys
 ========================= */
 app.use(cors({
   origin: [
-
-    // "https://tapodhanbrahmansamaj.com",
-    //"https://www.tapodhanbrahmansamaj.com",
-
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+    "http://localhost:5175",
+    "http://127.0.0.1:5175",
     "http://localhost:3000",
     "http://127.0.0.1:3000"
   ],
@@ -726,30 +726,86 @@ app.post("/forgot-password", async (req, res) => {
     await User.saveOtp(user.id, otp, expiry);
 
     if (isEmail) {
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST || 'smtp.hostinger.com',
-        port: process.env.SMTP_PORT || 465,
-        secure: process.env.SMTP_PORT == 465, // Use `true` for port 465, `false` for all other ports
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS
+      const smtpHost = process.env.SMTP_HOST;
+      const smtpUser = process.env.SMTP_USER;
+      const smtpPass = process.env.SMTP_PASS;
+      const brevoApiKey = process.env.BREVO_API_KEY;
+
+      if (smtpHost && smtpUser && smtpPass) {
+        // Use SMTP if configured
+        try {
+          const smtpPort = parseInt(process.env.SMTP_PORT) || 465;
+          const transporter = nodemailer.createTransport({
+            host: smtpHost,
+            port: smtpPort,
+            secure: smtpPort === 465, // True for 465, false for others
+            auth: {
+              user: smtpUser,
+              pass: smtpPass
+            }
+          });
+
+          const mailOptions = {
+            from: `"Tapodhan Brahman Samaj" <${smtpUser}>`,
+            to: user.email,
+            subject: 'Password Reset OTP - Tapodhan Brahman Samaj',
+            html: `
+              <h3>Password Reset Request</h3>
+              <p>Dear ${user.firstName},</p>
+              <p>Your OTP for password reset is <strong>${otp}</strong>.</p>
+              <p>This OTP is valid for 15 minutes.</p>
+              <p>If you didn't request this, you can safely ignore this email.</p>
+            `
+          };
+
+          await transporter.sendMail(mailOptions);
+          console.log(`Password reset email sent to ${user.email} via SMTP`);
+        } catch (smtpError) {
+          console.error("SMTP Error:", smtpError.message);
+          // Fall through to Brevo or Dev fallback
         }
-      });
+      } else if (brevoApiKey) {
+        // Use Brevo API for Email if SMTP is not configured but Brevo is
+        try {
+          await axios.post(
+            'https://api.brevo.com/v3/smtp/email',
+            {
+              sender: { name: "Tapodhan Brahman Samaj", email: "noreply@tapodhanbrahmansamaj.com" },
+              to: [{ email: user.email, name: user.firstName }],
+              subject: "Password Reset OTP - Tapodhan Brahman Samaj",
+              htmlContent: `
+                <h3>Password Reset Request</h3>
+                <p>Dear ${user.firstName},</p>
+                <p>Your OTP for password reset is <strong>${otp}</strong>.</p>
+                <p>This OTP is valid for 15 minutes.</p>
+                <p>If you didn't request this, you can safely ignore this email.</p>
+              `
+            },
+            {
+              headers: {
+                'accept': 'application/json',
+                'api-key': brevoApiKey,
+                'content-type': 'application/json'
+              }
+            }
+          );
+          console.log(`Password reset email sent to ${user.email} via Brevo API`);
+          return res.json({ message: "OTP sent successfully via Email" });
+        } catch (brevoError) {
+          console.error("Brevo Email Error:", brevoError.response?.data || brevoError.message);
+          // Fall through to Dev fallback
+        }
+      }
 
-      const mailOptions = {
-        from: `"Tapodhan Brahman Samaj" <${process.env.SMTP_USER}>`,
-        to: user.email,
-        subject: 'Password Reset OTP - Tapodhan Brahman Samaj',
-        html: `
-          <h3>Password Reset Request</h3>
-          <p>Dear ${user.firstName},</p>
-          <p>Your OTP for password reset is <strong>${otp}</strong>.</p>
-          <p>This OTP is valid for 15 minutes.</p>
-          <p>If you didn't request this, you can safely ignore this email.</p>
-        `
-      };
-
-      await transporter.sendMail(mailOptions);
+      // If no mailing method worked/configured, fallback to dev response
+      if (!smtpUser && !brevoApiKey) {
+        console.warn("No email service (SMTP/Brevo) configured. Returning OTP in response for development.");
+        return res.json({ message: "OTP generated", devOtp: otp });
+      } else {
+        // Services were configured but failed
+        console.warn("Email services failed. Returning OTP in response for development.");
+        return res.json({ message: "OTP generated (Email delivery failed)", devOtp: otp });
+      }
     } else {
       // Send SMS via Brevo
       const brevoApiKey = process.env.BREVO_API_KEY;
@@ -1321,8 +1377,8 @@ app.post("/api/admin/business/import", authenticateToken, memoryUpload.single("f
             } else {
               // Create user if missing
               if (!userFirstName || !userMobile) {
-                 importSummary.errors.push(`Row ${i + 2}: User does not exist, but missing User First Name or Mobile to create one.`);
-                 continue;
+                importSummary.errors.push(`Row ${i + 2}: User does not exist, but missing User First Name or Mobile to create one.`);
+                continue;
               }
 
               // Password strategy: first 4 chars of firstname (lowercase) + last 4 chars of mobile
@@ -1373,8 +1429,8 @@ app.post("/api/admin/business/import", authenticateToken, memoryUpload.single("f
             importSummary.success++;
 
           } catch (rowError) {
-             console.error(`Bulk import error on row ${i + 2}:`, rowError);
-             importSummary.errors.push(`Row ${i + 2}: ${rowError.message}`);
+            console.error(`Bulk import error on row ${i + 2}:`, rowError);
+            importSummary.errors.push(`Row ${i + 2}: ${rowError.message}`);
           }
         }
 
