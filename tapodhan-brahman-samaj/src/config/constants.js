@@ -98,6 +98,5 @@ export const INDUSTRY_OPTIONS = [
     "Tourism",
     "Transportation",
     "Waste Management",
-    "Karm Kand",
     "Others"
 ];
