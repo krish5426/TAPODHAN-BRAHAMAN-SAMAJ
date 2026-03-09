@@ -4,7 +4,7 @@ import InnerBanner from '../components/InnerBanner';
 import CustomDialog from '../components/CustomDialog';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import API_BASE_URL, { API_ENDPOINTS } from '../../config/api';
-import { INDIAN_STATES } from '../../config/constants';
+import { INDIAN_STATES, INDUSTRY_OPTIONS } from '../../config/constants';
 
 const EditBusiness = () => {
   const [business, setBusiness] = useState(null);
@@ -218,26 +218,17 @@ const EditBusiness = () => {
                     ))}
                   </div>
                   <div className="eb-field">
-                    <label className="eb-label">Category</label>
+                    <label className="eb-label">Industry</label>
                     <select
                       name="category"
                       value={formData.category || ''}
                       onChange={handleInputChange}
                       className="eb-input eb-select"
                     >
-                      <option value="">Select Category</option>
-                      <option value="Restaurant">Restaurant</option>
-                      <option value="Shop">Shop</option>
-                      <option value="Service">Service</option>
-                      <option value="Freelancer">Freelancer</option>
-                      <option value="Education">Education</option>
-                      <option value="Consultancy">Consultancy</option>
-                      <option value="Medical & Health">Medical &amp; Health</option>
-                      <option value="Trading">Trading</option>
-                      <option value="Professional Services">Professional Services</option>
-                      <option value="Karm Kand">Karm Kand</option>
-                      <option value="Transport / Travel">Transport / Travel</option>
-                      <option value="Other">Other</option>
+                      <option value="">Select Industry</option>
+                      {INDUSTRY_OPTIONS.map((industry) => (
+                        <option key={industry} value={industry}>{industry}</option>
+                      ))}
                     </select>
                   </div>
                   <div className="eb-field">

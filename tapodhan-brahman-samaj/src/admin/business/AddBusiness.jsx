@@ -11,6 +11,7 @@ import AdminCustomDialog from "../components/AdminCustomDialog";
 import AdminLayout from "../layout/AdminLayout";
 import Header from "../layout/Header";
 import { createAdminBusiness } from "../services/api";
+import { INDUSTRY_OPTIONS } from "../../config/constants";
 
 function AddBusiness() {
     const navigate = useNavigate();
@@ -90,7 +91,7 @@ function AddBusiness() {
                                 <MDInput fullWidth label="Owner Name*" name="ownerName" value={formData.ownerName} onChange={handleChange} required />
                                 <MDInput
                                     select
-                                    label="Category"
+                                    label="Industry"
                                     name="category"
                                     value={formData.category}
                                     onChange={handleChange}
@@ -99,12 +100,10 @@ function AddBusiness() {
                                     InputLabelProps={{ shrink: true }}
                                     SelectProps={{ sx: { padding: '11px' } }}
                                 >
-                                    <MenuItem value="">Select Category</MenuItem>
-                                    <MenuItem value="Restaurant">Restaurant</MenuItem>
-                                    <MenuItem value="Shop">Shop</MenuItem>
-                                    <MenuItem value="Service">Service</MenuItem>
-                                    <MenuItem value="Freelancer">Freelancer</MenuItem>
-                                    <MenuItem value="Other">Other</MenuItem>
+                                    <MenuItem value="">Select Industry</MenuItem>
+                                    {INDUSTRY_OPTIONS.map((industry) => (
+                                        <MenuItem key={industry} value={industry}>{industry}</MenuItem>
+                                    ))}
                                 </MDInput>
                                 <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType} onChange={handleChange} />
                                 <MDInput

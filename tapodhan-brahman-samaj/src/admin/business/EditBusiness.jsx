@@ -14,6 +14,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/Save";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { fetchAdminBusinessById, updateAdminBusiness, API_URL } from "../services/api";
+import { MenuItem } from "@mui/material";
+import { INDUSTRY_OPTIONS } from "../../config/constants";
 
 function EditBusiness() {
     const { id } = useParams();
@@ -93,7 +95,22 @@ function EditBusiness() {
                         <MDInput fullWidth label="Email" name="email" value={formData.email || ""} onChange={handleChange} />
                         <MDInput fullWidth label="Contact Number" name="contactNumber" value={formData.contactNumber || ""} onChange={handleChange} />
                         <MDInput fullWidth label="Website" name="website" value={formData.website || ""} onChange={handleChange} />
-                        <MDInput fullWidth label="Category" name="category" value={formData.category || ""} onChange={handleChange} />
+                        <MDInput
+                            select
+                            label="Industry"
+                            name="category"
+                            value={formData.category || ""}
+                            onChange={handleChange}
+                            fullWidth
+                            type="text"
+                            InputLabelProps={{ shrink: true }}
+                            SelectProps={{ sx: { padding: '11px' } }}
+                        >
+                            <MenuItem value="">Select Industry</MenuItem>
+                            {INDUSTRY_OPTIONS.map((industry) => (
+                                <MenuItem key={industry} value={industry}>{industry}</MenuItem>
+                            ))}
+                        </MDInput>
                         <MDInput fullWidth label="Business Type" name="businessType" value={formData.businessType || ""} onChange={handleChange} />
                         <MDInput fullWidth label="City" name="city" value={formData.city || ""} onChange={handleChange} />
                         <MDInput fullWidth label="State" name="state" value={formData.state || ""} onChange={handleChange} />

@@ -174,7 +174,7 @@ function ViewBusiness() {
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <MDBox mb={2}>
-                                                <MDTypography variant="button" fontWeight="medium" color="text">Category</MDTypography>
+                                                <MDTypography variant="button" fontWeight="medium" color="text">Industry</MDTypography>
                                                 <MDTypography variant="body1">{business.category || 'N/A'}</MDTypography>
                                             </MDBox>
                                         </Grid>

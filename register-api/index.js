@@ -1335,8 +1335,8 @@ app.post("/api/admin/business/import", authenticateToken, memoryUpload.single("f
           try {
             // Trim keys in case of bad CSV headers
             const getCol = (name) => {
-              const key = Object.keys(row).find(k => k.trim() === name);
-              return key ? row[key].trim() : '';
+              const key = Object.keys(row).find(k => k.trim().replace(/\*$/, '').replace(/\r$/, '') === name);
+              return key ? row[key].replace(/\r$/, '').trim() : '';
             };
 
             const userFirstName = getCol('User First Name');
@@ -1349,7 +1349,35 @@ app.post("/api/admin/business/import", authenticateToken, memoryUpload.single("f
             const businessEmail = getCol('Business Email');
             const contactNumber = getCol('Contact Number');
             const address = getCol('Address');
-            const category = getCol('Category');
+
+            // --- DEBUG LOGS ---
+            console.log(`[CSV Import Debug] Row ${i+2}`);
+            console.log(`Raw keys:`, Object.keys(row));
+            console.log(`Parsed -> Business: "${businessName}", Owner: "${ownerName}", Contact: "${contactNumber}"`);
+            // ------------------
+
+            if (!businessName || !ownerName || !contactNumber) {
+              importSummary.errors.push(`Row ${i + 2}: Missing required business fields (Name, Owner, or Contact).`);
+              continue; // Skip this row
+            }
+
+            let category = getCol('Category');
+            const validIndustries = [
+              "Aerospace", "Agriculture", "Artificial Intelligence", "Architecture", "Automotive", "Banking",
+              "Beauty & Personal Care", "Biotechnology", "Blockchain", "Chemical Industry", "Construction",
+              "Consulting", "Consumer Electronics", "Cybersecurity", "Defense", "Education", "EdTech",
+              "Energy", "Event Management", "E-commerce", "Fashion & Apparel", "Finance", "FinTech",
+              "Fitness & Wellness", "FMCG (Fast-Moving Consumer Goods)", "Food & Beverage", "Furniture",
+              "Gaming", "Healthcare", "HealthTech", "Home Decor", "Hospitality", "Human Resources",
+              "Information Technology", "Insurance", "Interior Design", "Investment Management", "Legal Services",
+              "Logistics", "Manufacturing", "Marine Industry", "Marketing & Advertising", "Media & Entertainment",
+              "Mining", "Oil & Gas", "Pharmaceuticals", "Printing & Packaging", "Real Estate", "Renewable Energy",
+              "Research & Development", "Retail", "SaaS (Software as a Service)", "Software Development", "Sports",
+              "Staffing & Recruitment", "Telecommunications", "Textile", "Tourism", "Transportation", "Waste Management", "Others"
+            ];
+            const matchedCategory = validIndustries.find(ind => ind.toLowerCase() === (category || '').toLowerCase());
+            category = matchedCategory || 'Others';
+
             const businessType = getCol('Business Type');
             const description = getCol('Description');
             const website = getCol('Website');

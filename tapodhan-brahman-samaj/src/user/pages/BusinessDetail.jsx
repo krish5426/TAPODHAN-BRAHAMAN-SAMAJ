@@ -142,7 +142,7 @@ function BusinessDetail() {
                                             {business.businessType || 'N/A'}
                                         </div>
                                         <div className="business-info-item">
-                                            <strong>Category:</strong>
+                                            <strong>Industry:</strong>
                                             {business.category || 'N/A'}
                                         </div>
                                     </div>

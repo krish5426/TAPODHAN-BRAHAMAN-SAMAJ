@@ -151,7 +151,7 @@ function MyBusiness() {
                             City: {business.city || 'N/A'}
                           </p>
                           <p className="profile-info">
-                            Category: {business.category || 'N/A'}
+                            Industry: {business.category || 'N/A'}
                           </p>
                         </div>
                       </div>
