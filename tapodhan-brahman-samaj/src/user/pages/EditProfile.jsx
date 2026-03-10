@@ -109,27 +109,27 @@ function EditProfile() {
                     <div className="user-profile-header">
                         <h1 className="user-profile-title">Edit Profile</h1>
                     </div>
-                    
+
                     <div className="user-profile-card">
                         <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Inter Tight", sans-serif' }}>
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>First Name *</label>
-                                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>First Name *</label>
+                                <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', letterSpacing: '0.5px' }} />
                             </div>
 
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Last Name *</label>
-                                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>Last Name *</label>
+                                <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', letterSpacing: '0.5px' }} />
                             </div>
 
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Email Address</label>
-                                <input type="email" name="email" value={formData.email} disabled style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#f0f0f0', color: '#666', cursor: 'not-allowed' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>Email Address</label>
+                                <input type="email" name="email" value={formData.email} disabled style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#f0f0f0', color: '#666', cursor: 'not-allowed', letterSpacing: '0.5px' }} />
                             </div>
 
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Mobile Number</label>
-                                <input type="tel" name="mobile" value={formData.mobile} disabled style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#f0f0f0', color: '#666', cursor: 'not-allowed' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>Mobile Number</label>
+                                <input type="tel" name="mobile" value={formData.mobile} disabled style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#f0f0f0', color: '#666', cursor: 'not-allowed', letterSpacing: '0.5px' }} />
                             </div>
 
                             <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
@@ -140,7 +140,7 @@ function EditProfile() {
                     </div>
                 </div>
             </section>
-            <CustomDialog 
+            <CustomDialog
                 isOpen={dialog.isOpen}
                 message={dialog.message}
                 type={dialog.type}

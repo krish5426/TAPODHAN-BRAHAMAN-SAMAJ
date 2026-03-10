@@ -27,6 +27,7 @@
   align-items: center;
   text-decoration: none;
   cursor: pointer;
+  letter-spacing: 0.5px !important;
 }
 
 .announcement-text {
@@ -490,7 +491,7 @@ nav ul li a {
   font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   line-height: 20px;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
   font-weight: 500;
   color: #000000;
   text-decoration: none;
@@ -531,6 +532,7 @@ nav ul li a.active {
   background: linear-gradient(180deg, rgba(247, 141, 34, 1) 0%, rgba(189, 64, 6, 1) 69%);
   padding: 12px 25px;
   position: relative;
+  letter-spacing: 0.5px !important;
   z-index: 1;
   border-radius: 4px;
 }
@@ -797,8 +799,8 @@ nav ul li a.active {
   margin-bottom: 10px;
   padding: 12px 16px;
   font-family: "Inter Tight", sans-serif;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 12px;
+  line-height: 7px;
   display: inline-block;
   position: relative;
   margin-top: 80px;
@@ -860,8 +862,8 @@ nav ul li a.active {
   margin-bottom: 10px;
   padding: 12px 16px;
   font-family: "Inter Tight", sans-serif;
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 12px;
+  line-height: 7px;
   display: inline-block;
   position: relative;
   margin-top: 0px;
@@ -1114,8 +1116,8 @@ nav ul li a.active {
 .about-description p {
   color: #525252;
   font-family: "Inter Tight", sans-serif;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
   margin-bottom: 20px;
   letter-spacing: 0.5px;
@@ -1131,6 +1133,7 @@ nav ul li a.active {
   transition: 0.3s;
   border-radius: 5px;
   display: inline-block;
+  letter-spacing: 0.5px !important;
 }
 
 .read-more-btn span {
@@ -1226,7 +1229,7 @@ nav ul li a.active {
 
 .matrimonial-description {
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 24px;
   margin-bottom: 32px;
   opacity: 0.9;
 }
@@ -1284,7 +1287,7 @@ nav ul li a.active {
 
 .matrimonial-description {
   font-family: "Inter Tight", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   width: 95%;
   font-weight: 400;
@@ -1390,6 +1393,7 @@ nav ul li a.active {
   font-family: "Inter Tight", sans-serif;
   display: inline-block;
   margin-bottom: 10px;
+  letter-spacing: 0.5px !important;
 }
 
 .event-title {
@@ -1397,13 +1401,15 @@ nav ul li a.active {
   font-weight: 500;
   font-size: 32px;
   line-height: 34px;
+  letter-spacing: 0.5px !important;
   max-width: 78%;
   padding-bottom: 20px;
 }
 
 .event-cont-row {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
+  letter-spacing: 0.5px !important;
   font-family: "Inter Tight", sans-serif;
   color: #000000;
   margin-bottom: 12px;
@@ -1966,10 +1972,11 @@ nav ul li a.active {
 
 .business-info-item {
   font-family: "Inter Tight", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 22px;
   color: #525252;
   word-wrap: break-word;
+  letter-spacing: 0.5px !important;
 }
 
 .business-info-item strong {
@@ -2089,6 +2096,7 @@ nav ul li a.active {
 
 .footer-links .footer-column ul {
   list-style: none;
+  letter-spacing: 0.5px !important;
 }
 
 .footer-links .footer-column h4 {
@@ -2098,18 +2106,18 @@ nav ul li a.active {
   letter-spacing: 0.5px;
   font-weight: 600;
   color: #000;
-  margin: 0 0 15px 0;
+  margin: 0 0 10px 0;
 }
 
 .footer-column ul li {
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
 }
 
 .footer-column ul li a {
   color: #828282;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.5px !important;
   font-family: "Inter Tight", sans-serif;
   text-decoration: none;
 
@@ -2123,6 +2131,7 @@ nav ul li a.active {
   font-family: "Inter Tight", sans-serif;
   text-decoration: none;
   margin-bottom: 20px;
+  letter-spacing: 0.5px !important;
 }
 
 .footer-links .footer-column:nth-child(4) {
@@ -2154,6 +2163,7 @@ nav ul li a.active {
   font-family: "Inter Tight", sans-serif;
   font-weight: 400;
   color: #828282;
+  letter-spacing: 0.5px !important;
 }
 
 .footer-social {
@@ -2390,10 +2400,10 @@ section.about-intro {
   z-index: 1;
   color: #525252;
   margin-bottom: 10px;
-  padding: 8px 16px;
+  padding: 12px 16px;
   font-family: "Inter Tight", sans-serif;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 7px;
   display: inline-block;
   position: relative;
   margin-top: 0px;
@@ -2421,14 +2431,13 @@ section.about-intro {
   color: #000;
   margin-bottom: 0;
   font-family: "Inter Tight", sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   letter-spacing: 0.5px !important;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 32px;
 }
 
 .about-intro-content h2 strong {
-
   font-weight: 600;
 }
 
@@ -2441,9 +2450,9 @@ section.about-founders {
 .about-founders .founders-text {
   font-family: "Inter Tight", sans-serif;
   margin-bottom: 0;
-  font-size: 48px;
+  font-size: 38px;
   letter-spacing: 0.5px !important;
-  line-height: 52px;
+  line-height: 46px;
   font-weight: 400;
   color: #000000;
   margin-bottom: 50px;
@@ -2518,6 +2527,7 @@ section.about-founders {
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
+  letter-spacing: 0.5px !important;
 }
 
 .founder-name {
@@ -2559,6 +2569,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
   font-family: "Inter Tight", sans-serif;
   font-weight: 400;
   max-width: 550px;
+  letter-spacing: 0.5px !important;
   margin-bottom: 30px;
 }
 
@@ -2593,9 +2604,9 @@ section.intro-section.mission-statement .about-intro-content h2 {
   background: #fff;
   border-radius: 5px;
   color: #c93a1d;
-  font-size: 16px;
-  line-height: 24px;
-  padding: 8px 16px;
+  font-size: 12px;
+  line-height: 7px;
+  padding: 7px 16px;
   letter-spacing: 0.5px !important;
   display: inline-block;
   margin-bottom: 15px;
@@ -2652,6 +2663,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
   display: inline-block;
   margin-bottom: 30px;
   width: 100%;
+  letter-spacing: 0.5px !important;
 }
 
 .vision-card-content h3::after {
@@ -2679,15 +2691,15 @@ section.intro-section.mission-statement .about-intro-content h2 {
 
 .vision-tag {
   position: relative;
-  padding: 8px 16px;
+  padding: 7px 16px;
   margin-bottom: 10px;
   display: inline-block;
   text-transform: uppercase;
 }
 
 .vision-tag span {
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 18px;
   font-weight: 400;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   -webkit-background-clip: text;
@@ -2701,6 +2713,7 @@ section.intro-section.mission-statement .about-intro-content h2 {
   font-family: "Inter Tight", sans-serif;
   font-size: 48px;
   line-height: 52px;
+  letter-spacing: 0.5px !important;
   font-weight: 400;
   text-transform: none;
   margin-bottom: 30px;
@@ -2719,11 +2732,12 @@ section.global-cta {
 .vision-card-content p {
   color: #525252;
   font-family: "Inter Tight", sans-serif;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
   margin-bottom: 20px;
   max-width: 100%;
+  letter-spacing: 0.5px !important;
 }
 
 a.read-more-btn {
@@ -2812,10 +2826,11 @@ a.read-more-btn {
 }
 
 .info-row p {
-
+  letter-spacing: 0.5px !important;
   color: #000000;
   width: 600px;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 24px;
   font-weight: 500;
   /* bold */
   width: 276px;
@@ -2839,6 +2854,7 @@ a.service-card {
   font-weight: 600;
   display: block;
   margin-bottom: 6px;
+  letter-spacing: 0.5px !important;
   font-family: "Inter Tight", sans-serif;
 }
 
@@ -2851,6 +2867,7 @@ a.service-card {
   outline: none;
   font-family: "Inter Tight", sans-serif;
   border-radius: 5px;
+  letter-spacing: 0.5px !important;
 }
 
 .two-inputs {
@@ -3092,7 +3109,7 @@ a.service-card {
 .form-group label {
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
   color: #111;
   margin-bottom: 6px;
 }
@@ -3112,6 +3129,7 @@ a.service-card {
   background: #fff;
   transition: border 0.2s ease;
   font-family: "Inter Tight", sans-serif;
+  letter-spacing: 0.5px !important;
 }
 
 .form-group input::placeholder,
@@ -3240,6 +3258,7 @@ a.service-card {
   color: #666;
   margin-top: 12px;
   line-height: 1.6;
+  letter-spacing: 0.5px;
 }
 
 .no-profiles-state {
@@ -3435,7 +3454,7 @@ a.service-card {
 .directory-table {
   width: 100%;
   border-collapse: collapse;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.5px !important;
   font-size: 14px;
 }
 
@@ -3453,7 +3472,9 @@ a.service-card {
 .directory-table td {
   padding: 12px;
   border-bottom: 1px solid #f0f0f0;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px !important;
 }
 
 .directory-table tbody tr:hover {
@@ -3694,8 +3715,10 @@ a.service-card {
 
 .info-row h4 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
+  padding-bottom: 5px;
   color: #5F5F5F;
+  letter-spacing: 0.5px !important;
   font-weight: 500;
   font-family: "Inter Tight", sans-serif;
 }
@@ -3704,7 +3727,7 @@ a.service-card {
 .service-card h3 {
   text-transform: none;
   font-family: "Inter Tight", sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   line-height: 28px;
   transition: background .3s;
@@ -3732,11 +3755,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .contact-info p strong {
   color: #444;
   font-family: "Inter Tight", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0.5px;
   font-weight: 600;
   grid-template-columns: 2fr;
-  line-height: 24px;
+  line-height: 20px;
 }
 
 .business-left {
@@ -3994,6 +4017,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   text-transform: uppercase;
   border-radius: 4px;
   transition: opacity 0.3s ease;
+  letter-spacing: 0.5px !important;
 }
 
 .user-dropdown-btn:hover {
@@ -4035,6 +4059,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
   transition: all 0.2s ease;
   text-transform: uppercase;
   border-bottom: 1px solid #f0f0f0;
+  letter-spacing: 0.5px !important;
 }
 
 .dropdown-item:last-child {
@@ -4116,7 +4141,7 @@ span[style*="border-left"] {
   border: none;
   font-family: "Inter Tight", sans-serif;
   text-transform: none;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
 }
 
 .donations-table th:first-child {
@@ -4131,7 +4156,8 @@ span[style*="border-left"] {
   text-align: left;
   padding: 18px 20px;
   border-bottom: 1px solid #f0f0f0;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 24px;
   color: #333;
   letter-spacing: 0.5px !important;
   font-family: "Inter Tight", sans-serif;
@@ -4169,7 +4195,7 @@ span[style*="border-left"] {
   color: #333;
   margin: 0;
   text-transform: none;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
 }
 
 .qr-subtitle {
@@ -4178,6 +4204,7 @@ span[style*="border-left"] {
   color: #666;
   margin: 0 0 25px 0;
   line-height: 1.5;
+  letter-spacing: 0.5px !important;
 }
 
 .qr-image {
@@ -6172,7 +6199,7 @@ span[style*="border-left"] {
 
   .footer-left p {
     font-size: 16px;
-    line-height: 20px;
+    line-height: 24px;
     max-width: 100%;
   }
 
@@ -7370,8 +7397,8 @@ span[style*="border-left"] {
   }
 
   .contact-info p strong {
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 14px;
+    line-height: 18px;
   }
 
   .footer-bottom {
@@ -9199,8 +9226,8 @@ span[style*="border-left"] {
     }
 
     .contact-info p strong {
-      font-size: 16px;
-      line-height: 17px;
+      font-size: 14px;
+      line-height: 18px;
     }
 
     .footer-bottom {
@@ -9330,7 +9357,7 @@ span[style*="border-left"] {
     text-align: center;
     padding: 18px 20px;
     border-bottom: 1px solid #f0f0f0;
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
     font-family: "Inter Tight", sans-serif;
     font-weight: 400;
@@ -9508,6 +9535,7 @@ span[style*="border-left"] {
 .user-profile-title {
   font-family: "Inter Tight", sans-serif;
   font-size: 48px;
+  letter-spacing: 0.5px !important;
   line-height: 52px;
   font-weight: 500;
   text-transform: none;
@@ -9515,12 +9543,14 @@ span[style*="border-left"] {
   margin: 0;
   flex: 1;
   min-width: 250px;
+  letter-spacing: 0.5px !important;
 }
 
 .user-profile-btn {
   font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   font-weight: 600;
+  letter-spacing: 0.5px !important;
   text-decoration: none;
   text-transform: none;
   border: 1px solid #B9252F;
@@ -10110,11 +10140,11 @@ span[style*="border-left"] {
 .eb-label {
   display: block;
   font-family: "Inter Tight", sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   color: #444;
   text-transform: none;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
   margin-bottom: 8px;
   padding: 1px 0;
 }
@@ -10139,6 +10169,7 @@ span[style*="border-left"] {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
   outline: none;
   appearance: none;
+  letter-spacing: 0.5px !important;
   -webkit-appearance: none;
 }
 
@@ -10195,6 +10226,7 @@ span[style*="border-left"] {
 
 .eb-photo-hint {
   font-size: 12px;
+  letter-spacing: 0.5px !important;
   color: #888;
   margin-top: 6px;
   font-family: "Inter Tight", sans-serif;
@@ -10624,7 +10656,7 @@ span[style*="border-left"] {
 
 .user-profile-btn {
   font-family: "Inter Tight", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   text-transform: none;
   border: 1px solid #b9252f;
@@ -10634,7 +10666,7 @@ span[style*="border-left"] {
   border-radius: 4px;
   transition: all 0.3s ease;
   cursor: pointer;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
 }
 
 
@@ -11205,7 +11237,7 @@ span[style*="border-left"] {
     color: #686868;
     font-size: 16px;
     letter-spacing: 0.5px;
-    line-height: 22px;
+    line-height: 24px;
     max-width: 325px;
   }
 
@@ -11619,6 +11651,7 @@ span[style*="border-left"] {
   font-size: 24px;
   line-height: 28px;
   font-weight: 600;
+  padding-bottom: 5px;
   color: #B9252F;
   margin: 0;
   text-align: center;
@@ -11670,6 +11703,7 @@ span[style*="border-left"] {
   margin: 0 0 20px 0;
   text-transform: uppercase;
   display: inline-block;
+  letter-spacing: 0.5px !important;
 }
 
 @media (max-width: 767px) {
@@ -11742,16 +11776,17 @@ span[style*="border-left"] {
   display: block;
   text-align: center;
   font-family: "Inter Tight", sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   color: #999;
   font-weight: 500;
   text-transform: none;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
 }
 
 @media (max-width: 767px) {
   .user-profile-sticky-section .profile-id {
     font-size: 12px;
+    letter-spacing: 0.5px !important;
   }
 }
 
@@ -11813,7 +11848,7 @@ span[style*="border-left"] {
   border-radius: 4px;
   transition: all 0.3s ease;
   cursor: pointer;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -12154,6 +12189,7 @@ span[style*="border-left"] {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  letter-spacing: 0.5px !important;
   /* Keep text on one line */
   min-width: 0;
   /* Allows flex shrinking */
@@ -12239,6 +12275,7 @@ span[style*="border-left"] {
   font-family: "Inter Tight", sans-serif;
   font-size: 16px;
   line-height: 1.8;
+  letter-spacing: 0.5px !important;
   color: #555;
   margin-bottom: 20px;
   white-space: pre-wrap;
@@ -12250,6 +12287,7 @@ span[style*="border-left"] {
   gap: 30px;
   border-top: 1px solid #f0f0f0;
   padding-top: 25px;
+  letter-spacing: 0.5px !important;
   margin-bottom: 30px;
 }
 
@@ -12258,6 +12296,7 @@ span[style*="border-left"] {
   grid-template-columns: repeat(1, 1fr);
   width: 100%;
   margin-bottom: 30px;
+  letter-spacing: 0.5px !important;
 }
 
 .business-drawer-detail-card {
@@ -12275,7 +12314,7 @@ span[style*="border-left"] {
   text-transform: none;
   font-weight: 600;
   color: #aaa;
-  letter-spacing: 0.3px !important;
+  letter-spacing: 0.5px !important;
 }
 
 .business-drawer-detail-value {
@@ -12487,9 +12526,9 @@ span[style*="border-left"] {
   display: block;
   color: #666;
   margin-bottom: 5px;
-  font-size: 13px;
+  letter-spacing: 0.5px !important;
+  font-size: 16px;
   text-transform: none;
-  letter-spacing: 0.3px !important;
 }
 
 /* ===============================

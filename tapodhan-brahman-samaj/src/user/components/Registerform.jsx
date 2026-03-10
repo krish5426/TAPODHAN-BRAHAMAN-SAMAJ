@@ -285,12 +285,13 @@ const BusinessRegisterform = () => {
                     boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
                     textAlign: "center",
                     maxWidth: "400px",
-                    width: "90%"
+                    width: "90%",
+                    fontFamily: '"Inter Tight", sans-serif'
                   }}>
                     <div style={{
                       width: "60px",
                       height: "60px",
-                      background: "#dc3545",
+                      background: "#b9252f",
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",
@@ -301,24 +302,34 @@ const BusinessRegisterform = () => {
                     }}>
                       !
                     </div>
-                    <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>Login Required</h3>
-                    <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5" }}>
+                    <h3 style={{ margin: "0 0 15px 0", color: "#333", letterSpacing: '0.5px' }}>Login Required</h3>
+                    <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5", fontSize: '16px', letterSpacing: '0.5px' }}>
                       Please login to access business registration.
                     </p>
                     <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                       <button
                         className="read-more-btn"
                         onClick={() => navigate("/login")}
-                        style={{ background: "#007bff" }}
+                        style={{
+                          background: 'linear-gradient(180deg, #b9252f 0%, #6a2c2d 100%)',
+                          border: 'none',
+                          padding: '12px 25px',
+                          letterSpacing: '0.5px'
+                        }}
                       >
-                        <span>Login</span>
+                        <span style={{ fontSize: '16px', fontWeight: '600' }}>Login</span>
                       </button>
                       <button
                         className="read-more-btn"
                         onClick={() => setError("")}
-                        style={{ background: "#6c757d" }}
+                        style={{
+                          background: 'transparent',
+                          border: '2px solid #b9252f',
+                          padding: '10px 25px',
+                          letterSpacing: '0.5px'
+                        }}
                       >
-                        <span>Cancel</span>
+                        <span style={{ color: '#b9252f', fontSize: '16px', fontWeight: '600' }}>Cancel</span>
                       </button>
                     </div>
                   </div>

@@ -80,8 +80,8 @@ const About = () => {
         title={
           <>
             <strong>Tapodhan Brahman Samaj Charitable Trust (TBSCT) is</strong>{" "}
-            a non-profit organization registered under{" "}
-            <strong>Gujarat Public Trust Act, 2011</strong>{" "}
+            a non-profit organization registered under {" "}
+            <strong> Gujarat Public Trust Act, 2011</strong>{" "}
             with <strong>Reg. No A-1090 / PATAN </strong>{" "}managed by the Charity Commissioner's Office,
             Patan, Gujarat, India.
           </>
