@@ -66,18 +66,18 @@ const Contactform = () => {
             <div className="header-section-top">
               <span className="header-label-top">CONTACT US</span>
               <h2 className="header-title-top">
-                <strong><span>LET'S STAY</span> CONNECTED <span>FOR A </span>
-                  STRONGER COMMUNITY</strong>
+                <strong><span>Let's Stay</span> Connected <span>For A </span>
+                  Stronger Community</strong>
               </h2>
             </div>
-           
+
 
             <div className="contact-info-box">
               <div className="info-row">
                 <img src={phone} alt="Phone" className="info-icon" />
                 <div>
                   <h4>Phone Number</h4>
-                  <p>9662377530 <br/> 9825906646</p>
+                  <p>9662377530 <br /> 9825906646</p>
                 </div>
               </div>
 
@@ -85,7 +85,7 @@ const Contactform = () => {
                 <img src={mail} alt="Email" className="info-icon" />
                 <div>
                   <h4>Email Address</h4>
-                  <p>ravalkb1@gmail.com <br/> maneeshdave79@gmail.com</p>
+                  <p>ravalkb1@gmail.com <br /> maneeshdave79@gmail.com</p>
                 </div>
               </div>
 
@@ -94,11 +94,11 @@ const Contactform = () => {
                 <div>
                   <h4>Visit Our Office</h4>
                   <p><strong>Tapodhan Brahman Samaj Charitable Trust </strong><br />
-                  Ramji Pura,
-                  Near Achalapura,
-                  Siddhpur-384141
-                  Dist - Patan
-                  Gujarat</p>
+                    Ramji Pura,
+                    Near Achalapura,
+                    Siddhpur-384141
+                    Dist - Patan
+                    Gujarat</p>
                 </div>
               </div>
             </div>
@@ -106,46 +106,46 @@ const Contactform = () => {
 
           <div className="contact-right">
             <form className="contact-form" onSubmit={handleSubmit}>
-              <label>FULL NAME</label>
-              <input 
-                type="text" 
+              <label>Full Name</label>
+              <input
+                type="text"
                 name="fullName"
-                placeholder="Enter your full name" 
+                placeholder="Enter your full name"
                 value={formData.fullName}
                 onChange={handleChange}
-                required 
+                required
               />
 
               <div className="two-inputs">
                 <div>
-                  <label>EMAIL</label>
-                  <input 
-                    type="email" 
+                  <label>Email</label>
+                  <input
+                    type="email"
                     name="email"
-                    placeholder="you@example.com" 
+                    placeholder="you@example.com"
                     value={formData.email}
                     onChange={handleChange}
-                    required 
+                    required
                   />
                 </div>
 
                 <div>
-                  <label>PHONE NUMBER</label>
-                  <input 
-                    type="text" 
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
                     name="phone"
-                    placeholder="+91 XXXXXXXX" 
+                    placeholder="+91 XXXXXXXX"
                     value={formData.phone}
                     onChange={handleChange}
-                    required 
+                    required
                   />
                 </div>
               </div>
 
-              <label>SEND US MESSAGE</label>
-              <textarea 
+              <label>Send Us Message</label>
+              <textarea
                 name="message"
-                placeholder="Enter your message" 
+                placeholder="Enter your message"
                 value={formData.message}
                 onChange={handleChange}
                 required

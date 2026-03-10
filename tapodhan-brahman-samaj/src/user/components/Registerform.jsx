@@ -150,217 +150,208 @@ const BusinessRegisterform = () => {
             <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
               <div className="form-grid">
 
-                  {step === 1 && (
-                    <>
-                      <div className="form-group">
-                        <label>Business Name*</label>
-                        <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
-                      </div>
-                      <div className="form-group">
-                        <label>Owner Name*</label>
-                        {owners.map((owner, index) => (
-                          <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                            <input 
-                              type="text" 
-                              placeholder="Owner Name" 
-                              value={owner} 
-                              onChange={(e) => handleOwnerChange(index, e.target.value)} 
-                              required={index === 0} 
-                            />
-                            {index === owners.length - 1 ? (
-                              <button 
-                                type="button" 
-                                onClick={addOwner}
-                                style={{
-                                  background: '#4CAF50', color: 'white', border: 'none', 
-                                  width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
-                                  fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                                }}
-                              >
-                                +
-                              </button>
-                            ) : (
-                              <button 
-                                type="button" 
-                                onClick={() => removeOwner(index)}
-                                style={{
-                                  background: '#f44336', color: 'white', border: 'none', 
-                                  width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
-                                  fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                                }}
-                              >
-                                -
-                              </button>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
-                      </div>
-                      <div className="form-group">
-                        <label>Contact Number*</label>
-                        <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
-                      </div>
-                      <div className="form-group">
-<<<<<<< HEAD
-                        <label>Category</label>
-                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
-                          <option value="">Select Category</option>
-                          <option value="Restaurant">Restaurant</option>
-                          <option value="Shop">Shop</option>
-                          <option value="Service">Service</option>
-                          <option value="Freelancer">Freelancer</option>
-                          <option value="Education">Education</option>
-                          <option value="Consultancy">Consultancy</option>
-                          <option value="Medical & Health">Medical &amp; Health</option>
-                          <option value="Trading">Trading</option>
-                          <option value="Professional Services">Professional Services</option>
-                          <option value="Karm Kand">Karm Kand</option>
-                          <option value="Transport / Travel">Transport / Travel</option>
-                          <option value="Other">Other</option>
-=======
-                        <label>Industry</label>
-                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
-                          <option value="">Select Industry</option>
-                          {INDUSTRY_OPTIONS.map((industry) => (
-                            <option key={industry} value={industry}>{industry}</option>
-                          ))}
->>>>>>> 0092d2ce5f36f29301bf4242da683cb0a5d7b36e
-                        </select>
-                      </div>
-                          <div className="form-group">
-                            <label>Business Type</label>
-                            <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
-                          </div>
-                        </>
+                {step === 1 && (
+                  <>
+                    <div className="form-group">
+                      <label>Business Name*</label>
+                      <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Owner Name*</label>
+                      {owners.map((owner, index) => (
+                        <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                          <input
+                            type="text"
+                            placeholder="Owner Name"
+                            value={owner}
+                            onChange={(e) => handleOwnerChange(index, e.target.value)}
+                            required={index === 0}
+                          />
+                          {index === owners.length - 1 ? (
+                            <button
+                              type="button"
+                              onClick={addOwner}
+                              style={{
+                                background: '#4CAF50', color: 'white', border: 'none',
+                                width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                                fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                              }}
+                            >
+                              +
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => removeOwner(index)}
+                              style={{
+                                background: '#f44336', color: 'white', border: 'none',
+                                width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                                fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                              }}
+                            >
+                              -
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="form-group">
+                      <label>Email</label>
+                      <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                      <label>Contact Number*</label>
+                      <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
+                    </div>
+                    <div className="form-group">
+                      <label>Category</label>
+                      <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
+                        <option value="">Select Category</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Shop">Shop</option>
+                        <option value="Service">Service</option>
+                        <option value="Freelancer">Freelancer</option>
+                        <option value="Education">Education</option>
+                        <option value="Consultancy">Consultancy</option>
+                        <option value="Medical & Health">Medical &amp; Health</option>
+                        <option value="Trading">Trading</option>
+                        <option value="Professional Services">Professional Services</option>
+                        <option value="Karm Kand">Karm Kand</option>
+                        <option value="Transport / Travel">Transport / Travel</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Business Type</label>
+                      <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
+                    </div>
+                  </>
                 )}
 
-                    {step === 2 && (
-                      <>
-                      
-                        <div className="form-group">
-                          <label>State</label>
-                          <select name="state" value={formData.state} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
-                            <option value="">Select State</option>
-                            {INDIAN_STATES.map((state) => (
-                              <option key={state} value={state}>{state}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="form-group">
-                          <label>City</label>
-                          <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                          <label>Website</label>
-                          <input type="text" name="website" placeholder="Website URL" value={formData.website} onChange={handleChange} />
-                        </div>
-                        <div className="form-group full-width">
-                          <label>Poster Photo</label>
-                          <input type="file" accept="image/*" onChange={handleFileChange} />
-                        </div>
-                        <div className="form-group full-width">
-                          <label>Description</label>
-                          <textarea name="description" placeholder="Business Description" value={formData.description} onChange={handleChange}></textarea>
-                        </div>
-                        <div className="form-group full-width">
-                          <label>Business Address*</label>
-                          <textarea name="address" placeholder="Full Address" value={formData.address} onChange={handleChange} required></textarea>
-                        </div>
-                      </>
-                    )}
+                {step === 2 && (
+                  <>
 
+                    <div className="form-group">
+                      <label>State</label>
+                      <select name="state" value={formData.state} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
+                        <option value="">Select State</option>
+                        {INDIAN_STATES.map((state) => (
+                          <option key={state} value={state}>{state}</option>
+                        ))}
+                      </select>
                     </div>
+                    <div className="form-group">
+                      <label>City</label>
+                      <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                      <label>Website</label>
+                      <input type="text" name="website" placeholder="Website URL" value={formData.website} onChange={handleChange} />
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Poster Photo</label>
+                      <input type="file" accept="image/*" onChange={handleFileChange} />
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Description</label>
+                      <textarea name="description" placeholder="Business Description" value={formData.description} onChange={handleChange}></textarea>
+                    </div>
+                    <div className="form-group full-width">
+                      <label>Business Address*</label>
+                      <textarea name="address" placeholder="Full Address" value={formData.address} onChange={handleChange} required></textarea>
+                    </div>
+                  </>
+                )}
 
-                    {error === "login_required" ? (
-                      <div style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: "rgba(0,0,0,0.5)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        zIndex: 1000
-                      }}>
-                        <div style={{
-                          background: "white",
-                          padding: "30px",
-                          borderRadius: "12px",
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
-                          textAlign: "center",
-                          maxWidth: "400px",
-                          width: "90%"
-                        }}>
-                          <div style={{
-                            width: "60px",
-                            height: "60px",
-                            background: "#dc3545",
-                            borderRadius: "50%",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            margin: "0 auto 20px",
-                            fontSize: "24px",
-                            color: "white"
-                          }}>
-                            !
-                          </div>
-                          <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>Login Required</h3>
-                          <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5" }}>
-                            Please login to access business registration.
-                          </p>
-                          <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                            <button
-                              className="read-more-btn"
-                              onClick={() => navigate("/login")}
-                              style={{ background: "#007bff" }}
-                            >
-                              <span>Login</span>
-                            </button>
-                            <button
-                              className="read-more-btn"
-                              onClick={() => setError("")}
-                              style={{ background: "#6c757d" }}
-                            >
-                              <span>Cancel</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ) : error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+              </div>
 
-                    <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-                      {step === 2 && (
-                        <button type="button" className="read-more-btn back-btn" onClick={prevStep}>
-                          <span>Back</span>
-                        </button>
-                      )}
-
-                      <button type="submit" className="read-more-btn" disabled={loading}>
-                        <span>{loading ? "Processing..." : (step === 1 ? "Continue" : "Submit")}</span>
+              {error === "login_required" ? (
+                <div style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: "rgba(0,0,0,0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 1000
+                }}>
+                  <div style={{
+                    background: "white",
+                    padding: "30px",
+                    borderRadius: "12px",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                    textAlign: "center",
+                    maxWidth: "400px",
+                    width: "90%"
+                  }}>
+                    <div style={{
+                      width: "60px",
+                      height: "60px",
+                      background: "#dc3545",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      margin: "0 auto 20px",
+                      fontSize: "24px",
+                      color: "white"
+                    }}>
+                      !
+                    </div>
+                    <h3 style={{ margin: "0 0 15px 0", color: "#333" }}>Login Required</h3>
+                    <p style={{ margin: "0 0 25px 0", color: "#666", lineHeight: "1.5" }}>
+                      Please login to access business registration.
+                    </p>
+                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                      <button
+                        className="read-more-btn"
+                        onClick={() => navigate("/login")}
+                        style={{ background: "#007bff" }}
+                      >
+                        <span>Login</span>
+                      </button>
+                      <button
+                        className="read-more-btn"
+                        onClick={() => setError("")}
+                        style={{ background: "#6c757d" }}
+                      >
+                        <span>Cancel</span>
                       </button>
                     </div>
-                  </form>
+                  </div>
+                </div>
+              ) : error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+
+              <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                {step === 2 && (
+                  <button type="button" className="read-more-btn back-btn" onClick={prevStep}>
+                    <span>Back</span>
+                  </button>
+                )}
+
+                <button type="submit" className="read-more-btn" disabled={loading}>
+                  <span>{loading ? "Processing..." : (step === 1 ? "Continue" : "Submit")}</span>
+                </button>
               </div>
-            </div>
+            </form>
+          </div>
+        </div>
       </div>
-      
-          <CustomDialog
-            isOpen={dialog.isOpen}
-            message={dialog.message}
-            type={dialog.type}
-            onClose={() => {
-              setDialog(prev => ({ ...prev, isOpen: false }));
-              if (dialog.type === 'success') {
-                navigate('/business-contact');
-              }
-            }}
-          />
+
+      <CustomDialog
+        isOpen={dialog.isOpen}
+        message={dialog.message}
+        type={dialog.type}
+        onClose={() => {
+          setDialog(prev => ({ ...prev, isOpen: false }));
+          if (dialog.type === 'success') {
+            navigate('/business-contact');
+          }
+        }}
+      />
     </section>
   );
 };

@@ -4,7 +4,7 @@ const AboutFounders = ({ founders }) => {
       <div className="container">
 
         <h3 className="founders-text">
-          Our Trust was founded in the{" "}
+          Our Trust was founded in the {" "}
           <strong>year 2013</strong> by following visionary,
           <strong> passionate & dedicated individuals</strong> from
           Tapodhan Brahman Samaj.

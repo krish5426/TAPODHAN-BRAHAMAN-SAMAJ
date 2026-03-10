@@ -912,8 +912,8 @@ nav ul li a.active {
 
 .service-card h3 {
   font-family: "Inter Tight", sans-serif;
-  font-size: 26px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 24px;
   font-weight: 500;
   text-transform: none;
   transition: background 0.3s;
@@ -963,7 +963,7 @@ nav ul li a.active {
 /* Events carousel styles */
 .events-carousel-container {
   position: relative;
-  margin: 40px 0 60px;
+  margin: 40px 0 0px;
   display: block;
 }
 
@@ -2098,7 +2098,7 @@ nav ul li a.active {
   letter-spacing: 0.5px;
   font-weight: 600;
   color: #000;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
 }
 
 .footer-column ul li {
@@ -2119,10 +2119,10 @@ nav ul li a.active {
   color: #828282;
   font-size: 16px;
   line-height: 24px;
+  letter-spacing: 0.5px !important;
   font-family: "Inter Tight", sans-serif;
   text-decoration: none;
   margin-bottom: 20px;
-
 }
 
 .footer-links .footer-column:nth-child(4) {
@@ -2393,10 +2393,11 @@ section.about-intro {
   padding: 8px 16px;
   font-family: "Inter Tight", sans-serif;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   display: inline-block;
   position: relative;
   margin-top: 0px;
+  letter-spacing: 0.5px;
   font-weight: 400 !important;
   text-transform: uppercase;
 }
@@ -2420,10 +2421,10 @@ section.about-intro {
   color: #000;
   margin-bottom: 0;
   font-family: "Inter Tight", sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: 0.5px !important;
   font-weight: 400;
-  line-height: 30px;
+  line-height: 28px;
 }
 
 .about-intro-content h2 strong {
@@ -2521,7 +2522,7 @@ section.about-founders {
 
 .founder-name {
   font-size: 18px;
-  line-height: 24px;
+  line-height: 22px;
   font-family: "Inter Tight", sans-serif;
   color: #000;
   font-weight: 500;
@@ -2685,8 +2686,8 @@ section.intro-section.mission-statement .about-intro-content h2 {
 }
 
 .vision-tag span {
-  font-size: 14px;
-  line-height: 14px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 400;
   background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
   -webkit-background-clip: text;
@@ -2733,7 +2734,7 @@ a.read-more-btn {
   font-family: "Inter Tight", sans-serif;
   margin-bottom: 0;
   font-size: 42px;
-  line-height: 50px;
+  line-height: 46px;
   font-weight: 500;
   color: #fff;
   text-transform: none;
@@ -3703,9 +3704,9 @@ a.service-card {
 .service-card h3 {
   text-transform: none;
   font-family: "Inter Tight", sans-serif;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 36px;
+  line-height: 28px;
   transition: background .3s;
   color: #000;
 }
@@ -3731,11 +3732,11 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 .contact-info p strong {
   color: #444;
   font-family: "Inter Tight", sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.5px;
   font-weight: 600;
   grid-template-columns: 2fr;
-  line-height: 22px;
+  line-height: 24px;
 }
 
 .business-left {
@@ -12226,7 +12227,7 @@ span[style*="border-left"] {
 
 .business-drawer-title {
   font-family: "Inter Tight", sans-serif;
-  font-size: 52px;
+  font-size: 48px;
   line-height: 1;
   font-weight: 700;
   color: #111;
@@ -12270,7 +12271,7 @@ span[style*="border-left"] {
 }
 
 .business-drawer-detail-label {
-  font-size: 12px;
+  font-size: 14px;
   text-transform: none;
   font-weight: 600;
   color: #aaa;
@@ -12278,7 +12279,7 @@ span[style*="border-left"] {
 }
 
 .business-drawer-detail-value {
-  font-size: 20px;
+  font-size: 18px;
   color: #222;
   font-weight: 500;
 }
