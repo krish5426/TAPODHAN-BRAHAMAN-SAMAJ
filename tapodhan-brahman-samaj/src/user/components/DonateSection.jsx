@@ -65,9 +65,9 @@ const DonateSection = () => {
   return (
     <section className="donate-section">
       <div className="container">
-        <div className="header-section">
-          <span className="header-label">Support Us</span>
-          <h2 className="header-title">
+        <div className="header-section-top-notch">
+          <span className="header-label-top-notch">Support Us</span>
+          <h2 className="header-title-top-notch">
             <strong><span>Your</span> Contribution <span>Makes A</span> Difference</strong>
           </h2>
         </div>

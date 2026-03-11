@@ -24,7 +24,8 @@ const Services = () => {
       id: 3,
       title: 'Student Life',
       icon: studentLifeIcon,
-      link: '/profile'
+      // link: '/profile'
+      link: ''
     },
     {
       id: 4,

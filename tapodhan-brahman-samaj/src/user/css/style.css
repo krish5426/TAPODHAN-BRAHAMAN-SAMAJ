@@ -871,6 +871,52 @@ nav ul li a.active {
   text-transform: uppercase;
 }
 
+.header-section-top-notch .header-title-top-notch {
+  font-family: "Inter Tight", sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 500;
+  text-transform: none;
+  margin-bottom: 10px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.header-section-top-notch .header-label-top-notch {
+  background: #000;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  z-index: 1;
+  color: #525252;
+  border: solid 1px #000;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  margin-top: 80px !important;
+  padding: 12px 16px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 12px;
+  line-height: 7px;
+  display: inline-block;
+  position: relative;
+  margin-top: 0px;
+  font-weight: 400 !important;
+  text-transform: uppercase;
+}
+
+.header-section-top-notch .header-title-top-notch strong {
+  background: linear-gradient(180deg, rgba(185, 37, 47, 1) 0%, rgba(106, 44, 45, 1) 69%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+.header-section-top-notch .header-title-top-notch span {
+  color: #000000;
+  font-weight: 400;
+  -webkit-text-fill-color: #000;
+}
 
 .header-section-top .header-title-top {
   font-family: "Inter Tight", sans-serif;
@@ -2157,7 +2203,7 @@ nav ul li a.active {
 }
 
 .footer-bottom p {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 22px;
   letter-spacing: 0.5px;
   font-family: "Inter Tight", sans-serif;
@@ -12085,7 +12131,7 @@ span[style*="border-left"] {
   top: 0;
   right: -100%;
   width: 100%;
-  max-width: 580px;
+  max-width: 680px;
   height: 100%;
   background-color: #ffffff;
   z-index: 1501;
@@ -12255,14 +12301,14 @@ span[style*="border-left"] {
   font-family: "Inter Tight", sans-serif;
   font-size: 13px;
   color: #888;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   text-transform: none;
   letter-spacing: 0.3px !important;
 }
 
 .business-drawer-title {
   font-family: "Inter Tight", sans-serif;
-  font-size: 48px;
+  font-size: 32px;
   line-height: 1;
   font-weight: 700;
   color: #111;
@@ -12309,7 +12355,7 @@ span[style*="border-left"] {
 }
 
 .business-drawer-detail-label {
-  font-size: 14px;
+  font-size: 16px;
   text-transform: none;
   font-weight: 600;
   color: #aaa;
@@ -12317,7 +12363,7 @@ span[style*="border-left"] {
 }
 
 .business-drawer-detail-value {
-  font-size: 18px;
+  font-size: 20px;
   color: #222;
   font-weight: 500;
 }
@@ -12347,7 +12393,7 @@ span[style*="border-left"] {
 /* Responsive Breakpoints for Business Drawer */
 @media (max-width: 1140px) {
   .business-drawer-content {
-    max-width: 540px;
+    max-width: 640px;
   }
 }
 
