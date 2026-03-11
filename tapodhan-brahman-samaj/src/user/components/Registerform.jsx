@@ -149,83 +149,75 @@ const BusinessRegisterform = () => {
 
             <form className="register-form" onSubmit={step === 1 ? nextStep : handleSubmit}>
               <div className="form-grid">
+                  {step === 1 && (
+                    <>
+                      <div className="form-group">
+                        <label>Business Name*</label>
+                        <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
+                      </div>
+                      <div className="form-group">
+                        <label>Owner Name*</label>
+                        {owners.map((owner, index) => (
+                          <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                            <input 
+                              type="text" 
+                              placeholder="Owner Name" 
+                              value={owner} 
+                              onChange={(e) => handleOwnerChange(index, e.target.value)} 
+                              required={index === 0} 
+                            />
+                            {index === owners.length - 1 ? (
+                              <button 
+                                type="button" 
+                                onClick={addOwner}
+                                style={{
+                                  background: '#4CAF50', color: 'white', border: 'none', 
+                                  width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                                  fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                              >
+                                +
+                              </button>
+                            ) : (
+                              <button 
+                                type="button" 
+                                onClick={() => removeOwner(index)}
+                                style={{
+                                  background: '#f44336', color: 'white', border: 'none', 
+                                  width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
+                                  fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                              >
+                                -
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
+                      </div>
+                      <div className="form-group">
+                        <label>Contact Number*</label>
+                        <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
+                      </div>
+                      <div className="form-group">
 
-                {step === 1 && (
-                  <>
-                    <div className="form-group">
-                      <label>Business Name*</label>
-                      <input type="text" name="businessName" placeholder="Business Name" value={formData.businessName} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                      <label>Owner Name*</label>
-                      {owners.map((owner, index) => (
-                        <div key={index} style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                          <input
-                            type="text"
-                            placeholder="Owner Name"
-                            value={owner}
-                            onChange={(e) => handleOwnerChange(index, e.target.value)}
-                            required={index === 0}
-                          />
-                          {index === owners.length - 1 ? (
-                            <button
-                              type="button"
-                              onClick={addOwner}
-                              style={{
-                                background: '#4CAF50', color: 'white', border: 'none',
-                                width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
-                                fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                              }}
-                            >
-                              +
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => removeOwner(index)}
-                              style={{
-                                background: '#f44336', color: 'white', border: 'none',
-                                width: '40px', height: '40px', borderRadius: '4px', cursor: 'pointer',
-                                fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'
-                              }}
-                            >
-                              -
-                            </button>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                    <div className="form-group">
-                      <label>Email</label>
-                      <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} />
-                    </div>
-                    <div className="form-group">
-                      <label>Contact Number*</label>
-                      <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                      <label>Category</label>
-                      <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
-                        <option value="">Select Category</option>
-                        <option value="Restaurant">Restaurant</option>
-                        <option value="Shop">Shop</option>
-                        <option value="Service">Service</option>
-                        <option value="Freelancer">Freelancer</option>
-                        <option value="Education">Education</option>
-                        <option value="Consultancy">Consultancy</option>
-                        <option value="Medical & Health">Medical &amp; Health</option>
-                        <option value="Trading">Trading</option>
-                        <option value="Professional Services">Professional Services</option>
-                        <option value="Karm Kand">Karm Kand</option>
-                        <option value="Transport / Travel">Transport / Travel</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label>Business Type</label>
-                      <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
-                    </div>
-                  </>
+                        <label>Industry</label>
+                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
+                          <option value="">Select Industry</option>
+                          {INDUSTRY_OPTIONS.map((industry) => (
+                            <option key={industry} value={industry}>{industry}</option>
+                          ))}
+                        </select>
+                      </div>
+                          <div className="form-group">
+                            <label>Business Type</label>
+                            <input type="text" name="businessType" placeholder="e.g. Private, Public, Partnership" value={formData.businessType} onChange={handleChange} />
+                          </div>
+                        </>
+
                 )}
 
                 {step === 2 && (
