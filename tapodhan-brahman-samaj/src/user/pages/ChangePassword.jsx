@@ -32,7 +32,7 @@ function ChangePassword() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        
+
         if (formData.newPassword !== formData.confirmPassword) {
             setError('New passwords do not match');
             return;
@@ -77,22 +77,22 @@ function ChangePassword() {
                     <div className="user-profile-header">
                         <h1 className="user-profile-title">Change Password</h1>
                     </div>
-                    
+
                     <div className="user-profile-card">
                         <form onSubmit={handleSubmit} style={{ padding: '40px', fontFamily: '"Inter Tight", sans-serif' }}>
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Current Password *</label>
-                                <input type="password" name="currentPassword" placeholder="Enter Current Password" value={formData.currentPassword} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>Current Password *</label>
+                                <input type="password" name="currentPassword" placeholder="Enter Current Password" value={formData.currentPassword} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', letterSpacing: '0.5px' }} />
                             </div>
 
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>New Password *</label>
-                                <input type="password" name="newPassword" placeholder="Enter New Password" value={formData.newPassword} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>New Password *</label>
+                                <input type="password" name="newPassword" placeholder="Enter New Password" value={formData.newPassword} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', letterSpacing: '0.5px' }} />
                             </div>
 
                             <div style={{ marginBottom: '25px' }}>
-                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Confirm New Password *</label>
-                                <input type="password" name="confirmPassword" placeholder="Confirm New Password" value={formData.confirmPassword} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box' }} />
+                                <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#333', marginBottom: '8px', letterSpacing: '0.5px' }}>Confirm New Password *</label>
+                                <input type="password" name="confirmPassword" placeholder="Confirm New Password" value={formData.confirmPassword} onChange={handleChange} required style={{ width: '100%', padding: '12px', border: '2px solid #e0e0e0', borderRadius: '8px', fontSize: '16px', boxSizing: 'border-box', letterSpacing: '0.5px' }} />
                             </div>
 
                             {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
@@ -105,7 +105,7 @@ function ChangePassword() {
                     </div>
                 </div>
             </section>
-            <CustomDialog 
+            <CustomDialog
                 isOpen={dialog.isOpen}
                 message={dialog.message}
                 type={dialog.type}
