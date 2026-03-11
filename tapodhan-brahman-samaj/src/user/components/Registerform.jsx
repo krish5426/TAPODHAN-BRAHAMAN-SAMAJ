@@ -204,30 +204,13 @@ const BusinessRegisterform = () => {
                         <input type="text" name="contactNumber" placeholder="Contact Number" value={formData.contactNumber} onChange={handleChange} required />
                       </div>
                       <div className="form-group">
-<<<<<<< HEAD
-                        <label>Category</label>
-                        <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Inter Tight, sans-serif' }}>
-                          <option value="">Select Category</option>
-                          <option value="Restaurant">Restaurant</option>
-                          <option value="Shop">Shop</option>
-                          <option value="Service">Service</option>
-                          <option value="Freelancer">Freelancer</option>
-                          <option value="Education">Education</option>
-                          <option value="Consultancy">Consultancy</option>
-                          <option value="Medical & Health">Medical &amp; Health</option>
-                          <option value="Trading">Trading</option>
-                          <option value="Professional Services">Professional Services</option>
-                          <option value="Karm Kand">Karm Kand</option>
-                          <option value="Transport / Travel">Transport / Travel</option>
-                          <option value="Other">Other</option>
-=======
+
                         <label>Industry</label>
                         <select name="category" value={formData.category} onChange={handleChange} style={{ fontFamily: 'Barlow, sans-serif' }}>
                           <option value="">Select Industry</option>
                           {INDUSTRY_OPTIONS.map((industry) => (
                             <option key={industry} value={industry}>{industry}</option>
                           ))}
->>>>>>> 0092d2ce5f36f29301bf4242da683cb0a5d7b36e
                         </select>
                       </div>
                           <div className="form-group">
