@@ -83,7 +83,7 @@ const Header = () => {
             href="/shiv-mahapuran-parayan.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="announcement-link"
+            className="announcement-link shiv-announcement-link"
           >
             <span className="announcement-text shiv-parayan-text notranslate" translate="no">
               {"Shiv Mahapuran Parayan".split("").map((letter, index) => (

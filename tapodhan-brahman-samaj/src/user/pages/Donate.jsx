@@ -1,6 +1,3 @@
-import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import DonateSection from '../components/DonateSection';
 import Innerbanner from '../components/InnerBanner';
 import donateBanner from '../assets/images/donate-banner.png';
@@ -12,11 +9,10 @@ const Donate = () => {
   ];
 
   return (
-    <div>
-      <Header />
+    <>
       <Innerbanner title="Donate" breadcrumb={breadcrumb} backgroundImage={donateBanner} />
       <DonateSection />
-    </div>
+    </>
   );
 };
 
