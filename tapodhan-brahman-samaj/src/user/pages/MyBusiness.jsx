@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import GridViewIcon from '@mui/icons-material/GridView';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
 import defaultBusinessImage from '../assets/images/default-business.png';
@@ -14,6 +16,7 @@ function MyBusiness() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const businessesPerPage = 8;
+  const [viewMode, setViewMode] = useState('grid');
 
   const breadcrumb = [
     { label: 'Home', link: '/' },
@@ -98,13 +101,29 @@ function MyBusiness() {
                 registered businesses
               </strong>
             </h2>
-            <div className="create-profile-section" style={{ textAlign: 'left', margin: '20px 0' }}>
+            <div className="create-profile-section" style={{ textAlign: 'left', margin: '20px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <button
                 className="user-profile-btn"
                 onClick={() => navigate('/business-register')}
               >
                 Register New Business
               </button>
+              <div style={{ display: 'flex', gap: '5px' }}>
+                <button 
+                  onClick={() => setViewMode('list')}
+                  title="List View"
+                  style={{ padding: '8px', background: viewMode === 'list' ? '#c1272d' : '#f0f0f0', color: viewMode === 'list' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <ViewListIcon />
+                </button>
+                <button 
+                  onClick={() => setViewMode('grid')}
+                  title="Grid View"
+                  style={{ padding: '8px', background: viewMode === 'grid' ? '#c1272d' : '#f0f0f0', color: viewMode === 'grid' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <GridViewIcon />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -122,6 +141,57 @@ function MyBusiness() {
             </div>
           ) : (
             <>
+              {viewMode === 'list' ? (
+                <div className="directory-table-wrapper">
+                  <table className="directory-table">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>Business Name</th>
+                        <th>Owner Name</th>
+                        <th>Industry</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentBusinesses.map((business, index) => (
+                        <tr key={business.id} className={index % 2 !== 0 ? "creative" : ""}>
+                          <td>{indexOfFirstBusiness + index + 1}</td>
+                          <td>{business.businessName}</td>
+                          <td>{business.ownerName}</td>
+                          <td>{business.category || "-"}</td>
+                          <td>{business.city || "-"}</td>
+                          <td>
+                            <span className={`status-badge status-${business.status?.toLowerCase() || 'pending'}`}>
+                              {business.status ? business.status.charAt(0).toUpperCase() + business.status.slice(1) : 'Pending'}
+                            </span>
+                          </td>
+                          <td>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                              <Link
+                                to={`/business-detail/${business.id}`}
+                                className="business-profile-btn"
+                                style={{ padding: "6px 12px", fontSize: "12px", textDecoration: 'none', border: 'none' }}
+                              >
+                                View
+                              </Link>
+                              <Link
+                                to={`/edit-business/${business.id}`}
+                                className="business-profile-btn"
+                                style={{ padding: "6px 12px", fontSize: "12px", textDecoration: 'none', background: '#f5f5f5', color: '#333', border: '1px solid #ddd' }}
+                              >
+                                Edit
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
               <div className="profile-grid">
                 {currentBusinesses.map((business) => (
                   <div key={business.id} style={{ position: 'relative' }}>
@@ -169,6 +239,7 @@ function MyBusiness() {
                   </div>
                 ))}
               </div>
+              )}
 
               {totalPages > 1 && (
                 <div className="pagination">

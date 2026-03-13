@@ -4,17 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from '../../config/api';
 import InnerBanner from '../components/InnerBanner';
 import bannerImage from '../assets/images/contact-banner.jpg';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import GridViewIcon from '@mui/icons-material/GridView';
 
 export default function Businesscontact() {
   const [images, setImages] = useState({});
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
-  const [searchName, setSearchName] = useState("");
+  const [itemsPerPage] = useState(8); // changed to 8 for better grid presentation
+  const [searchIndustry, setSearchIndustry] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [viewMode, setViewMode] = useState("list"); // 'list' or 'grid'
   const navigate = useNavigate();
 
   const breadcrumb = [
@@ -38,7 +41,7 @@ export default function Businesscontact() {
     try {
       const p = new URLSearchParams();
       p.append("status", "approved");
-      if (name) p.append("businessName", name);
+      if (name) p.append("category", name);
       if (loc) p.append("location", loc);
 
       const response = await fetch(`${API_ENDPOINTS.BUSINESSES}?${p.toString()}`);
@@ -55,11 +58,11 @@ export default function Businesscontact() {
   useEffect(() => {
     // Debounce search
     const timer = setTimeout(() => {
-      fetchBusinesses(searchName, searchLocation);
+      fetchBusinesses(searchIndustry, searchLocation);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchName, searchLocation]);
+  }, [searchIndustry, searchLocation]);
 
   // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -127,16 +130,32 @@ export default function Businesscontact() {
             <div className="business-hero-actions">
               <input
                 type="text"
-                placeholder="Search by Business Name..."
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
+                placeholder="Search by Industry..."
+                value={searchIndustry}
+                onChange={(e) => setSearchIndustry(e.target.value)}
               />
               <input
                 type="text"
-                placeholder="Search by Location (City)..."
+                placeholder="Search by Location (City/State)..."
                 value={searchLocation}
                 onChange={(e) => setSearchLocation(e.target.value)}
               />
+              <div style={{ display: 'flex', gap: '5px' }}>
+                <button 
+                  onClick={() => setViewMode('list')}
+                  title="List View"
+                  style={{ padding: '8px', background: viewMode === 'list' ? '#c1272d' : '#f0f0f0', color: viewMode === 'list' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <ViewListIcon />
+                </button>
+                <button 
+                  onClick={() => setViewMode('grid')}
+                  title="Grid View"
+                  style={{ padding: '8px', background: viewMode === 'grid' ? '#c1272d' : '#f0f0f0', color: viewMode === 'grid' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <GridViewIcon />
+                </button>
+              </div>
               <button
                 className="business-hero-btn"
                 onClick={() => navigate("/business-register")}
@@ -146,31 +165,27 @@ export default function Businesscontact() {
             </div>
           </div>
 
-          {/* TABLE */}
-          <div className="directory-table-wrapper">
-            <table className="directory-table">
-              <thead>
-                <tr>
-                  <th>No.</th>
-                  <th>Business Name</th>
-                  <th>Owner Name</th>
-                  <th>Category</th>
-                  <th>City</th>
-                  <th>Contact Number</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading ? (
+          {/* TABLE OR GRID */}
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '50px 0', fontSize: '18px' }}>Loading businesses...</div>
+          ) : businesses.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '50px 0', fontSize: '18px' }}>No businesses found.</div>
+          ) : viewMode === 'list' ? (
+            <div className="directory-table-wrapper">
+              <table className="directory-table">
+                <thead>
                   <tr>
-                    <td colSpan="7" style={{ textAlign: 'center' }}>Loading businesses...</td>
+                    <th>No.</th>
+                    <th>Business Name</th>
+                    <th>Owner Name</th>
+                    <th>Industry</th>
+                    <th>City</th>
+                    <th>Contact Number</th>
+                    <th>Details</th>
                   </tr>
-                ) : businesses.length === 0 ? (
-                  <tr>
-                    <td colSpan="7" style={{ textAlign: 'center' }}>No businesses found.</td>
-                  </tr>
-                ) : (
-                  currentBusinesses.map((business, index) => (
+                </thead>
+                <tbody>
+                  {currentBusinesses.map((business, index) => (
                     <tr key={business.id} className={index % 2 !== 0 ? "creative" : ""}>
                       <td>{indexOfFirstItem + index + 1}</td>
                       <td>{business.businessName}</td>
@@ -188,11 +203,47 @@ export default function Businesscontact() {
                         </button>
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="profile-grid" style={{ marginTop: '30px' }}>
+              {currentBusinesses.map((business) => (
+                <div key={business.id} style={{ position: 'relative' }}>
+                  <div onClick={() => openDrawer(business)} className="profile-card-link" style={{ display: 'block', cursor: 'pointer', height: '100%' }}>
+                    <div className="profile-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                      <div className="profile-img">
+                        <img
+                          src={business.posterPhoto && business.posterPhoto !== 'default_business.jpg'
+                            ? `${API_ENDPOINTS.UPLOADS}/${business.posterPhoto}`
+                            : imageIcon
+                          }
+                          alt={business.businessName}
+                          onError={(e) => { e.target.src = imageIcon; }}
+                        />
+                      </div>
+                      <div className="profile-content" style={{ flexGrow: 1 }}>
+                        <h4 className="profile-name">{business.businessName}</h4>
+                        <p className="profile-info">
+                          <strong>Owner:</strong> {business.ownerName}
+                        </p>
+                        <p className="profile-info">
+                          <strong>City:</strong> {business.city || '-'}
+                        </p>
+                        <p className="profile-info">
+                          <strong>Industry:</strong> {business.category || '-'}
+                        </p>
+                        <p className="profile-info">
+                          <strong>Contact:</strong> {business.contactNumber || '-'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* SIDE DRAWER */}
           <div

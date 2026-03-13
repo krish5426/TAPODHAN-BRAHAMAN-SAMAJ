@@ -23,6 +23,8 @@ const { User, Admin, Profile, ProfileRequest, Business, Event } = require('./mys
 ========================= */
 app.use(cors({
   origin: [
+    "https://tapodhanbrahmansamaj.com",
+    "https://www.tapodhanbrahmansamaj.com",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:5174",
@@ -189,12 +191,13 @@ app.get("/profiles/:id", async (req, res) => {
 // Get Businesses
 app.get("/businesses", async (req, res) => {
   try {
-    const { status, businessName, location } = req.query;
+    const { status, businessName, location, category } = req.query;
     const filters = {};
 
     if (status) filters.status = status;
     if (businessName) filters.businessName = businessName;
     if (location) filters.location = location;
+    if (category) filters.category = category;
 
     const businesses = await Business.findAll(filters);
     res.json(businesses);
@@ -269,12 +272,13 @@ app.get("/my-business", authenticateToken, async (req, res) => {
 // Get Businesses
 app.get("/businesses", async (req, res) => {
   try {
-    const { status, businessName, location } = req.query;
+    const { status, businessName, location, category } = req.query;
     const filters = {};
 
     if (status) filters.status = status;
     if (businessName) filters.businessName = businessName;
     if (location) filters.location = location;
+    if (category) filters.category = category;
 
     const businesses = await Business.findAll(filters);
     res.json(businesses);
