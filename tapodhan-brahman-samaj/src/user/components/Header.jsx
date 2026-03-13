@@ -13,6 +13,7 @@ const Header = () => {
   const burgerRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const overlayRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   const toggleMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -62,6 +63,18 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [dropdownOpen]);
 
   const handleLogout = () => {
     localStorage.removeItem('user_token');
@@ -138,7 +151,7 @@ const Header = () => {
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
                 <div className="mobile_div_hide" style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                   {isLoggedIn ? (
-                    <div className="user-dropdown">
+                    <div className="user-dropdown" ref={dropdownRef}>
                       <button
                         className="user-dropdown-btn"
                         onClick={() => setDropdownOpen(!dropdownOpen)}
