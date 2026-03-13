@@ -1,41 +1,29 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 const GoogleTranslate = () => {
-  const [currentLang, setCurrentLang] = useState('en');
+  const [currentLang, setCurrentLang] = useState('default');
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
   const langNames = {
+    'default': 'Select Language',
     'en': 'ENGLISH',
     'hi': 'HINDI',
     'gu': 'GUJARATI'
   };
 
   useEffect(() => {
-    // 1. Force English Cookie immediately if none exists
-    const forceEnglish = () => {
-      if (!document.cookie.includes('googtrans')) {
-        const domains = [window.location.hostname, `.${window.location.hostname}`];
-        const val = '/auto/en';
-        document.cookie = `googtrans=${val}; path=/`;
-        domains.forEach(d => {
-          document.cookie = `googtrans=${val}; path=/; domain=${d}`;
-        });
-      }
-    };
-    forceEnglish();
-
-    // 2. Identify current language for UI
+    // Identify current language for UI
     const getActiveLang = () => {
       const match = document.cookie.match(/googtrans=\/([^/]+)\/([^/]+)/);
       if (match && match[2] && langNames[match[2]]) {
         return match[2];
       }
-      return 'en';
+      return 'default';
     };
     setCurrentLang(getActiveLang());
 
-    // 3. Initialize Google Translate
+    // Initialize Google Translate
     const timer = setTimeout(() => {
       window.googleTranslateElementInit = () => {
         if (window.google && window.google.translate) {
@@ -74,12 +62,19 @@ const GoogleTranslate = () => {
 
   const changeLanguage = (code) => {
     const domains = [window.location.hostname, `.${window.location.hostname}`];
-    const val = `/auto/${code}`;
-
-    document.cookie = `googtrans=${val}; path=/`;
-    domains.forEach(d => {
-      document.cookie = `googtrans=${val}; path=/; domain=${d}`;
-    });
+    
+    if (code === 'default') {
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      domains.forEach(d => {
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${d}`;
+      });
+    } else {
+      const val = `/auto/${code}`;
+      document.cookie = `googtrans=${val}; path=/`;
+      domains.forEach(d => {
+        document.cookie = `googtrans=${val}; path=/; domain=${d}`;
+      });
+    }
 
     setCurrentLang(code);
     setIsOpen(false);
