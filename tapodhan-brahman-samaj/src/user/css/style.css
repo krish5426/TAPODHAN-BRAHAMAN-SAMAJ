@@ -1,4 +1,4 @@
-﻿* {
+* {
   margin: 0;
   padding: 0;
 }
@@ -105,7 +105,7 @@
 
 /* Announcements Section */
 .announcements-section {
-  padding: 60px 0 100px;
+  padding: 0px 0 20px;
   background: #fff;
 }
 
@@ -351,11 +351,11 @@
 
 @media (max-width: 480px) {
   .announcements-section {
-    padding: 30px 0 50px;
+    padding: 0;
   }
 
   .announcement-header-section {
-    padding: 30px 0 20px;
+    padding: 0;
   }
 
   .featured-announcements {
@@ -845,7 +845,7 @@ nav ul li a.active {
   padding: 12px 16px;
   font-family: "Inter Tight", sans-serif;
   font-size: 12px;
-  line-height: 7px;
+  line-height: 6px;
   display: inline-block;
   position: relative;
   margin-top: 0px;
@@ -875,7 +875,7 @@ nav ul li a.active {
   border-radius: 5px;
   margin-bottom: 25px;
   margin-top: 80px !important;
-  padding: 12px 16px;
+  padding: 10px 14px;
   font-family: "Inter Tight", sans-serif;
   font-size: 12px;
   line-height: 7px;
@@ -2241,7 +2241,7 @@ nav ul li a.active {
   height: 100%;
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   padding: 160px 0;
   margin-left: 0;
   border-radius: 0;
@@ -2323,7 +2323,7 @@ nav ul li a.active {
 
 .inner-banner {
   position: relative;
-  min-height: 280px;
+  min-height: 380px;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -3494,7 +3494,7 @@ a.service-card {
 }
 
 .directory-table thead {
-  background: #fff6eb;  
+  background: #fff6eb;
 }
 
 
@@ -3626,7 +3626,7 @@ a.service-card {
   color: #525252;
   margin-bottom: 25px;
   letter-spacing: 0.5px;
-  padding: 12px 16px;
+  padding: 8px 12px;
   font-family: "Inter Tight", sans-serif;
   font-size: 14px;
   line-height: 14px;
@@ -4147,7 +4147,7 @@ section.intro-section.mission-statement .about-intro-content h2 br {
 }
 
 main.main-content {
-  margin-top: 168px;
+  margin-top: 125px;
 }
 
 span[aria-hidden="true"],
@@ -4586,8 +4586,8 @@ span[style*="border-left"] {
   }
 
   .about-intro-content h2 {
-    font-size: 36px;
-    line-height: 42px;
+    font-size: 32px;
+    line-height: 36px;
   }
 
   /* Vision Section */
@@ -4662,11 +4662,38 @@ span[style*="border-left"] {
 
   /* Business Hero */
   .business-hero-title {
-    font-size: 48px;
+    font-size: 42px;
+    line-height: 46px;
+    margin-bottom: 10px;
+  }
+
+  .header-section-top-notch .header-title-top-notch {
+    font-size: 42px;
+    line-height: 46px;
+  }
+
+  .contact-info-box {
+    margin-top: 35px;
+    display: flex;
+  }
+
+  .contact-content {
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .business-hero-actions {
     padding-left: 0;
+  }
+
+  .header-section-top .header-title-top {
+    font-size: 42px;
+    line-height: 46px;
+  }
+
+  .header-title-center {
+    font-size: 42px !important;
+    line-height: 46px !important;
   }
 }
 
@@ -4766,22 +4793,12 @@ span[style*="border-left"] {
 
   /* Header Buttons Fix */
   .header-buttons-cols {
-    flex-direction: row;
-    gap: 4px;
-    align-items: center;
-    flex-shrink: 0;
+    display: none !important;
   }
 
-  .header-buttons-cols a.header-button {
-    padding: 6px 10px;
-    font-size: 9px;
-    text-align: center;
-    white-space: nowrap;
-    min-width: auto;
-  }
-
-  .header-buttons-cols a.header-button.dark-button {
-    padding: 6px 10px;
+  .header {
+    margin-top: 50px !important;
+    padding: 10px 0 !important;
   }
 
   /* Navigation adjustments */
@@ -4799,7 +4816,7 @@ span[style*="border-left"] {
 
   /* Hero Section */
   .hero-content {
-    padding: 100px 0;
+    padding: 80px 0 !important;
   }
 
   .hero-text h2 {
@@ -4818,12 +4835,13 @@ span[style*="border-left"] {
 
   /* Inner Banner */
   .inner-banner {
-    min-height: 350px;
+    min-height: 250px !important;
+    padding-top: 50px !important;
   }
 
   .inner-banner h1 {
-    font-size: 48px;
-    line-height: 52px;
+    font-size: 36px !important;
+    line-height: 42px !important;
   }
 
   /* Section Headers */
@@ -6652,14 +6670,28 @@ span[style*="border-left"] {
 
   /* Section Headers */
   .header-section .header-label {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 10px;
+    line-height: 16px;
     padding: 6px 14px;
+    margin-top: 50px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .gallery-section .header-section .header-label {
+    font-size: 12px;
+    line-height: 18px;
+    padding: 6px 10px;
+    margin-top: 50px !important;
   }
 
   .header-section .header-title {
-    font-size: 24px;
-    line-height: 26px;
+    font-size: 24px !important;
+    line-height: 26px !important;
   }
 
   .header-section .header-title-center {
@@ -6668,10 +6700,15 @@ span[style*="border-left"] {
   }
 
   .header-section-top .header-label-top {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 10px;
+    line-height: 12px;
     padding: 6px 14px;
-    margin-top: 40px;
+    margin-top: 10px !important;
+  }
+
+  .contact-info-box {
+    margin-top: 35px;
+    display: grid;
   }
 
   .header-section-top .header-title-top {
@@ -6683,7 +6720,7 @@ span[style*="border-left"] {
     font-size: 14px;
     line-height: 18px;
     padding: 6px 14px;
-    margin-top: 40px;
+    margin-top: 40px !important;
   }
 
   .events-section .header-section .header-title-center {
@@ -6692,10 +6729,11 @@ span[style*="border-left"] {
   }
 
   .gallery-section .header-section .header-label {
-    font-size: 14px;
-    line-height: 18px;
-    padding: 6px 14px;
-    margin-top: 40px;
+    font-size: 10px;
+    line-height: 16px;
+    padding: 6px 10px;
+    margin-top: 35px !important;
+    margin-bottom: 5px !important;
   }
 
   .gallery-section .header-section .header-title {
@@ -6770,14 +6808,15 @@ span[style*="border-left"] {
   }
 
   .about-intro-content .about-tag {
-    font-size: 14px;
-    line-height: 18px;
-    padding: 8px 16px;
+    font-size: 10px;
+    line-height: 14px;
+    padding: 6px 10px;
+    margin-bottom: 20px;
   }
 
   .about-intro-content h2 {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 21px;
+    line-height: 28px;
   }
 
   .about-team .about-intro-image img {
@@ -6807,7 +6846,7 @@ span[style*="border-left"] {
   }
 
   .founder-name {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 18px;
     max-width: 150px;
   }
@@ -6838,13 +6877,13 @@ span[style*="border-left"] {
   }
 
   .vision-tag {
-    padding: 8px 16px;
+    padding: 6px 14px;
     margin-bottom: 10px;
   }
 
   .vision-tag span {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 10px;
+    line-height: 14px;
   }
 
   .vision-header h2 {
@@ -7026,6 +7065,7 @@ span[style*="border-left"] {
   .gallery-grid {
     grid-auto-rows: 200px;
     gap: 12px;
+    padding-bottom: 20px;
   }
 
   /* Contact Section */
@@ -7333,14 +7373,35 @@ span[style*="border-left"] {
 
   .business-hero-label {
     margin-top: 60px;
-    padding: 8px 15px;
-    font-size: 12px;
-    margin-bottom: 15px;
+    padding: 6px 16px;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  .header-section-top-notch .header-title-top-notch {
+    font-family: "Inter Tight", sans-serif;
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .vision-tag {
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    font-size: 10px !important;
+    line-height: 10px !important;
+  }
+
+  .header-section-top-notch .header-label-top-notch {
+    padding: 6px 10px;
+    font-size: 10px;
+    line-height: 14px;
+    margin: 10px 0;
   }
 
   .business-hero-title {
-    font-size: 28px;
-    margin-bottom: 12px;
+    font-size: 24px;
+    line-height: 28px;
+    margin-bottom: 10px;
   }
 
   .business-hero-actions {
@@ -10775,6 +10836,11 @@ span[style*="border-left"] {
   border: 1px solid #f5c6cb;
 }
 
+.header-section-top.hide .header-label-top {
+  border: none;
+  background: none;
+}
+
 /* No Profiles State */
 .no-profiles-state {
   text-align: center;
@@ -12923,11 +12989,28 @@ span[style*="border-left"] {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 15px !important;
     display: grid !important;
+    padding: 20px 0 0 !important;
   }
 
   .service-card {
     width: 100% !important;
-    padding: 20px 10px !important;
+    padding: 15px 5px !important;
+    gap: 12px !important;
+  }
+
+  .service-card:last-child:nth-child(odd) {
+    grid-column: 1 / span 2;
+  }
+
+  .service-card .service-icon {
+    width: 80px !important;
+    height: 80px !important;
+    padding: 18px !important;
+  }
+
+  .service-card .service-icon img {
+    width: 35px !important;
+    height: 35px !important;
   }
 
   .service-card h3 {
@@ -12941,6 +13024,24 @@ span[style*="border-left"] {
 
   .header-section {
     margin-bottom: 25px !important;
+  }
+
+  .services-section,
+  .about-section,
+  .events-section,
+  .gallery-section {
+    padding: 40px 0 !important;
+  }
+
+  .matrimonial-hero {
+    padding: 60px 0 !important;
+    min-height: auto !important;
+  }
+
+  .matrimonial-text {
+    width: 60% !important;
+    padding: 40px 0 0 0 !important;
+    text-align: center !important;
   }
 }
 
@@ -12956,7 +13057,38 @@ span[style*="border-left"] {
   }
 
   .services-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    display: grid !important;
+    padding: 0px 0 0 !important;
+  }
+
+  .service-card .service-icon {
+    width: 90px !important;
+    height: 90px !important;
+    padding: 15px !important;
+  }
+
+  .service-card .service-icon img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .services-section,
+  .about-section,
+  .events-section,
+  .gallery-section {
+    padding: 20px 0 !important;
+  }
+
+  .service-card h3 {
+    font-size: 15px !important;
+    line-height: 20px !important;
   }
 
   .announcement-text {

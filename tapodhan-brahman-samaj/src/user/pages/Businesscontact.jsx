@@ -144,14 +144,14 @@ export default function Businesscontact() {
                 <button 
                   onClick={() => setViewMode('list')}
                   title="List View"
-                  style={{ padding: '8px', background: viewMode === 'list' ? '#c1272d' : '#f0f0f0', color: viewMode === 'list' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  style={{ padding: '12px', background: viewMode === 'list' ? '#c1272d' : '#f0f0f0', color: viewMode === 'list' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <ViewListIcon />
                 </button>
                 <button 
                   onClick={() => setViewMode('grid')}
                   title="Grid View"
-                  style={{ padding: '8px', background: viewMode === 'grid' ? '#c1272d' : '#f0f0f0', color: viewMode === 'grid' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  style={{ padding: '12px', background: viewMode === 'grid' ? '#c1272d' : '#f0f0f0', color: viewMode === 'grid' ? '#fff' : '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <GridViewIcon />
                 </button>

@@ -4,10 +4,10 @@ const AnnouncementHeader = () => {
   return (
     <section className="announcement-header-section">
       <div className="container">
-        <div className="header-section-top">
+        <div className="header-section-top hide">
           <span className="header-label-top"></span>
           <h2 className="header-title-top">
-            <strong><span></span></strong>
+
           </h2>
         </div>
       </div>
