@@ -1093,7 +1093,8 @@ nav ul li a.active {
 
 @media (max-width: 768px) {
   .event-content {
-    flex-direction: column;
+    flex-direction: column-reverse !important;
+    /* detail appears above image on mobile */
   }
 
   .event-image {
@@ -1352,7 +1353,7 @@ nav ul li a.active {
 
 .event-content .event-detail {
   width: 50%;
-  padding-top: 80px;
+
   box-sizing: border-box;
   border-radius: 5px;
 }
@@ -4975,7 +4976,8 @@ span[style*="border-left"] {
   }
 
   .event-content {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    /* detail above image on mobile */
     gap: 18px;
   }
 
@@ -4985,7 +4987,7 @@ span[style*="border-left"] {
   }
 
   .event-content .event-detail {
-    padding-top: 30px;
+    padding-top: 80px;
   }
 
   .event-title {
@@ -7022,6 +7024,7 @@ span[style*="border-left"] {
     line-height: 18px;
     padding: 6px 15px;
     margin-bottom: 8px;
+    margin-top: 40px;
   }
 
   .event-title {
