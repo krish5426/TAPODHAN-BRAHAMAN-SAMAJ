@@ -93,7 +93,7 @@ const Header = () => {
             <span className="announcement-text">New Announcement: Tapodhan Akshay Patram!</span>
           </Link>
           <a
-            href="/shiv-mahapuran-parayan.pdf"
+            href="https://www.youtube.com/live/5hySlN7g4fg?si=_oTAM6-vDcvuGZRR"
             target="_blank"
             rel="noopener noreferrer"
             className="announcement-link shiv-announcement-link"
@@ -103,11 +103,15 @@ const Header = () => {
                 <span
                   key={index}
                   className="txt-animate"
-                  style={{ animationDelay: `${index * 0.15}s` }}
+                  style={{ "--index": index }}
                 >
                   {letter === " " ? "\u00A0" : letter}
                 </span>
               ))}
+            </span>
+            <span className="live-tag">
+              <span className="live-dot"></span>
+              LIVE
             </span>
           </a>
         </div>

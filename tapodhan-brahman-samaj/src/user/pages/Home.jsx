@@ -31,7 +31,7 @@ const Home = () => {
         <div className="home-popup-overlay" onClick={closePopup}>
           <div className="home-popup-content" onClick={(e) => e.stopPropagation()}>
             <button className="home-popup-close" onClick={closePopup}>&times;</button>
-            <a href="/shiv-mahapuran-parayan.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.youtube.com/live/5hySlN7g4fg?si=_oTAM6-vDcvuGZRR" target="_blank" rel="noopener noreferrer">
               <img src={shivMahapuranImg} alt="Shiv Mahapuran Parayan" className="home-popup-image" />
             </a>
           </div>

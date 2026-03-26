@@ -42,20 +42,66 @@
 .shiv-parayan-text {
   font-family: 'Chakra Petch', sans-serif;
   display: inline-flex;
+  align-items: center;
+  letter-spacing: 0.6px;
+  /* natural font spacing */
 }
 
-.txt-animate {
+.shiv-parayan-text .txt-animate {
   display: inline-block;
-  animation: txt-color 2s ease-in-out infinite alternate;
+  font-variant-ligatures: contextual;
+  color: #c4c4c4;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: txt-color 6s ease-in-out infinite;
+  animation-delay: calc(var(--index) * 0.12s);
+  transition: all 0.5s ease;
+}
+
+.shiv-announcement-link:hover .txt-animate {
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+  transform: scale(1.03);
 }
 
 @keyframes txt-color {
-  0% {
-    color: #fff;
+  0%, 35%, 100% {
+    color: #c4c4c4;
+    filter: brightness(1);
+    text-shadow: none;
   }
+  17.5% {
+    color: #ffffff;
+    filter: brightness(1.8);
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 10px rgba(170, 204, 255, 0.5);
+  }
+}
 
-  100% {
-    color: grey;
+.live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #ffdddd;
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(255, 0, 0, 0.35);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 6px;
+  text-transform: uppercase;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff0000;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
   }
 }
 
