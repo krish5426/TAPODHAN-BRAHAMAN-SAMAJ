@@ -58,7 +58,7 @@ pm2 startup
 - `uploads/` - File upload directory
 
 ## 🔧 Production URLs
-- API Base: `https://tbsapi.trajinfotech.com`
+- API Base: `https://api.tapodhanbrahmansamaj.com`
 - Admin Login: `POST /admin/login`
 - User Registration: `POST /register`
 

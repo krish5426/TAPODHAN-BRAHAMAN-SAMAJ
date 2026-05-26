@@ -226,8 +226,14 @@ class Business {
     }
 
     if (filters.location) {
-      query += ' AND address LIKE ?';
+      query += ' AND (city LIKE ? OR state LIKE ?)';
       params.push(`%${filters.location}%`);
+      params.push(`%${filters.location}%`);
+    }
+
+    if (filters.category) {
+      query += ' AND category LIKE ?';
+      params.push(`%${filters.category}%`);
     }
 
     query += ' ORDER BY createdAt DESC';

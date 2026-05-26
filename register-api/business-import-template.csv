@@ -1,0 +1,5 @@
+**MANDATORY FIELDS ALLOWED**
+"Please enter required data. Column matching is flexible, but you must enter Business Name, Owner Name, Contact Number and Address. If a user with the specified phone/email does not exist, provide User First Name and User Mobile to create one."
+
+User First Name*,User Last Name,User Email,User Mobile*,Business Name*,Owner Name*,Business Email,Contact Number*,Address*,Category,Business Type,Description,Website,City,State,Status
+John,Doe,johndoe@example.com,9876543210,Doe Tech LLC,John Doe,info@doetech.com,1234567890,"123 Main St, New York",IT Services,Pvt Ltd,Tech solutions,www.doetech.com,New York,New York,approved
