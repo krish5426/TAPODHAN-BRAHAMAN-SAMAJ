@@ -20,18 +20,21 @@ const Events = () => {
         }
         const data = await response.json();
         
-        // Transform data if needed
-        // Backend returns: id, title, description, date, day, month, category, details, address, posterImage
-        // We need to ensure posterImage has full URL if it's a filename
-        const processedEvents = data.map(event => ({
-          ...event,
-          posterImage: event.posterImage ? 
-            (event.posterImage.startsWith('http') ? event.posterImage : `${API_ENDPOINTS.UPLOADS}/${event.posterImage}`) 
-            : null,
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const upcomingEvents = data
+          .filter(event => new Date(event.date) >= today)
+          .map(event => ({
+            ...event,
+            posterImage: event.posterImage ? 
+              (event.posterImage.startsWith('http') ? event.posterImage : `${API_ENDPOINTS.UPLOADS}/${event.posterImage}`) 
+              : null,
             featured: true 
-        }));
+          }))
+          .sort((a, b) => new Date(a.date) - new Date(b.date));
         
-        setEvents(processedEvents);
+        setEvents(upcomingEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
@@ -64,7 +67,7 @@ const Events = () => {
     handleEventChange(newIndex);
   };
 
-  if (loading || events.length === 0) {
+  if (loading) {
     return (
       <section className="events-section">
         <div className="container">
@@ -74,8 +77,6 @@ const Events = () => {
     );
   }
 
-  const currentEvent = events[currentEventIndex];
-
   return (
     <section className="events-section">
       <div className="container">
@@ -84,52 +85,65 @@ const Events = () => {
           <h2 className="header-title-center"><strong>Get Ready <span>for What's</span> Next!</strong></h2>
         </div>
 
-        <div className="events-carousel-container">
-          <div className="carousel-viewport">
-            <div
-              className="carousel-track"
-              style={{ transform: `translateX(-${currentEventIndex * 100}%)`, transition: isTransitioning ? 'transform 600ms ease' : 'transform 600ms ease' }}
-            >
-              {events.map((ev, idx) => (
-                <div className="carousel-item" key={ev.id}>
-                  <div className={`event-card ${ev.featured ? 'featured' : 'regular'}`}>
-                    <div className="event-date">
-                      <span className="date">{ev.day}</span>
-                      <span className="month">{ev.month}</span>
-                    </div>
-
-                    <div className="event-content">
-                      <div className="event-image">
-                        <img src={ev.posterImage} alt={ev.title} className="carousel-image" />
+        {events.length > 0 ? (
+          <div className="events-carousel-container">
+            <div className="carousel-viewport">
+              <div
+                className="carousel-track"
+                style={{ transform: `translateX(-${currentEventIndex * 100}%)`, transition: 'transform 600ms ease' }}
+              >
+                {events.map((ev, idx) => (
+                  <div className="carousel-item" key={ev.id}>
+                    <div className={`event-card ${ev.featured ? 'featured' : 'regular'}`}>
+                      <div className="event-date">
+                        <span className="date">{ev.day}</span>
+                        <span className="month">{ev.month}</span>
                       </div>
-                      <div className="event-detail">
-                        <span className="event-category">{ev.category}</span>
-                        <h3 className="event-title">{ev.title}</h3>
 
-                        {ev.description && <p className="event-description event-cont-row">{ev.description}</p>}
-                        {ev.details && <p className="event-details event-cont-row">{ev.details}</p>}
-                        {ev.address && <p className="event-address event-cont-row">{ev.address}</p>}
+                      <div className="event-content">
+                        <div className="event-image">
+                          <img src={ev.posterImage} alt={ev.title} className="carousel-image" />
+                        </div>
+                        <div className="event-detail">
+                          <span className="event-category">{ev.category}</span>
+                          <h3 className="event-title">{ev.title}</h3>
+
+                          {ev.description && <p className="event-description event-cont-row">{ev.description}</p>}
+                          {ev.details && <p className="event-details event-cont-row">{ev.details}</p>}
+                          {ev.address && <p className="event-address event-cont-row">{ev.address}</p>}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="carousel-controls below-viewport">
-            <div className="carousel-indicators">
-              {events.map((_, index) => (
-                <button
-                  key={index}
-                  className={`indicator ${index === currentEventIndex ? 'active' : ''}`}
-                  onClick={() => handleEventChange(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
+            <div className="carousel-controls below-viewport">
+              <div className="carousel-indicators">
+                {events.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`indicator ${index === currentEventIndex ? 'active' : ''}`}
+                    onClick={() => handleEventChange(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="coming-soon-container">
+            <div className="coming-soon-card">
+              <div className="coming-soon-content">
+                <i className="fas fa-calendar-alt announcement-icon"></i>
+                <h3>Exciting Events Coming Soon!</h3>
+                <p>We are currently planning some amazing events for the community. Stay tuned and check back later for updates!</p>
+                <div className="stay-tuned-badge">Stay Tuned</div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

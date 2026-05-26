@@ -50,6 +50,7 @@ const Events = () => {
   };
 
   const today = new Date();
+  today.setHours(0, 0, 0, 0); // Include the entire current day
   const upcomingEvents = events
     .filter(event => new Date(event.date) >= today)
     .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort by date ascending
@@ -80,44 +81,55 @@ const Events = () => {
       
       <section className="events-section new">
         <div className="container">
-          {/* Latest Event Section */}
-          {latestEvent && (
-            <>
-              
-              
-              <div className="event-card featured" style={{ marginBottom: '60px' }}>
-                <div className="event-date">
-                  <span className="date">{latestEvent.day}</span>
-                  <span className="month">{latestEvent.month}</span>
+          {/* Upcoming Events Section */}
+          <div className="header-section">
+            <span className="header-label">Upcoming Events</span>
+          </div>
+
+          {latestEvent ? (
+            <div className="event-card featured" style={{ marginBottom: '60px' }}>
+              <div className="event-date">
+                <span className="date">{latestEvent.day}</span>
+                <span className="month">{latestEvent.month}</span>
+              </div>
+              <div className="event-content">
+                <div className="event-image">
+                  <img 
+                    src={latestEvent.posterImage ? (latestEvent.posterImage.startsWith('http') ? latestEvent.posterImage : `${API_ENDPOINTS.UPLOADS}/${latestEvent.posterImage}`) : null} 
+                    alt={latestEvent.title} 
+                  />
                 </div>
-                <div className="event-content">
-                  <div className="event-image">
-                    <img src={`${API_ENDPOINTS.UPLOADS}/${latestEvent.posterImage}`} alt={latestEvent.title} />
-                  </div>
-                  <div className="event-detail">
-                    <span className="event-category">{latestEvent.category}</span>
-                    <h3 className="event-title">{latestEvent.title}</h3>
-                    {latestEvent.description && (
-                      <p className="event-description event-cont-row">{latestEvent.description}</p>
-                    )}
-                    {latestEvent.details && (
-                      <p className="event-details event-cont-row">{latestEvent.details}</p>
-                    )}
-                    {latestEvent.address && (
-                      <p className="event-address event-cont-row">{latestEvent.address}</p>
-                    )}
-                  </div>
+                <div className="event-detail">
+                  <span className="event-category">{latestEvent.category}</span>
+                  <h3 className="event-title">{latestEvent.title}</h3>
+                  {latestEvent.description && (
+                    <p className="event-description event-cont-row">{latestEvent.description}</p>
+                  )}
+                  {latestEvent.details && (
+                    <p className="event-details event-cont-row">{latestEvent.details}</p>
+                  )}
+                  {latestEvent.address && (
+                    <p className="event-address event-cont-row">{latestEvent.address}</p>
+                  )}
                 </div>
               </div>
-            </>
+            </div>
+          ) : (
+            <div className="no-upcoming-events">
+              <div className="coming-soon-mini">
+                <div className="coming-soon-text">
+                  <h3>More Events Coming Soon!</h3>
+                  <p>We're brewing up something special for the community. Watch this space!</p>
+                </div>
+              </div>
+            </div>
           )}
 
           {/* Past Events Section */}
           {pastEvents.length > 0 && (
             <>
-              <div className="header-section">
+              <div className="header-section" style={{ marginTop: '80px' }}>
                 <span className="header-label">Past Events</span>
-                
               </div>
               
               <div className="events-grid">
@@ -129,7 +141,10 @@ const Events = () => {
                     </div>
                     <div className="event-content">
                       <div className="event-image">
-                        <img src={`${API_ENDPOINTS.UPLOADS}/${event.posterImage}`} alt={event.title} />
+                        <img 
+                          src={event.posterImage ? (event.posterImage.startsWith('http') ? event.posterImage : `${API_ENDPOINTS.UPLOADS}/${event.posterImage}`) : null} 
+                          alt={event.title} 
+                        />
                       </div>
                       <div className="event-detail">
                         <span className="event-category">{event.category}</span>
@@ -152,8 +167,8 @@ const Events = () => {
           )}
 
           {events.length === 0 && !loading && (
-            <div className="header-section">
-              <p>No events found.</p>
+            <div className="no-events-found">
+              <p>No events found at the moment.</p>
             </div>
           )}
         </div>

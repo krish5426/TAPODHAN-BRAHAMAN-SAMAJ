@@ -92,24 +92,6 @@ const Header = () => {
           <Link to="/announcements" className="announcement-link">
             <span className="announcement-text">New Announcement: Tapodhan Akshay Patram!</span>
           </Link>
-          <a
-            href="https://www.youtube.com/@TapodhanBrahmanSamaj/streams"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="announcement-link shiv-announcement-link"
-          >
-            <span className="announcement-text shiv-parayan-text notranslate" translate="no">
-              {"Shiv Mahapuran Parayan".split("").map((letter, index) => (
-                <span
-                  key={index}
-                  className="txt-animate"
-                  style={{ "--index": index }}
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </span>
-              ))}
-            </span>
-          </a>
         </div>
       </div>
 
