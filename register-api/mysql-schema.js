@@ -123,13 +123,13 @@ const createTables = async () => {
     await pool.execute(`
       CREATE TABLE IF NOT EXISTS businesses (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        userId INT UNIQUE NOT NULL,
+        userId INT NOT NULL,
         businessName VARCHAR(255) NOT NULL,
         ownerName VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        email VARCHAR(255) DEFAULT NULL,
         contactNumber VARCHAR(20) NOT NULL,
         address TEXT NOT NULL,
-        posterPhoto VARCHAR(255) NOT NULL,
+        posterPhoto VARCHAR(255) DEFAULT NULL,
         category VARCHAR(255),
         businessType VARCHAR(255),
         description TEXT,

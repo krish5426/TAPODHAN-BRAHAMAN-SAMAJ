@@ -129,7 +129,7 @@ export const deleteAdminEvent = async (id) => {
 export const updateAdminProfile = async (id, formData) => {
     try {
         const token = localStorage.getItem("admin_token");
-        const response = await fetch(`${API_URL}/main-admin/edit-profile/${id}`, {
+        const response = await fetch(`${API_URL}/api/admin/profiles/${id}/edit`, {
             method: "PUT",
             headers: {
                 "Authorization": token ? `Bearer ${token}` : "",
@@ -257,6 +257,26 @@ export const importAdminBusiness = async (file) => {
         return await handleResponse(response);
     } catch (error) {
         console.error("importAdminBusiness error:", error);
+        throw error;
+    }
+};
+
+export const importAdminProfiles = async (file) => {
+    try {
+        const token = localStorage.getItem("admin_token");
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(`${API_URL}/api/admin/profiles/import`, {
+            method: "POST",
+            headers: {
+                "Authorization": token ? `Bearer ${token}` : "",
+            },
+            body: formData
+        });
+        return await handleResponse(response);
+    } catch (error) {
+        console.error("importAdminProfiles error:", error);
         throw error;
     }
 };

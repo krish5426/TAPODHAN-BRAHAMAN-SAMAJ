@@ -30,6 +30,23 @@ import MDTypography from "../MDTypography";
 function Breadcrumbs({ icon, title, route, light }) {
   const routes = route.slice(0, -1);
 
+  // Build cumulative paths for breadcrumb links
+  const buildPath = (index) => {
+    return "/" + route.slice(0, index + 1).join("/");
+  };
+
+  // Map certain route segments to better destinations
+  const getLink = (el, index) => {
+    const path = buildPath(index);
+    // If the segment is "matrimony", link to brides list
+    if (el === "matrimony") return "/admin/matrimony/brides";
+    // If the segment is "business", link to business list
+    if (el === "business") return "/admin/business";
+    // If it's a number (ID) or "edit"/"view", don't make it a link
+    if (!isNaN(el) || el === "edit" || el === "view") return null;
+    return path;
+  };
+
   return (
     <MDBox mr={{ xs: 0, xl: 8 }}>
       <MuiBreadcrumbs
@@ -39,7 +56,7 @@ function Breadcrumbs({ icon, title, route, light }) {
           },
         }}
       >
-        <Link to="/">
+        <Link to="/admin/dashboard">
           <MDTypography
             component="span"
             variant="body2"
@@ -50,21 +67,40 @@ function Breadcrumbs({ icon, title, route, light }) {
             <Icon>{icon}</Icon>
           </MDTypography>
         </Link>
-        {routes.map((el) => (
-          <Link to={`/${el}`} key={el}>
+        {routes.map((el, index) => {
+          const link = getLink(el, index);
+          if (link) {
+            return (
+              <Link to={link} key={el}>
+                <MDTypography
+                  component="span"
+                  variant="button"
+                  fontWeight="regular"
+                  textTransform="capitalize"
+                  color={light ? "white" : "dark"}
+                  opacity={light ? 0.8 : 0.5}
+                  sx={{ lineHeight: 0 }}
+                >
+                  {el}
+                </MDTypography>
+              </Link>
+            );
+          }
+          return (
             <MDTypography
+              key={el}
               component="span"
               variant="button"
               fontWeight="regular"
               textTransform="capitalize"
               color={light ? "white" : "dark"}
-              opacity={light ? 0.8 : 0.5}
+              opacity={light ? 0.5 : 0.3}
               sx={{ lineHeight: 0 }}
             >
               {el}
             </MDTypography>
-          </Link>
-        ))}
+          );
+        })}
         <MDTypography
           variant="button"
           fontWeight="regular"

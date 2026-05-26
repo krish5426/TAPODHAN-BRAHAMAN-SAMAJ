@@ -41,7 +41,10 @@ const select = {
     },
 
     icon: {
-      display: "none",
+      display: "block",
+      width: pxToRem(22),
+      height: pxToRem(22),
+      right: pxToRem(8),
     },
   },
 };

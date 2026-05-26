@@ -2,6 +2,7 @@ import Dashboard from "../dashboard/Dashboard";
 import Brides from "../matrimony/Brides";
 import Grooms from "../matrimony/Grooms";
 import EditProfile from "../matrimony/EditProfile";
+import ViewProfile from "../matrimony/ViewProfile";
 import PendingProfiles from "../matrimony/PendingProfiles";
 import Business from "../business/Business";
 import PendingBusinessRequests from "../business/PendingBusinessRequests";
@@ -88,6 +89,13 @@ const routes = [
     key: "edit-profile",
     route: "/admin/matrimony/edit/:id",
     component: <EditProfile />,
+  },
+  {
+    type: "hidden",
+    name: "View Profile",
+    key: "view-profile",
+    route: "/admin/matrimony/view/:id",
+    component: <ViewProfile />,
   },
   {
     type: "hidden",

@@ -977,6 +977,13 @@ app.post("/profile", authenticateToken, upload.single("profilePhoto"), async (re
 
     const newProfile = await Profile.create(profileData);
 
+    // Send email notification to admin
+    try {
+      await sendMatrimonyProfileEmail(profileData, newProfile.id);
+    } catch (emailError) {
+      console.error('Failed to send matrimony profile email:', emailError);
+    }
+
     res.status(201).json({
       message: "Profile created successfully",
       profile: newProfile
@@ -1089,7 +1096,130 @@ async function sendBusinessRegistrationEmails(userEmail, ownerName, businessName
   console.log('Admin email sent');
 }
 
-// Email notification for business status change
+// Matrimonial profile email notifications
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://tapodhanbrahmansamaj.com';
+const ADMIN_URL = process.env.ADMIN_URL || FRONTEND_URL + '/admin';
+
+async function sendMatrimonyProfileEmail(profileData, profileId) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('SMTP not configured, skipping matrimony profile email');
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT) || 587,
+    secure: false,
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+  });
+
+  const adminViewUrl = `${ADMIN_URL}/matrimony/view/${profileId}`;
+  const adminEditUrl = `${ADMIN_URL}/matrimony/edit/${profileId}`;
+
+  const emailTemplate = `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+    <body style="margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#f4f4f4;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#ffffff;">
+        <tr>
+          <td style="background:linear-gradient(135deg,#e65100 0%,#ff8f00 100%);padding:30px;text-align:center;">
+            <h1 style="color:#ffffff;margin:0;font-size:24px;">Tapodhan Brahman Samaj</h1>
+            <p style="color:#ffe0b2;margin:8px 0 0;font-size:14px;">Matrimonial Services</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:30px;">
+            <h2 style="color:#333;margin:0 0 20px;font-size:20px;">New Matrimonial Profile Registered</h2>
+            <p style="color:#555;line-height:1.6;">A new matrimonial profile has been submitted and requires your review.</p>
+            <table width="100%" style="background:#fafafa;border-radius:8px;border:1px solid #eee;margin:20px 0;">
+              <tr><td style="padding:20px;">
+                <p style="margin:5px 0;"><strong>Name:</strong> ${profileData.firstName || ''} ${profileData.surname || ''}</p>
+                <p style="margin:5px 0;"><strong>Gender:</strong> ${profileData.gender || '-'}</p>
+                <p style="margin:5px 0;"><strong>DOB:</strong> ${profileData.dateOfBirth || '-'}</p>
+                <p style="margin:5px 0;"><strong>Education:</strong> ${profileData.educationQualification || '-'}</p>
+                <p style="margin:5px 0;"><strong>Occupation:</strong> ${profileData.jobType || '-'}</p>
+                <p style="margin:5px 0;"><strong>Location:</strong> ${profileData.currentLocation || '-'}</p>
+                <p style="margin:5px 0;"><strong>Native:</strong> ${profileData.nativePlace || '-'}</p>
+                <p style="margin:5px 0;"><strong>Contact:</strong> ${profileData.contactPersonName || '-'} (${profileData.contactPersonNumber || '-'})</p>
+              </td></tr>
+            </table>
+            <p style="margin:20px 0 10px;">
+              <a href="${adminViewUrl}" style="display:inline-block;background:#1976d2;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:14px;margin-right:10px;">View in Admin</a>
+              <a href="${adminEditUrl}" style="display:inline-block;background:#388e3c;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:14px;">Edit Profile</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#333;padding:20px;text-align:center;">
+            <p style="color:#aaa;margin:0;font-size:12px;">Tapodhan Brahman Samaj Charitable Trust</p>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>`;
+
+  await transporter.sendMail({
+    from: '"Tapodhan Brahman Samaj" <' + (process.env.SMTP_FROM || process.env.SMTP_USER) + '>',
+    to: process.env.EMAIL_TO_ADMIN || process.env.SMTP_TO,
+    subject: 'New Matrimonial Profile: ' + (profileData.firstName || '') + ' ' + (profileData.surname || '') + ' (' + (profileData.gender || '') + ')',
+    html: emailTemplate
+  });
+  console.log('Matrimony admin notification email sent');
+}
+
+async function sendMatrimonyStatusEmail(userEmail, profileData, profileId, status) {
+  if (!userEmail || !process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.log('SMTP not configured or no email, skipping matrimony status email');
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT) || 587,
+    secure: false,
+    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+  });
+
+  const profileViewUrl = FRONTEND_URL + '/matrimonial-detail/' + profileId;
+  const isApproved = status === 'approved';
+
+  const emailTemplate = `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+    <body style="margin:0;padding:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background-color:#f4f4f4;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#ffffff;">
+        <tr>
+          <td style="background:linear-gradient(135deg,${isApproved ? '#2e7d32,#66bb6a' : '#c62828,#ef5350'});padding:30px;text-align:center;">
+            <h1 style="color:#ffffff;margin:0;font-size:24px;">Tapodhan Brahman Samaj</h1>
+            <p style="color:rgba(255,255,255,0.8);margin:8px 0 0;font-size:14px;">Matrimonial Services</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:30px;">
+            ${isApproved ? '<h2 style="color:#2e7d32;margin:0 0 20px;">Profile Approved!</h2><p style="color:#555;line-height:1.6;">Dear <strong>' + (profileData.firstName || '') + '</strong>,</p><p style="color:#555;line-height:1.6;">Congratulations! Your matrimonial profile has been approved and is now visible to other members.</p><p style="margin:25px 0;"><a href="' + profileViewUrl + '" style="display:inline-block;background:#e65100;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;">View Your Profile</a></p>' : '<h2 style="color:#c62828;margin:0 0 20px;">Profile Update</h2><p style="color:#555;line-height:1.6;">Dear <strong>' + (profileData.firstName || '') + '</strong>,</p><p style="color:#555;line-height:1.6;">We regret to inform you that your matrimonial profile has not been approved at this time. Please contact our team for more details.</p>'}
+            <p style="color:#555;line-height:1.6;margin-top:20px;">Best regards,<br><strong>Tapodhan Brahman Samaj Team</strong></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#333;padding:20px;text-align:center;">
+            <p style="color:#aaa;margin:0;font-size:12px;">Tapodhan Brahman Samaj Charitable Trust</p>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>`;
+
+  await transporter.sendMail({
+    from: '"Tapodhan Brahman Samaj" <' + (process.env.SMTP_FROM || process.env.SMTP_USER) + '>',
+    to: userEmail,
+    subject: isApproved ? 'Your Matrimonial Profile is Approved! - Tapodhan Brahman Samaj' : 'Matrimonial Profile Update - Tapodhan Brahman Samaj',
+    html: emailTemplate
+  });
+  console.log('Matrimony status email sent to ' + userEmail);
+}
+
 async function sendBusinessStatusEmail(userEmail, ownerName, businessName, status) {
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.log('SMTP not configured, skipping status email');
@@ -1200,10 +1330,93 @@ app.put("/api/admin/profiles/:id", authenticateToken, async (req, res) => {
       [status, adminId, new Date(), id]
     );
 
+    // Send status email to user
+    try {
+      const user = await User.findById(profile.userId);
+      if (user && user.email) {
+        await sendMatrimonyStatusEmail(user.email, profile, id, status);
+      }
+    } catch (emailError) {
+      console.error('Failed to send matrimony status email:', emailError);
+    }
+
     res.json({ message: `Profile ${status} successfully` });
   } catch (error) {
     console.error("Update profile status error:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Full profile update (admin edit)
+app.put("/api/admin/profiles/:id/edit", authenticateToken, upload.single("profilePhoto"), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const pool = getPool();
+
+    const profile = await Profile.findById(id);
+    if (!profile) return res.status(404).json({ message: "Profile not found" });
+
+    // Build update fields from body
+    const allowedFields = [
+      'firstName', 'surname', 'fatherName', 'gender', 'dateOfBirth', 'timeOfBirth',
+      'birthPlace', 'profileFor', 'maritalStatus', 'noOfChildren', 'height', 'weight',
+      'physicalDisability', 'glasses', 'mangal', 'expectation', 'educationQualification',
+      'educationDetails', 'jobType', 'jobDescription', 'designation', 'currentLocation',
+      'incomeCurrency', 'monthlyIncome', 'fatherFullName', 'motherFullName',
+      'fatherOccupation', 'motherOccupation', 'totalFamilyMembers', 'totalBrothers',
+      'totalSisters', 'marriedBrothers', 'marriedSisters', 'familyType', 'familyValues',
+      'familyLocation', 'nativePlace', 'familyWealth', 'contactPersonName',
+      'contactPersonRelation', 'contactPersonNumber', 'contactPersonEmail',
+      'contactPersonAddress', 'status', 'profilePhoto'
+    ];
+
+    const updates = [];
+    const values = [];
+
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined && req.body[field] !== '') {
+        let val = req.body[field];
+        
+        // Handle date format conversion
+        if (field === 'dateOfBirth' && val) {
+          if (val.includes('T')) {
+            // ISO format: 2000-12-11T18:30:00.000Z -> 2000-12-11
+            val = val.split('T')[0];
+          } else if (val.includes('/')) {
+            const parts = val.split('/');
+            if (parts.length === 3) {
+              const [d, m, y] = parts;
+              val = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+            }
+          }
+        }
+        
+        updates.push(`\`${field}\` = ?`);
+        values.push(val);
+      }
+    }
+
+    // Handle profile photo upload
+    if (req.file) {
+      updates.push('profilePhoto = ?');
+      values.push(req.file.filename);
+    }
+
+    if (updates.length === 0) {
+      return res.status(400).json({ message: "No fields to update" });
+    }
+
+    values.push(id);
+    await pool.execute(
+      `UPDATE profiles SET ${updates.join(', ')} WHERE id = ?`,
+      values
+    );
+
+    const updatedProfile = await Profile.findById(id);
+    res.json({ message: "Profile updated successfully", profile: updatedProfile });
+  } catch (error) {
+    console.error("Full profile update error:", error.message, error.sql || '');
+    res.status(500).json({ message: "Internal server error: " + error.message });
   }
 });
 
@@ -1478,6 +1691,235 @@ app.post("/api/admin/business/import", authenticateToken, memoryUpload.single("f
   }
 });
 
+
+// Profile/Matrimony Excel/CSV Import
+const XLSX = require('xlsx');
+
+app.post("/api/admin/profiles/import", authenticateToken, memoryUpload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    let rows = [];
+    const ext = path.extname(req.file.originalname).toLowerCase();
+
+    if (ext === '.xlsx' || ext === '.xls') {
+      // Parse Excel
+      const workbook = XLSX.read(req.file.buffer, { type: 'buffer', cellDates: true });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const rawData = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+
+      // Find the header row (look for "No" or "Name" or "Boy/Girl" column)
+      let headerRowIndex = -1;
+      const allRows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+
+      for (let i = 0; i < Math.min(allRows.length, 5); i++) {
+        const row = allRows[i].map(c => String(c).trim().toLowerCase());
+        if (row.includes('name') || row.includes('boy/girl') || row.includes('dob')) {
+          headerRowIndex = i;
+          break;
+        }
+      }
+
+      if (headerRowIndex >= 0) {
+        const headers = allRows[headerRowIndex].map(h => String(h).trim());
+        for (let i = headerRowIndex + 1; i < allRows.length; i++) {
+          const rowData = {};
+          headers.forEach((h, idx) => {
+            rowData[h] = allRows[i][idx] !== undefined ? allRows[i][idx] : '';
+          });
+          rows.push(rowData);
+        }
+      } else {
+        rows = rawData;
+      }
+    } else if (ext === '.csv') {
+      // Parse CSV
+      const bufferStream = new (require('stream').PassThrough)();
+      bufferStream.end(req.file.buffer);
+      rows = await new Promise((resolve, reject) => {
+        const results = [];
+        bufferStream
+          .pipe(csv())
+          .on("data", (data) => results.push(data))
+          .on("end", () => resolve(results))
+          .on("error", reject);
+      });
+    } else {
+      return res.status(400).json({ message: "Unsupported file format. Use .xlsx, .xls, or .csv" });
+    }
+
+    const importSummary = { success: 0, errors: [], total: 0 };
+
+    // Filter out empty rows
+    rows = rows.filter(row => {
+      const name = getExcelCol(row, ['Name', 'name']);
+      const dob = getExcelCol(row, ['DOB', 'dob', 'Date of Birth']);
+      const gender = getExcelCol(row, ['Boy/Girl', 'Gender', 'gender']);
+      return name || dob || gender;
+    });
+
+    importSummary.total = rows.length;
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      try {
+        const name = String(getExcelCol(row, ['Name', 'name']) || '').trim();
+        const fatherName = String(getExcelCol(row, ['Father', 'father', 'Father Name']) || '').trim();
+        const genderRaw = String(getExcelCol(row, ['Boy/Girl', 'Gender', 'gender']) || '').trim().toLowerCase();
+        const dobRaw = getExcelCol(row, ['DOB', 'dob', 'Date of Birth', 'Date Of Birth']);
+        const nativePlace = String(getExcelCol(row, ['Native', 'native', 'Native Place']) || '').trim();
+        const motherName = String(getExcelCol(row, ['Mother', 'mother', 'Mother Name']) || '').trim();
+        const mosal = String(getExcelCol(row, ['Mosal', 'mosal']) || '').trim();
+        const education = String(getExcelCol(row, ['Education', 'education']) || '').trim();
+        const currentProfile = String(getExcelCol(row, ['Current Profile', 'current profile', 'Job', 'Occupation']) || '').trim();
+        const currentLocation = String(getExcelCol(row, ['Current Location', 'current location', 'Location', 'City']) || '').trim();
+        const gotra = String(getExcelCol(row, ['Gotra', 'gotra']) || '').trim();
+
+        if (!name) {
+          importSummary.errors.push(`Row ${i + 2}: Missing Name, skipped.`);
+          continue;
+        }
+
+        // Parse gender
+        let gender = '';
+        if (genderRaw === 'boy' || genderRaw === 'male' || genderRaw === 'm') {
+          gender = 'Male';
+        } else if (genderRaw === 'girl' || genderRaw === 'female' || genderRaw === 'f') {
+          gender = 'Female';
+        } else {
+          importSummary.errors.push(`Row ${i + 2}: Invalid gender "${genderRaw}" for "${name}", skipped.`);
+          continue;
+        }
+
+        // Parse DOB
+        let dateOfBirth = null;
+        if (dobRaw) {
+          if (dobRaw instanceof Date) {
+            dateOfBirth = dobRaw.toISOString().split('T')[0];
+          } else {
+            const dobStr = String(dobRaw).trim();
+            // Try DD/MM/YYYY format
+            const parts = dobStr.split(/[\/\-\.]/);
+            if (parts.length === 3) {
+              let [d, m, y] = parts;
+              if (parseInt(d) > 12) {
+                // DD/MM/YYYY
+                dateOfBirth = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+              } else if (parseInt(m) > 12) {
+                // MM/DD/YYYY
+                dateOfBirth = `${y}-${d.padStart(2, '0')}-${m.padStart(2, '0')}`;
+              } else {
+                // Assume DD/MM/YYYY
+                dateOfBirth = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+              }
+            }
+          }
+        }
+
+        if (!dateOfBirth) {
+          dateOfBirth = '2000-01-01'; // Default if missing
+        }
+
+        // Parse name - split into firstName and surname
+        const nameParts = name.split(' ');
+        const firstName = nameParts[0] || name;
+        const surname = nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+
+        // Create a dummy user for this profile (admin import)
+        const dummyMobile = `IMP${Date.now()}${i}`;
+        const hashedPassword = await bcrypt.hash('tapodhan123', 10);
+
+        const newUser = await User.create({
+          firstName: firstName,
+          lastName: surname,
+          email: null,
+          mobile: dummyMobile,
+          password: hashedPassword,
+          registerForProfile: true,
+          acceptTerms: true
+        });
+
+        // Create profile
+        const profileData = {
+          userId: newUser.id,
+          profileFor: 'Self',
+          maritalStatus: 'Unmarried',
+          noOfChildren: '0',
+          firstName: firstName,
+          fatherName: fatherName || '-',
+          surname: surname || '-',
+          gender: gender,
+          dateOfBirth: dateOfBirth,
+          timeOfBirth: '-',
+          birthPlace: nativePlace || '-',
+          height: '-',
+          weight: '-',
+          physicalDisability: 'No',
+          glasses: 'No',
+          mangal: '-',
+          expectation: '-',
+          educationQualification: education || '-',
+          educationDetails: education || '-',
+          jobType: currentProfile || '-',
+          jobDescription: currentProfile || '-',
+          designation: '-',
+          currentLocation: currentLocation || '-',
+          incomeCurrency: 'INR',
+          monthlyIncome: '-',
+          fatherFullName: fatherName || '-',
+          motherFullName: motherName || '-',
+          fatherOccupation: '-',
+          motherOccupation: '-',
+          totalFamilyMembers: '-',
+          totalBrothers: '-',
+          totalSisters: '-',
+          marriedBrothers: '-',
+          marriedSisters: '-',
+          familyType: '-',
+          familyValues: gotra || '-',
+          familyLocation: nativePlace || '-',
+          nativePlace: nativePlace || '-',
+          familyWealth: '-',
+          contactPersonName: fatherName || '-',
+          contactPersonRelation: 'Father',
+          contactPersonNumber: '-',
+          contactPersonEmail: '-',
+          contactPersonAddress: nativePlace || '-',
+          profilePhoto: null,
+          status: 'approved'
+        };
+
+        await Profile.create(profileData);
+        importSummary.success++;
+
+      } catch (rowError) {
+        console.error(`Profile import error on row ${i + 2}:`, rowError);
+        importSummary.errors.push(`Row ${i + 2}: ${rowError.message}`);
+      }
+    }
+
+    res.json({
+      message: "Profile import completed",
+      summary: importSummary
+    });
+
+  } catch (error) {
+    console.error("Profile import error:", error);
+    res.status(500).json({ message: "Internal server error during import" });
+  }
+});
+
+// Helper to get column value by multiple possible header names
+function getExcelCol(row, possibleNames) {
+  for (const name of possibleNames) {
+    const key = Object.keys(row).find(k => k.trim().toLowerCase() === name.toLowerCase());
+    if (key && row[key] !== undefined && row[key] !== '') return row[key];
+  }
+  return '';
+}
 
 // Contact Form Submission
 app.post("/contact", async (req, res) => {
